@@ -1,10 +1,10 @@
 <?xml version="1.0" standalone="yes" ?>
-<addon id="Arantor:UOT">
+<plugin id="Arantor:UOT">
 	<name>Users Online Today</name>
 	<author url="http://innovatenotimitate.com/">Arantor</author>
 	<description>Displays a list of all the users who have been online today.</description>
 	<version>1.0</version>
 	<hooks>
-		<function point="board_listing" function="getOnlineToday" filename="$plugindir/OnlineToday" />
+		<function point="info_center" function="getOnlineToday" filename="$plugindir/OnlineToday" />
 	</hooks>
-</addon>
+</plugin>
