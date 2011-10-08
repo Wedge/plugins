@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:reCAPTCHA">
+	<name>reCAPTCHA</name>
+	<author>Arantor</author>
+	<description>Adds the ability to use the reCAPTCHA widget for verification that users are not robots.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="recaptcha_theme" default="clean" />
+		<setting name="recaptcha_public_key" default="" />
+		<setting name="recaptcha_private_key" default="" />
+	</settings>
+	<hooks>
+		<function point="spam_settings" function="reCaptchaAdmin" filename="$plugindir/reCaptcha-Admin" />
+		<function point="verification_setup" function="setup_recaptcha" filename="$plugindir/reCaptcha-Main" />
+		<function point="verification_test" function="validate_recaptcha" /><!-- No file needed; reCaptcha-Main is the right file. -->
+		<function point="verification_display" function="template_recaptcha" />
+	</hooks>
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+	</readmes>
+	<acp-url>action=admin;area=securitysettings;sa=spam#recaptcha</acp-url>
+</plugin>
