@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:Flitter">
+	<name>Flitter</name>
+	<author>Arantor</author>
+	<description>Adds Facebook, Twitter and Google +1 buttons to your forum threads.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="flitter_position" default="topic" />
+
+		<setting name="flitter_showfb" default="" />
+
+		<setting name="flitter_showtwitter" default="" />
+		<setting name="flitter_twitter_via" default="" />
+		<setting name="flitter_twitter_related" default="" />
+		<setting name="flitter_twitter_related_desc" default="" />
+
+		<setting name="flitter_showgoogle" default="" />
+	</settings>
+	<hooks>
+		<function point="admin_areas" function="flitter_admin" filename="$plugindir/Flitter-Admin" />
+		<function point="display_main" function="flitter_main" filename="$plugindir/Flitter-Main" />
+	</hooks>
+	<acp-url>action=admin;area=flitter</acp-url>
+</plugin>
