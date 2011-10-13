@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Wedgeward:Birthdays">
+	<name>Birthdays</name>
+	<author url="http://wedge.org/">Wedgeward</author>
+	<description>Displays users' birthdays on the info center, sends birthday emails and more.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="ssi" function="birthdaySSI" filename="$plugindir/Birthday-SSI" />
+		<function point="admin_areas" function="birthdayAdmin" filename="$plugindir/Birthday-Admin" />
+		<function point="admin_search" function="birthdayAdminSearch" />
+		<function point="info_center" function="birthdayInfoCenter" filename="$plugindir/Birthday-Main" priority="1" />
+		<function point="change_member_data" function="updateBirthdayCache" filename="$plugindir/Birthday-Main" />
+		<language point="lang_help" filename="$plugindir/Birthday-Admin" />
+	</hooks>
+
+	<settings>
+		<setting name="birthday_info_center" default="1" />
+		<setting name="birthday_info_center_days" default="7" />
+		<setting name="birthday_send_email" default="1" />
+		<setting name="birthday_email" default="happy_birthday" />
+	</settings>
+
+	<scheduledtasks>
+		<task runevery="1" runfreq="day" name="birthdays" file="$plugindir/Birthday-Scheduled" />
+	</scheduledtasks>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+	</readmes>
+</plugin>
