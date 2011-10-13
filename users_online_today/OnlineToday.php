@@ -57,7 +57,7 @@ function getOnlineToday()
 	}
 	$txt['users_online_today'] = sprintf($txt['users_online_today'], number_context('users_online_today_users', count($context['users_online_today'])), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
 
-	loadBlock('info_center_online_today', 'info_center', 'add');
+	wetem::load('info_center_online_today', 'info_center', 'add');
 }
 
 function template_info_center_online_today()
