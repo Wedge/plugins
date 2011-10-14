@@ -15,8 +15,10 @@
 	</hooks>
 
 	<settings>
+		<setting name="birthdays_updated" default="0" />
 		<setting name="birthday_info_center" default="1" />
 		<setting name="birthday_info_center_days" default="7" />
+		<setting name="birthday_show_ages" default="1" />
 		<setting name="birthday_send_email" default="1" />
 		<setting name="birthday_email" default="happy_birthday" />
 	</settings>

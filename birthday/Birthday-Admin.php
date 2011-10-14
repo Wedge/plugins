@@ -49,6 +49,7 @@ function ModifyBirthdaySettings($return_config = false)
 	$config_vars = array(
 		array('check', 'birthday_info_center'),
 		array('int', 'birthday_info_center_days'),
+		array('check', 'birthday_show_ages'),
 		'',
 		array('check', 'birthday_send_email'),
 		array('select', 'birthday_email', $types, 'javascript' => 'onchange="fetch_birthday_preview()"'),

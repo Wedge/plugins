@@ -39,7 +39,7 @@ function birthdayInfoCenter()
 			}
 		}
 				
-		wetem::load('birthdays_info_center', 'info_center', 'add');
+		wetem::load('birthdays_info_center', 'info_center_statistics', 'before');
 	}
 }
 
@@ -106,7 +106,7 @@ function getBirthdayRange($low_date, $high_date)
 		$bday[$age_year . substr($row['birthdate'], 4)][] = array(
 			'id' => $row['id_member'],
 			'name' => $row['real_name'],
-			'age' => $row['birth_year'] > 4 && $row['birth_year'] <= $age_year ? $age_year - $row['birth_year'] : null,
+			'age' => empty($modSettings['birthday_show_ages']) || ($row['birth_year'] > 4 && $row['birth_year'] <= $age_year) ? $age_year - $row['birth_year'] : null,
 			'is_last' => false
 		);
 	}
@@ -120,9 +120,4 @@ function getBirthdayRange($low_date, $high_date)
 	return $bday;
 }
 
-function updateBirthdayCache($members, $var, &$data)
-{
-	if ($var == 'birthdate')
-		updateSettings(array('birthdays_updated' => time()));
-}
 ?>

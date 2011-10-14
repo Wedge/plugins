@@ -13,8 +13,7 @@ $txt['birthdays'] = 'Birthdays';
 $txt['scheduled_task_birthdays'] = 'Birthday Processing';
 $txt['scheduled_task_desc_birthdays'] = 'Daily processing needed for birthdays, including sending out notifications.';
 
-$txt['birthday_info_center'] = 'Display birthdays on the board index';
-$txt['birthday_info_center_days'] = 'How many days\' worth of birthdays to display?';
+$txt['birthday_show_ages'] = 'Show the ages of forum members';
 
 $txt['birthday_send_email'] = 'Send emails out to users on their birthday?';
 $txt['birthday_email'] = 'Birthday Message to use';
