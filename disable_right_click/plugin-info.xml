@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:DisableRightClick">
+	<name>Disable Right Click</name>
+	<author url="http://innovatenotimitate.com/">Arantor</author>
+	<description>Attempts to block the user using the right mouse button.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="load_theme" function="disable_right_click" filename="$plugindir/DisableRightClick" />
+	</hooks>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+	</readmes>
+</plugin>

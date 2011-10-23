@@ -1,0 +1,5 @@
+This plugin attempts to stop users right-clicking their mouse, in a half-hearted attempt to stop users copying. I only wrote this plugin because people will keep asking for it as though it magically protects your content.
+
+[b]It doesn't. It won't. It can't.[/b] Because no matter how clever you think you are, the web wasn't designed to be protected in that fashion, and it's trivial to bypass.
+
+In an ideal world, you'd remove this plugin and have learned something, but if not, this plugin will use some JavaScript to attempt to block copying through the right mouse button. Turning off JavaScript will evade it, as will using the keyboard to copy things, also it should be defeated by mobile browsers that don't issue normal mouse 'click' things, and some browsers have a specific option to prevent you from doing what you think you need to do. This is not fixable, please don't ask.
