@@ -37,6 +37,22 @@ $txt['cannot_calendar_edit_own'] = 'Vous n\'avez pas les privilèges requis pour 
 $txt['cannot_calendar_post'] = 'Désolé, l\'ajout d\'événements n\'est pas autorisé.';
 $txt['cannot_calendar_view'] = 'Désolé, mais vous n\'êtes pas autorisé à voir le calendrier.';
 
+$txt['error_no_event'] = 'Aucun nom d\'événement n\'a été donné.';
+
+$txt['invalid_month'] = 'Mois invalide.';
+$txt['invalid_year'] = 'Année invalide.';
+$txt['invalid_day'] = 'Jour invalide.';
+$txt['event_month_missing'] = 'Mois de l\'événement manquant.';
+$txt['event_year_missing'] = 'Année de l\'événement manquante.';
+$txt['event_day_missing'] = 'Jour de l\'événement manquant.';
+$txt['event_title_missing'] = 'Titre de l\'événement manquant.';
+$txt['invalid_date'] = 'Date invalide.';
+$txt['no_event_title'] = 'Titre d\'événement manquant.';
+$txt['missing_event_id'] = 'ID d\'événement manquant.';
+$txt['cant_edit_event'] = 'Vous n\'êtes pas autorisé à modifier cet événement.';
+$txt['no_span'] = 'La fonction d\'étalement est désactivée.';
+$txt['invalid_days_numb'] = 'Nombre de jours d\'étalement invalide.';
+
 $helptxt['calendar'] = '
 	Ici vous pouvez modifier les réglages courants du calendrier, ou ajouter et supprimer des fêtes qui apparaissent dans le calendrier.';
 

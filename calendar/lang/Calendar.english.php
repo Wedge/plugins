@@ -37,6 +37,22 @@ $txt['cannot_calendar_edit_own'] = 'You don\'t have the privileges necessary to 
 $txt['cannot_calendar_post'] = 'Event posting isn\'t allowed - sorry.';
 $txt['cannot_calendar_view'] = 'Sorry, but you are not allowed to view the calendar.';
 
+$txt['error_no_event'] = 'No event name has been given.';
+
+$txt['invalid_month'] = 'Invalid month value.';
+$txt['invalid_year'] = 'Invalid year value.';
+$txt['invalid_day'] = 'Invalid day value.';
+$txt['event_month_missing'] = 'Event month is missing.';
+$txt['event_year_missing'] = 'Event year is missing.';
+$txt['event_day_missing'] = 'Event day is missing.';
+$txt['event_title_missing'] = 'Event title is missing.';
+$txt['invalid_date'] = 'Invalid date.';
+$txt['no_event_title'] = 'No event title was entered.';
+$txt['missing_event_id'] = 'Missing event ID.';
+$txt['cant_edit_event'] = 'You do not have permission to edit this event.';
+$txt['no_span'] = 'The span feature is currently disabled.';
+$txt['invalid_days_numb'] = 'Invalid number of days to span.';
+
 $helptxt['calendar'] = '
 	Here you can modify the current calendar settings as well as add and remove holidays that appear on the calendar.';
 
