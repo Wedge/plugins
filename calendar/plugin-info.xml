@@ -30,13 +30,28 @@
 
 	<settings>
 		<setting name="calendar_updated" default="1" />
-		<setting name="birthdays_updated" default="0" />
-		<setting name="birthday_info_center" default="1" />
-		<setting name="birthday_info_center_days" default="7" />
-		<setting name="birthday_show_ages" default="1" />
-		<setting name="birthday_send_email" default="1" />
-		<setting name="birthday_email" default="happy_birthday" />
+		<setting name="cal_maxyear" default="2020" />
+		<setting name="cal_minyear" default="2008" />
+		<setting name="cal_daysaslink" default="0" />
+		<setting name="cal_defaultboard" default="" />
+		<setting name="cal_showholidays" default="1" />
+		<setting name="cal_showbdays" default="1" /><!-- This is going to be removed -->
+		<setting name="cal_showevents" default="1" />
+		<setting name="cal_showweeknum" default="0" />
+		<setting name="cal_maxspan" default="7" />
+		<setting name="cal_days_for_index" default="7" />
 	</settings>
+
+	<!-- User settings
+	(1, 'calendar_start_day', '1'),
+	-->
+
+	<!-- Permissions
+	(-1, 'calendar_view'),
+	(0, 'calendar_view'),
+	(2, 'calendar_view'),
+	(2, 'calendar_post'),
+	(2, 'calendar_edit_any'),
 
 	<database>
 		<tables>
