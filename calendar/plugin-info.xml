@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Wedgeward:Calendar">
+	<name>Calendar</name>
+	<author url="http://wedge.org/">Wedgeward</author>
+	<description>Allows adding of date-based events.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="admin_areas" function="calendarAdmin" filename="$plugindir/ManageCalendar" />
+		<function point="admin_search" function="calendarAdminSearch" />
+		<function point="move_topics" function="moveCalendarTopics" filename="$plugindir/ManageCalendar" />
+		<function point="remove_topics" function="removeCalendarTopics" filename="$plugindir/ManageCalendar" />
+		<function point="remove_boards" function="removeCalendarBoards" filename="$plugindir/ManageCalendar" />
+		<function point="repair_errors_tests" function="repairBoards_calendar_tests" filename="$plugindir/ManageCalendar" />
+		<function point="repair_errors_finished" function="repairBoards_calendar_done" filename="$plugindir/ManageCalendar" />
+		<function point="who_allowed" function="calendarWho" filename="$plugindir/Calendar" />
+		<function point="info_center" function="info_center_calendar" filename="$plugindir/CalendarInfoCenter" />
+		<function point="display_main" function="calendar_display" filename="$plugindir/CalendarDisplay" />
+		<function point="merge_topics" function="mergeCalendarTopics" filename="$plugindir/ManageCalendar" />
+		<function point="ssi" function="ssi_calendar_init" filename="$plugindir/CalendarSSI" />
+		<function point="load_permissions" function="calendarPermissions" filename="$plugindir/ManageCalendar" />
+		<function point="menu_items" function="calendarMenu" filename="$plugindir/CalendarMenu" />
+		<function point="post_form_pre" function="calendar_post_form_pre" filename="$plugindir/CalendarPost" />
+		<function point="post_form" function="calendar_post_form" filename="$plugindir/CalendarPost" />
+		<function point="post_post_validate" function="validateCalendarEvent" filename="$plugindir/CalendarPost" />
+		<function point="create_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
+		<function point="modify_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
+		<function point="theme_options" function="calendarThemeOptions" filename="$plugindir/ManageCalendar" />
+	</hooks>
+
+	<settings>
+		<setting name="calendar_updated" default="1" />
+		<setting name="birthdays_updated" default="0" />
+		<setting name="birthday_info_center" default="1" />
+		<setting name="birthday_info_center_days" default="7" />
+		<setting name="birthday_show_ages" default="1" />
+		<setting name="birthday_send_email" default="1" />
+		<setting name="birthday_email" default="happy_birthday" />
+	</settings>
+
+	<actions>
+		<action action="calendar" function="CalendarMain" filename="Calendar" />
+	</actions>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+	</readmes>
+
+	<acp-url>action=admin;area=managecalendar</acp-url>
+</plugin>
