@@ -7,6 +7,20 @@ $txt['calendar_settings'] = 'Calendar Settings';
 
 $txt['calendar_desc'] = 'From here you can modify all aspects of the calendar.';
 
+// !!! Convert this into what's needed for the admin panel as $helptxt
+$helptxt['cal_enabled'] = 'The calendar can be used for showing important moments happening in your community.<br><br>
+		<strong>Show days as link to \'Post Event\'</strong>:<br>This will allow members to post events for that day, when they click on that date<br>
+		<strong>Max days in advance on board index</strong>:<br>If this is set to 7, the next week\'s worth of events will be shown.<br>
+		<strong>Show holidays on board index</strong>:<br>Show today\'s holidays in a calendar bar on the board index.<br>
+		<strong>Show events on board index</strong>:<br>Show today\'s events in a calendar bar on the board index.<br>
+		<strong>Default Board to Post In</strong>:<br>What\'s the default board to post events in?<br>
+		<strong>Allow events not linked to posts</strong>:<br>Allow members to post events without requiring it to be linked with a post in a board.<br>
+		<strong>Minimum year</strong>:<br>Select the "first" year on the calendar list.<br>
+		<strong>Maximum year</strong>:<br>Select the "last" year on the calendar list<br>
+		<strong>Allow events to span multiple days</strong>:<br>Check to allow events to span multiple days.<br>
+		<strong>Max number of days an event can span</strong>:<br>Select the maximum days that an event can span.<br><br>
+		Remember that usage of the calendar (posting events, viewing events, etc.) is controlled by permissions set on the permissions screen.';
+
 // Calendar Settings
 $txt['calendar_settings_desc'] = 'Here you can enable the calendar, and determine the settings that it should use.';
 $txt['save_settings'] = 'Save Settings';

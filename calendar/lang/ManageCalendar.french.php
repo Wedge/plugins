@@ -7,6 +7,20 @@ $txt['calendar_settings'] = 'Paramètres';
 
 $txt['calendar_desc'] = 'Ici vous pouvez modifier tous les aspects du calendrier.';
 
+// !!! Convert this into what's needed for the admin panel as $helptxt
+$helptxt['cal_enabled'] = 'Le calendrier peut êre utilisé afin d\'afficher les dates importantes à votre communauté.<br><br>
+		<strong>Montrer les jours en tant que liens vers \'Poster un Événement\'</strong>&nbsp;:<br>Permet à vos membres de poster des événements pour ce jour, lorsqu\'ils cliquent sur la date.<br>
+		<strong>Jours d\'avance max. sur l\'accueil</strong>:<br>Si cette option est mise à 7, tous les événements de la semaine à venir seront montrés.<br>
+		<strong>Montrer les jours de fête sur l\'accueil du forum</strong>&nbsp;:<br>Montre les jours de fête dans une barre sur l\'accueil du forum.<br>
+		<strong>Montrer les événements sur l\'accueil du forum</strong>&nbsp;:<br>Affiche les événements du jour dans une barre sur l\'accueil du forum.<br>
+		<strong>Section où Poster par Défaut</strong>:<br>Quelle est la section par défaut pour poster les événements&nbsp;?<br>
+		<strong>Permettre les événements qui ne sont liés à aucun message</strong>&nbsp;:<br>Permet aux membres de poster des événements sans nécessiter la création d\'un nouveau sujet dans le forum.<br>
+		<strong>Année minimale</strong>&nbsp;:<br>Sélectionne la "première" année dans la liste du calendrier.<br>
+		<strong>Année maximale</strong>&nbsp;:<br>Sélectionne la "dernière" année dans la liste du calendrier<br>
+		<strong>Permettre aux événements de durer plusieurs jours</strong>&nbsp;:<br>Sélectionnez pour permettre aux événements de durer plusieurs jours.<br>
+		<strong>Durée maximale (en jours) d\'un événement</strong>&nbsp;:<br>Sélectionnez le nombre maximal de jours pour la duré d\'un événement.<br><br>
+		Rappelez-vous que l\'usage du calendrier (poster des événements, voir des événements, etc.) est contrôlable par les réglages des permissions à partir de l\'écran de gestion des permissions.';
+
 // Calendar Settings
 $txt['calendar_settings_desc'] = 'Ici vous pouvez activer le calendrier et déterminer les réglages qu\'il devrait suivre.';
 $txt['save_settings'] = 'Enregistrer les paramètres';
