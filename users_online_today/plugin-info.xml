@@ -1,10 +1,20 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Arantor:UOT">
+<plugin id="Arantor:UsersOnlineToday">
 	<name>Users Online Today</name>
 	<author url="http://innovatenotimitate.com/">Arantor</author>
 	<description>Displays a list of all the users who have been online today.</description>
 	<version>1.0</version>
+
+	<settings>
+		<setting name="uot_type" default="today" />
+		<setting name="uot_whoview" default="members" />
+		<setting name="uot_order" default="name_asc" />
+	</settings>
+
 	<hooks>
+		<function point="admin_areas" function="uot_admin" filename="$plugindir/OnlineToday-Admin" />
 		<function point="info_center" function="getOnlineToday" filename="$plugindir/OnlineToday" />
 	</hooks>
+
+	<acp-url>action=admin;area=uot</acp-url>
 </plugin>

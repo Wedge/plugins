@@ -12,25 +12,78 @@ if (!defined('WEDGE'))
 
 function getOnlineToday()
 {
-	global $txt, $user_info, $language, $modSettings, $context, $scripturl;
+	global $txt, $user_info, $modSettings, $context;
+
+	loadPluginLanguage('Arantor:UsersOnlineToday', 'OnlineToday');
+
+	if (empty($modSettings['uot_whoview']))
+		$modSettings['uot_whoview'] = 'members';
+
+	switch ($modSettings['uot_whoview'])
+	{
+		case 'any':
+			$can_view = true;
+			break;
+		case 'members':
+		default:
+			$can_view = $context['user']['is_logged'];
+			break;
+		case 'staff':
+			$can_view = allowedTo(array('moderate_forum', 'admin_forum'));
+			break;
+		case 'admin':
+			$can_view = $user_info['is_admin'];
+			break;
+	}
+
+	if (!$can_view)
+		return;
+
+	if (empty($modSettings['uot_type']))
+		$modSettings['uot_type'] = 'today';
+	switch ($modSettings['uot_type'])
+	{
+		default:
+			$modSettings['uot_type'] = 'today'; // This is deliberate, falling through to 'today' because that's what to use in the event of an invalid type being used.
+		case 'today':
+			$earliest_time = strtotime('today') - $modSettings['time_offset'] * 3600;
+			break;
+		case '24h':
+			$earliest_time = time() - 86400;
+			break;
+		case '7d':
+			$earliest_type = time() - 604800;
+			break;
+	}
+
+	if (empty($modSettings['uot_order']) || strpos($modSettings['uot_order'], '_') === false)
+		$modSettings['uot_order'] = 'name_asc';
+
+	list($sort, $order) = explode('_', $modSettings['uot_order']);
+	if ($sort !== 'name' && $sort !== 'time')
+		$sort = 'name';
+	if ($order !== 'asc' && $order !== 'desc')
+		$order = 'asc';
+
+	$sort_criteria = $sort == 'name' ? 'mem.real_name' : 'mem.last_login';
 
 	$context['users_online_today'] = array();
 	$request = wesql::query('
-		SELECT mem.id_member, mem.last_login, mem.real_name, mem.show_online, mg.online_color, mg.group_name
+		SELECT mem.id_member, mem.last_login, mem.real_name, mem.show_online
 		FROM {db_prefix}members AS mem
-			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = CASE WHEN mem.id_group = {int:reg_mem_group} THEN mem.id_post_group ELSE mem.id_group END)
-		WHERE mem.last_login >= {int:midnight}
-		ORDER BY mem.real_name',
+		WHERE mem.last_login >= {int:earliest_time}
+		ORDER BY {raw:sort_criteria} {raw:sort_order}',
 		array(
-			'reg_mem_group' => 0,
-			'midnight' => strtotime('today') - $modSettings['time_offset'] * 3600,
+			'earliest_time' => $earliest_time,
+			'sort_criteria' => $sort_criteria,
+			'sort_order' => $order,
 		)
 	);
 	$hidden = 0;
 	$mod_forum = allowedTo('moderate_forum');
 	while ($row = wesql::fetch_assoc($request))
 	{
-		$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '"' . (!empty($row['online_color']) ? ' style="color: ' . $row['online_color'] . '"' : '') . '>' . $row['real_name'] . '</a>';
+		$link = '<a href="<URL>?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>';
 		if (empty($row['show_online']))
 		{
 			$hidden++;
@@ -42,34 +95,28 @@ function getOnlineToday()
 		$context['users_online_today'][$row['id_member']] = $link;
 	}
 
-	// To avoid having to load language files just for a few strings, we embed it here, too.
-	$lang = isset($user_info['language']) ? $user_info['language'] : $language;
-	switch ($lang)
-	{
-		case 'english':
-		default:
-			$txt['users_online_today'] = 'Visitors Today (%1$s%2$s)';
-			$txt['users_online_today_users_1'] = '%s user';
-			$txt['users_online_today_users_n'] = '%s users';
-			$txt['users_online_today_hidden_n'] = ' plus %s hidden'; // doesn't matter how many are hidden, the same applies in English: 1 hidden, 10 hidden etc.
-			$txt['users_online_today_none'] = 'No users have been online today.';
-			break;
-	}
-	$txt['users_online_today'] = sprintf($txt['users_online_today'], number_context('users_online_today_users', count($context['users_online_today'])), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
+	if (!empty($context['users_online_today']))
+		$context['uot_users'] = sprintf($txt['users_online_today_userhidden'], number_context('users_online_today_users', count($context['users_online_today'])), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
 
-	wetem::load('info_center_online_today', 'info_center', 'add');
+	wetem::load('info_center_online_today', 'info_center_usersonline', 'after');
 }
 
 function template_info_center_online_today()
 {
-	global $context, $settings, $txt;
+	global $context, $settings, $txt, $modSettings;
 
 	echo '
 			<we:title2>
 				<img src="', $settings['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
-				', $txt['users_online_today'], '
-			</we:title2>
-			<p class="inline smalltext">', empty($context['users_online_today']) ? $txt['users_online_today_none'] : implode(', ', $context['users_online_today']), '</p>';
+				', $txt['users_online_' . $modSettings['uot_type']], '
+			</we:title2>';
+	if (empty($context['users_online_today']))
+		echo '
+			<p class="inline smalltext">', $txt['users_online_today_none'], '</p>';
+	else
+		echo '
+			<p class="inline stats">', $context['uot_users'], '</p>
+			<p class="inline smalltext">', implode(', ', $context['users_online_today']), '</p>';
 }
 
 ?>
