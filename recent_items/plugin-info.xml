@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:RecentItems">
+	<name>Recent Items</name>
+	<author>Arantor</author>
+	<description>Displays recent items (posts or topics) from your forum.</description>
+	<version>1.0</version>
+
+	<settings>
+		<setting name="recentitems_show" default="5" />
+		<setting name="recentitems_sidebar_infocenter" default="1" />
+		<setting name="recentitems_posttopic" default="post" />
+	</settings>
+	<hooks>
+		<function point="admin_areas" function="recentitems_admin" filename="$plugindir/Recent-Admin" />
+		<function point="info_center" function="recentitems_ic" filename="$plugindir/Recent-Main" />
+	</hooks>
+	<acp-url>action=admin;area=recent</acp-url>
+</plugin>
