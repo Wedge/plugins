@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:Readability">
+	<name>Readability (no API)</name>
+	<author>Arantor</author>
+	<description>Integrates the Readability publisher buttons into your site. Does not use the Readability API.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="rdb_nowlater" default="1" />
+		<setting name="rdb_print" default="1" />
+		<setting name="rdb_email" default="1" />
+		<setting name="rdb_kindle" default="1" />
+
+		<setting name="rdb_text_fg" default="#5c5c5c" />
+		<setting name="rdb_text_bg" default="transparent" />
+		<setting name="rdb_position" default="abovetopic" />
+	</settings>
+	<hooks>
+		<function point="admin_areas" function="readability_admin" filename="$plugindir/Readability-Admin" />
+		<function point="display_main" function="readability_main" filename="$plugindir/Readability-Main" />
+	</hooks>
+	<acp-url>action=admin;area=readability</acp-url>
+</plugin>
