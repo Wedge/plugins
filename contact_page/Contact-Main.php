@@ -15,7 +15,10 @@ function contactMenu(&$menu_buttons)
 			'show' => allowedTo('view_contact_page'),
 		),
 	);
-	array_insert($menu_buttons, 'search', $item, 'after');
+	$menu_buttons = array_insert($menu_buttons, 'search', $item, 'after');
+
+	add_css('
+	.m_contact { float: left; width: 16px; height: 16px; padding: 0; background: url("' . $context['plugins_url']['Arantor:ContactPage'] . '/contact_small.png") no-repeat 0 0; margin:4px 4px 0 2px; }');
 }
 
 function Contact()

@@ -22,7 +22,7 @@ function template_contact_form()
 					<label for="contact_email">', $txt['contact_email'], '</label>
 				</dt>
 				<dd>
-					<input type="text" name="contact_email" id="contact_email" size="30" value="', $context['contact_email'], '">
+					<input type="email" name="contact_email" id="contact_email" size="30" value="', $context['contact_email'], '">
 				</dd>
 				<dt', isset($context['form_errors']['subject']) ? ' class="error"' : '', '>
 					<label for="contact_subject">', $txt['contact_subject'], '</label>
