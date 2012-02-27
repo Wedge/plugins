@@ -1,0 +1,47 @@
+<?xml version="1.0" standalone="yes" ?>
+<addon id="Arantor:EditHistory">
+	<name>Edit History</name>
+	<author>Arantor</author>
+	<description>Allows viewing of the entire history of edits to posts in your forum.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="modify_post_before" function="saveEditedPost" filename="$plugindir/Subs-History" priority="1" />
+		<function point="display_message_list" function="loadHistory" filename="$plugindir/History-Topic" />
+		<function point="display_main" function="historyMenu" /><!-- File already loaded by this time. -->
+		<function point="display_post_done" function="historyLink" /><!-- File already loaded by this time. -->
+		<!-- 
+		<language point="lang_who" filename="$plugindir/lang/WedgeDeskWho" />
+		<language point="lang_help" filename="$plugindir/lang/WedgeDeskAdmin" /> -->
+
+		<provides>
+			<hook type="function">history_save_other</hook><!-- allows other content to be saved during an edit that isn't directly attached to the post -->
+		</provides>
+	</hooks>
+
+	<database>
+		<tables>
+			<table if-exists="update" name="{db_prefix}edit_history">
+				<columns>
+					<column name="id_msg" type="int" unsigned="yes" />
+					<column name="id_edit" type="int" unsigned="yes" autoincrement="yes" />
+					<column name="modified_member" type="mediumint" unsigned="yes" />
+					<column name="modified_name" type="varchar" size="255" unsigned="yes" />
+					<column name="modified_time" type="int" unsigned="yes" />
+					<column name="body" type="text" />
+				</columns>
+				<index type="primary">
+					<field>id_msg</field>
+					<field>id_edit</field>
+				</index>
+				<index type="unique">
+					<field>id_edit</field>
+				</index>
+			</table>
+		</tables>
+	</database>
+
+	<actions>
+		<action action="edithistory" function="EditHistory" filename="EditHistory" />
+	</actions>
+</addon>

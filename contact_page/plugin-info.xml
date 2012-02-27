@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:ContactPage">
+	<name>Contact Page</name>
+	<author>Arantor</author>
+	<description>Integrates a 'contact the webmaster' page.</description>
+	<version>1.0</version>
+
+	<settings>
+		<setting name="contact_verification" default="guests" />
+	</settings>
+
+	<hooks>
+		<function point="admin_areas" function="contact_admin" filename="$plugindir/Contact-Admin" />
+		<function point="menu_items" function="contactMenu" filename="$plugindir/Contact-Main" />
+	</hooks>
+
+	<actions>
+		<action action="contact" function="Contact" filename="Contact-Main" />
+	</actions>
+</plugin>
