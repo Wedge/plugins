@@ -9,8 +9,17 @@
 		<setting name="contact_verification" default="guests" />
 	</settings>
 
+	<settings-page area="contact" icon="$pluginurl/contact_small.png" bigicon="$pluginurl/contact_large.png">
+		<language file="Contact-Admin" />
+		<permissions name="view_contact_page" />
+		<select name="contact_verification">
+			<option value="none" name="contact_verification_none" />
+			<option value="guests" name="contact_verification_guests" />
+			<option value="everyone" name="contact_verification_everyone" />
+		</select>
+	</settings-page>
+
 	<hooks>
-		<function point="admin_areas" function="contact_admin" filename="$plugindir/Contact-Admin" />
 		<function point="menu_items" function="contactMenu" filename="$plugindir/Contact-Main" />
 	</hooks>
 

@@ -9,4 +9,5 @@ $txt['contact_verification_guests'] = 'Guests only';
 $txt['contact_verification_everyone'] = 'Everyone';
 
 $txt['view_contact_page'] = 'View and use the "contact us" page';
+
 ?>
