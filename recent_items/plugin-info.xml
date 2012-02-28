@@ -10,9 +10,18 @@
 		<setting name="recentitems_sidebar_infocenter" default="1" />
 		<setting name="recentitems_posttopic" default="post" />
 	</settings>
+
+	<settings-page area="recent">
+		<language file="Recent-Admin" />
+		<int name="recentitems_show" min="0" max="10" />
+		<select name="recentitems_posttopic">
+			<option value="post" name="recentitems_as_post" />
+			<option value="topic" name="recentitems_as_topic" />
+		</select>
+		<check name="recentitems_sidebar_infocenter" />
+	</settings-page>
+
 	<hooks>
-		<function point="admin_areas" function="recentitems_admin" filename="$plugindir/Recent-Admin" />
 		<function point="info_center" function="recentitems_ic" filename="$plugindir/Recent-Main" />
 	</hooks>
-	<acp-url>action=admin;area=recent</acp-url>
 </plugin>

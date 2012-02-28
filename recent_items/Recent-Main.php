@@ -6,21 +6,21 @@ if (!defined('WEDGE'))
 // For the info center
 function recentitems_ic()
 {
-	global $modSettings, $context;
+	global $settings, $context;
 
-	if (empty($modSettings['recentitems_show']) || empty($modSettings['recentitems_sidebar_infocenter']))
+	if (empty($settings['recentitems_show']) || empty($settings['recentitems_sidebar_infocenter']))
 		return;
 
 	recentitems_common();
 
 	if (!empty($context['latest_posts']))
-		wetem::load('recentitems_infocenter', 'info_center', 'first');
+		wetem::before('info_center_statistics', 'recentitems_infocenter');
 }
 
 // Common stuff, like loading templates and language strings.
 function recentitems_common()
 {
-	global $modSettings, $user_info, $context;
+	global $settings, $user_info, $context;
 
 	if (isset($context['latest_posts']))
 		return;
@@ -28,10 +28,10 @@ function recentitems_common()
 	loadPluginTemplate('Arantor:RecentItems', 'Recent');
 	loadPluginLanguage('Arantor:RecentItems', 'Recent-Main');
 
-	if (empty($modSettings['recentitems_posttopic']) || ($modSettings['recentitems_posttopic'] != 'post' && $modSettings['recentitems_posttopic'] != 'topic'))
-		$modSettings['recentitems_posttopic'] = 'post';
+	if (empty($settings['recentitems_posttopic']) || ($settings['recentitems_posttopic'] != 'post' && $settings['recentitems_posttopic'] != 'topic'))
+		$settings['recentitems_posttopic'] = 'post';
 
-	$temp = cache_get_data('boards-latest_' . $modSettings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), 90);
+	$temp = cache_get_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), 90);
 	if ($temp !== null)
 	{
 		// Before we just throw it at the user, reformat the time. It will have been cached with whatever format the user had at the time.
@@ -46,22 +46,22 @@ function recentitems_common()
 
 	// First, get the message ids.
 	$context['latest_posts'] = array();
-	if ($modSettings['recentitems_posttopic'] == 'post')
+	if ($settings['recentitems_posttopic'] == 'post')
 	{
 		$request = wesql::query('
 			SELECT m.id_msg
 			FROM {db_prefix}messages AS m
 				INNER JOIN {db_prefix}topics AS t ON (t.id_topic = m.id_topic)
 				INNER JOIN {db_prefix}boards AS b ON (b.id_board = m.id_board)
-			WHERE {query_wanna_see_board}' . (!empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] > 0 ? '
-				AND b.id_board != {int:recycle_board}' : '') . ($modSettings['postmod_active'] ? '
+			WHERE {query_wanna_see_board}' . (!empty($settings['recycle_enable']) && $settings['recycle_board'] > 0 ? '
+				AND b.id_board != {int:recycle_board}' : '') . ($settings['postmod_active'] ? '
 				AND t.approved = {int:is_approved}
 				AND m.approved = {int:is_approved}' : '') . '
 			ORDER BY m.id_msg DESC
 			LIMIT {int:limit}',
 			array(
-				'limit' => $modSettings['recentitems_show'],
-				'recycle_board' => $modSettings['recycle_board'],
+				'limit' => $settings['recentitems_show'],
+				'recycle_board' => $settings['recycle_board'],
 				'is_approved' => 1,
 			)
 		);
@@ -69,23 +69,23 @@ function recentitems_common()
 			$context['latest_posts'][$row[0]] = $row[0];
 		wesql::free_result($request);
 	}
-	elseif ($modSettings['recentitems_posttopic'] == 'topic')
+	elseif ($settings['recentitems_posttopic'] == 'topic')
 	{
 		$request = wesql::query('
 			SELECT MAX(id_msg) AS max_id
 			FROM {db_prefix}messages AS m
 				INNER JOIN {db_prefix}topics AS t ON (t.id_topic = m.id_topic)
 				INNER JOIN {db_prefix}boards AS b ON (b.id_board = m.id_board)
-			WHERE {query_wanna_see_board}' . (!empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] > 0 ? '
-				AND b.id_board != {int:recycle_board}' : '') . ($modSettings['postmod_active'] ? '
+			WHERE {query_wanna_see_board}' . (!empty($settings['recycle_enable']) && $settings['recycle_board'] > 0 ? '
+				AND b.id_board != {int:recycle_board}' : '') . ($settings['postmod_active'] ? '
 				AND t.approved = {int:is_approved}
 				AND m.approved = {int:is_approved}' : '') . '
 			GROUP BY t.id_topic
 			ORDER BY max_id DESC
 			LIMIT {int:limit}',
 			array(
-				'limit' => $modSettings['recentitems_show'],
-				'recycle_board' => $modSettings['recycle_board'],
+				'limit' => $settings['recentitems_show'],
+				'recycle_board' => $settings['recycle_board'],
 				'is_approved' => 1,
 			)
 		);
@@ -141,7 +141,7 @@ function recentitems_common()
 		wesql::free_result($request);
 	}
 
-	cache_put_data('boards-latest_' . $modSettings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), $context['latest_posts'], 90);
+	cache_put_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), $context['latest_posts'], 90);
 }
 
 ?>

@@ -5,15 +5,15 @@ if (!defined('WEDGE'))
 
 function template_recentitems_infocenter()
 {
-	global $context, $settings, $options, $txt, $modSettings;
+	global $context, $theme, $options, $txt, $settings;
 
 	echo '
-		<we:title2>
-			<a href="<URL>?action=recent"><img src="', $settings['images_url'], '/post/xx.gif"></a>
-			', $txt['recent_items_' . $modSettings['recentitems_posttopic']], '
-		</we:title2>
-		<div id="recent_posts_content">
-			<dl id="ic_recentposts" class="middletext">';
+		<section class="ic">
+			<we:title>
+				<a href="<URL>?action=recent"><img src="', $theme['images_url'], '/post/xx.gif"></a>
+				', $txt['recent_items_' . $settings['recentitems_posttopic']], '
+			</we:title>
+			<dl id="ic_recentposts" class="stats">';
 
 		/* Each post in latest_posts has:
 			board (with an id, name, and link.), topic (the topic's id.), poster (with id, name, and link.),
@@ -25,7 +25,7 @@ function template_recentitems_infocenter()
 
 	echo '
 			</dl>
-		</div>';
+		</section>';
 }
 
 ?>
