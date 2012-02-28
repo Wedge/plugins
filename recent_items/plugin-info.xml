@@ -18,6 +18,7 @@
 			<option value="post" name="recentitems_as_post" />
 			<option value="topic" name="recentitems_as_topic" />
 		</select>
+		<hr />
 		<check name="recentitems_sidebar_infocenter" />
 	</settings-page>
 
