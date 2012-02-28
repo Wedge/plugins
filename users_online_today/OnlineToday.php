@@ -12,14 +12,14 @@ if (!defined('WEDGE'))
 
 function getOnlineToday()
 {
-	global $txt, $user_info, $modSettings, $context;
+	global $txt, $user_info, $settings, $context;
 
 	loadPluginLanguage('Arantor:UsersOnlineToday', 'OnlineToday');
 
-	if (empty($modSettings['uot_whoview']))
-		$modSettings['uot_whoview'] = 'members';
+	if (empty($settings['uot_whoview']))
+		$settings['uot_whoview'] = 'members';
 
-	switch ($modSettings['uot_whoview'])
+	switch ($settings['uot_whoview'])
 	{
 		case 'any':
 			$can_view = true;
@@ -39,14 +39,14 @@ function getOnlineToday()
 	if (!$can_view)
 		return;
 
-	if (empty($modSettings['uot_type']))
-		$modSettings['uot_type'] = 'today';
-	switch ($modSettings['uot_type'])
+	if (empty($settings['uot_type']))
+		$settings['uot_type'] = 'today';
+	switch ($settings['uot_type'])
 	{
 		default:
-			$modSettings['uot_type'] = 'today'; // This is deliberate, falling through to 'today' because that's what to use in the event of an invalid type being used.
+			$settings['uot_type'] = 'today'; // This is deliberate, falling through to 'today' because that's what to use in the event of an invalid type being used.
 		case 'today':
-			$earliest_time = strtotime('today') - $modSettings['time_offset'] * 3600;
+			$earliest_time = strtotime('today') - $settings['time_offset'] * 3600;
 			break;
 		case '24h':
 			$earliest_time = time() - 86400;
@@ -56,10 +56,10 @@ function getOnlineToday()
 			break;
 	}
 
-	if (empty($modSettings['uot_order']) || strpos($modSettings['uot_order'], '_') === false)
-		$modSettings['uot_order'] = 'name_asc';
+	if (empty($settings['uot_order']) || strpos($settings['uot_order'], '_') === false)
+		$settings['uot_order'] = 'name_asc';
 
-	list($sort, $order) = explode('_', $modSettings['uot_order']);
+	list($sort, $order) = explode('_', $settings['uot_order']);
 	if ($sort !== 'name' && $sort !== 'time')
 		$sort = 'name';
 	if ($order !== 'asc' && $order !== 'desc')
@@ -98,18 +98,19 @@ function getOnlineToday()
 	if (!empty($context['users_online_today']))
 		$context['uot_users'] = sprintf($txt['users_online_today_userhidden'], number_context('users_online_today_users', count($context['users_online_today'])), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
 
-	wetem::load('info_center_online_today', 'info_center_usersonline', 'after');
+	wetem::after('info_center_usersonline', 'info_center_online_today');
 }
 
 function template_info_center_online_today()
 {
-	global $context, $settings, $txt, $modSettings;
+	global $context, $theme, $txt, $settings;
 
 	echo '
-			<we:title2>
-				<img src="', $settings['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
-				', $txt['users_online_' . $modSettings['uot_type']], '
-			</we:title2>';
+		<section class="ic">
+			<we:title>
+				<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
+				', $txt['users_online_' . $settings['uot_type']], '
+			</we:title>';
 	if (empty($context['users_online_today']))
 		echo '
 			<p class="inline smalltext">', $txt['users_online_today_none'], '</p>';
@@ -117,6 +118,9 @@ function template_info_center_online_today()
 		echo '
 			<p class="inline stats">', $context['uot_users'], '</p>
 			<p class="inline smalltext">', implode(', ', $context['users_online_today']), '</p>';
+
+	echo '
+		</section>';
 }
 
 ?>

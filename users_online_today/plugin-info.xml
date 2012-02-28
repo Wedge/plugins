@@ -11,10 +11,28 @@
 		<setting name="uot_order" default="name_asc" />
 	</settings>
 
+	<settings-page area="uot" icon="scheduled.gif" bigicon="scheduled_tasks.png">
+		<language file="OnlineToday-Admin" />
+		<select name="uot_type">
+			<option value="today" name="uot_today" />
+			<option value="24h" name="uot_24h" />
+			<option value="7d" name="uot_7d" />
+		</select>
+		<select name="uot_whoview">
+			<option value="any" name="uot_whoview_any" />
+			<option value="members" name="uot_whoview_members" />
+			<option value="staff" name="uot_whoview_staff" />
+			<option value="admin" name="uot_whoview_admin" />
+		</select>
+		<select name="uot_order">
+			<option value="name_asc" name="uot_order_name_asc" />
+			<option value="name_desc" name="uot_order_name_desc" />
+			<option value="time_asc" name="uot_order_time_asc" />
+			<option value="time_desc" name="uot_order_time_desc" />
+		</select>
+	</settings-page>
+
 	<hooks>
-		<function point="admin_areas" function="uot_admin" filename="$plugindir/OnlineToday-Admin" />
 		<function point="info_center" function="getOnlineToday" filename="$plugindir/OnlineToday" />
 	</hooks>
-
-	<acp-url>action=admin;area=uot</acp-url>
 </plugin>
