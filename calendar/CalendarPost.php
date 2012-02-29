@@ -55,7 +55,7 @@ function calendar_post_form()
 		// If the user doesn't have permission to edit the post in this topic, redirect them.
 		if ((empty($id_member_poster) || $id_member_poster != $user_info['id'] || !allowedTo('modify_own')) && !allowedTo('modify_any'))
 		{
-			loadSource('Calendar');
+			loadPluginSource('Wedgeward:Calendar', 'Calendar');
 			return CalendarPost();
 		}
 
@@ -158,7 +158,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 	// Editing or posting an event?
 	if (isset($_POST['calendar']) && (!isset($_REQUEST['eventid']) || $_REQUEST['eventid'] == -1))
 	{
-		loadSource('Subs-Calendar');
+		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 
 		// Make sure they can link an event to this post.
 		canLinkEvent();
@@ -179,7 +179,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 		$_REQUEST['eventid'] = (int) $_REQUEST['eventid'];
 
 		// Validate the post...
-		loadSource('Subs-Calendar');
+		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 		validateEventPost();
 
 		// If you're not allowed to edit any events, you have to be the poster.

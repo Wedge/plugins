@@ -162,7 +162,7 @@ function CalendarPost()
 	isAllowedTo('calendar_post');
 
 	// We need this for all kinds of useful functions.
-	loadSource('Subs-Calendar');
+	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 
 	// Cast this for safety...
 	if (isset($_REQUEST['eventid']))
@@ -308,7 +308,7 @@ function iCalDownload()
 		fatal_lang_error('no_access', false);
 
 	// This is kinda wanted.
-	loadSource('Subs-Calendar');
+	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 
 	// Load up the event in question and check it exists.
 	$event = getEventProperties($_REQUEST['eventid']);

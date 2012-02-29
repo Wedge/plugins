@@ -12,7 +12,7 @@
 if (!defined('WEDGE'))
 	die('Hacking attempt...');
 
-function calenderAdmin()
+function calendarAdmin()
 {
 	global $admin_areas, $context, $txt;
 
@@ -40,7 +40,7 @@ function calendarAdminSearch(&$settings_search)
 // The main controlling function doesn't have much to do... yet.
 function ManageCalendar()
 {
-	global $context, $txt, $scripturl, $modSettings;
+	global $context, $txt, $scripturl, $settings;
 
 	isAllowedTo('admin_forum');
 
@@ -88,7 +88,7 @@ function ModifyHolidays()
 			$_REQUEST['holiday'][$id] = (int) $id;
 
 		// Now the IDs are "safe" do the delete...
-		loadSource('Subs-Calendar');
+		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 		removeHolidays($_REQUEST['holiday']);
 	}
 
@@ -291,7 +291,7 @@ function EditHoliday()
 
 function ModifyCalendarSettings($return_config = false)
 {
-	global $modSettings, $context, $settings, $txt, $boarddir, $scripturl;
+	global $settings, $context, $theme, $txt, $boarddir, $scripturl;
 
 	// Load the boards list.
 	$boards = array('');
