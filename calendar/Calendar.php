@@ -22,8 +22,7 @@ if (!defined('WEDGE'))
 	void CalendarMain()
 		- loads the specified month's events and holidays.
 		- requires the calendar_view permission.
-		- depends on the cal_enabled setting, and many of the other cal_
-		  settings.
+		- depends on many of the other cal_ settings.
 		- uses the calendar_start_day theme option. (Monday/Sunday)
 		- uses the main block in the Calendar template.
 		- goes to the month and year passed in 'month' and 'year' by
@@ -59,13 +58,10 @@ function CalendarMain()
 	if (isset($_GET['sa'], $subActions[$_GET['sa']]) && !WIRELESS)
 		return $subActions[$_GET['sa']]();
 
-	// This is gonna be needed...
-	loadTemplate('Calendar');
-	wetem::load('sidebar', 'sidebar');
-
-	// You can't do anything if the calendar is off.
-	if (empty($settings['cal_enabled']))
-		fatal_lang_error('calendar_off', false);
+	// These are gonna be needed...
+	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
+	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 
 	// Set the page title to mention the calendar ;).
 	$context['page_title'] = $txt['calendar'];
@@ -78,7 +74,6 @@ function CalendarMain()
 		$context['robot_no_index'] = true;
 
 	// Get the current day of month...
-	loadSource('Subs-Calendar');
 	$today = getTodayInfo();
 
 	// If the month and year are not passed in, use today's date as a starting point.
