@@ -79,6 +79,8 @@ function ModifyHolidays()
 {
 	global $scripturl, $txt, $context;
 
+	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+
 	// Submitting something...
 	if (isset($_REQUEST['delete']) && !empty($_REQUEST['holiday']))
 	{
@@ -88,7 +90,6 @@ function ModifyHolidays()
 			$_REQUEST['holiday'][$id] = (int) $id;
 
 		// Now the IDs are "safe" do the delete...
-		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 		removeHolidays($_REQUEST['holiday']);
 	}
 
@@ -99,11 +100,9 @@ function ModifyHolidays()
 		'base_href' => $scripturl . '?action=admin;area=managecalendar;sa=holidays',
 		'default_sort_col' => 'name',
 		'get_items' => array(
-			'file' => 'Subs-Calendar',
 			'function' => 'list_getHolidays',
 		),
 		'get_count' => array(
-			'file' => 'Subs-Calendar',
 			'function' => 'list_getNumHolidays',
 		),
 		'no_items_label' => $txt['holidays_no_entries'],
