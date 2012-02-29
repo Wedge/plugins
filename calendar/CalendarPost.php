@@ -25,7 +25,7 @@ function calendar_post_form_pre()
 }
 function calendar_post_form()
 {
-	global $context, $txt;
+	global $context, $txt, $settings;
 
 	// Guess not posting an event after all?
 	if (!$context['make_event'])
@@ -33,7 +33,7 @@ function calendar_post_form()
 
 	// Just in case for whatever reason we don't have this.
 	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
-	loadPluginTemplate('Wedgeward:Calendar', 'lang/CalendarIntegration');
+	loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
 
 	// They might want to pick a board.
 	if (!isset($context['current_board']))

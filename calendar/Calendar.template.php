@@ -124,7 +124,7 @@ function template_event_post()
 	}
 
 	echo '
-				<div class="windowbg roundframe">
+				<div class="windowbg wrc">
 					<fieldset id="event_main">
 						<legend><span', isset($context['post_error']['no_event']) ? ' class="error"' : '', '>', $txt['calendar_event_title'], '</span></legend>
 						<input type="text" name="evtitle" maxlength="80" size="70" value="', $context['event']['title'], '">

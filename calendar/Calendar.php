@@ -55,7 +55,7 @@ function CalendarMain()
 		'post' => 'CalendarPost',
 	);
 
-	if (isset($_GET['sa'], $subActions[$_GET['sa']]) && !WIRELESS)
+	if (isset($_GET['sa'], $subActions[$_GET['sa']]))
 		return $subActions[$_GET['sa']]();
 
 	// These are gonna be needed...
@@ -163,6 +163,7 @@ function CalendarPost()
 
 	// We need this for all kinds of useful functions.
 	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
 
 	// Cast this for safety...
 	if (isset($_REQUEST['eventid']))
@@ -290,7 +291,7 @@ function CalendarPost()
 	}
 
 	// Template, block, etc.
-	loadTemplate('Calendar');
+	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
 	wetem::load('event_post');
 
 	$context['page_title'] = isset($_REQUEST['eventid']) ? $txt['calendar_edit'] : $txt['calendar_post_event'];

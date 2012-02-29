@@ -14,6 +14,8 @@ $txt['events_upcoming'] = 'Upcoming Events:';
 
 $txt['calendar_week'] = 'Week';
 $txt['calendar_week_title'] = 'Week %1$d of %2$d';
+$txt['calendar_day'] = 'Day:';
+$txt['calendar_month'] = 'Month:';
 $txt['calendar_year'] = 'Year:';
 $txt['calendar_event_title'] = 'Event Title';
 $txt['calendar_event_options'] = 'Event Options';

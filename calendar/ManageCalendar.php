@@ -191,7 +191,7 @@ function EditHoliday()
 {
 	global $txt, $context, $scripturl;
 
-	loadTemplate('ManageCalendar');
+	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
 
 	$context['is_new'] = !isset($_REQUEST['holiday']);
 	$context['page_title'] = $context['is_new'] ? $txt['holidays_add'] : $txt['holidays_edit'];
