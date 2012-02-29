@@ -275,7 +275,7 @@ function template_show_month_grid($grid_name)
 	}
 
 	echo '
-			<table class="calendar_table cs1">';
+			<table class="calendar_table cs0">';
 
 	// Show each day of the week.
 	if (empty($calendar_data['disable_day_titles']))
@@ -285,11 +285,12 @@ function template_show_month_grid($grid_name)
 
 		if (!empty($calendar_data['show_week_links']))
 			echo '
-					<th>&nbsp;</th>';
+					<th class="first_th" scope="col">&nbsp;</th>';
 
-		foreach ($calendar_data['week_days'] as $day)
+		// There are 7 items in this indexed array, 0-6, and we want to know whether we're on the last one - this is the cheapest way to do it.
+		foreach ($calendar_data['week_days'] as $day_num => $day)
 			echo '
-					<th class="days" scope="col" ', $calendar_data['size'] == 'small' ? 'style="font-size: x-small;"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
+					<th class="days', $day_num == 6 ? ' last_th' : '', '" scope="col" ', $calendar_data['size'] == 'small' ? 'style="font-size: x-small;"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
 
 		echo '
 				</tr>';
