@@ -104,7 +104,7 @@ function calendar_post_form()
 		// Make sure the year and month are in the valid range.
 		if ($context['event']['month'] < 1 || $context['event']['month'] > 12)
 			fatal_lang_error('invalid_month', false);
-		if ($context['event']['year'] < $modSettings['cal_minyear'] || $context['event']['year'] > $modSettings['cal_maxyear'])
+		if ($context['event']['year'] < $settings['cal_minyear'] || $context['event']['year'] > $settings['cal_maxyear'])
 			fatal_lang_error('invalid_year', false);
 
 		// Get a list of boards they can post in.
@@ -118,7 +118,7 @@ function calendar_post_form()
 			'included_boards' => in_array(0, $boards) ? null : $boards,
 			'not_redirection' => true,
 			'use_permissions' => true,
-			'selected_board' => empty($context['current_board']) ? $modSettings['cal_defaultboard'] : $context['current_board'],
+			'selected_board' => empty($context['current_board']) ? $settings['cal_defaultboard'] : $context['current_board'],
 		);
 		$context['event']['categories'] = getBoardList($boardListOptions);
 	}
@@ -126,7 +126,7 @@ function calendar_post_form()
 	// Find the last day of the month.
 	$context['event']['last_day'] = (int) strftime('%d', mktime(0, 0, 0, $context['event']['month'] == 12 ? 1 : $context['event']['month'] + 1, 0, $context['event']['month'] == 12 ? $context['event']['year'] + 1 : $context['event']['year']));
 
-	$context['event']['board'] = !empty($board) ? $board : $modSettings['cal_defaultboard'];
+	$context['event']['board'] = !empty($board) ? $board : $settings['cal_defaultboard'];
 
 	// Also, add the delete-event button to the button list.
 	if (!$context['event']['new'])
@@ -170,7 +170,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 			'title' => $_POST['evtitle'],
 			'member' => $user_info['id'],
 			'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
-			'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $modSettings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
+			'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 		);
 		insertEvent($eventOptions);
 	}
@@ -213,7 +213,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 		// ... or just update it?
 		else
 		{
-			$span = !empty($modSettings['cal_allowspan']) && !empty($_REQUEST['span']) ? min((int) $modSettings['cal_maxspan'], (int) $_REQUEST['span'] - 1) : 0;
+			$span = !empty($settings['cal_allowspan']) && !empty($_REQUEST['span']) ? min((int) $settings['cal_maxspan'], (int) $_REQUEST['span'] - 1) : 0;
 			$start_time = mktime(0, 0, 0, (int) $_REQUEST['month'], (int) $_REQUEST['day'], (int) $_REQUEST['year']);
 
 			wesql::query('

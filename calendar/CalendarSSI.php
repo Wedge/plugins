@@ -23,16 +23,16 @@ function ssi_calendar_init()
 // Show today's holidays.
 function ssi_todaysHolidays($output_method = 'echo')
 {
-	global $modSettings, $user_info;
+	global $settings, $user_info;
 
-	if (empty($modSettings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
 		return array();
 
 	$eventOptions = array(
 		'include_holidays' => true,
-		'num_days_shown' => empty($modSettings['cal_days_for_index']) || $modSettings['cal_days_for_index'] < 1 ? 1 : $modSettings['cal_days_for_index'],
+		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $modSettings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_holidays'];
@@ -44,16 +44,16 @@ function ssi_todaysHolidays($output_method = 'echo')
 // Show today's events.
 function ssi_todaysEvents($output_method = 'echo')
 {
-	global $modSettings, $user_info;
+	global $settings, $user_info;
 
-	if (empty($modSettings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
 		return array();
 
 	$eventOptions = array(
 		'include_events' => true,
-		'num_days_shown' => empty($modSettings['cal_days_for_index']) || $modSettings['cal_days_for_index'] < 1 ? 1 : $modSettings['cal_days_for_index'],
+		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $modSettings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_events'];
@@ -71,17 +71,17 @@ function ssi_todaysEvents($output_method = 'echo')
 // Show all calendar entries for today. (holidays, and events.)
 function ssi_todaysCalendar($output_method = 'echo')
 {
-	global $modSettings, $txt, $scripturl, $user_info;
+	global $settings, $txt, $scripturl, $user_info;
 
-	if (empty($modSettings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
 		return array();
 
 	$eventOptions = array(
 		'include_holidays' => true,
 		'include_events' => true,
-		'num_days_shown' => empty($modSettings['cal_days_for_index']) || $modSettings['cal_days_for_index'] < 1 ? 1 : $modSettings['cal_days_for_index'],
+		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $modSettings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return;
@@ -107,9 +107,9 @@ function ssi_todaysCalendar($output_method = 'echo')
 // Show the most recent events.
 function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 {
-	global $db_prefix, $user_info, $scripturl, $modSettings, $txt, $context;
+	global $db_prefix, $user_info, $scripturl, $settings, $txt, $context;
 
-	if (empty($modSettings['allow_guestAccess']))
+	if (empty($settings['allow_guestAccess']))
 		return array();
 
 	// Find all events which are happening in the near future that the member can see.

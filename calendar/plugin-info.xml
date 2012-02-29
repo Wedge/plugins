@@ -51,26 +51,11 @@
 	(0, 'calendar_view'),
 	(2, 'calendar_view'),
 	(2, 'calendar_post'),
-	(2, 'calendar_edit_any'),
+	(2, 'calendar_edit_any'),-->
 
 	<database>
 		<tables>
 			<table if-exists="update" name="{db_prefix}calendar">
-			<!--
-CREATE TABLE {$db_prefix}calendar (
-  id_event smallint(5) unsigned NOT NULL auto_increment,
-  start_date date NOT NULL default '0001-01-01',
-  end_date date NOT NULL default '0001-01-01',
-  id_board smallint(5) unsigned NOT NULL default 0,
-  id_topic mediumint(8) unsigned NOT NULL default 0,
-  title varchar(255) NOT NULL default '',
-  id_member mediumint(8) unsigned NOT NULL default 0,
-  PRIMARY KEY (id_event),
-  KEY start_date (start_date),
-  KEY end_date (end_date),
-  KEY topic (id_topic, id_member)
-)
-			-->
 				<columns>
 					<column name="id_event" type="smallint" autoincrement="yes" />
 					<column name="start_date" type="date" default="0001-01-01" />

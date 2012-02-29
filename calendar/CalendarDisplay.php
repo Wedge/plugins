@@ -16,13 +16,13 @@ if (!defined('WEDGE'))
 
 function calendar_display()
 {
-	global $context, $modSettings, $user_info, $topic;
+	global $context, $settings, $user_info, $topic;
 
 	// Permissions
 	$context['calendar_post'] = allowedTo('calendar_post');
 
 	// If we want to show event information in the topic, prepare the data.
-	if (allowedTo('calendar_view') && !empty($modSettings['cal_showInTopic']))
+	if (allowedTo('calendar_view') && !empty($settings['cal_showInTopic']))
 	{
 		// First, try create a better time format, ignoring the "time" elements.
 		if (preg_match('~%[AaBbCcDdeGghjmuYy](?:[^%]*%[AaBbCcDdeGghjmuYy])*~', $user_info['time_format'], $matches) == 0 || empty($matches[0]))

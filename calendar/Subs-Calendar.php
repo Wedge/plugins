@@ -92,7 +92,7 @@ if (!defined('WEDGE'))
 // Get all events within the given time range.
 function getEventRange($low_date, $high_date, $use_permissions = true)
 {
-	global $scripturl, $modSettings, $user_info, $context;
+	global $scripturl, $settings, $user_info, $context;
 
 	$low_date_time = sscanf($low_date, '%04d-%02d-%02d');
 	$low_date_time = mktime(0, 0, 0, $low_date_time[1], $low_date_time[2], $low_date_time[0]);
@@ -121,7 +121,7 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 	{
 		// If the attached topic is not approved then for the moment pretend it doesn't exist
 		//!!! This should be fixed to show them all and then sort by approval state later?
-		if (!empty($row['id_first_msg']) && $modSettings['postmod_active'] && !$row['approved'])
+		if (!empty($row['id_first_msg']) && $settings['postmod_active'] && !$row['approved'])
 			continue;
 
 		// Force a censor of the title - as often these are used by others.
@@ -280,7 +280,7 @@ function getTodayInfo()
 // Returns the information needed to show a calendar grid for the given month.
 function getCalendarGrid($month, $year, $calendarOptions)
 {
-	global $scripturl, $modSettings;
+	global $scripturl, $settings;
 
 	// Eventually this is what we'll be returning.
 	$calendarGrid = array(
@@ -294,12 +294,12 @@ function getCalendarGrid($month, $year, $calendarOptions)
 		'previous_calendar' => array(
 			'year' => $month == 1 ? $year - 1 : $year,
 			'month' => $month == 1 ? 12 : $month - 1,
-			'disabled' => $modSettings['cal_minyear'] > ($month == 1 ? $year - 1 : $year),
+			'disabled' => $settings['cal_minyear'] > ($month == 1 ? $year - 1 : $year),
 		),
 		'next_calendar' => array(
 			'year' => $month == 12 ? $year + 1 : $year,
 			'month' => $month == 12 ? 1 : $month + 1,
-			'disabled' => $modSettings['cal_maxyear'] < ($month == 12 ? $year + 1 : $year),
+			'disabled' => $settings['cal_maxyear'] < ($month == 12 ? $year + 1 : $year),
 		),
 		//!!! Better tweaks?
 		'size' => isset($calendarOptions['size']) ? $calendarOptions['size'] : 'large',
@@ -428,7 +428,7 @@ function getCalendarGrid($month, $year, $calendarOptions)
 // Returns the information needed to show a calendar for the given week.
 function getCalendarWeek($month, $year, $day, $calendarOptions)
 {
-	global $scripturl, $modSettings;
+	global $scripturl, $settings;
 
 	// Get todays date.
 	$today = getTodayInfo();
@@ -456,10 +456,10 @@ function getCalendarWeek($month, $year, $day, $calendarOptions)
 			'year' => $day == 1 ? ($month == 1 ? $year - 1 : $year) : $year,
 			'month' => $day == 1 ? ($month == 1 ? 12 : $month - 1) : $month,
 			'day' => $day == 1 ? 28 : $day - 1,
-			'disabled' => $day < 7 && $modSettings['cal_minyear'] > ($month == 1 ? $year - 1 : $year),
+			'disabled' => $day < 7 && $settings['cal_minyear'] > ($month == 1 ? $year - 1 : $year),
 		),
 		'next_week' => array(
-			'disabled' => $day > 25 && $modSettings['cal_maxyear'] < ($month == 12 ? $year + 1 : $year),
+			'disabled' => $day > 25 && $settings['cal_maxyear'] < ($month == 12 ? $year + 1 : $year),
 		),
 	);
 
@@ -554,7 +554,7 @@ function cache_getOffsetIndependentEvents($days_to_index)
 			'holidays' => getHolidayRange($low_date, $high_date),
 			'events' => getEventRange($low_date, $high_date, false),
 		),
-		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($modSettings[\'calendar_updated\']) && ' . time() . ' < $modSettings[\'calendar_updated\']);',
+		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($settings[\'calendar_updated\']) && ' . time() . ' < $settings[\'calendar_updated\']);',
 		'expires' => time() + 3600,
 	);
 }
@@ -562,10 +562,10 @@ function cache_getOffsetIndependentEvents($days_to_index)
 // Called from the homepage to display the current day's events on it.
 function cache_getRecentEvents($eventOptions)
 {
-	global $modSettings, $user_info, $scripturl;
+	global $settings, $user_info, $scripturl;
 
 	// With the 'static' cached data we can calculate the user-specific data.
-	$cached_data = cache_quick_get('calendar_index', 'Subs-Calendar.php', 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
+	$cached_data = cache_quick_get('calendar_index', array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
 
 	// Get the information about today (from user perspective).
 	$today = getTodayInfo();
@@ -629,7 +629,7 @@ function cache_getRecentEvents($eventOptions)
 	return array(
 		'data' => $return_data,
 		'expires' => time() + 3600,
-		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($modSettings[\'calendar_updated\']) && ' . time() . ' < $modSettings[\'calendar_updated\']);',
+		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($settings[\'calendar_updated\']) && ' . time() . ' < $settings[\'calendar_updated\']);',
 		'post_retri_eval' => '
 			global $context, $scripturl, $user_info;
 
@@ -660,7 +660,7 @@ function cache_getRecentEvents($eventOptions)
 // Makes sure the calendar post is valid.
 function validateEventPost()
 {
-	global $modSettings, $txt;
+	global $settings, $txt;
 
 	if (!isset($_POST['deleteevent']))
 	{
@@ -673,7 +673,7 @@ function validateEventPost()
 		// Check the month and year...
 		if ($_POST['month'] < 1 || $_POST['month'] > 12)
 			fatal_lang_error('invalid_month', false);
-		if ($_POST['year'] < $modSettings['cal_minyear'] || $_POST['year'] > $modSettings['cal_maxyear'])
+		if ($_POST['year'] < $settings['cal_minyear'] || $_POST['year'] > $settings['cal_maxyear'])
 			fatal_lang_error('invalid_year', false);
 	}
 
@@ -683,9 +683,9 @@ function validateEventPost()
 	if (isset($_POST['span']))
 	{
 		// Make sure it's turned on and not some fool trying to trick it.
-		if (empty($modSettings['cal_allowspan']))
+		if (empty($settings['cal_allowspan']))
 			fatal_lang_error('no_span', false);
-		if ($_POST['span'] < 1 || $_POST['span'] > $modSettings['cal_maxspan'])
+		if ($_POST['span'] < 1 || $_POST['span'] > $settings['cal_maxspan'])
 			fatal_lang_error('invalid_days_numb', false);
 	}
 
@@ -740,7 +740,7 @@ function getEventPoster($event_id)
 // Consolidating the various INSERT statements into this function.
 function insertEvent(&$eventOptions)
 {
-	global $modSettings;
+	global $settings;
 
 	// Add special chars to the title.
 	$eventOptions['title'] = westr::htmlspecialchars($eventOptions['title'], ENT_QUOTES);

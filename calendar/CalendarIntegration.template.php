@@ -13,7 +13,7 @@
 
 function template_linked_calendar()
 {
-	global $context, $settings, $txt;
+	global $context, $theme, $txt;
 
 	// Does this topic have some events linked to it?
 	if (empty($context['linked_calendar_events']))
@@ -30,7 +30,7 @@ function template_linked_calendar()
 	foreach ($context['linked_calendar_events'] as $event)
 		echo '
 						<li>
-							', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '"> <img src="' . $settings['images_url'] . '/icons/modify_small.gif" title="' . $txt['modify'] . '" class="edit_event"></a> ' : '',
+							', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '"> <img src="' . $theme['images_url'] . '/icons/modify_small.gif" title="' . $txt['modify'] . '" class="edit_event"></a> ' : '',
 							'<strong>', $event['title'], '</strong>: ', $event['start_date'], ($event['start_date'] != $event['end_date'] ? ' - ' . $event['end_date'] : ''), '
 						</li>';
 
@@ -42,14 +42,14 @@ function template_linked_calendar()
 
 function template_info_center_calendar()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	if (!$context['show_calendar'])
 		return;
 
 	echo '
 			<we:title2>
-				<a href="', $scripturl, '?action=calendar"><img src="', $settings['images_url'], '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
+				<a href="', $scripturl, '?action=calendar"><img src="', $theme['images_url'], '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
 				', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '
 			</we:title2>
 			<p class="smalltext">';
@@ -70,7 +70,7 @@ function template_info_center_calendar()
 
 		foreach ($context['calendar_events'] as $event)
 			echo $event['can_edit'] ? '
-				<a href="' . $event['modify_href'] . '" title="' . $txt['calendar_edit'] . '"><img src="' . $settings['images_url'] . '/icons/modify_small.gif"></a>' : '', '
+				<a href="' . $event['modify_href'] . '" title="' . $txt['calendar_edit'] . '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>' : '', '
 				', $event['href'] == '' ? '' : '<a href="' . $event['href'] . '">', $event['is_today'] ? '<strong>' . $event['title'] . '</strong>' : $event['title'], $event['href'] == '' ? '' : '</a>', $event['is_last'] ? '<br>' : ', ';
 	}
 
@@ -80,7 +80,7 @@ function template_info_center_calendar()
 
 function template_make_event()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	// We want to ensure we show the current days in a month etc... This is done here.
 	add_js('
@@ -114,7 +114,7 @@ function template_make_event()
 							<select name="year" id="year" tabindex="', $context['tabindex']++, '" onchange="generateDays();">';
 
 	// Show a list of all the years we allow...
-	for ($year = $modSettings['cal_minyear']; $year <= $modSettings['cal_maxyear']; $year++)
+	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
 		echo '
 								<option value="', $year, '"', $year == $context['event']['year'] ? ' selected' : '', '>', $year, '&nbsp;</option>';
 
@@ -143,7 +143,7 @@ function template_make_event()
 						</div>
 					</fieldset>';
 
-	if (!empty($modSettings['cal_allowspan']) || ($context['event']['new'] && $context['is_new_post']))
+	if (!empty($settings['cal_allowspan']) || ($context['event']['new'] && $context['is_new_post']))
 	{
 		echo '
 					<fieldset id="event_options">
@@ -152,14 +152,14 @@ function template_make_event()
 							<ul class="event_options">';
 
 		// If events can span more than one day then allow the user to select how long it should last.
-		if (!empty($modSettings['cal_allowspan']))
+		if (!empty($settings['cal_allowspan']))
 		{
 			echo '
 								<li>
 									', $txt['calendar_numb_days'], '
 									<select name="span">';
 
-			for ($days = 1; $days <= $modSettings['cal_maxspan']; $days++)
+			for ($days = 1; $days <= $settings['cal_maxspan']; $days++)
 				echo '
 										<option value="', $days, '"', $days == $context['event']['span'] ? ' selected' : '', '>', $days, '&nbsp;</option>';
 

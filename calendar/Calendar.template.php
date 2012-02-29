@@ -14,7 +14,7 @@
 // The main calendar - January, for example.
 function template_main()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	echo '
 		<div id="calendar">
@@ -41,7 +41,7 @@ function template_main()
 					<select name="year">';
 
 	// Show a link for every year.....
-	for ($year = $modSettings['cal_minyear']; $year <= $modSettings['cal_maxyear']; $year++)
+	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
 		echo '
 						<option value="', $year, '"', $year == $context['current_year'] ? ' selected' : '', '>', $year, '</option>';
 	echo '
@@ -64,7 +64,7 @@ function template_sidebar()
 // Template for posting a calendar event.
 function template_event_post()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	// Start the javascript for drop down boxes...
 	add_js('
@@ -133,7 +133,7 @@ function template_event_post()
 							<select name="year" onchange="generateDays();">';
 
 	// Show a list of all the years we allow...
-	for ($year = $modSettings['cal_minyear']; $year <= $modSettings['cal_maxyear']; $year++)
+	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
 		echo '
 								<option value="', $year, '"', $year == $context['event']['year'] ? ' selected' : '', '>', $year, '&nbsp;</option>';
 
@@ -162,7 +162,7 @@ function template_event_post()
 						</div>
 					</fieldset>';
 
-	if (!empty($modSettings['cal_allowspan']) || $context['event']['new'])
+	if (!empty($settings['cal_allowspan']) || $context['event']['new'])
 		echo '
 					<fieldset id="event_options">
 						<legend>', $txt['calendar_event_options'], '</legend>
@@ -170,14 +170,14 @@ function template_event_post()
 							<ul class="event_options">';
 
 	// If events can span more than one day then allow the user to select how long it should last.
-	if (!empty($modSettings['cal_allowspan']))
+	if (!empty($settings['cal_allowspan']))
 	{
 		echo '
 								<li>
 									', $txt['calendar_numb_days'], '
 									<select name="span">';
 
-		for ($days = 1; $days <= $modSettings['cal_maxspan']; $days++)
+		for ($days = 1; $days <= $settings['cal_maxspan']; $days++)
 			echo '
 										<option value="', $days, '"', $context['event']['span'] == $days ? ' selected' : '', '>', $days, '&nbsp;</option>';
 
@@ -212,7 +212,7 @@ function template_event_post()
 								</li>';
 	}
 
-	if (!empty($modSettings['cal_allowspan']) || $context['event']['new'])
+	if (!empty($settings['cal_allowspan']) || $context['event']['new'])
 		echo '
 							</ul>
 						</div>
@@ -240,7 +240,7 @@ function template_event_post()
 // Display a monthly calendar grid.
 function template_show_month_grid($grid_name)
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	if (!isset($context['calendar_grid_' . $grid_name]))
 		return false;
@@ -321,7 +321,7 @@ function template_show_month_grid($grid_name)
 			if (!empty($day['day']))
 			{
 				// Should the day number be a link?
-				if (!empty($modSettings['cal_daysaslink']) && $context['can_post'])
+				if (!empty($settings['cal_daysaslink']) && $context['can_post'])
 					echo '
 						<a href="', $scripturl, '?action=calendar;sa=post;month=', $calendar_data['current_month'], ';year=', $calendar_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
 				else
@@ -351,7 +351,7 @@ function template_show_month_grid($grid_name)
 						// If they can edit the event, show a star they can click on....
 						if ($event['can_edit'])
 							echo '
-							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . $settings['images_url'] . '/icons/modify_small.gif"></a>';
+							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>';
 
 						echo '
 							', $event['link'], $event['is_last'] ? '' : ', ';
@@ -377,7 +377,7 @@ function template_show_month_grid($grid_name)
 // Or show a weekly one?
 function template_show_week_grid($grid_name)
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	if (!isset($context['calendar_grid_' . $grid_name]))
 		return false;
@@ -423,7 +423,7 @@ function template_show_week_grid($grid_name)
 					<td class="windowbg">';
 
 			// Should the day number be a link?
-			if (!empty($modSettings['cal_daysaslink']) && $context['can_post'])
+			if (!empty($settings['cal_daysaslink']) && $context['can_post'])
 				echo '
 						<a href="', $scripturl, '?action=calendar;sa=post;month=', $month_data['current_month'], ';year=', $month_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
 			else
@@ -453,7 +453,7 @@ function template_show_week_grid($grid_name)
 					// If they can edit the event, show a star they can click on....
 					if ($event['can_edit'])
 						echo '
-							<a href="', $event['modify_href'], '"><img src="' . $settings['images_url'] . '/icons/modify_small.gif"></a> ';
+							<a href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a> ';
 
 					echo '
 							', $event['link'], $event['is_last'] ? '' : ', ';

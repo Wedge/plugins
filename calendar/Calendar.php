@@ -45,7 +45,7 @@ if (!defined('WEDGE'))
 // Show the calendar.
 function CalendarMain()
 {
-	global $txt, $context, $modSettings, $scripturl, $options;
+	global $txt, $context, $settings, $scripturl, $options;
 
 	// Permissions, permissions, permissions.
 	isAllowedTo('calendar_view');
@@ -64,7 +64,7 @@ function CalendarMain()
 	wetem::load('sidebar', 'sidebar');
 
 	// You can't do anything if the calendar is off.
-	if (empty($modSettings['cal_enabled']))
+	if (empty($settings['cal_enabled']))
 		fatal_lang_error('calendar_off', false);
 
 	// Set the page title to mention the calendar ;).
@@ -91,7 +91,7 @@ function CalendarMain()
 	// Make sure the year and month are in valid ranges.
 	if ($curPage['month'] < 1 || $curPage['month'] > 12)
 		fatal_lang_error('invalid_month', false);
-	if ($curPage['year'] < $modSettings['cal_minyear'] || $curPage['year'] > $modSettings['cal_maxyear'])
+	if ($curPage['year'] < $settings['cal_minyear'] || $curPage['year'] > $settings['cal_maxyear'])
 		fatal_lang_error('invalid_year', false);
 	// If we have a day, make sure it's valid too.
 	if ($context['view_week'])
@@ -101,8 +101,8 @@ function CalendarMain()
 	// Load all the context information needed to show the calendar grid.
 	$calendarOptions = array(
 		'start_day' => !empty($options['calendar_start_day']) ? $options['calendar_start_day'] : 0,
-		'show_events' => in_array($modSettings['cal_showevents'], array(1, 2)),
-		'show_holidays' => in_array($modSettings['cal_showholidays'], array(1, 2)),
+		'show_events' => in_array($settings['cal_showevents'], array(1, 2)),
+		'show_holidays' => in_array($settings['cal_showholidays'], array(1, 2)),
 		'show_week_num' => true,
 		'short_day_titles' => false,
 		'show_next_prev' => true,
@@ -123,10 +123,10 @@ function CalendarMain()
 	$calendarOptions['size'] = 'small';
 	$context['calendar_grid_current'] = getCalendarGrid($curPage['month'], $curPage['year'], $calendarOptions);
 	// Only show previous month if it isn't pre-January of the min-year
-	if ($context['calendar_grid_current']['previous_calendar']['year'] > $modSettings['cal_minyear'] || $curPage['month'] != 1)
+	if ($context['calendar_grid_current']['previous_calendar']['year'] > $settings['cal_minyear'] || $curPage['month'] != 1)
 		$context['calendar_grid_prev'] = getCalendarGrid($context['calendar_grid_current']['previous_calendar']['month'], $context['calendar_grid_current']['previous_calendar']['year'], $calendarOptions);
 	// Only show next month if it isn't post-December of the max-year
-	if ($context['calendar_grid_current']['next_calendar']['year'] < $modSettings['cal_maxyear'] || $curPage['month'] != 12)
+	if ($context['calendar_grid_current']['next_calendar']['year'] < $settings['cal_maxyear'] || $curPage['month'] != 12)
 		$context['calendar_grid_next'] = getCalendarGrid($context['calendar_grid_current']['next_calendar']['month'], $context['calendar_grid_current']['next_calendar']['year'], $calendarOptions);
 
 	// Basic template stuff.
@@ -159,7 +159,7 @@ function CalendarMain()
 function CalendarPost()
 {
 	global $context, $txt, $user_info, $scripturl;
-	global $modSettings, $topic;
+	global $settings, $topic;
 
 	// Well - can they?
 	isAllowedTo('calendar_post');
@@ -200,7 +200,7 @@ function CalendarPost()
 				'title' => substr($_REQUEST['evtitle'], 0, 60),
 				'member' => $user_info['id'],
 				'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
-				'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $modSettings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
+				'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 			);
 			insertEvent($eventOptions);
 		}
@@ -214,7 +214,7 @@ function CalendarPost()
 		{
 			$eventOptions = array(
 				'title' => substr($_REQUEST['evtitle'], 0, 60),
-				'span' => empty($modSettings['cal_allowspan']) || empty($_POST['span']) || $_POST['span'] == 1 || empty($modSettings['cal_maxspan']) || $_POST['span'] > $modSettings['cal_maxspan'] ? 0 : min((int) $modSettings['cal_maxspan'], (int) $_POST['span'] - 1),
+				'span' => empty($settings['cal_allowspan']) || empty($_POST['span']) || $_POST['span'] == 1 || empty($settings['cal_maxspan']) || $_POST['span'] > $settings['cal_maxspan'] ? 0 : min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1),
 				'start_date' => strftime('%Y-%m-%d', mktime(0, 0, 0, (int) $_REQUEST['month'], (int) $_REQUEST['day'], (int) $_REQUEST['year'])),
 			);
 
@@ -230,7 +230,7 @@ function CalendarPost()
 	}
 
 	// If we are not enabled... we are not enabled.
-	if (empty($modSettings['cal_allow_unlinked']) && empty($_REQUEST['eventid']))
+	if (empty($settings['cal_allow_unlinked']) && empty($_REQUEST['eventid']))
 	{
 		$_REQUEST['calendar'] = 1;
 		loadSource('Post');
@@ -266,7 +266,7 @@ function CalendarPost()
 			'included_boards' => in_array(0, $boards) ? null : $boards,
 			'not_redirection' => true,
 			'use_permissions' => true,
-			'selected_board' => $modSettings['cal_defaultboard'],
+			'selected_board' => $settings['cal_defaultboard'],
 		);
 		$context['event']['categories'] = getBoardList($boardListOptions);
 	}
@@ -304,7 +304,7 @@ function CalendarPost()
 
 function iCalDownload()
 {
-	global $context, $modSettings;
+	global $context, $settings;
 
 	// Goes without saying that this is required.
 	if (!isset($_REQUEST['eventid']))
@@ -346,7 +346,7 @@ function iCalDownload()
 
 	// Send some standard headers.
 	ob_end_clean();
-	if (!empty($modSettings['enableCompressedOutput']))
+	if (!empty($settings['enableCompressedOutput']))
 		@ob_start('ob_gzhandler');
 	else
 		ob_start();
@@ -363,7 +363,7 @@ function iCalDownload()
 	header('Content-Disposition: attachment; filename=' . $event['title'] . '.ics');
 
 	// How big is it?
-	if (empty($modSettings['enableCompressedOutput']))
+	if (empty($settings['enableCompressedOutput']))
 		header('Content-Length: ' . westr::strlen($filecontents));
 
 	// This is a calendar item!
