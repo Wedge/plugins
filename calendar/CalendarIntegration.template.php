@@ -48,10 +48,11 @@ function template_info_center_calendar()
 		return;
 
 	echo '
-			<we:title2>
+		<section class="ic">
+			<we:title>
 				<a href="', $scripturl, '?action=calendar"><img src="', $theme['images_url'], '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
 				', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '
-			</we:title2>
+			</we:title>
 			<p class="smalltext">';
 
 	// Holidays like "Christmas", "Chanukah", and "We Love [Unknown] Day" :P.
@@ -75,7 +76,8 @@ function template_info_center_calendar()
 	}
 
 	echo '
-			</p>';
+			</p>
+		</section>';
 }
 
 function template_make_event()

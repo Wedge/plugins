@@ -72,11 +72,11 @@ function calendar_display()
 	}
 
 	// Add it to the mod-level navigation buttons.
-	$context['nav_buttons']['mod']['calendar'] => array(
+	$context['nav_buttons']['mod']['calendar'] = array(
 		'test' => 'calendar_post',
 		'text' => 'calendar_link',
 		'url' => '<URL>?action=post;calendar;msg=' . $context['topic_first_message'] . ';topic=' . $context['current_topic'] . '.0',
-	),
+	);
 }
 
 ?>
