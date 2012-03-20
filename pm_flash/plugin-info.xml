@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:PMFlash">
+	<name>Personal Message Flash</name>
+	<author>Arantor</author>
+	<description>Flash the envelope icon for personal messages if there are unread PMs (as if the "new" icon wasn't obvious enough)</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="menu_items" function="flashPMs" filename="$plugindir/PersonalMessageFlash" />
+	</hooks>
+</plugin>
