@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:TopicButtons">
+	<name>Topic Buttons</name>
+	<author>Arantor</author>
+	<description>Displays a 'new topic' next to reply for those who can, with a 'register to post' button only for guests.</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="messageindex_buttons" function="topic_buttons_msgindex" filename="$plugindir/TopicButtons" />
+		<function point="display_main" function="topic_buttons_display" filename="$plugindir/TopicButtons" />
+	</hooks>
+</plugin>
