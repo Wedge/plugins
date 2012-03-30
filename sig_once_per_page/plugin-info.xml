@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:SigOncePerPage">
+	<name>Signature Once Per Page</name>
+	<author>Arantor</author>
+	<description>If the same user posts more than once in a page, their signature is displayed only the first time.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="display_post_done" function="sig_once_per_page" filename="$plugindir/SigOncePerPage" />
+	</hooks>
+</plugin>
