@@ -89,7 +89,7 @@ function getOnlineToday()
 			$hidden++;
 			if (!$mod_forum)
 				continue;
-			$link = '<i>' . $link . '</i>';
+			$link = '<em>' . $link . '</em>';
 		}
 
 		$context['users_online_today'][$row['id_member']] = $link;
@@ -107,10 +107,10 @@ function template_info_center_online_today()
 
 	echo '
 		<section class="ic">
-			<we:title>
+			<we:cat>
 				<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
 				', $txt['users_online_' . $settings['uot_type']], '
-			</we:title>';
+			</we:cat>';
 	if (empty($context['users_online_today']))
 		echo '
 			<p class="inline smalltext">', $txt['users_online_today_none'], '</p>';

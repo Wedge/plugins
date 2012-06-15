@@ -1,5 +1,6 @@
 <?php
 // Important! Before editing these language files please read the text at the top of index.english.php.
+// Don't forget to set the language file to UTF-8 format (without signature) before saving it.
 
 $txt['uot'] = 'Users Online Today';
 $txt['uot_type'] = 'What to display for users?';
