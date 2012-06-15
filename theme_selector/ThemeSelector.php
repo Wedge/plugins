@@ -52,15 +52,17 @@ function themeSelector()
 
 	// So, now we have a list of all the themes.
 	$context['themes'] = $temp;
-	wetem::add('header', 'header_theme_selector');
+	wetem::add('sidebar', 'sidebar_theme_selector');
 }
 
-function template_header_theme_selector()
+function template_sidebar_theme_selector()
 {
 	global $context, $theme, $txt;
 
+	loadPluginLanguage('Arantor:ThemeSelector', 'SkinSelector');
+
 	echo '
-			Select a skin: <select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" style="font-family: \'dejavu sans mono\',\'monaco\',\'lucida console\',\'courier new\',monospace">';
+			', $txt['select_skin'], ' <select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt">';
 
 	foreach ($context['themes'] as $th)
 	{
@@ -73,40 +75,36 @@ function template_header_theme_selector()
 			</select>';
 
 	add_js('
-function changeTheme (obj)
-{
-	var sUrl = new String(window.location);
-	sUrl = sUrl.replace(/theme=([0-9]+\_[A-Z0-9\+\/\=]+);?/i, "");
-	var sAnchor = "";
-	var search = sUrl.search("#");
-
-	if(search != -1)
+	function changeTheme(obj)
 	{
-		sAnchor = sUrl.substr(search);
-		sUrl = sUrl.substr(0, search);
-	}
+		var
+			len,
+			sUrl = window.location.href.replace(/theme=([0-9]+_[A-Z0-9+/=]+);?/i, ""),
+			sAnchor = "",
+			search = sUrl.search("#");
 
-	var len = sUrl.length;
-	var lastchr = sUrl.charAt(len-1);
-	while ((lastchr == "?" || lastchr == ";") && len > 1)
-	{
-		len--;
-		lastchr = sUrl.charAt(len-1);
-	}
-	sUrl = sUrl.substr(0, len);
+		if (search != -1)
+		{
+			sAnchor = sUrl.substr(search);
+			sUrl = sUrl.substr(0, search);
+		}
 
-	len = sUrl.length;
+		len = sUrl.length - 1;
+		while ((sUrl.charAt(len) == "?" || sUrl.charAt(len) == ";") && len > 0)
+			len--;
+		sUrl = sUrl.substr(0, ++len);
 
-	var themelink = "theme=" + obj.value + sAnchor;
-	var indexsearch = sUrl.search("/index.php");
+		len = sUrl.length;
 
-	if (indexsearch < len && indexsearch != -1)
-		window.location = sUrl + ((indexsearch == (len - 10)) ? "?" : ";") + themelink;
-	else
-		window.location = sUrl + ((sUrl.charAt(len-1) != "/") ? "/" : "") + "index.php?" + themelink;
+		var themelink = "theme=" + obj.value + sAnchor, indexsearch = sUrl.search("/index.php");
 
-	return false;
-}');
+		if (indexsearch < len && indexsearch != -1)
+			window.location.href = sUrl + ((indexsearch == (len - 10)) ? "?" : ";") + themelink;
+		else
+			window.location.href = sUrl + ((sUrl.charAt(len-1) != "/") ? "/" : "") + "index.php?" + themelink;
+
+		return false;
+	}');
 }
 
 ?>
