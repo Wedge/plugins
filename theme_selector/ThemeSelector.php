@@ -52,21 +52,21 @@ function themeSelector()
 
 	// So, now we have a list of all the themes.
 	$context['themes'] = $temp;
-	loadBlock('header_theme_selector', 'header', 'add');
+	wetem::add('header', 'header_theme_selector');
 }
 
 function template_header_theme_selector()
 {
-	global $context, $settings, $txt;
+	global $context, $theme, $txt;
 
 	echo '
 			Select a skin: <select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" style="font-family: \'dejavu sans mono\',\'monaco\',\'lucida console\',\'courier new\',monospace">';
 
-	foreach ($context['themes'] as $theme)
+	foreach ($context['themes'] as $th)
 	{
-		echo '<option value="', $theme['id'], '"', $settings['theme_id'] == $theme['id'] && (empty($context['skin']) || $context['skin'] == 'skins') ? ' selected' : '', '>', $theme['name'], '</option>';
-		if (!empty($theme['skins']))
-			wedge_show_skins($theme, $theme['skins'], 1, $settings['theme_id'], $context['skin']);
+		echo '<option value="', $th['id'], '"', $theme['theme_id'] == $th['id'] && (empty($context['skin']) || $context['skin'] == 'skins') ? ' selected' : '', '>', $th['name'], '</option>';
+		if (!empty($th['skins']))
+			wedge_show_skins($th, $th['skins'], 1, $theme['theme_id'], $context['skin']);
 	}
 
 	echo '
