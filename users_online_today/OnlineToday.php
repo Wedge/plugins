@@ -79,10 +79,11 @@ function getOnlineToday()
 			'sort_order' => $order,
 		)
 	);
-	$hidden = 0;
+	$actual = $hidden = 0;
 	$mod_forum = allowedTo('moderate_forum');
 	while ($row = wesql::fetch_assoc($request))
 	{
+		$actual++;
 		$link = '<a href="<URL>?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>';
 		if (empty($row['show_online']))
 		{
@@ -95,8 +96,8 @@ function getOnlineToday()
 		$context['users_online_today'][$row['id_member']] = $link;
 	}
 
-	if (!empty($context['users_online_today']))
-		$context['uot_users'] = sprintf($txt['users_online_today_userhidden'], number_context('users_online_today_users', count($context['users_online_today'])), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
+	if ($actual)
+		$context['uot_users'] = sprintf($txt['users_online_today_userhidden'], number_context('users_online_today_users', $actual), !empty($hidden) ? number_context('users_online_today_hidden', $hidden) : '');
 
 	wetem::after('info_center_usersonline', 'info_center_online_today');
 }
@@ -106,21 +107,22 @@ function template_info_center_online_today()
 	global $context, $theme, $txt, $settings;
 
 	echo '
-		<section class="ic">
-			<we:cat>
-				<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
-				', $txt['users_online_' . $settings['uot_type']], '
-			</we:cat>';
+	<section class="ic">
+		<we:cat>
+			<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
+			', $txt['users_online_' . $settings['uot_type']], '
+		</we:cat>';
+
 	if (empty($context['users_online_today']))
 		echo '
-			<p class="inline smalltext">', $txt['users_online_today_none'], '</p>';
+		<p class="inline smalltext">', $txt['users_online_today_none'], '</p>';
 	else
 		echo '
-			<p class="inline stats">', $context['uot_users'], '</p>
-			<p class="inline smalltext">', implode(', ', $context['users_online_today']), '</p>';
+		<p class="inline stats">', $context['uot_users'], '</p>
+		<p class="inline smalltext">', implode(', ', $context['users_online_today']), '</p>';
 
 	echo '
-		</section>';
+	</section>';
 }
 
 ?>

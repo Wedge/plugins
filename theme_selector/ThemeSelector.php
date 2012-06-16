@@ -12,7 +12,10 @@ if (!defined('WEDGE'))
 
 function themeSelector()
 {
-	global $txt, $user_info, $language, $modSettings, $context, $scripturl;
+	global $txt, $user_info, $language, $context, $scripturl;
+
+	if (!empty($user_info['possibly_robot']))
+		return;
 
 	// Will need this whatever.
 	loadSource('Themes');
@@ -62,13 +65,20 @@ function template_sidebar_theme_selector()
 	loadPluginLanguage('Arantor:ThemeSelector', 'SkinSelector');
 
 	echo '
-			', $txt['select_skin'], ' <select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt">';
+	<section>
+		<we:title>
+			', $txt['skin_selector'], '
+		</we:title>
+		<p>
+			<select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt">
+		</p>
+	</section>';
 
 	foreach ($context['themes'] as $th)
 	{
 		echo '<option value="', $th['id'], '"', $theme['theme_id'] == $th['id'] && (empty($context['skin']) || $context['skin'] == 'skins') ? ' selected' : '', '>', $th['name'], '</option>';
 		if (!empty($th['skins']))
-			wedge_show_skins($th, $th['skins'], 1, $theme['theme_id'], $context['skin']);
+			wedge_show_skins($th, $th['skins'], $theme['theme_id'], $context['skin']);
 	}
 
 	echo '
@@ -81,7 +91,8 @@ function template_sidebar_theme_selector()
 			len,
 			sUrl = window.location.href.replace(/theme=([0-9]+_[A-Z0-9+/=]+);?/i, ""),
 			sAnchor = "",
-			search = sUrl.search("#");
+			search = sUrl.indexOf("#"),
+			searchQ = sUrl.indexOf("?");
 
 		if (search != -1)
 		{
@@ -89,19 +100,7 @@ function template_sidebar_theme_selector()
 			sUrl = sUrl.substr(0, search);
 		}
 
-		len = sUrl.length - 1;
-		while ((sUrl.charAt(len) == "?" || sUrl.charAt(len) == ";") && len > 0)
-			len--;
-		sUrl = sUrl.substr(0, ++len);
-
-		len = sUrl.length;
-
-		var themelink = "theme=" + obj.value + sAnchor, indexsearch = sUrl.search("/index.php");
-
-		if (indexsearch < len && indexsearch != -1)
-			window.location.href = sUrl + ((indexsearch == (len - 10)) ? "?" : ";") + themelink;
-		else
-			window.location.href = sUrl + ((sUrl.charAt(len-1) != "/") ? "/" : "") + "index.php?" + themelink;
+		window.location.href = sUrl + (searchQ == -1 ? "?" : (sUrl.indexOf(";", searchQ) == -1 ? ";" : "")) + "theme=" + obj.value + sAnchor;
 
 		return false;
 	}');
