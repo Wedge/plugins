@@ -18,3 +18,5 @@ function flashPMs(&$items)
 	};
 	flashPM();');
 }
+
+?>

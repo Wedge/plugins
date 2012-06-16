@@ -11,13 +11,13 @@
 
 function birthdayInfoCenter()
 {
-	global $context, $modSettings;
+	global $context, $settings;
 
-	if (empty($modSettings['birthday_info_center']) || empty($modSettings['birthday_info_center_days']))
+	if (empty($settings['birthday_info_center']) || empty($settings['birthday_info_center_days']))
 		return;
 
 	$low_date = strftime('%Y-%m-%d', forum_time(false) - 24 * 3600);
-	$high_date = strftime('%Y-%m-%d', forum_time(false) + $modSettings['birthday_info_center_days'] * 24 * 3600);
+	$high_date = strftime('%Y-%m-%d', forum_time(false) + $settings['birthday_info_center_days'] * 24 * 3600);
 	$birthdays = getBirthdayRange($low_date, $high_date);
 
 	if (!empty($birthdays))
@@ -38,8 +38,8 @@ function birthdayInfoCenter()
 				$context['birthdays_to_display'][] = $v;
 			}
 		}
-				
-		wetem::load('birthdays_info_center', 'info_center_statistics', 'before');
+
+		wetem::before('info_center_statistics', 'birthdays_info_center');
 	}
 }
 
@@ -57,13 +57,13 @@ function birthdayInfoCenter()
 // Get all birthdays within the given time range.
 function getBirthdayRange($low_date, $high_date)
 {
-	global $scripturl, $modSettings;
+	global $scripturl, $settings;
 
 	// Was this cached lately? (We don't need to be clever and figure out expiry, etc. if the cache key is actually including the dates.
 	// That said, if we did something externally to force birthdays to be changed, make sure we deal with it.)
 	$cache_id = 'birthdays_' . $low_date . '_' . $high_date;
 	$temp = cache_get_data($cache_id, 3600);
-	if ($temp !== null && (empty($modSettings['birthdays_updated']) || (time() - $modSettings['birthdays_updated'] > 3600)))
+	if ($temp !== null && (empty($settings['birthdays_updated']) || (time() - $settings['birthdays_updated'] > 3600)))
 		return $temp;
 
 	// We need to search for any birthday in this range, and whatever year that birthday is on.
@@ -106,7 +106,7 @@ function getBirthdayRange($low_date, $high_date)
 		$bday[$age_year . substr($row['birthdate'], 4)][] = array(
 			'id' => $row['id_member'],
 			'name' => $row['real_name'],
-			'age' => empty($modSettings['birthday_show_ages']) || ($row['birth_year'] > 4 && $row['birth_year'] <= $age_year) ? $age_year - $row['birth_year'] : null,
+			'age' => empty($settings['birthday_show_ages']) || ($row['birth_year'] > 4 && $row['birth_year'] <= $age_year) ? $age_year - $row['birth_year'] : null,
 			'is_last' => false
 		);
 	}

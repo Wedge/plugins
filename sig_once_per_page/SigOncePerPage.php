@@ -8,3 +8,5 @@ function sig_once_per_page(&$counter, &$output)
 		$output['member']['signature'] = '';
 	$users[$output['member']['id']] = true;
 }
+
+?>

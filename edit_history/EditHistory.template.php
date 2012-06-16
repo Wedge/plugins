@@ -39,6 +39,7 @@ function template_historylist()
 function template_historylist_table()
 {
 	global $context, $txt;
+
 	echo '
 		<form action="<URL>?action=edithistory;sa=compare;topic=', $_GET['topic'], '.0;msg=', $_GET['msg'], '" method="post">
 			<table class="table_grid cs0" style="width:100%">
@@ -81,4 +82,5 @@ function template_view_post()
 		<div class="windowbg2 wrc">', $context['post_details']['body'], '</div>
 		<br class="clear">';
 }
+
 ?>

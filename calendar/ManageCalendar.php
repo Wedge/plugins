@@ -454,7 +454,7 @@ function repairBoards_calendar_done()
 {
 	updateSettings(array(
 		'calendar_updated' => time(),
-	));	
+	));
 }
 
 function mergeCalendarTopics(&$topics, &$id_topic, &$deleted_topics, &$target_board, &$first_msg, &$target_subject)

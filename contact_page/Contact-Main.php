@@ -58,7 +58,7 @@ function Contact()
 				'id' => 'contact',
 			);
 			$context['visual_verification'] = create_control_verification($verificationOptions, true);
-			
+
 			if (is_array($context['visual_verification']))
 			{
 				loadLanguage('Errors');

@@ -1,5 +1,4 @@
 <?php
-// Important! Before editing these language files please read the text at the top of index.english.php.
 
 $txt['users_online_today'] = 'Visiteurs du jour';
 $txt['users_online_24h'] = 'Visiteurs des dernières 24 heures';

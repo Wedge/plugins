@@ -1,7 +1,6 @@
 <?php
 
-$txt['view_history_1'] = 'View 1 edit';
-$txt['view_history_n'] = 'View %1$s edits';
+$txt['view_history'] = array('n' => 'View %1$s edits', 1 => 'View 1 edit');
 
 $txt['edit_history'] = 'Edit History';
 $txt['edit_history_invalid'] = 'The edit history could not be loaded.';

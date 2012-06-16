@@ -8,3 +8,5 @@ function disable_right_click()
 {
 	add_js('$("body").bind("contextmenu", function (btn) { return false; }).mousedown(function (btn) { if (btn.which & 2 == 2) { btn.stopImmediatePropagation(); } });');
 }
+
+?>

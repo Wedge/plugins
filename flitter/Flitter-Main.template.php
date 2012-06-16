@@ -60,7 +60,7 @@ function template_flitter_fb()
 function template_flitter_twitter()
 {
 	global $settings;
-	
+
 	echo '
 	<li>
 		<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal"', !empty($settings['flitter_twitter_via']) ? ' data-via="' . $settings['flitter_twitter_via'] . '"' : '', empty($settings['flitter_twitter_related']) ? '' : ' data-related="' . $settings['flitter_twitter_related'] . (!empty($settings['flitter_twitter_related_desc']) ? ':' . $settings['flitter_twitter_related_desc'] : '') . '"', '>Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>

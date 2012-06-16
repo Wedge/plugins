@@ -7,7 +7,6 @@ function loadHistory(&$messages, &$times, &$all_posters)
 {
 	global $context;
 
-
 	$context['post_histories'] = array();
 	$query = wesql::query('SELECT id_msg, COUNT(id_edit) AS count
 		FROM {db_prefix}edit_history
@@ -26,6 +25,7 @@ function loadHistory(&$messages, &$times, &$all_posters)
 function historyMenu()
 {
 	global $context, $txt;
+
 	if (empty($context['post_histories']))
 		return;
 

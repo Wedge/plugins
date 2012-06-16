@@ -10,7 +10,7 @@
 		<function point="display_message_list" function="loadHistory" filename="$plugindir/History-Topic" />
 		<function point="display_main" function="historyMenu" /><!-- File already loaded by this time. -->
 		<function point="display_post_done" function="historyLink" /><!-- File already loaded by this time. -->
-		<!-- 
+		<!--
 		<language point="lang_who" filename="$plugindir/lang/WedgeDeskWho" />
 		<language point="lang_help" filename="$plugindir/lang/WedgeDeskAdmin" /> -->
 
