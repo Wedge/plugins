@@ -88,11 +88,9 @@ function template_sidebar_theme_selector()
 	function changeTheme(obj)
 	{
 		var
-			len,
+			len, sAnchor = "",
 			sUrl = window.location.href.replace(/theme=([0-9]+_[A-Z0-9+/=]+);?/i, ""),
-			sAnchor = "",
-			search = sUrl.indexOf("#"),
-			searchQ = sUrl.indexOf("?");
+			search = sUrl.indexOf("#");
 
 		if (search != -1)
 		{
@@ -100,7 +98,7 @@ function template_sidebar_theme_selector()
 			sUrl = sUrl.substr(0, search);
 		}
 
-		window.location.href = sUrl + (searchQ == -1 ? "?" : (sUrl.indexOf(";", searchQ) == -1 ? ";" : "")) + "theme=" + obj.value + sAnchor;
+		window.location.href = weUrl(sUrl) + "theme=" + obj.value + sAnchor;
 
 		return false;
 	}');

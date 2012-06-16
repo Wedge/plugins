@@ -18,12 +18,12 @@ function flitter_admin()
 
 function ModifyFlitterSettings($return_config = false)
 {
-	global $txt, $scripturl, $context, $settings, $modSettings;
+	global $txt, $scripturl, $context, $theme, $settings;
 
 	loadSource('ManageServer');
 	loadPluginLanguage('Arantor:Flitter', 'Flitter-Admin');
 
-	if (empty($modSettings['allow_guestAccess']))
+	if (empty($settings['allow_guestAccess']))
 		$config_vars = array(
 			array('desc', 'flitter_not_available'),
 		);
@@ -59,7 +59,7 @@ function ModifyFlitterSettings($return_config = false)
 
 	$context['post_url'] = $scripturl . '?action=admin;area=flitter;save';
 	$context['settings_title'] = $context['page_title'] = $txt['flitter'];
-	loadBlock('show_settings');
+	wetem::load('show_settings');
 	prepareDBSettingContext($config_vars);
 }
 

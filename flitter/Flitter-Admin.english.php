@@ -20,4 +20,5 @@ $txt['flitter_showgoogle'] = 'Show the +1 button';
 $txt['flitter_position'] = 'Where to display the different buttons?';
 $txt['flitter_position_topic'] = 'Above the topic';
 $txt['flitter_position_sidebar'] = 'In the sidebar';
+
 ?>
