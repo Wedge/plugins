@@ -16,7 +16,7 @@ function flitter_main()
 	switch ($lang)
 	{
 		case 'french':
-			$txt['flitter_share'] = 'Réseaux sociaux';
+			$txt['flitter_share'] = 'RÃ©seaux sociaux';
 			break;
 		case 'english':
 		default:
@@ -24,14 +24,18 @@ function flitter_main()
 			break;
 	}
 
+	$dest = 'flitter_sidebar';
 	if (!empty($settings['flitter_position']) && $settings['flitter_position'] == 'sidebar')
-		wetem::add('sidebar', array('flitter' => array()));
+		wetem::add('sidebar', array($dest => array()));
 	else
-		wetem::first('default', array('flitter' => array()));
+	{
+		$dest = 'flitter_topic';
+		wetem::after('title_upper', array($dest => array()));
+	}
 
 	foreach (array('fb', 'twitter', 'google') as $service)
 		if (!empty($settings['flitter_show' . $service]))
-			wetem::add('flitter', 'flitter_' . $service);
+			wetem::add($dest, 'flitter_' . $service);
 }
 
 ?>

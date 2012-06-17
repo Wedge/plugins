@@ -70,19 +70,25 @@ function template_sidebar_theme_selector()
 			', $txt['skin_selector'], '
 		</we:title>
 		<p>
-			<select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt">
-		</p>
-	</section>';
+			<select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt">';
 
 	foreach ($context['themes'] as $th)
 	{
-		echo '<option value="', $th['id'], '"', $theme['theme_id'] == $th['id'] && (empty($context['skin']) || $context['skin'] == 'skins') ? ' selected' : '', '>', $th['name'], '</option>';
+		echo '<option value="', $th['id'], '"';
+		if (empty($context['do_not_select_skin']) && $theme['theme_id'] == $th['id'] && (empty($context['skin']) || $context['skin'] == 'skins'))
+		{
+			echo ' selected';
+			$context['do_not_select_skin'] = true;
+		}
+		echo '>', $th['name'], '</option>';
 		if (!empty($th['skins']))
 			wedge_show_skins($th, $th['skins'], $theme['theme_id'], $context['skin']);
 	}
 
 	echo '
-			</select>';
+			</select>
+		</p>
+	</section>';
 
 	add_js('
 	function changeTheme(obj)
