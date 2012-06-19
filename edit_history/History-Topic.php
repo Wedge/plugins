@@ -36,13 +36,13 @@ function historyMenu()
 	foreach ($context['post_histories_str'] as $k => $v)
 	{
 		$txt['dynamic_history_' . $k] = number_context('view_history', $k);
-		$context['action_menu_items']['hist' . $k] = array(
+		$context['action_menu_items']['hi'] = array(
 			'caption' => 'dynamic_history_' . $k,
 			'action' => '\'<URL>?action=edithistory;sa=popup;topic=' . $context['current_topic'] . '.' . $context['start'] . ';msg=%id%\'',
 			'class' => '\'modify_button\'',
-			'custom' => JavaScriptEscape('onclick="return reqWin(this);"'),
+			'custom' => JavaScriptEscape('onclick="reqWin(this);"'),
 		);
-		$context['action_menu_items_show']['hist' . $k] = true;
+		$context['action_menu_items_show']['hi'] = true;
 	}
 }
 
@@ -51,7 +51,7 @@ function historyLink(&$counter, &$output)
 	global $context;
 
 	if (!empty($context['post_histories'][$output['id']]))
-		$context['action_menu'][$output['id']][] = 'hist' . $context['post_histories'][$output['id']];
+		$context['action_menu'][$output['id']][] = 'hi/' . $context['post_histories'][$output['id']];
 }
 
 ?>
