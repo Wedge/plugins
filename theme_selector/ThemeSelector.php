@@ -70,7 +70,7 @@ function template_sidebar_theme_selector()
 			', $txt['skin_selector'], '
 		</we:title>
 		<p>
-			<select name="boardtheme" id="boardtheme" onchange="changeTheme(this);" class="bbc_tt" data-default="', substr(strrchr($context['skin'], '/'), 1), '">';
+			<select name="boardtheme" id="boardtheme" class="bbc_tt" data-default="', substr(strrchr($context['skin'], '/'), 1), '">';
 
 	foreach ($context['themes'] as $th)
 	{
@@ -91,23 +91,15 @@ function template_sidebar_theme_selector()
 	</section>';
 
 	add_js('
-	function changeTheme(obj)
-	{
-		var
-			len, sAnchor = "",
-			sUrl = window.location.href.replace(/theme=([0-9]+_[A-Z0-9+/=]+);?/i, ""),
-			search = sUrl.indexOf("#");
-
+	$("#boardtheme").change(function () {
+		var len, sAnchor = "", sUrl = location.href.replace(/theme=([\w+/=]+);?/i, ""), search = sUrl.indexOf("#");
 		if (search != -1)
 		{
 			sAnchor = sUrl.substr(search);
 			sUrl = sUrl.substr(0, search);
 		}
-
-		window.location.href = weUrl(sUrl) + "theme=" + obj.value + sAnchor;
-
-		return false;
-	}');
+		location.href = sUrl + (sUrl.search(/[?;]$/) != -1 ? "" : sUrl.indexOf("?") < 0 ? "?" : ";") + "theme=" + this.value + sAnchor;
+	});');
 }
 
 ?>
