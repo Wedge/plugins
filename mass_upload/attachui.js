@@ -16,7 +16,7 @@
 $(function (jQuery, undefined)
 {
 	// No point in this if we cannot support XHR level 2 upload
-	if (!(window.ProgressEvent && window.FormData && window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest))
+	if (!(window.ProgressEvent && window.FormData && $.support.cors))
 		return true;
 
 	var
@@ -161,7 +161,17 @@ $(function (jQuery, undefined)
 	attachFiles = function (files, i)
 	{
 		if (files[i] === undefined)
+		{
+			// Since we automatically take the files and upload them, the file input
+			// should be empty so that we don't upload on POST
+			$clone = $element.clone(true);
+			$('<form></form>').append($clone)[0].reset();
+			$element.before($clone).detach();
+			$.cleanData($element);
+			$element = $clone;
+
 			return true;
+		}
 
 		// Check for file's extension
 		var
@@ -202,20 +212,15 @@ $(function (jQuery, undefined)
 			.val(we_cancel)
 			.click(function ()
 			{
-				var i = $(this).parent().data('id'), n = i + 1, len = $files.length;
+				var i = $(this).parent().data('id');
 
 				$(this).parent().remove();
 
-				delete $files[i];
+				$files.splice(i, 1);
 
-				// Shift consecutive file element's index
-				for (; n < len; n++)
-				{
-					var file = $files[n];
-					file.element.data('id', n - 1);
-					$files[n - 1] = file;
-					delete $files[n];
-				}
+				// Fix all the IDs to correctly match their array index
+				for (j = 0; j < $files.length; j++)
+					$files[j].element.data('id', j);
 
 				// This the one being uploaded?
 				if (i == $current && $is_uploading)

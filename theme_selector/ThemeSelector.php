@@ -53,8 +53,8 @@ function themeSelector()
 		cache_put_data('arantor_theme_listing', $temp, 180);
 	}
 
-	// So, now we have a list of all the themes.
-	$context['themes'] = $temp;
+	// So, now we have a list of all the skins.
+	$context['skin_selector'] = $temp;
 	wetem::add('sidebar', 'sidebar_theme_selector');
 }
 
@@ -70,9 +70,9 @@ function template_sidebar_theme_selector()
 			', $txt['skin_selector'], '
 		</we:title>
 		<p>
-			<select name="boardtheme" id="boardtheme" class="bbc_tt" data-default="', substr(strrchr($context['skin'], '/'), 1), '">';
+			<select name="boardtheme" id="boardtheme" data-default="', substr(strrchr($context['skin'], '/'), 1), '">';
 
-	foreach ($context['themes'] as $th)
+	foreach ($context['skin_selector'] as $th)
 	{
 		echo '<option value="', $th['id'], '"';
 		if (empty($context['do_not_select_skin']) && $theme['theme_id'] == $th['id'] && (empty($context['skin']) || $context['skin'] == 'skins'))
