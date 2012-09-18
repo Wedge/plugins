@@ -90,7 +90,19 @@ function template_sidebar_theme_selector()
 		</p>
 	</section>';
 
-	add_js('
+	if ($context['user']['is_guest'])
+		add_js('
+	$("#boardtheme").change(function () {
+		var len, sAnchor = "", sUrl = location.href.replace(/theme=([\w+/=]+);?/i, ""), search = sUrl.indexOf("#");
+		if (search != -1)
+		{
+			sAnchor = sUrl.substr(search);
+			sUrl = sUrl.substr(0, search);
+		}
+		location.href = sUrl + (sUrl.search(/[?;]$/) != -1 ? "" : sUrl.indexOf("?") < 0 ? "?" : ";") + "theme=" + this.value + sAnchor;
+	});');
+	else
+		add_js('
 	$("#boardtheme").change(function () {
 		location.href = weUrl("action=skin;th=" + this.value + ";" + we_sessvar + "=" + we_sessid);
 	});');
