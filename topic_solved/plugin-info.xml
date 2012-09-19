@@ -1,0 +1,69 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:TopicSolved">
+	<name>Topic Solved</name>
+	<author>Arantor</author>
+	<description>Adds the ability to mark topics as solved within the forum.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="topicsolved_bg1" default="#eefee5" />
+		<setting name="topicsolved_bg2" default="#eafedd" />
+		<setting name="topicsolved_fg" default="#000000" />
+		<setting name="topicsolved_boards" default="" />
+	</settings>
+
+	<settings-page area="topicsolved" icon="$pluginurl/img/tick.png" bigicon="$pluginurl/img/tick_big.png">
+		<language file="lang/TopicSolved-Admin" />
+		<text name="topicsolved_bg1" />
+		<text name="topicsolved_bg2" />
+		<text name="topicsolved_fg" />
+		<hr />
+		<permissions name="topicsolved_own" noguests="yes" />
+		<permissions name="topicsolved_any" noguests="yes" />
+		<hr />
+		<boards name="topicsolved_boards" />
+	</settings-page>
+
+	<newperms filename="lang/TopicSolved-Admin">
+		<groups>
+			<group type="membergroup" class="ts_group" simple="ts_group" />
+		</groups>
+		<permissionlist>
+			<permission type="membergroup" name="topicsolved" ownany="true" classic="ts_group" simple="ts_group" />
+		</permissionlist>
+	</newperms>
+
+	<hooks>
+		<language point="lang_modlog" filename="$plugindir/lang/TopicSolved-Admin" />
+
+		<function point="messageindex_buttons" function="topicSolvedMessageIndex" filename="$plugindir/src/TopicSolved-MessageIndex" />
+		<function point="display_main" function="topicSolvedDisplay" filename="$plugindir/src/TopicSolved-Display" />
+		<function point="select_quickmod" function="topicSolvedQuickModeration" filename="$plugindir/src/TopicSolved-MessageIndex" />
+		<function point="apply_quickmod" function="topicSolvedApplyQuickMod" filename="$plugindir/src/TopicSolved-Action" />
+		<function point="illegal_guest_perms" function="topicSolvedIllegalGuestPerms" filename="$plugindir/src/TopicSolved-Permissions" />
+	</hooks>
+
+	<database><!-- We do it this way to prevent having to apply an ALTER TABLE to the second most important Wedge table in any installation. -->
+		<tables>
+			<table if-exists="update" name="{db_prefix}topicsolved">
+				<columns>
+					<column name="id_topic" type="mediumint" unsigned="yes" />
+					<column name="solved" type="int" unsigned="yes" default="0" />
+					<column name="id_member" type="mediumint" unsigned="yes" default="0" />
+				</columns>
+				<index type="primary">
+					<field>id_topic</field>
+				</index>
+			</table>
+		</tables>
+	</database>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme/readme.english.txt</readme>
+	</readmes>
+
+	<actions>
+		<action action="marksolved" function="topicSolvedAction" filename="src/TopicSolved-Action" />
+	</actions>
+
+	<acp-url>action=admin;area=topicsolved</acp-url>
+</plugin>
