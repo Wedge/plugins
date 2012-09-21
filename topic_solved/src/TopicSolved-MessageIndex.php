@@ -44,14 +44,36 @@ function topicSolvedQuickModeration(&$quickmod)
 
 	loadPluginLanguage('Arantor:TopicSolved', 'lang/TopicSolved-MessageIndex');
 
+	$board_list = !empty($settings['topicsolved_boards']) ? unserialize($settings['topicsolved_boards']) : array();
+	if (empty($board_list))
+		return;
+
 	// Do permission test for 'any' in this board (or for multiple boards if it is search)
 	if (!empty($board))
 	{
-		$board_list = !empty($settings['topicsolved_boards']) ? unserialize($settings['topicsolved_boards']) : array();
-		if (!in_array($board_info['id'], $board_list))
+		if ((!allowedTo('topicsolved_any') && !allowedTo('topicsolved_own')) || !in_array($board_info['id'], $board_list))
 			return;
+		$can = true;
 	}
-	$quickmod['marksolved'] = $txt['quick_mod_marksolved'];
+	else
+	{
+		$boards_can = boardsAllowedTo('topicsolved_any', 'topicsolved_own');
+		if (!in_array(0, $boards_can['topicsolved_any']))
+		{
+			$can = false;
+			foreach ($boards_can as $perm => $boards)
+			{
+				$boards_can[$perm] = array_intersect($boards_can[$perm], $board_list);
+				if (!empty($boards_can[$perm]))
+					$can = true;
+			}
+		}
+		else
+			$can = true;
+	}
+
+	if ($can)
+		$quickmod['marksolved'] = $txt['quick_mod_marksolved'];
 }
 
 ?>
