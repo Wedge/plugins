@@ -38,7 +38,7 @@
 		<function point="messageindex_buttons" function="topicSolvedMessageIndex" filename="$plugindir/src/TopicSolved-MessageIndex" />
 		<function point="display_main" function="topicSolvedDisplay" filename="$plugindir/src/TopicSolved-Display" />
 		<function point="select_quickmod" function="topicSolvedQuickModeration" filename="$plugindir/src/TopicSolved-MessageIndex" />
-		<function point="apply_quickmod" function="topicSolvedApplyQuickMod" filename="$plugindir/src/TopicSolved-Action" />
+		<function point="apply_quickmod" function="topicSolvedApplyQuickMod" filename="$plugindir/src/TopicSolved-QuickMod" />
 		<function point="illegal_guest_perms" function="topicSolvedIllegalGuestPerms" filename="$plugindir/src/TopicSolved-Permissions" />
 	</hooks>
 

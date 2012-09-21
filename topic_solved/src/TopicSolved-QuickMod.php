@@ -20,8 +20,7 @@ function topicSolvedApplyQuickMod(&$quickMod)
 			return;
 	}
 
-	// !!! No permission at present, but it will be an own/any deal
-	$quickMod['marksolved'] => array(true, 'marksolved', 'quickMod_marksolved');
+	$quickMod['marksolved'] = array(true, 'topicsolved', 'quickMod_marksolved');
 }
 
 function quickMod_marksolved($topic_data, $boards_can)
@@ -30,14 +29,14 @@ function quickMod_marksolved($topic_data, $boards_can)
 
 	$board_list = unserialize($settings['topicsolved_boards']);
 
-	if (!in_array(0, $boards_can['marksolved_any']))
+	if (!in_array(0, $boards_can['topicsolved_any']))
 	{
 		foreach ($topic_data as $topic => $this_topic)
 		{
-			if (!in_array($this_topic['id_board'], $boards_can['marksolvee_any']))
+			if (!in_array($this_topic['id_board'], $boards_can['topicsolved_any']))
 			{
 				// So they can't just (un)solve *any* topic. That makes things more complicated. It needs to be their topic and they have to have permission
-				if ($this_topic['id_member_started'] != $user_info['id'] || !in_array($this_topic['id_board'], $boards_can['marksolved_own']))
+				if ($this_topic['id_member_started'] != $user_info['id'] || !in_array($this_topic['id_board'], $boards_can['topicsolved_own']))
 					unset($topic_data[$topic]);
 			}
 		}
@@ -64,7 +63,7 @@ function quickMod_marksolved($topic_data, $boards_can)
 	while ($row = wesql::fetch_row($request))
 	{
 		$purge_rows[] = $row[0];
-		unset($topic_data[$topic]);
+		unset($topic_data[$row[0]]);
 	}
 	wesql::free_result($request);
 
