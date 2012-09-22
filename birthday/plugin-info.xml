@@ -24,7 +24,7 @@
 	</settings>
 
 	<scheduledtasks>
-		<task runevery="1" runfreq="day" name="birthdays" file="$plugindir/Birthday-Scheduled" />
+		<task runevery="1" runfreq="day" name="birthdays" file="Birthday-Scheduled" />
 	</scheduledtasks>
 
 	<readmes>
