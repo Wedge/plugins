@@ -57,7 +57,7 @@ function topicSolvedQuickModeration(&$quickmod)
 	}
 	else
 	{
-		$boards_can = boardsAllowedTo('topicsolved_any', 'topicsolved_own');
+		$boards_can = boardsAllowedTo(array('topicsolved_any', 'topicsolved_own'));
 		if (!in_array(0, $boards_can['topicsolved_any']))
 		{
 			$can = false;
