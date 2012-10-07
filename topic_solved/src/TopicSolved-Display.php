@@ -40,7 +40,7 @@ function topicSolvedDisplay()
 	.solved { color: ' . $settings['topicsolved_fg'] . '; background-color: ' . $settings['topicsolved_bg1'] . ' }');
 	}
 
-	if (allowedTo('marksolved_any') || (allowedTo('marksolved_own') && $topicinfo['id_member_started'] == $user_info['id']))
+	if (allowedTo('topicsolved_any') || (allowedTo('topicsolved_own') && $topicinfo['id_member_started'] == $user_info['id']))
 	{
 		$context['can_solve'] = true;
 		$nav = array(
