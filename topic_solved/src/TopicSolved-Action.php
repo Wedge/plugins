@@ -29,7 +29,7 @@ function topicSolvedAction()
 
 	// Can we mark this solved?
 	// !!! Nicer error
-	if (!allowedTo('marksolved_any') && (!allowedTo('marksolved_own') || $topic_starter != $user_info['id']))
+	if (!allowedTo('topicsolved_any') && ($topic_starter != $user_info['id'] || !allowedTo('topicsolved_own')))
 		fatal_lang_error('no_access');
 
 	if (empty($solved))
