@@ -59,7 +59,7 @@ function getOnlineToday()
 	if (empty($settings['uot_order']) || strpos($settings['uot_order'], '_') === false)
 		$settings['uot_order'] = 'name_asc';
 
-	list($sort, $order) = explode('_', $settings['uot_order']);
+	list ($sort, $order) = explode('_', $settings['uot_order']);
 	if ($sort !== 'name' && $sort !== 'time')
 		$sort = 'name';
 	if ($order !== 'asc' && $order !== 'desc')
