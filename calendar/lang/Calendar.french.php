@@ -60,4 +60,6 @@ $helptxt['calendar_how_edit'] = 'Vous pouvez modifier ces événements en cliquant
 
 $txt['whoallow_calendar'] = 'Consulte le <a href="<URL>?action=calendar">calendrier</a>.';
 
+$txt['calendar_start_day'] = 'Premier jour de la semaine pour le calendrier';
+
 ?>

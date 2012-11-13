@@ -25,7 +25,7 @@
 		<function point="post_post_validate" function="validateCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="create_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="modify_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
-		<function point="theme_options" function="calendarThemeOptions" filename="$plugindir/ManageCalendar" />
+		<function point="member_prefs" function="calendarMemberPrefs" filename="$plugindir/ManageCalendar" />
 	</hooks>
 
 	<settings>

@@ -486,19 +486,14 @@ function calendarPermissions(&$permissionGroups, &$permissionList, &$leftPermiss
 	);
 }
 
-function calendarThemeOptions()
+function calendarMemberPrefs(&$config_vars, &$return_config))
 {
 	global $context, $txt;
 
-	$context['theme_options'][] = array(
-		'id' => 'calendar_start_day',
-		'label' => $txt['calendar_start_day'],
-		'options' => array(
+	$config_vars[] = array('select', 'calendar_start_day', array(
 			0 => $txt['days'][0],
 			1 => $txt['days'][1],
 			6 => $txt['days'][6],
-		),
-		'default' => true,
-	);
+		), 'display' => 'looklayout'),
 }
 ?>

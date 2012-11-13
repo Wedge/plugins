@@ -62,4 +62,6 @@ $helptxt['calendar_how_edit'] = 'You can edit these events by clicking on the re
 
 $txt['whoallow_calendar'] = 'Viewing the <a href="<URL>?action=calendar">calendar</a>.';
 
+$txt['calendar_start_day'] = 'First day of the week on the calendar';
+
 ?>
