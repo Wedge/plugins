@@ -42,16 +42,16 @@
 		<setting name="cal_days_for_index" default="7" />
 	</settings>
 
-	<!-- User settings
-	(1, 'calendar_start_day', '1'),
-	-->
-
-	<!-- Permissions
-	(-1, 'calendar_view'),
-	(0, 'calendar_view'),
-	(2, 'calendar_view'),
-	(2, 'calendar_post'),
-	(2, 'calendar_edit_any'),-->
+	<newperms filename="lang/ManageCalendar">
+		<groups>
+			<group type="membergroup" class="calendar" simple="post_calendar" />
+		</groups>
+		<permissionlist>
+			<permission type="membergroup" name="calendar_view" ownany="false" classic="calendar" simple="post_calendar" />
+			<permission type="membergroup" name="calendar_post" ownany="false" classic="calendar" simple="post_calendar" />
+			<permission type="membergroup" name="calendar_edit" ownany="true" classic="calendar" simple="post_calendar" />
+		</permissionlist>
+	</newperms>
 
 	<database>
 		<tables>
@@ -80,15 +80,6 @@
 				</index>
 			</table>
 			<table if-exists="update" name="{db_prefix}calendar_holidays">
-			<!--
-CREATE TABLE {$db_prefix}calendar_holidays (
-  id_holiday smallint(5) unsigned NOT NULL auto_increment,
-  event_date date NOT NULL default '0001-01-01',
-  title varchar(255) NOT NULL default '',
-  PRIMARY KEY (id_holiday),
-  KEY event_date (event_date)
-)
-			-->
 				<columns>
 					<column name="id_holiday" type="smallint" unsigned="yes" autoincrement="yes" />
 					<column name="event_date" type="date" default="0001-01-01" />

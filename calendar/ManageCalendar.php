@@ -308,7 +308,7 @@ function ModifyCalendarSettings($return_config = false)
 	// Look, all the calendar settings - of which there are many!
 	$config_vars = array(
 			// All the permissions:
-			array('permissions', 'calendar_view', 'help' => 'cal_enabled'),
+			array('permissions', 'calendar_view'),
 			array('permissions', 'calendar_post'),
 			array('permissions', 'calendar_edit_own'),
 			array('permissions', 'calendar_edit_any'),
@@ -486,14 +486,16 @@ function calendarPermissions(&$permissionGroups, &$permissionList, &$leftPermiss
 	);
 }
 
-function calendarMemberPrefs(&$config_vars, &$return_config))
+function calendarMemberPrefs(&$config_vars, &$return_config)
 {
 	global $context, $txt;
+
+	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
 
 	$config_vars[] = array('select', 'calendar_start_day', array(
 			0 => $txt['days'][0],
 			1 => $txt['days'][1],
 			6 => $txt['days'][6],
-		), 'display' => 'looklayout'),
+		), 'display' => 'looklayout');
 }
 ?>
