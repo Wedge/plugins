@@ -2,3 +2,44 @@
 	width: 100%
 	th.days
 		width: 14%
+	td.days
+		vertical-align: top
+
+.three-columns
+	box-sizing: border-box
+	vertical-align: top
+	width: 32%
+	margin: 0 .5%
+	display: inline-block
+
+header .weekly
+	text-align: center
+
+.weeklist
+	td
+		text-align: center
+		height: 49px
+		width: 7%
+		font-size: large
+		padding: 0 7px
+	td.weekdays
+		width: 100%
+		padding: 4px
+		text-align: left
+		vertical-align: middle
+
+div.day
+	font-size: .9em
+	text-align: left
+
+.chk
+	display: inline
+	float: left
+	width: 24%
+	padding: 3px
+
+.event
+	color: #078907
+
+.holiday
+	color: #000080

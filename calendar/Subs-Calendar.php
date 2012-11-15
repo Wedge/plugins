@@ -189,6 +189,97 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 // Get all holidays within the given time range.
 function getHolidayRange($low_date, $high_date)
 {
+	global $settings, $txt;
+	loadPluginLanguage('Wedgeward:Calendar', 'lang/CalendarHolidays');
+
+	$holidays = array();
+
+	// Before we go any further, let's get all the events that might be applicable.
+	// No, I still have no idea why they use year 4.
+	$holiday_presets = !empty($settings['cal_preset_holidays']) ? explode(',', $settings['cal_preset_holidays']) : array();
+	$events = array(
+		'xmas' => '0004-12-25',
+		'newyear' => '0004-01-01',
+		'pirate' => '0004-09-19',
+		'cupid' => '0004-02-14',
+		'stpat' => '0004-03-17',
+		'april' => '0004-04-01',
+		'earth' => '0004-04-22',
+		'un' => '0004-10-24',
+		'halloween' => '0004-10-31',
+		'category_parents' => array(
+			'mother' => array('2012-05-13', '2013-05-12', '2014-05-11', '2015-05-10', '2016-05-08', '2017-05-14', '2018-05-13', '2019-05-12', '2020-05-10'),
+			'father' => array('2012-06-17', '2013-06-16', '2014-06-15', '2015-06-21', '2016-06-19', '2017-06-18', '2018-06-17', '2019-06-16', '2020-06-21'),
+		),
+		'category_solstice' => array(
+			'vernal' => array('2012-03-20', '2013-03-20', '2014-03-20', '2015-03-20', '2016-03-19', '2017-03-20', '2018-03-20', '2019-03-20', '2020-03-19'),
+			'summer' => array('2012-06-20', '2013-06-21', '2014-06-21', '2015-06-21', '2016-06-20', '2017-06-20', '2018-06-21', '2019-06-21', '2020-06-20'),
+			'autumn' => array('2012-09-22', '2013-09-22', '2014-09-22', '2015-09-23', '2016-09-22', '2017-09-22', '2018-09-22', '2019-09-23', '2020-09-22'),
+			'winter' => array('2012-12-21', '2013-12-21', '2014-12-21', '2015-12-21', '2016-12-21', '2017-12-21', '2018-12-21', '2019-12-21', '2020-12-21'),
+		),
+		'id4' => '0004-07-04',
+		'5may' => '0004-05-05',
+		'flag' => '0004-06-14',
+		'veteran' => '0004-11-11',
+		'groundhog' => '0004-02-02',
+		'thanks' => array('2011-11-24', '2012-11-22', '2013-11-21', '2014-11-20', '2015-11-26', '2016-11-24', '2017-11-23', '2018-11-22', '2019-11-21', '2020-11-26'),
+		'memorial' => array('2012-05-28', '2013-05-27', '2014-05-26', '2015-05-25', '2016-05-30', '2017-05-29', '2018-05-28', '2019-05-27', '2020-05-25'),
+		'labor' => array('2012-09-03', '2013-09-09', '2014-09-08', '2015-09-07', '2016-09-05', '2017-09-04', '2018-09-03', '2019-09-09', '2020-09-07'),
+		'dday' => '0004-06-06',
+	);
+	call_hook('calendar_holidays', array(&$events));
+	$possible_events = array();
+	$lowShort = substr($low_date, 5);
+	$highShort = substr($high_date, 5);
+
+	foreach ($events as $id => $dates)
+	{
+		if (!in_array($id, $holiday_presets))
+			continue;
+		if (!is_array($dates))
+			$dates = array($dates);
+
+		if (strpos($id, 'category_') === 0)
+		{
+			// So it's a group of events under a single banner.
+			foreach ($dates as $cat_id => $cat_dates)
+			{
+				foreach ($cat_dates as $date)
+				{
+					$short = substr($date, 5);
+					if ((strpos($date, '0004-') === 0 && $short >= $lowShort && $short <= $highShort) || ($date >= $low_date && $date <= $high_date))
+					{
+						if (substr($low_date, 0, 4) != substr($high_date, 0, 4))
+							$event_year = $short < $highShort ? substr($high_date, 0, 4) : substr($low_date, 0, 4);
+						else
+							$event_year = substr($low_date, 0, 4);
+
+						$holidays[$event_year . substr($date, 4)][] = $txt['cal_hol_' . $cat_id];
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			// It's one event under one banner - with (possibly) multiple dates.
+			foreach ($dates as $date)
+			{
+				$short = substr($date, 5);
+				if ((strpos($date, '0004-') === 0 && $short >= $lowShort && $short <= $highShort) || ($date >= $low_date && $date <= $high_date))
+				{
+					if (substr($low_date, 0, 4) != substr($high_date, 0, 4))
+						$event_year = $short < $highShort ? substr($high_date, 0, 4) : substr($low_date, 0, 4);
+					else
+						$event_year = substr($low_date, 0, 4);
+
+					$holidays[$event_year . substr($date, 4)][] = $txt['cal_hol_' . $id];
+					break;
+				}
+			}
+		}
+	}
+
 	// Get the lowest and highest dates for "all years".
 	if (substr($low_date, 0, 4) != substr($high_date, 0, 4))
 		$allyear_part = 'event_date BETWEEN {date:all_year_low} AND {date:all_year_dec}
@@ -211,7 +302,7 @@ function getHolidayRange($low_date, $high_date)
 			'all_year_dec' => '0004-12-31',
 		)
 	);
-	$holidays = array();
+
 	while ($row = wesql::fetch_assoc($result))
 	{
 		if (substr($low_date, 0, 4) != substr($high_date, 0, 4))
@@ -280,7 +371,7 @@ function getTodayInfo()
 // Returns the information needed to show a calendar grid for the given month.
 function getCalendarGrid($month, $year, $calendarOptions)
 {
-	global $scripturl, $settings;
+	global $scripturl, $settings, $txt;
 
 	// Eventually this is what we'll be returning.
 	$calendarGrid = array(
@@ -303,6 +394,7 @@ function getCalendarGrid($month, $year, $calendarOptions)
 		),
 		//!!! Better tweaks?
 		'size' => isset($calendarOptions['size']) ? $calendarOptions['size'] : 'large',
+		'event_types' => array('holidays', 'events'),
 	);
 
 	// Get todays date.
@@ -344,6 +436,8 @@ function getCalendarGrid($month, $year, $calendarOptions)
 	// Fetch the arrays for posted events and holidays.
 	$events = $calendarOptions['show_events'] ? getEventRange($month_info['first_day']['date'], $month_info['last_day']['date']) : array();
 	$holidays = $calendarOptions['show_holidays'] ? getHolidayRange($month_info['first_day']['date'], $month_info['last_day']['date']) : array();
+
+	call_hook('calendar_grid_month', array(&$calendarGrid, &$calendarOptions, $month_info));
 
 	// Days of the week taking into consideration that they may want it to start on any day.
 	$count = $calendarOptions['start_day'];
@@ -415,12 +509,15 @@ function getCalendarGrid($month, $year, $calendarOptions)
 				'holidays' => !empty($holidays[$date]) ? $holidays[$date] : array(),
 				'events' => !empty($events[$date]) ? $events[$date] : array(),
 			);
+			call_hook('calendar_month_day', array(&$calendarGrid, $nRow, $nCol, $date));
 		}
 	}
 
 	// Set the previous and the next month's links.
 	$calendarGrid['previous_calendar']['href'] = $scripturl . '?action=calendar;year=' . $calendarGrid['previous_calendar']['year'] . ';month=' . $calendarGrid['previous_calendar']['month'];
+	$calendarGrid['previous_calendar']['title'] = $txt['months'][$calendarGrid['previous_calendar']['month']] . ' ' . $calendarGrid['previous_calendar']['year'];
 	$calendarGrid['next_calendar']['href'] = $scripturl . '?action=calendar;year=' . $calendarGrid['next_calendar']['year'] . ';month=' . $calendarGrid['next_calendar']['month'];
+	$calendarGrid['next_calendar']['title'] = $txt['months'][$calendarGrid['next_calendar']['month']] . ' ' . $calendarGrid['next_calendar']['year'];
 
 	return $calendarGrid;
 }
@@ -461,6 +558,7 @@ function getCalendarWeek($month, $year, $day, $calendarOptions)
 		'next_week' => array(
 			'disabled' => $day > 25 && $settings['cal_maxyear'] < ($month == 12 ? $year + 1 : $year),
 		),
+		'event_types' => array('holidays', 'events'),
 	);
 
 	// The next week calculation requires a bit more work.
@@ -475,6 +573,8 @@ function getCalendarWeek($month, $year, $day, $calendarOptions)
 	$endDate = strftime('%Y-%m-%d', $nextWeekTimestamp);
 	$events = $calendarOptions['show_events'] ? getEventRange($startDate, $endDate) : array();
 	$holidays = $calendarOptions['show_holidays'] ? getHolidayRange($startDate, $endDate) : array();
+
+	call_hook('calendar_grid_week', array(&$calendarGrid, &$calendarOptions, $day, $month, $year));
 
 	// An adjustment value to apply to all calculated week numbers.
 	if (!empty($calendarOptions['show_week_num']))
@@ -526,6 +626,8 @@ function getCalendarWeek($month, $year, $day, $calendarOptions)
 			'holidays' => !empty($holidays[$date]) ? $holidays[$date] : array(),
 			'events' => !empty($events[$date]) ? $events[$date] : array(),
 		);
+
+		call_hook('calendar_week_day', array(&$calendarGrid, $curMonth, $curDay));
 
 		// Make the last day what the current day is and work out what the next day is.
 		$lastDay = $curDay;

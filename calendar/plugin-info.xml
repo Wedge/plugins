@@ -26,6 +26,15 @@
 		<function point="create_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="modify_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="member_prefs" function="calendarMemberPrefs" filename="$plugindir/ManageCalendar" />
+
+		<provides>
+			<hook type="function">calendar_grid_month</hook>
+			<hook type="function">calendar_grid_week</hook>
+			<hook type="function">calendar_month_day</hook>
+			<hook type="function">calendar_week_day</hook>
+			<hook type="function">calendar_holidays</hook>
+			<hook type="function">calendar_holidays_admin</hook>
+		</provides>
 	</hooks>
 
 	<settings>
@@ -33,13 +42,14 @@
 		<setting name="cal_maxyear" default="2020" />
 		<setting name="cal_minyear" default="2008" />
 		<setting name="cal_daysaslink" default="0" />
-		<setting name="cal_defaultboard" default="" />
+		<setting name="cal_defaultboard" default="0" />
 		<setting name="cal_showholidays" default="1" />
 		<setting name="cal_showbdays" default="1" /><!-- This is going to be removed -->
 		<setting name="cal_showevents" default="1" />
 		<setting name="cal_showweeknum" default="0" />
 		<setting name="cal_maxspan" default="7" />
 		<setting name="cal_days_for_index" default="7" />
+		<setting name="cal_preset_holidays" default="xmas,newyear,pirate,cupid,stpat,april,earth,un,halloween,category_parents,category_solstice,id4,5may,flag,veteran,groundhog,thanks,memorial,labor,dday" />
 	</settings>
 
 	<newperms filename="lang/ManageCalendar">
@@ -58,8 +68,9 @@
 			<table if-exists="update" name="{db_prefix}calendar">
 				<columns>
 					<column name="id_event" type="smallint" autoincrement="yes" />
-					<column name="start_date" type="date" default="0001-01-01" />
-					<column name="end_date" type="date" default="0001-01-01" />
+					<column name="start_date" type="datetime" default="0001-01-01 00:00:00" />
+					<column name="end_date" type="datetime" default="0001-01-01 00:00:00" />
+					<column name="allday" type="tinyint" unsigned="yes" default="1" />
 					<column name="id_board" type="smallint" unsigned="yes" default="0" />
 					<column name="id_topic" type="mediumint" unsigned="yes" default="0" />
 					<column name="title" type="varchar" size="255" default="" />
@@ -94,111 +105,6 @@
 			</table>
 		</tables>
 	</database>
-
-<!--
-INSERT INTO {$db_prefix}calendar_holidays
-	(title, event_date)
-VALUES ('New Year\'s', '0004-01-01'),
-	('Christmas', '0004-12-25'),
-	('Valentine\'s Day', '0004-02-14'),
-	('St. Patrick\'s Day', '0004-03-17'),
-	('April Fools', '0004-04-01'),
-	('Earth Day', '0004-04-22'),
-	('United Nations Day', '0004-10-24'),
-	('Halloween', '0004-10-31'),
-	('Mother\'s Day', '2012-05-13'),
-	('Mother\'s Day', '2013-05-12'),
-	('Mother\'s Day', '2014-05-11'),
-	('Mother\'s Day', '2015-05-10'),
-	('Mother\'s Day', '2016-05-08'),
-	('Mother\'s Day', '2017-05-14'),
-	('Mother\'s Day', '2018-05-13'),
-	('Mother\'s Day', '2019-05-12'),
-	('Mother\'s Day', '2020-05-10'),
-	('Father\'s Day', '2012-06-17'),
-	('Father\'s Day', '2013-06-16'),
-	('Father\'s Day', '2014-06-15'),
-	('Father\'s Day', '2015-06-21'),
-	('Father\'s Day', '2016-06-19'),
-	('Father\'s Day', '2017-06-18'),
-	('Father\'s Day', '2018-06-17'),
-	('Father\'s Day', '2019-06-16'),
-	('Father\'s Day', '2020-06-21'),
-	('Summer Solstice', '2012-06-20'),
-	('Summer Solstice', '2013-06-21'),
-	('Summer Solstice', '2014-06-21'),
-	('Summer Solstice', '2015-06-21'),
-	('Summer Solstice', '2016-06-20'),
-	('Summer Solstice', '2017-06-20'),
-	('Summer Solstice', '2018-06-21'),
-	('Summer Solstice', '2019-06-21'),
-	('Summer Solstice', '2020-06-20'),
-	('Vernal Equinox', '2012-03-20'),
-	('Vernal Equinox', '2013-03-20'),
-	('Vernal Equinox', '2014-03-20'),
-	('Vernal Equinox', '2015-03-20'),
-	('Vernal Equinox', '2016-03-19'),
-	('Vernal Equinox', '2017-03-20'),
-	('Vernal Equinox', '2018-03-20'),
-	('Vernal Equinox', '2019-03-20'),
-	('Vernal Equinox', '2020-03-19'),
-	('Winter Solstice', '2011-12-22'),
-	('Winter Solstice', '2012-12-21'),
-	('Winter Solstice', '2013-12-21'),
-	('Winter Solstice', '2014-12-21'),
-	('Winter Solstice', '2015-12-21'),
-	('Winter Solstice', '2016-12-21'),
-	('Winter Solstice', '2017-12-21'),
-	('Winter Solstice', '2018-12-21'),
-	('Winter Solstice', '2019-12-21'),
-	('Winter Solstice', '2020-12-21'),
-	('Autumnal Equinox', '2012-09-22'),
-	('Autumnal Equinox', '2013-09-22'),
-	('Autumnal Equinox', '2014-09-22'),
-	('Autumnal Equinox', '2015-09-23'),
-	('Autumnal Equinox', '2016-09-22'),
-	('Autumnal Equinox', '2017-09-22'),
-	('Autumnal Equinox', '2018-09-22'),
-	('Autumnal Equinox', '2019-09-23'),
-	('Autumnal Equinox', '2020-09-22');
-
-INSERT INTO {$db_prefix}calendar_holidays
-	(title, event_date)
-VALUES ('Independence Day', '0004-07-04'),
-	('Cinco de Mayo', '0004-05-05'),
-	('Flag Day', '0004-06-14'),
-	('Veterans Day', '0004-11-11'),
-	('Groundhog Day', '0004-02-02'),
-	('Thanksgiving', '2011-11-24'),
-	('Thanksgiving', '2012-11-22'),
-	('Thanksgiving', '2013-11-21'),
-	('Thanksgiving', '2014-11-20'),
-	('Thanksgiving', '2015-11-26'),
-	('Thanksgiving', '2016-11-24'),
-	('Thanksgiving', '2017-11-23'),
-	('Thanksgiving', '2018-11-22'),
-	('Thanksgiving', '2019-11-21'),
-	('Thanksgiving', '2020-11-26'),
-	('Memorial Day', '2012-05-28'),
-	('Memorial Day', '2013-05-27'),
-	('Memorial Day', '2014-05-26'),
-	('Memorial Day', '2015-05-25'),
-	('Memorial Day', '2016-05-30'),
-	('Memorial Day', '2017-05-29'),
-	('Memorial Day', '2018-05-28'),
-	('Memorial Day', '2019-05-27'),
-	('Memorial Day', '2020-05-25'),
-	('Labor Day', '2012-09-03'),
-	('Labor Day', '2013-09-09'),
-	('Labor Day', '2014-09-08'),
-	('Labor Day', '2015-09-07'),
-	('Labor Day', '2016-09-05'),
-	('Labor Day', '2017-09-04'),
-	('Labor Day', '2018-09-03'),
-	('Labor Day', '2019-09-09'),
-	('Labor Day', '2020-09-07'),
-	('D-Day', '0004-06-06');
--->
 
 	<actions>
 		<action action="calendar" function="CalendarMain" filename="Calendar" />

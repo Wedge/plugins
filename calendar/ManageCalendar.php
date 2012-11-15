@@ -77,9 +77,21 @@ function ManageCalendar()
 // The function that handles adding, and deleting holiday data
 function ModifyHolidays()
 {
-	global $scripturl, $txt, $context;
+	global $scripturl, $txt, $context, $settings;
 
+	// Due to two buttons awkwardly inside the one form, we can end up here when we don't mean to be.
+	if (isset($_REQUEST['add']))
+	{
+		$_REQUEST['sa'] = 'editholiday';
+		unset($_REQUEST['delete']);
+		$_REQUEST['title'] = '';
+		return EditHoliday();
+	}
+
+	add_plugin_css_file('Wedgeward:Calendar', 'calendar', true);
 	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
+	loadPluginLanguage('Wedgeward:Calendar', 'lang/CalendarHolidays');
 
 	// Submitting something...
 	if (isset($_REQUEST['delete']) && !empty($_REQUEST['holiday']))
@@ -93,9 +105,39 @@ function ModifyHolidays()
 		removeHolidays($_REQUEST['holiday']);
 	}
 
+	$presets_to_show = array(
+		'xmas', 'newyear', 'halloween', 'thanks', 'memorial', 'labor', 'dday', 'veteran', 'id4', '5may',
+		'flag', 'category_parents', 'category_solstice', 'earth', 'un', 'pirate', 'cupid', 'stpat', 'april', 'groundhog', 
+	);
+	call_hook('calendar_holidays_admin', array(&$presets_to_show));
+	$presets_set = !empty($settings['cal_preset_holidays']) ? explode(',', $settings['cal_preset_holidays']) : array();
+	$context['predefined_holidays'] = array_flip($presets_to_show);
+	foreach ($context['predefined_holidays'] as $k => $v)
+		$context['predefined_holidays'][$k] = in_array($k, $presets_set);
+
+	if (isset($_REQUEST['preset_save']))
+	{
+		if (empty($_REQUEST['preset']))
+			$_REQUEST['preset'] = array();
+		elseif (!is_array($_REQUEST['preset']))
+			$_REQUEST['preset'] = (array) $_REQUEST['preset'];
+
+		$new_hols = array();
+		foreach ($context['predefined_holidays'] as $k => $v)
+			if (!empty($_REQUEST['preset'][$k]))
+			{
+				$new_hols[] = $k;
+				$context['predefined_holidays'][$k] = true;
+			}
+			else
+				$context['predefined_holidays'][$k] = false;
+
+		updateSettings(array('cal_preset_holidays' => implode(',', $new_hols)));
+	}
+
 	$listOptions = array(
 		'id' => 'holiday_list',
-		'title' => $txt['current_holidays'],
+		'title' => $txt['custom_holidays'],
 		'items_per_page' => 20,
 		'base_href' => $scripturl . '?action=admin;area=managecalendar;sa=holidays',
 		'default_sort_col' => 'name',
@@ -168,7 +210,7 @@ function ModifyHolidays()
 			array(
 				'position' => 'below_table_data',
 				'value' => '
-					<a href="' . $scripturl . '?action=admin;area=managecalendar;sa=editholiday" style="margin: 0 1em">[' . $txt['holidays_add'] . ']</a>
+					<input type="submit" name="add" value="' . $txt['holidays_add'] . '" class="new">
 					<input type="submit" name="delete" value="' . $txt['quickmod_delete_selected'] . '" class="delete">',
 				'style' => 'text-align: right;',
 			),
@@ -181,9 +223,7 @@ function ModifyHolidays()
 	//loadTemplate('ManageCalendar');
 	$context['page_title'] = $txt['manage_holidays'];
 
-	// Since the list is the only thing to show, use the default list template.
-	$context['default_list'] = 'holiday_list';
-	wetem::load('show_list');
+	wetem::load('holidays');
 }
 
 // This function is used for adding/editing a specific holiday

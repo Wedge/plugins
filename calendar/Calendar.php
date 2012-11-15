@@ -264,7 +264,7 @@ function CalendarPost()
 			'included_boards' => in_array(0, $boards) ? null : $boards,
 			'not_redirection' => true,
 			'use_permissions' => true,
-			'selected_board' => $settings['cal_defaultboard'],
+			'selected_board' => !empty($settings['cal_defaultboard']) ? $settings['cal_defaultboard'] : 0,
 		);
 		$context['event']['categories'] = getBoardList($boardListOptions);
 	}

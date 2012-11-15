@@ -49,6 +49,9 @@ function calendar_post_form()
 	// Permissions check!
 	isAllowedTo('calendar_post');
 
+	if (!isset($settings['cal_defaultboard']))
+		$settings['cal_defaultboard'] = 0;
+
 	// Editing an event?  (but NOT previewing!?)
 	if (!$context['event']['new'] && !isset($_REQUEST['subject']))
 	{

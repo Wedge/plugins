@@ -17,15 +17,32 @@ function template_main()
 	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	echo '
-		<div id="calendar">
+		<div id="calendar">';
+
+	if ($context['can_post'])
+		echo '
+			<div class="right">
+				<form action="<URL>?action=calendar;sa=post;month=', $context['current_month'], ';year=' . $context['current_year'], ';', $context['session_query'], '" method="get">
+					<input type="submit" class="new" value="', $txt['calendar_post_event'], '">
+				</form>
+			</div>';
+
+	echo '
+			<br class="clear">
 			<div id="main_grid">', $context['view_week'] ? template_show_week_grid('main') : template_show_month_grid('main');
 
-	// Build the calendar button array.
-	$calendar_buttons = array(
-		'post_event' => array('test' => 'can_post', 'text' => 'calendar_post_event', 'url' => $scripturl . '?action=calendar;sa=post;month=' . $context['current_month'] . ';year=' . $context['current_year'] . ';' . $context['session_query']),
-	);
+	$items = $context['view_week'] ? array('prev', 'current', 'next') : array('prev', 'next');
+	$class = count($items) == 3 ? 'inline-block three' : 'two';
 
-	template_button_strip($calendar_buttons);
+	echo '
+			<br class="clear">';
+	foreach ($items as $cal)
+		echo '
+			<div class="', $class, '-columns">
+				', template_show_month_grid($cal), '
+			</div>';
+	echo '
+			<br class="clear">';
 
 	// Show some controls to allow easy calendar navigation.
 	echo '
@@ -50,14 +67,6 @@ function template_main()
 				</form>
 				<br class="clear">
 			</div>
-		</div>';
-}
-
-function template_sidebar()
-{
-	echo '
-		<div id="month_grid">',
-			template_show_month_grid('prev'), template_show_month_grid('current'), template_show_month_grid('next'), '
 		</div>';
 }
 
@@ -252,15 +261,15 @@ function template_show_month_grid($grid_name)
 	{
 		echo '
 			', $grid_name == 'main' ? '<we:cat>' : '<we:title2>', '
-				<div class="centertext" style="font-size: ', $calendar_data['size'] == 'large' ? 'large' : 'small', ';">';
+				<div class="center" style="font-size: ', $calendar_data['size'] == 'large' ? 'large' : 'small', ';">';
 
 		if (empty($calendar_data['next_calendar']['disabled']) && $calendar_data['show_next_prev'])
 			echo '
-					<span class="floatright"><a href="', $calendar_data['next_calendar']['href'], '">&#187;</a></span>';
+					<span class="floatright"><a href="', $calendar_data['next_calendar']['href'], '">', $grid_name == 'main' ? $calendar_data['next_calendar']['title'] . ' &#187;' : '&#187;', '</a></span>';
 
 		if (empty($calendar_data['previous_calendar']['disabled']) && $calendar_data['show_next_prev'])
 			echo '
-					<span class="floatleft"><a href="', $calendar_data['previous_calendar']['href'], '">&#171;</a></span>';
+					<span class="floatleft"><a href="', $calendar_data['previous_calendar']['href'], '">', $grid_name == 'main' ? '&#171; ' . $calendar_data['previous_calendar']['title'] : '&#171;', '</a></span>';
 
 		if ($calendar_data['show_next_prev'])
 			echo '
@@ -275,7 +284,7 @@ function template_show_month_grid($grid_name)
 	}
 
 	echo '
-			<table class="calendar_table cs0">';
+			<table class="calendar_table cs0 center">';
 
 	// Show each day of the week.
 	if (empty($calendar_data['disable_day_titles']))
@@ -290,7 +299,7 @@ function template_show_month_grid($grid_name)
 		// There are 7 items in this indexed array, 0-6, and we want to know whether we're on the last one - this is the cheapest way to do it.
 		foreach ($calendar_data['week_days'] as $day_num => $day)
 			echo '
-					<th class="days', $day_num == 6 ? ' last_th' : '', '" scope="col" ', $calendar_data['size'] == 'small' ? 'style="font-size: x-small;"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
+					<th class="days', empty($calendar_data['show_week_links']) && $day_num == 0 ? ' first_th' : '', $day_num == 6 ? ' last_th' : '', '" scope="col" ', $calendar_data['size'] == 'small' ? 'style="font-size: x-small;"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
 
 		echo '
 				</tr>';
@@ -333,34 +342,13 @@ function template_show_month_grid($grid_name)
 				if ($day['is_first_day'] && $calendar_data['size'] != 'small')
 					echo '<span class="smalltext"> - <a href="', $scripturl, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $day['day'], '">', $txt['calendar_week'], ' ', $week['number'], '</a></span>';
 
-				// Are there any holidays?
-				if (!empty($day['holidays']))
-					echo '
-						<div class="smalltext holiday">', $txt['calendar_prompt'], ' ', implode(', ', $day['holidays']), '</div>';
-
-				// Any special posted events?
-				if (!empty($day['events']))
-				{
-					echo '
-						<div class="smalltext">
-							<span class="event">', $txt['events'], '</span>';
-
-					/* The events are made up of:
-						title, href, is_last, can_edit (are they allowed to?), and modify_href. */
-					foreach ($day['events'] as $event)
+				if ($grid_name == 'main')
+					foreach ($calendar_data['event_types'] as $event)
 					{
-						// If they can edit the event, show a star they can click on....
-						if ($event['can_edit'])
-							echo '
-							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>';
-
-						echo '
-							', $event['link'], $event['is_last'] ? '' : ', ';
+						$func = 'template_event_' . $event;
+						if (!empty($day[$event]) && function_exists($func))
+							$func($day, $grid_name);
 					}
-
-					echo '
-						</div>';
-				}
 			}
 
 			echo '
@@ -435,33 +423,11 @@ function template_show_week_grid($grid_name)
 					</td>
 					<td class="', $day['is_today'] ? 'calendar_today' : 'windowbg2', ' weekdays">';
 
-			// Are there any holidays?
-			if (!empty($day['holidays']))
-				echo '
-						<div class="smalltext holiday">', $txt['calendar_prompt'], ' ', implode(', ', $day['holidays']), '</div>';
-
-			// Any special posted events?
-			if (!empty($day['events']))
+			foreach ($calendar_data['event_types'] as $event)
 			{
-				echo '
-						<div class="smalltext">
-							<span class="event">', $txt['events'], '</span>';
-
-				/* The events are made up of:
-					title, href, is_last, can_edit (are they allowed to?), and modify_href. */
-				foreach ($day['events'] as $event)
-				{
-					// If they can edit the event, show a star they can click on....
-					if ($event['can_edit'])
-						echo '
-							<a href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a> ';
-
-					echo '
-							', $event['link'], $event['is_last'] ? '' : ', ';
-				}
-
-				echo '
-						</div>';
+				$func = 'template_event_' . $event;
+				if (!empty($day[$event]) && function_exists($func))
+					$func($day, $grid_name);
 			}
 
 			echo '
@@ -472,6 +438,40 @@ function template_show_week_grid($grid_name)
 		echo '
 			</table>';
 	}
+}
+
+function template_event_holidays($day, $grid_name)
+{
+	global $txt;
+
+	echo '
+						<div class="smalltext holiday">', $txt['calendar_prompt'], ' ', implode(', ', $day['holidays']), '</div>';
+
+}
+
+function template_event_events($day, $grid_name)
+{
+	global $txt, $theme;
+
+	echo '
+						<div class="smalltext">
+							<span class="event">', $txt['events'], '</span>';
+
+	/* The events are made up of:
+		title, href, is_last, can_edit (are they allowed to?), and modify_href. */
+	foreach ($day['events'] as $event)
+	{
+		// If they can edit the event, show a star they can click on....
+		if ($event['can_edit'])
+			echo '
+							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>';
+
+		echo '
+							', $event['link'], $event['is_last'] ? '' : ', ';
+	}
+
+	echo '
+						</div>';
 }
 
 ?>

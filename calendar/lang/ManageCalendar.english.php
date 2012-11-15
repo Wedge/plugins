@@ -46,7 +46,8 @@ $txt['setting_cal_showInTopic'] = 'Show linked events in topic display';
 
 // Adding/Editing/Viewing Holidays
 $txt['manage_holidays_desc'] = 'From here you can add and remove holidays from your forum calendar.';
-$txt['current_holidays'] = 'Current Holidays';
+$txt['predefined_holidays'] = 'Predefined Holidays';
+$txt['custom_holidays'] = 'Custom Holidays';
 $txt['holidays_title'] = 'Holiday';
 $txt['holidays_title_label'] = 'Title';
 $txt['holidays_delete_confirm'] = 'Are you sure you wish to remove these holidays?';
@@ -55,7 +56,7 @@ $txt['holidays_edit'] = 'Edit Existing Holiday';
 $txt['holidays_button_add'] = 'Add';
 $txt['holidays_button_edit'] = 'Edit';
 $txt['holidays_button_remove'] = 'Remove';
-$txt['holidays_no_entries'] = 'There are currently no holidays configured.';
+$txt['holidays_no_entries'] = 'There are currently no custom holidays configured.';
 $txt['every_year'] = 'Every Year';
 
 // Maintenance

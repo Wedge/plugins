@@ -11,6 +11,42 @@
  * @version 0.1
  */
 
+function template_holidays()
+{
+	global $context, $txt;
+
+	echo '
+	<form action="<URL>?action=admin;area=managecalendar;sa=holiday" method="post" accept-charset="UTF-8">
+		<div class="clear_right">
+			<we:title>
+				', $txt['predefined_holidays'], '
+			</we:title>
+		</div>
+		<div class="w100 windowbg wrc">';
+
+	foreach ($context['predefined_holidays'] as $holiday => $value)
+	{
+		echo '
+			<div class="chk">
+				<label>
+					<input type="checkbox" name="preset[', $holiday, ']" value="1"', $value ? ' checked' : '', '> &nbsp;', $txt['cal_hol_' . $holiday], '
+				</label>
+			</div>';
+	}
+
+	echo '
+			<br class="clear">
+		</div>
+		<div class="floatright">
+			<div class="additional_row" style="text-align: right;">
+				<input type="submit" name="preset_save" value="', $txt['save'], '" class="save">
+			</div>
+		</div>
+	</form>';
+
+	template_show_list('holiday_list');
+}
+
 // Editing or adding holidays.
 function template_edit_holiday()
 {
@@ -22,21 +58,22 @@ function template_edit_holiday()
 
 	function generateDays()
 	{
-		var days = 0, selected = 0, dayElement = $("#day")[0], year = $("#year").val(), monthElement = ("#month")[0];
+		var days = 0, selected = 0, dayElement = $("#day"), year = $("#year").val(), monthElement = $("#month")[0];
 
 		monthLength[1] = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
 
-		selected = dayElement.selectedIndex;
-		while (dayElement.options.length)
-			dayElement.options[0] = null;
+		selected = dayElement.val();
+		dayElement.empty();
 
 		days = monthLength[monthElement.value - 1];
 
 		for (i = 1; i <= days; i++)
-			dayElement.options.push(new Option(i, i));
+			dayElement.append(\'<option value="\' + i + \'">\' + i + \'</option>\');
 
 		if (selected < days)
-			dayElement.selectedIndex = selected;
+			dayElement.val(selected);
+
+		$("#day").sb();
 	}');
 
 	// Show a form for all the holiday information.
