@@ -63,7 +63,7 @@ function CalendarMain()
 	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
 	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 
-	add_plugin_css_file('Wedgeward:Calendar', 'calendar', true);
+	add_plugin_css_file('Wedgeward:Calendar', 'css/calendar', true);
 
 	// Set the page title to mention the calendar ;).
 	$context['page_title'] = $txt['calendar'];

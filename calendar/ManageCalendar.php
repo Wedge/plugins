@@ -88,7 +88,7 @@ function ModifyHolidays()
 		return EditHoliday();
 	}
 
-	add_plugin_css_file('Wedgeward:Calendar', 'calendar', true);
+	add_plugin_css_file('Wedgeward:Calendar', 'css/calendar', true);
 	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
 	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
 	loadPluginLanguage('Wedgeward:Calendar', 'lang/CalendarHolidays');
