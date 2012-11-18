@@ -70,52 +70,25 @@ function template_main()
 		</div>';
 }
 
-// Template for posting a calendar event.
-function template_event_post()
+// The post form can be used in two ways, either in the standalone case, or in the main post form
+// The components are the same, but if it's standalone, we need form stuff - which is these two bad boys.
+function template_event_container_before()
 {
 	global $context, $theme, $options, $txt, $scripturl, $settings;
 
 	// Start the javascript for drop down boxes...
 	add_js('
-	var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-	function generateDays()
-	{
-		var days = 0, selected = 0, dayElement = $("#day")[0], year = $("#year").val(), monthElement = ("#month")[0];
-
-		monthLength[1] = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
-
-		selected = dayElement.selectedIndex;
-		while (dayElement.options.length)
-			dayElement.options[0] = null;
-
-		days = monthLength[monthElement.value - 1];
-
-		for (i = 1; i <= days; i++)
-			dayElement.options.push(new Option(i, i));
-
-		if (selected < days)
-			dayElement.selectedIndex = selected;
-	}
-
 	function toggleLinked(form)
 	{
 		form.board.disabled = !form.link_to_board.checked;
 	}');
 
 	echo '
-		<form action="', $scripturl, '?action=calendar;sa=post" method="post" name="postevent" accept-charset="UTF-8" onsubmit="submitonce(this); weSaveEntities(\'postevent\', [\'evtitle\']);" style="margin: 0;">';
-
-	if (!empty($context['event']['new']))
-		echo '
-			<input type="hidden" name="eventid" value="', $context['event']['eventid'], '">';
-
-	// Start the main table.
-	echo '
-			<div id="post_event">
-				<we:cat>
-					', $context['page_title'], '
-				</we:cat>';
+		<form action="<URL>?action=calendar;sa=post" method="post" name="postevent" accept-charset="UTF-8" onsubmit="submitonce(this); weSaveEntities(\'postevent\', [\'evtitle\']);" style="margin: 0;" id="postmodify">
+			<we:cat>
+				', $context['page_title'], '
+			</we:cat>
+			<div class="roundframe">';
 
 	if (!empty($context['post_error']['messages']))
 	{
@@ -131,119 +104,27 @@ function template_event_post()
 					</dl>
 				</div>';
 	}
+}
+
+function template_event_container_after()
+{
+	global $context, $txt;
 
 	echo '
-				<div class="windowbg wrc">
-					<fieldset id="event_main">
-						<legend><span', isset($context['post_error']['no_event']) ? ' class="error"' : '', '>', $txt['calendar_event_title'], '</span></legend>
-						<input type="text" name="evtitle" maxlength="80" size="70" value="', $context['event']['title'], '">
-						<div class="smalltext">
-							<input type="hidden" name="calendar" value="1">', $txt['calendar_year'], '
-							<select name="year" onchange="generateDays();">';
-
-	// Show a list of all the years we allow...
-	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
-		echo '
-								<option value="', $year, '"', $year == $context['event']['year'] ? ' selected' : '', '>', $year, '&nbsp;</option>';
-
-	echo '
-							</select>
-							', $txt['calendar_month'], '
-							<select name="month" id="month" onchange="generateDays();">';
-
-	// There are 12 months per year - ensure that they all get listed.
-	for ($month = 1; $month <= 12; $month++)
-		echo '
-								<option value="', $month, '"', $month == $context['event']['month'] ? ' selected' : '', '>', $txt['months'][$month], '&nbsp;</option>';
-
-	echo '
-							</select>
-							', $txt['calendar_day'], '
-							<select name="day" id="day">';
-
-	// This prints out all the days in the current month - this changes dynamically as we switch months.
-	for ($day = 1; $day <= $context['event']['last_day']; $day++)
-		echo '
-								<option value="', $day, '"', $day == $context['event']['day'] ? ' selected' : '', '>', $day, '&nbsp;</option>';
-
-	echo '
-							</select>
-						</div>
-					</fieldset>';
-
-	if (!empty($settings['cal_allowspan']) || $context['event']['new'])
-		echo '
-					<fieldset id="event_options">
-						<legend>', $txt['calendar_event_options'], '</legend>
-						<div class="event_options smalltext">
-							<ul class="event_options">';
-
-	// If events can span more than one day then allow the user to select how long it should last.
-	if (!empty($settings['cal_allowspan']))
-	{
-		echo '
-								<li>
-									', $txt['calendar_numb_days'], '
-									<select name="span">';
-
-		for ($days = 1; $days <= $settings['cal_maxspan']; $days++)
-			echo '
-										<option value="', $days, '"', $context['event']['span'] == $days ? ' selected' : '', '>', $days, '&nbsp;</option>';
-
-		echo '
-									</select>
-								</li>';
-	}
-
-	// If this is a new event let the user specify which board they want the linked post to be put into.
-	if ($context['event']['new'])
-	{
-		echo '
-								<li>
-									', $txt['calendar_link_event'], '
-									<input type="checkbox" style="vertical-align: middle" name="link_to_board" checked onclick="toggleLinked(this.form);">
-								</li>
-								<li>
-									', $txt['calendar_post_in'], '
-									<select id="board" name="board" onchange="this.form.submit();">';
-		foreach ($context['event']['categories'] as $category)
-		{
-			echo '
-										<optgroup label="', $category['name'], '">';
-			foreach ($category['boards'] as $board)
-				echo '
-											<option value="', $board['id'], '"', $board['selected'] ? ' selected' : '', '>', $board['child_level'] > 0 ? str_repeat('==', $board['child_level'] - 1) . '=&gt;' : '', ' ', $board['name'], '&nbsp;</option>';
-			echo '
-										</optgroup>';
-		}
-		echo '
-									</select>
-								</li>';
-	}
-
-	if (!empty($settings['cal_allowspan']) || $context['event']['new'])
-		echo '
-							</ul>
-						</div>
-					</fieldset>';
-
-	echo '
-					<div class="righttext">
-						<input type="submit" value="', empty($context['event']['new']) ? $txt['save'] : $txt['post'], '" class="save">';
+				<div class="right">
+					<input type="submit" value="', empty($context['event']['new']) ? $txt['save'] : $txt['post'], '" class="save">';
 
 	// Delete button?
 	if (empty($context['event']['new']))
 		echo '
-						<input type="submit" name="deleteevent" value="', $txt['event_delete'], '" onclick="return confirm(', JavaScriptEscape($txt['calendar_confirm_delete']), ');" class="delete">';
+					<input type="submit" name="deleteevent" value="', $txt['event_delete'], '" onclick="return confirm(', JavaScriptEscape($txt['calendar_confirm_delete']), ');" class="delete">';
 
 	echo '
-						<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
-						<input type="hidden" name="eventid" value="', $context['event']['eventid'], '">
-					</div>
+					<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
+					<input type="hidden" name="eventid" value="', $context['event']['eventid'], '">
 				</div>
 			</div>
-		</form>
-		<br class="clear">';
+		</form>';
 }
 
 // Display a monthly calendar grid.

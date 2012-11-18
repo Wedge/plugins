@@ -140,7 +140,22 @@ function calendar_post_form()
 		);
 
 	// Add the relevant template
-	wetem::load('make_event', 'postbox', 'before');
+	wetem::before('postbox', 'form_event_details');
+	if ($context['event']['new'] && $context['is_new_post'])
+		wetem::before('postbox', 'form_link_calendar');
+
+	$context['postbox']->addEntityField('evtitle');
+
+	// Add the date input magic
+	add_plugin_css_file('Wedgeward:Calendar', 'css/dateinput', true);
+	add_plugin_js_file('Wedgeward:Calendar', 'js/dateinput.js');
+	add_js('
+    var
+        days = ' . json_encode(array_values($txt['days'])) . ',
+        daysShort = ' . json_encode(array_values($txt['days_short'])) . ',
+        months = ' . json_encode(array_values($txt['months'])) . ',
+        monthsShort = ' . json_encode(array_values($txt['months_short'])) . ';
+	$("#date").dateinput();');
 
 	// Reset the page title.
 	$context['page_title'] = $context['event']['id'] == -1 ? $txt['calendar_post_event'] : $txt['calendar_edit'];
@@ -152,10 +167,14 @@ function calendar_post_form()
 function validateCalendarEvent(&$post_errors, &$posterIsGuest)
 {
 	if (isset($_POST['calendar']) && !isset($_REQUEST['deleteevent']) && (empty($_POST['evtitle']) || westr::htmltrim($_POST['evtitle']) === ''))
+	{
+		// Just in case for whatever reason we don't have this.
+		loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
 		$post_errors[] = 'no_event';
+	}
 }
 
-// !!! THIS REALLY SHOULDN'T BE BOUND HERE. It should be properly returning back from the validateCalendarEvent setup and reflowing the form if necessary.
+// !!! This probably should be returning back from the validateCalendarEvent setup and reflowing the form if necessary.
 function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 {
 	// Editing or posting an event?

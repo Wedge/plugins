@@ -80,78 +80,22 @@ function template_info_center_calendar()
 		</section>';
 }
 
-function template_make_event()
+function template_form_event_details()
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt, $settings;
 
-	// We want to ensure we show the current days in a month etc... This is done here.
-	add_js('
-	var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-	function generateDays()
-	{
-		var dayElement = $("#day")[0], year = $("#year").val(), monthElement = ("#month")[0];
-		var days, selected = dayElement.selectedIndex;
-
-		monthLength[1] = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
-
-		days = monthLength[monthElement.value - 1];
-		while (dayElement.options.length)
-			dayElement.options[0] = null;
-
-		for (i = 1; i <= days; i++)
-			dayElement.options.push(new Option(i, i));
-
-		if (selected < days)
-			dayElement.selectedIndex = selected;
-	}');
+	if (!$context['event']['new'] || !empty($context['current_board']))
+		echo '
+			<input type="hidden" name="eventid" value="', !empty($context['event']['eventid']) ? $context['event']['eventid'] : $context['event']['id'], '">';
 
 	echo '
-				<div id="post_event">
 					<fieldset id="event_main">
-						<legend><span', isset($context['post_error']['no_event']) ? ' class="error"' : '', ' id="caption_evtitle">', $txt['calendar_event_title'], '</span></legend>
+						<legend><span', isset($context['post_error']['no_event']) ? ' class="error"' : '', ' id="caption_evtitle">', $txt['calendar_event_details'], '</span></legend>
 						<input type="text" name="evtitle" maxlength="80" value="', $context['event']['title'], '" tabindex="', $context['tabindex']++, '" class="w75">
 						<div class="smalltext nowrap">
-							<input type="hidden" name="calendar" value="1">', $txt['calendar_year'], '
-							<select name="year" id="year" tabindex="', $context['tabindex']++, '" onchange="generateDays();">';
-
-	// Show a list of all the years we allow...
-	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
-		echo '
-								<option value="', $year, '"', $year == $context['event']['year'] ? ' selected' : '', '>', $year, '&nbsp;</option>';
-
-	echo '
-							</select>
-							', $txt['calendar_month'], '
-							<select name="month" id="month" onchange="generateDays();">';
-
-	// There are 12 months per year - ensure that they all get listed.
-	for ($month = 1; $month <= 12; $month++)
-		echo '
-								<option value="', $month, '"', $month == $context['event']['month'] ? ' selected' : '', '>', $txt['months'][$month], '&nbsp;</option>';
-
-	echo '
-							</select>
-							', $txt['calendar_day'], '
-							<select name="day" id="day">';
-
-	// This prints out all the days in the current month - this changes dynamically as we switch months.
-	for ($day = 1; $day <= $context['event']['last_day']; $day++)
-		echo '
-								<option value="', $day, '"', $day == $context['event']['day'] ? ' selected' : '', '>', $day, '&nbsp;</option>';
-
-	echo '
-							</select>
-						</div>
-					</fieldset>';
-
-	if (!empty($settings['cal_allowspan']) || ($context['event']['new'] && $context['is_new_post']))
-	{
-		echo '
-					<fieldset id="event_options">
-						<legend>', $txt['calendar_event_options'], '</legend>
-						<div class="event_options smalltext">
-							<ul class="event_options">';
+							<input type="hidden" name="calendar" value="1">
+							<input type="text" name="date" id="date" size="10">
+						</div>';
 
 		// If events can span more than one day then allow the user to select how long it should last.
 		if (!empty($settings['cal_allowspan']))
@@ -170,40 +114,42 @@ function template_make_event()
 								</li>';
 		}
 
-		// If this is a new event let the user specify which board they want the linked post to be put into.
-		if ($context['event']['new'] && $context['is_new_post'])
-		{
-			echo '
+	echo '
+					</fieldset>';
+}
+
+function template_form_link_calendar()
+{
+	global $context, $theme, $options, $txt, $scripturl, $settings;
+
+	echo '
+					<fieldset id="event_options">
+						<legend>', $txt['calendar_event_options'], '</legend>
+						<div class="event_options smalltext">
+							<ul class="event_options">';
+
+		echo '
 								<li>
 									', $txt['calendar_post_in'], '
 									<select name="board">';
-			foreach ($context['event']['categories'] as $category)
-			{
-				echo '
-										<optgroup label="', $category['name'], '">';
-				foreach ($category['boards'] as $board)
-					echo '
-											<option value="', $board['id'], '"', $board['selected'] ? ' selected' : '', '>', $board['child_level'] > 0 ? str_repeat('==', $board['child_level'] - 1) . '=&gt;' : '', ' ', $board['name'], '&nbsp;</option>';
-				echo '
-										</optgroup>';
-			}
+		foreach ($context['event']['categories'] as $category)
+		{
 			echo '
+										<optgroup label="', $category['name'], '">';
+			foreach ($category['boards'] as $board)
+				echo '
+											<option value="', $board['id'], '"', $board['selected'] ? ' selected' : '', '>', $board['child_level'] > 0 ? str_repeat('==', $board['child_level'] - 1) . '=&gt;' : '', ' ', $board['name'], '&nbsp;</option>';
+			echo '
+										</optgroup>';
+		}
+		echo '
 									</select>
 								</li>';
-		}
 
-		echo '
+	echo '
 							</ul>
 						</div>
 					</fieldset>';
-	}
-
-	echo '
-				</div>';
-
-	if (!$context['event']['new'] || !empty($context['current_board']))
-		echo '
-			<input type="hidden" name="eventid" value="', $context['event']['id'], '">';
 }
 
 ?>

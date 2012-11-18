@@ -40,6 +40,7 @@ function template_holidays()
 		<div class="floatright">
 			<div class="additional_row" style="text-align: right;">
 				<input type="submit" name="preset_save" value="', $txt['save'], '" class="save">
+				<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
 			</div>
 		</div>
 	</form>';

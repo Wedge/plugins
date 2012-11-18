@@ -67,7 +67,7 @@ function calendar_display()
 		if (!empty($context['linked_calendar_events']))
 		{
 			$context['linked_calendar_events'][count($context['linked_calendar_events']) - 1]['is_last'] = true;
-			wetem::load('linked_calendar', 'topic_poll', 'after');
+			wetem::after('topic_poll', 'linked_calendar');
 		}
 	}
 

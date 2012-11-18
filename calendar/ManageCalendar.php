@@ -117,6 +117,8 @@ function ModifyHolidays()
 
 	if (isset($_REQUEST['preset_save']))
 	{
+		checkSession();
+
 		if (empty($_REQUEST['preset']))
 			$_REQUEST['preset'] = array();
 		elseif (!is_array($_REQUEST['preset']))

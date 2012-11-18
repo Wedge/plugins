@@ -71,6 +71,7 @@
 					<column name="start_date" type="datetime" default="0001-01-01 00:00:00" />
 					<column name="end_date" type="datetime" default="0001-01-01 00:00:00" />
 					<column name="allday" type="tinyint" unsigned="yes" default="1" />
+					<column name="timezone" type="varchar" size="50" default="" />
 					<column name="id_board" type="smallint" unsigned="yes" default="0" />
 					<column name="id_topic" type="mediumint" unsigned="yes" default="0" />
 					<column name="title" type="varchar" size="255" default="" />

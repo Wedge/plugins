@@ -292,7 +292,22 @@ function CalendarPost()
 
 	// Template, block, etc.
 	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
-	wetem::load('event_post');
+	loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
+	$tpls = array('form_event_details');
+	if ($context['event']['new'])
+		$tpls[] = 'form_link_calendar';
+	wetem::load(array('event_container' => $tpls));
+
+	// Add the date input magic
+	add_plugin_css_file('Wedgeward:Calendar', 'css/dateinput', true);
+	add_plugin_js_file('Wedgeward:Calendar', 'js/dateinput.js');
+	add_js('
+    var
+        days = ' . json_encode(array_values($txt['days'])) . ',
+        daysShort = ' . json_encode(array_values($txt['days_short'])) . ',
+        months = ' . json_encode(array_values($txt['months'])) . ',
+        monthsShort = ' . json_encode(array_values($txt['months_short'])) . ';
+	$("#date").dateinput();');
 
 	$context['page_title'] = isset($_REQUEST['eventid']) ? $txt['calendar_edit'] : $txt['calendar_post_event'];
 	$context['linktree'][] = array(
