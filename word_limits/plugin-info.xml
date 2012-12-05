@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<plugin id="Arantor:WordCount">
+	<name>Word Count Limits</name>
+	<author>Arantor</author>
+	<description>Adds minimum and maximum word/character count rules to the moderation filters section.</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="moderation_rules" function="wordcount_moderation_rules" filename="$plugindir/WordLimits" />
+	</hooks>
+</plugin>
