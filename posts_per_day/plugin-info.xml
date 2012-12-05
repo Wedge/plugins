@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<plugin id="Arantor:PostsPerDay">
+	<name>Posts Per Day</name>
+	<author>Arantor</author>
+	<description>Allows the admin to set rules on number of posts made by a given user in the last 24 hours, e.g. preventing posts if the user makes too many. Does not work for guests.</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="moderation_rules" function="postsperday_moderation_rules" filename="$plugindir/PostsPerDay" />
+	</hooks>
+</plugin>
