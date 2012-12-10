@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Wedgeward:WedgeDotOrg">
+	<name>Wedge.org Changes</name>
+	<author>Wedgeward</author>
+	<description>Changes unique to Wedge.org</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="load_theme" function="wedgedotorg_theme" filename="$plugindir/WedgeDotOrg" />
+	</hooks>
+</plugin>
