@@ -117,7 +117,7 @@ function template_event_container_after()
 	// Delete button?
 	if (empty($context['event']['new']))
 		echo '
-					<input type="submit" name="deleteevent" value="', $txt['event_delete'], '" onclick="return confirm(', JavaScriptEscape($txt['calendar_confirm_delete']), ');" class="delete">';
+					<input type="submit" name="deleteevent" value="', $txt['event_delete'], '" onclick="return ask(', JavaScriptEscape($txt['calendar_confirm_delete']), ', e);" class="delete">';
 
 	echo '
 					<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">

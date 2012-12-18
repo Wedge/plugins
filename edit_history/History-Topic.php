@@ -40,7 +40,7 @@ function historyMenu()
 			'caption' => 'dynamic_history_' . $k,
 			'action' => '\'<URL>?action=edithistory;sa=popup;topic=' . $context['current_topic'] . '.' . $context['start'] . ';msg=%id%\'',
 			'class' => '\'modify_button\'',
-			'custom' => JavaScriptEscape('onclick="reqWin(this);"'),
+			'custom' => JavaScriptEscape('onclick="return reqWin(this);"'),
 		);
 		$context['action_menu_items_show']['hi'] = true;
 	}

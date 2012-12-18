@@ -26,7 +26,7 @@ function template_historylist()
 	<title>', $context['page_title'], '</title>',
 	theme_base_css(), '
 </head>
-<body id="help_page">
+<body id="helf">
 	<div class="description wrc">', template_historylist_table(), '
 		<br><br>
 		<a href="#" onclick="history.back(); return false;">', $txt['back'], '</a>
@@ -42,7 +42,7 @@ function template_historylist_table()
 
 	echo '
 		<form action="<URL>?action=edithistory;sa=compare;topic=', $_GET['topic'], '.0;msg=', $_GET['msg'], '" method="post">
-			<table class="table_grid cs0" style="width:100%">
+			<table class="table_grid cs0" style="width: 100%">
 				<thead>
 					<tr class="catbg">
 						<th scope="col" class="first_th left">', $txt['edited_by'], '</th>

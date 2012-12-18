@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="yes" ?>
 <plugin id="Arantor:ThemeSelector">
 	<name>Theme Selector</name>
-	<author>Arantor</author>
-	<description>Displays a selector widget inside the sidebar for changing themes quickly.</description>
+	<author>Arantor (with a little help from Nao)</author>
+	<description>Displays a selector widget inside the sidebar for changing skins quickly.</description>
 	<version>1.0</version>
 	<hooks>
 		<function point="menu_items" function="themeSelector" filename="$plugindir/ThemeSelector" />

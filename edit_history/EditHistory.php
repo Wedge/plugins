@@ -24,7 +24,7 @@ function HistoryPopup()
 	global $context, $txt, $user_profile;
 
 	// Load other stuff we need
-	loadLanguage('Help');
+	loadLanguage('GenericPopup');
 	wetem::hide();
 
 	// Go get the topic title, and validate that the information provided is valid.
@@ -81,8 +81,8 @@ function HistoryPopup()
 	if (empty($context['versions']))
 	{
 		$context['page_title'] = $txt['edit_history'];
-		$context['help_text'] = $txt['edit_history_invalid'];
-		loadTemplate('Help');
+		$context['popup_contents'] = $txt['edit_history_invalid'];
+		loadTemplate('GenericPopup');
 		wetem::load('popup');
 	}
 	else

@@ -181,28 +181,28 @@ $(function (jQuery, undefined)
 
 		if (attachOpts.checkExtension && !in_array(extension, attachOpts.validExtensions))
 		{
-			alert(attachOpts.ext_error.replace('{ext}', extension));
+			say(attachOpts.ext_error.replace('{ext}', extension));
 			return attachFiles(files, ++i);
 		}
 
 		// Check number of files
 		if (attachOpts.maxNum > 0 && attachOpts.currentNum + $files.length > attachOpts.maxNum)
 		{
-			alert(attachOpts.maxNum_error);
+			say(attachOpts.maxNum_error);
 			return;
 		}
 
 		// Check for file's size
 		if (attachOpts.sizeLimit > 0 && filesize / 1024 > attachOpts.sizeLimit)
 		{
-			alert(attachOpts.filesize_error);
+			say(attachOpts.filesize_error);
 			return attachFiles(files, ++i);
 		}
 
 		// Check total file's size
 		if (attachOpts.totalSizeLimit > 0 && (filesize / 1024 + attachOpts.totalSize + total_size) > attachOpts.totalSizeLimit)
 		{
-			alert(attachOpts.totalFilesize_error);
+			say(attachOpts.totalFilesize_error);
 			return;
 		}
 

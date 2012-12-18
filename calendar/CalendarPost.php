@@ -136,7 +136,7 @@ function calendar_post_form()
 		$context['postbox']->addButton(
 			'deleteevent',
 			$txt['event_delete'],
-			'return confirm(' . JavaScriptEscape($txt['event_delete_confirm']) . ');'
+			'return ask(' . JavaScriptEscape($txt['event_delete_confirm']) . ', e);'
 		);
 
 	// Add the relevant template

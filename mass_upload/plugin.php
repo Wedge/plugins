@@ -87,6 +87,8 @@ function multiattach()
 		if (!in_array(strtolower(substr(strrchr($filename, '.'), 1)), explode(',', strtolower($settings['attachmentExtensions']))))
 			multiattach_error($txt['cant_upload_type'] . ' ' . $settings['attachmentExtensions']);
 
+	if (!isset($_SESSION['temp_attachments']))
+		$_SESSION['temp_attachments'] = array();
 	$attachID = 'post_tmp_' . $user_info['id'] . '_' . (count($_SESSION['temp_attachments']) + 1);
 	$dest = $current_attach_dir . '/' . $attachID;
 
