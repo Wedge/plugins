@@ -23,16 +23,16 @@ function ssi_calendar_init()
 // Show today's holidays.
 function ssi_todaysHolidays($output_method = 'echo')
 {
-	global $settings, $user_info;
+	global $settings;
 
-	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && we::$is_guest)
 		return array();
 
 	$eventOptions = array(
 		'include_holidays' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_holidays'];
@@ -44,16 +44,16 @@ function ssi_todaysHolidays($output_method = 'echo')
 // Show today's events.
 function ssi_todaysEvents($output_method = 'echo')
 {
-	global $settings, $user_info;
+	global $settings;
 
-	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && we::$is_guest)
 		return array();
 
 	$eventOptions = array(
 		'include_events' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_events'];
@@ -71,9 +71,9 @@ function ssi_todaysEvents($output_method = 'echo')
 // Show all calendar entries for today. (holidays, and events.)
 function ssi_todaysCalendar($output_method = 'echo')
 {
-	global $settings, $txt, $scripturl, $user_info;
+	global $settings, $txt, $scripturl;
 
-	if (empty($settings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && we::$is_guest)
 		return array();
 
 	$eventOptions = array(
@@ -81,7 +81,7 @@ function ssi_todaysCalendar($output_method = 'echo')
 		'include_events' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return;
@@ -107,7 +107,7 @@ function ssi_todaysCalendar($output_method = 'echo')
 // Show the most recent events.
 function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 {
-	global $db_prefix, $user_info, $scripturl, $settings, $txt, $context;
+	global $db_prefix, $scripturl, $settings, $txt, $context;
 
 	if (empty($settings['allow_guestAccess']))
 		return array();
@@ -153,7 +153,7 @@ function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 		$return[$date][] = array(
 			'id' => $row['id_event'],
 			'title' => $row['title'],
-			'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == $user_info['id'] && allowedTo('calendar_edit_own')),
+			'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
 			'modify_href' => $scripturl . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
 			'href' => $row['id_board'] == 0 ? '' : $scripturl . '?topic=' . $row['id_topic'] . '.0',
 			'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',

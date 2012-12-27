@@ -62,7 +62,7 @@ function multiattach_post_form_pre()
  */
 function multiattach()
 {
-	global $settings, $topic, $scripturl, $board, $options, $language, $user_info, $board, $context;
+	global $settings, $topic, $scripturl, $board, $options, $language, $board, $context;
 
 	header('Content-type: text/plain; charset=utf-8');
 
@@ -89,7 +89,7 @@ function multiattach()
 
 	if (!isset($_SESSION['temp_attachments']))
 		$_SESSION['temp_attachments'] = array();
-	$attachID = 'post_tmp_' . $user_info['id'] . '_' . (count($_SESSION['temp_attachments']) + 1);
+	$attachID = 'post_tmp_' . we::$id . '_' . (count($_SESSION['temp_attachments']) + 1);
 	$dest = $current_attach_dir . '/' . $attachID;
 
 	$target = fopen($dest, 'w');

@@ -17,23 +17,23 @@ function birthdaySSI()
 // Show today's birthdays.
 function ssi_todaysBirthdays($output_method = 'echo')
 {
-	global $scripturl, $modSettings, $user_info;
+	global $settings;
 
-	if (empty($modSettings['allow_guestAccess']) && $user_info['is_guest'])
+	if (empty($settings['allow_guestAccess']) && we::$is_guest)
 		return array();
 
 	$eventOptions = array(
 		'include_birthdays' => true,
-		'num_days_shown' => empty($modSettings['cal_days_for_index']) || $modSettings['cal_days_for_index'] < 1 ? 1 : $modSettings['cal_days_for_index'],
+		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $modSettings['time_offset']), 'Subs-Calendar.php', 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), 'Subs-Calendar.php', 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_birthdays'];
 
 	foreach ($return['calendar_birthdays'] as $member)
 		echo '
-			<a href="', $scripturl, '?action=profile;u=', $member['id'], '">' . $member['name'] . (isset($member['age']) ? ' (' . $member['age'] . ')' : '') . '</a>' . (!$member['is_last'] ? ', ' : '');
+			<a href="<URL>?action=profile;u=', $member['id'], '">' . $member['name'] . (isset($member['age']) ? ' (' . $member['age'] . ')' : '') . '</a>' . (!$member['is_last'] ? ', ' : '');
 }
 
 ?>

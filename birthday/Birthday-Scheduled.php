@@ -11,17 +11,17 @@
 
 function scheduled_birthdays()
 {
-	global $modSettings, $mbname, $txt;
+	global $settings, $mbname, $txt;
 
 	// Need this in order to load the language files.
 	loadEssentialThemeData();
 
 	// Going to need this to send the emails.
-	if (!empty($modSettings['birthday_send_email']))
+	if (!empty($settings['birthday_send_email']))
 	{
 		loadSource('Subs-Post');
 
-		$greeting = isset($modSettings['birthday_email']) ? $modSettings['birthday_email'] : 'happy_birthday';
+		$greeting = isset($settings['birthday_email']) ? $settings['birthday_email'] : 'happy_birthday';
 
 		// Get the month and day of today.
 		$month = date('n'); // Month without leading zeros.

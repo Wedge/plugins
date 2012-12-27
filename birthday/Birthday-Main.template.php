@@ -11,11 +11,12 @@
 
 function template_birthdays_info_center()
 {
-	global $settings, $txt, $context, $modSettings, $scripturl;
+	global $theme, $txt, $context, $settings;
+
 	echo '
 			<we:title2>
-				<img src="', $settings['images_url'], '/icons/online.gif">', '
-				', number_context('birthdays_upcoming', $modSettings['birthday_info_center_days']), '
+				<img src="', $theme['images_url'], '/icons/online.gif">', '
+				', number_context('birthdays_upcoming', $settings['birthday_info_center_days']), '
 			</we:title2>
 			<p class="inline smalltext">';
 
@@ -24,7 +25,7 @@ function template_birthdays_info_center()
 
 	foreach ($context['birthdays_to_display'] as $member)
 		echo '
-				<a href="', $scripturl, '?action=profile;u=', $member['id'], '">', $member['is_today'] ? '<strong>' : '', $member['name'], $member['is_today'] ? '</strong>' : '', isset($member['age']) ? ' (' . $member['age'] . ')' : '', '</a>', $member['is_last'] ? '<br>' : ', ';
+				<a href="<URL>?action=profile;u=', $member['id'], '">', $member['is_today'] ? '<strong>' : '', $member['name'], $member['is_today'] ? '</strong>' : '', isset($member['age']) ? ' (' . $member['age'] . ')' : '', '</a>', $member['is_last'] ? '<br>' : ', ';
 
 	echo '
 			</p>';

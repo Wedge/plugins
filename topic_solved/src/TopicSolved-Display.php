@@ -5,7 +5,7 @@ if (!defined('WEDGE'))
 
 function topicSolvedDisplay()
 {
-	global $context, $txt, $board, $topic, $topicinfo, $settings, $user_info;
+	global $context, $txt, $board, $topic, $topicinfo, $settings;
 
 	loadPluginLanguage('Arantor:TopicSolved', 'lang/TopicSolved-Display');
 
@@ -40,7 +40,7 @@ function topicSolvedDisplay()
 	.solved { color: ' . $settings['topicsolved_fg'] . '; background-color: ' . $settings['topicsolved_bg1'] . ' }');
 	}
 
-	if (allowedTo('topicsolved_any') || (allowedTo('topicsolved_own') && $topicinfo['id_member_started'] == $user_info['id']))
+	if (allowedTo('topicsolved_any') || (allowedTo('topicsolved_own') && $topicinfo['id_member_started'] == we::$id))
 	{
 		$context['can_solve'] = true;
 		$nav = array(

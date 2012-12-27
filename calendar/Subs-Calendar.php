@@ -92,7 +92,7 @@ if (!defined('WEDGE'))
 // Get all events within the given time range.
 function getEventRange($low_date, $high_date, $use_permissions = true)
 {
-	global $scripturl, $settings, $user_info, $context;
+	global $scripturl, $settings, $context;
 
 	$low_date_time = sscanf($low_date, '%04d-%02d-%02d');
 	$low_date_time = mktime(0, 0, 0, $low_date_time[1], $low_date_time[2], $low_date_time[0]);
@@ -146,7 +146,7 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 				$events[strftime('%Y-%m-%d', $date)][] = array(
 					'id' => $row['id_event'],
 					'title' => $row['title'],
-					'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == $user_info['id'] && allowedTo('calendar_edit_own')),
+					'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
 					'modify_href' => $scripturl . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
 					'href' => $row['id_board'] == 0 ? '' : $scripturl . '?topic=' . $row['id_topic'] . '.0',
 					'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
@@ -320,7 +320,7 @@ function getHolidayRange($low_date, $high_date)
 // Does permission checks to see if an event can be linked to a board/topic.
 function canLinkEvent()
 {
-	global $user_info, $topic, $board;
+	global $topic, $board;
 
 	// If you can't post, you can't link.
 	isAllowedTo('calendar_post');
@@ -347,7 +347,7 @@ function canLinkEvent()
 		if ($row = wesql::fetch_assoc($result))
 		{
 			// Not the owner of the topic.
-			if ($row['id_member_started'] != $user_info['id'])
+			if ($row['id_member_started'] != we::$id)
 				fatal_lang_error('not_your_topic', 'user');
 		}
 		// Topic/Board doesn't exist.....
@@ -664,7 +664,7 @@ function cache_getOffsetIndependentEvents($days_to_index)
 // Called from the homepage to display the current day's events on it.
 function cache_getRecentEvents($eventOptions)
 {
-	global $settings, $user_info, $scripturl;
+	global $settings, $scripturl;
 
 	// With the 'static' cached data we can calculate the user-specific data.
 	$cached_data = cache_quick_get('calendar_index', array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
@@ -733,17 +733,17 @@ function cache_getRecentEvents($eventOptions)
 		'expires' => time() + 3600,
 		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($settings[\'calendar_updated\']) && ' . time() . ' < $settings[\'calendar_updated\']);',
 		'post_retri_eval' => '
-			global $context, $scripturl, $user_info;
+			global $context, $scripturl;
 
 			foreach ($cache_block[\'data\'][\'calendar_events\'] as $k => $event)
 			{
 				// Remove events that the user may not see or wants to ignore.
-				if ((count(array_intersect($user_info[\'groups\'], $event[\'allowed_groups\'])) === 0 && !allowedTo(\'admin_forum\') && !empty($event[\'id_board\'])) || in_array($event[\'id_board\'], $user_info[\'ignoreboards\']))
+				if ((count(array_intersect(we::$user[\'groups\'], $event[\'allowed_groups\'])) === 0 && !allowedTo(\'admin_forum\') && !empty($event[\'id_board\'])) || in_array($event[\'id_board\'], we::$user[\'ignoreboards\']))
 					unset($cache_block[\'data\'][\'calendar_events\'][$k]);
 				else
 				{
 					// Whether the event can be edited depends on the permissions.
-					$cache_block[\'data\'][\'calendar_events\'][$k][\'can_edit\'] = allowedTo(\'calendar_edit_any\') || ($event[\'poster\'] == $user_info[\'id\'] && allowedTo(\'calendar_edit_own\'));
+					$cache_block[\'data\'][\'calendar_events\'][$k][\'can_edit\'] = allowedTo(\'calendar_edit_any\') || ($event[\'poster\'] == we::$id && allowedTo(\'calendar_edit_own\'));
 
 					// The added session code makes this URL not cachable.
 					$cache_block[\'data\'][\'calendar_events\'][$k][\'modify_href\'] = $scripturl . \'?action=\' . ($event[\'topic\'] == 0 ? \'calendar;sa=post;\' : \'post;msg=\' . $event[\'msg\'] . \';topic=\' . $event[\'topic\'] . \'.0;calendar;\') . \'eventid=\' . $event[\'id\'] . \';\' . $context[\'session_query\'];

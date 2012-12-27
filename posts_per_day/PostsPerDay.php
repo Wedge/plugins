@@ -24,8 +24,7 @@ function displayRow_postsperday($rule)
 
 function count_postsperday($subject, $body)
 {
-	global $user_info;
-	if ($user_info['is_guest'])
+	if (we::$is_guest)
 		return 0;
 
 	$request = wesql::query('
@@ -34,7 +33,7 @@ function count_postsperday($subject, $body)
 		WHERE id_member = {int:member}
 			AND poster_time >= {int:time}',
 		array(
-			'member' => $user_info['id'],
+			'member' => we::$id,
 			'time' => time() - 86400,
 		)
 	);

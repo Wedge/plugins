@@ -12,9 +12,9 @@ if (!defined('WEDGE'))
 
 function themeSelector()
 {
-	global $txt, $user_info, $language, $context, $scripturl, $board_info;
+	global $txt, $language, $context, $scripturl, $board_info;
 
-	if (!empty($user_info['possibly_robot']) || (isset($board_info) && !empty($board_info['theme']) && $board_info['override_theme']))
+	if (!empty(we::$user['possibly_robot']) || (isset($board_info) && !empty($board_info['theme']) && $board_info['override_theme']))
 		return;
 
 	// Will need this whatever.

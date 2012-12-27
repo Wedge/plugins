@@ -155,8 +155,7 @@ function CalendarMain()
 
 function CalendarPost()
 {
-	global $context, $txt, $user_info, $scripturl;
-	global $settings, $topic;
+	global $context, $txt, $scripturl, $settings, $topic;
 
 	// Well - can they?
 	isAllowedTo('calendar_post');
@@ -180,7 +179,7 @@ function CalendarPost()
 
 		// If you're not allowed to edit any events, you have to be the poster.
 		if ($_REQUEST['eventid'] > 0 && !allowedTo('calendar_edit_any'))
-			isAllowedTo('calendar_edit_' . (!empty($user_info['id']) && getEventPoster($_REQUEST['eventid']) == $user_info['id'] ? 'own' : 'any'));
+			isAllowedTo('calendar_edit_' . (!empty(we::$id) && getEventPoster($_REQUEST['eventid']) == we::$id ? 'own' : 'any'));
 
 		// New - and directing?
 		if ($_REQUEST['eventid'] == -1 && isset($_POST['link_to_board']))
@@ -196,7 +195,7 @@ function CalendarPost()
 				'board' => 0,
 				'topic' => 0,
 				'title' => substr($_REQUEST['evtitle'], 0, 60),
-				'member' => $user_info['id'],
+				'member' => we::$id,
 				'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
 				'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 			);
@@ -284,7 +283,7 @@ function CalendarPost()
 		}
 
 		// Make sure the user is allowed to edit this event.
-		if ($context['event']['member'] != $user_info['id'])
+		if ($context['event']['member'] != we::$id)
 			isAllowedTo('calendar_edit_any');
 		elseif (!allowedTo('calendar_edit_any'))
 			isAllowedTo('calendar_edit_own');

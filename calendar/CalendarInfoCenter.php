@@ -16,7 +16,7 @@ if (!defined('WEDGE'))
 
 function info_center_calendar()
 {
-	global $context, $txt, $settings, $user_info;
+	global $context, $txt, $settings;
 	// Load the calendar?
 	if (allowedTo('calendar_view'))
 	{
@@ -27,7 +27,7 @@ function info_center_calendar()
 			'include_events' => $settings['cal_showevents'] > 1,
 			'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 		);
-		$context += cache_quick_get('calendar_index_offset_' . ($user_info['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+		$context += cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 		// Whether one or multiple days are shown on the board index.
 		$context['calendar_only_today'] = $settings['cal_days_for_index'] == 1;

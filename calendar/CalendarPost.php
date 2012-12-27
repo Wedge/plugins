@@ -56,7 +56,7 @@ function calendar_post_form()
 	if (!$context['event']['new'] && !isset($_REQUEST['subject']))
 	{
 		// If the user doesn't have permission to edit the post in this topic, redirect them.
-		if ((empty($id_member_poster) || $id_member_poster != $user_info['id'] || !allowedTo('modify_own')) && !allowedTo('modify_any'))
+		if ((empty($id_member_poster) || $id_member_poster != we::$id || !allowedTo('modify_own')) && !allowedTo('modify_any'))
 		{
 			loadPluginSource('Wedgeward:Calendar', 'Calendar');
 			return CalendarPost();
@@ -78,7 +78,7 @@ function calendar_post_form()
 		wesql::free_result($request);
 
 		// Make sure the user is allowed to edit this event.
-		if ($row['id_member'] != $user_info['id'])
+		if ($row['id_member'] != we::$id)
 			isAllowedTo('calendar_edit_any');
 		elseif (!allowedTo('calendar_edit_any'))
 			isAllowedTo('calendar_edit_own');
@@ -177,6 +177,8 @@ function validateCalendarEvent(&$post_errors, &$posterIsGuest)
 // !!! This probably should be returning back from the validateCalendarEvent setup and reflowing the form if necessary.
 function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 {
+	global $settings;
+
 	// Editing or posting an event?
 	if (isset($_POST['calendar']) && (!isset($_REQUEST['eventid']) || $_REQUEST['eventid'] == -1))
 	{
@@ -190,7 +192,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 			'board' => $board,
 			'topic' => $topic,
 			'title' => $_POST['evtitle'],
-			'member' => $user_info['id'],
+			'member' => we::$id,
 			'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
 			'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 		);
@@ -220,7 +222,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 			wesql::free_result($request);
 
 			// Silly hacker, Trix are for kids. ...probably trademarked somewhere, this is FAIR USE! (parody...)
-			isAllowedTo('calendar_edit_' . ($row2['id_member'] == $user_info['id'] ? 'own' : 'any'));
+			isAllowedTo('calendar_edit_' . ($row2['id_member'] == we::$id ? 'own' : 'any'));
 		}
 
 		// Delete it?

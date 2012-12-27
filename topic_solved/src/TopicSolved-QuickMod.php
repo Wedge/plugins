@@ -25,7 +25,7 @@ function topicSolvedApplyQuickMod(&$quickMod)
 
 function quickMod_marksolved($topic_data, $boards_can)
 {
-	global $settings, $board, $user_info;
+	global $settings, $board;
 
 	$board_list = unserialize($settings['topicsolved_boards']);
 
@@ -36,7 +36,7 @@ function quickMod_marksolved($topic_data, $boards_can)
 			if (!in_array($this_topic['id_board'], $boards_can['topicsolved_any']))
 			{
 				// So they can't just (un)solve *any* topic. That makes things more complicated. It needs to be their topic and they have to have permission
-				if ($this_topic['id_member_started'] != $user_info['id'] || !in_array($this_topic['id_board'], $boards_can['topicsolved_own']))
+				if ($this_topic['id_member_started'] != we::$id || !in_array($this_topic['id_board'], $boards_can['topicsolved_own']))
 					unset($topic_data[$topic]);
 			}
 		}
@@ -90,7 +90,7 @@ function quickMod_marksolved($topic_data, $boards_can)
 		$insert = array();
 		foreach ($topic_data as $topic => $this_topic)
 		{
-			$insert[] = array($topic, $time, $user_info['id']);
+			$insert[] = array($topic, $time, we::$id);
 			logAction('solve', array('topic' => $topic), 'moderate');
 		}
 

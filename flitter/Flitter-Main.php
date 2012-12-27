@@ -5,14 +5,14 @@ if (!defined('WEDGE'))
 
 function flitter_main()
 {
-	global $settings, $user_info, $language, $txt;
+	global $settings, $language, $txt;
 
 	if (empty($settings['flitter_showfb']) && empty($settings['flitter_showtwitter']) && empty($settings['flitter_showgoogle']))
 		return;
 
 	loadPluginTemplate('Arantor:Flitter', 'Flitter-Main');
 
-	$lang = isset($user_info['language']) ? $user_info['language'] : $language;
+	$lang = isset(we::$user['language']) ? we::$user['language'] : $language;
 	switch ($lang)
 	{
 		case 'french':

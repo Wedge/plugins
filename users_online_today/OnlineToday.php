@@ -12,7 +12,7 @@ if (!defined('WEDGE'))
 
 function getOnlineToday()
 {
-	global $txt, $user_info, $settings, $context;
+	global $txt, $settings, $context;
 
 	loadPluginLanguage('Arantor:UsersOnlineToday', 'OnlineToday');
 
@@ -32,7 +32,7 @@ function getOnlineToday()
 			$can_view = allowedTo(array('moderate_forum', 'admin_forum'));
 			break;
 		case 'admin':
-			$can_view = $user_info['is_admin'];
+			$can_view = we::$is_admin;
 			break;
 	}
 

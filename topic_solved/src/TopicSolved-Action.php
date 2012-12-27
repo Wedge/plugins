@@ -5,7 +5,7 @@ if (!defined('WEDGE'))
 
 function topicSolvedAction()
 {
-	global $context, $txt, $board, $topic, $settings, $user_info;
+	global $context, $txt, $board, $topic, $settings;
 
 	if (empty($topic) || empty($board))
 		redirectexit();
@@ -29,7 +29,7 @@ function topicSolvedAction()
 
 	// Can we mark this solved?
 	// !!! Nicer error
-	if (!allowedTo('topicsolved_any') && ($topic_starter != $user_info['id'] || !allowedTo('topicsolved_own')))
+	if (!allowedTo('topicsolved_any') && ($topic_starter != we::$id || !allowedTo('topicsolved_own')))
 		fatal_lang_error('no_access');
 
 	if (empty($solved))
@@ -40,7 +40,7 @@ function topicSolvedAction()
 				'id_topic' => 'int', 'solved' => 'int', 'id_member' => 'int',
 			),
 			array(
-				$topic, time(), $user_info['id'],
+				$topic, time(), we::$id,
 			),
 			array('id_topic')
 		);

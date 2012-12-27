@@ -23,7 +23,7 @@ function contactMenu(&$menu_buttons)
 
 function Contact()
 {
-	global $settings, $context, $txt, $user_info, $webmaster_email;
+	global $settings, $context, $txt, $webmaster_email;
 
 	loadPluginLanguage('Arantor:ContactPage', 'Contact');
 	loadPluginTemplate('Arantor:ContactPage', 'Contact');
@@ -51,7 +51,7 @@ function Contact()
 		if (empty($_POST['contact_body']) || westr::htmltrim($_POST['contact_body']) === '')
 			$context['form_errors']['body'] = $txt['error_no_contact_body'];
 
-		$context['require_verification'] = $settings['contact_verification'] == 'everyone' || ($settings['contact_verification'] == 'guests' && $user_info['is_guest']);
+		$context['require_verification'] = $settings['contact_verification'] == 'everyone' || ($settings['contact_verification'] == 'guests' && we::$is_guest);
 		if ($context['require_verification'])
 		{
 			$verificationOptions = array(
@@ -92,7 +92,7 @@ function Contact()
 			$settings['contact_verification'] = 'guests';
 	}
 
-	$context['require_verification'] = $settings['contact_verification'] == 'everyone' || ($settings['contact_verification'] == 'guests' && $user_info['is_guest']);
+	$context['require_verification'] = $settings['contact_verification'] == 'everyone' || ($settings['contact_verification'] == 'guests' && we::$is_guest);
 	if ($context['require_verification'])
 	{
 		$verificationOptions = array(

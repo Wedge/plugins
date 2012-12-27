@@ -51,7 +51,7 @@ function template_holidays()
 // Editing or adding holidays.
 function template_edit_holiday()
 {
-	global $context, $settings, $options, $scripturl, $txt, $modSettings;
+	global $context, $txt, $settings;
 
 	// Start with javascript for getting the calendar dates right.
 	add_js('
@@ -80,7 +80,7 @@ function template_edit_holiday()
 	// Show a form for all the holiday information.
 	echo '
 	<div id="admincenter">
-		<form action="', $scripturl, '?action=admin;area=managecalendar;sa=editholiday" method="post" accept-charset="UTF-8">
+		<form action="<URL>?action=admin;area=managecalendar;sa=editholiday" method="post" accept-charset="UTF-8">
 			<we:cat>
 				', $context['page_title'], '
 			</we:cat>
@@ -100,7 +100,7 @@ function template_edit_holiday()
 							<option value="0000"', $context['holiday']['year'] == '0000' ? ' selected' : '', '>', $txt['every_year'], '</option>';
 
 	// Show a list of all the years we allow...
-	for ($year = $modSettings['cal_minyear']; $year <= $modSettings['cal_maxyear']; $year++)
+	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
 		echo '
 							<option value="', $year, '"', $year == $context['holiday']['year'] ? ' selected' : '', '>', $year, '</option>';
 

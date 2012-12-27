@@ -29,16 +29,16 @@ function birthdayAdminSearch(&$settings_search)
 
 function ModifyBirthdaySettings($return_config = false)
 {
-	global $txt, $modSettings, $scripturl, $context;
+	global $txt, $settings, $context;
 
 	loadSource('ManageServer');
 	loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Mails');
 
-	if (empty($modSettings['birthday_email']))
-		$modSettings['birthday_email'] = 'happy_birthday';
+	if (empty($settings['birthday_email']))
+		$settings['birthday_email'] = 'happy_birthday';
 
-	$subject = $txt['birthday_template_subject_' . $modSettings['birthday_email']];
-	$body = $txt['birthday_template_body_' . $modSettings['birthday_email']];
+	$subject = $txt['birthday_template_subject_' . $settings['birthday_email']];
+	$body = $txt['birthday_template_body_' . $settings['birthday_email']];
 
 	// !!! Yeah, we'll improve this at some point!
 	$types = array('happy_birthday', 'karlbenson1', 'nite0859', 'zwaldowski', 'geezmo', 'karlbenson2');
@@ -57,7 +57,7 @@ function ModifyBirthdaySettings($return_config = false)
 			'birthday_body' => array('var_message', 'birthday_body', 'var_message' => westr::nl2br($body), 'disabled' => true, 'size' => ceil(strlen($body) / 25)),
 	);
 
-	$context['post_url'] = $scripturl . '?action=admin;area=birthdays;save';
+	$context['post_url'] = '<URL>?action=admin;area=birthdays;save';
 	$context['settings_title'] = $txt['birthdays'];
 
 	if ($return_config)

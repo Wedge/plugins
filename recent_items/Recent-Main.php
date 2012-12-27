@@ -20,7 +20,7 @@ function recentitems_ic()
 // Common stuff, like loading templates and language strings.
 function recentitems_common()
 {
-	global $settings, $user_info, $context;
+	global $settings, $context;
 
 	if (isset($context['latest_posts']))
 		return;
@@ -31,7 +31,7 @@ function recentitems_common()
 	if (empty($settings['recentitems_posttopic']) || ($settings['recentitems_posttopic'] != 'post' && $settings['recentitems_posttopic'] != 'topic'))
 		$settings['recentitems_posttopic'] = 'post';
 
-	$temp = cache_get_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), 90);
+	$temp = cache_get_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5(we::$user['query_wanna_see_board'] . we::$user['language']), 90);
 	if ($temp !== null)
 	{
 		// Before we just throw it at the user, reformat the time. It will have been cached with whatever format the user had at the time.
@@ -141,7 +141,7 @@ function recentitems_common()
 		wesql::free_result($request);
 	}
 
-	cache_put_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5($user_info['query_wanna_see_board'] . $user_info['language']), $context['latest_posts'], 90);
+	cache_put_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5(we::$user['query_wanna_see_board'] . we::$user['language']), $context['latest_posts'], 90);
 }
 
 ?>

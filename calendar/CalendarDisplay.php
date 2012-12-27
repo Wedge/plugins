@@ -16,7 +16,7 @@ if (!defined('WEDGE'))
 
 function calendar_display()
 {
-	global $context, $settings, $user_info, $topic;
+	global $context, $settings, $topic;
 
 	// Permissions
 	$context['calendar_post'] = allowedTo('calendar_post');
@@ -25,8 +25,8 @@ function calendar_display()
 	if (allowedTo('calendar_view') && !empty($settings['cal_showInTopic']))
 	{
 		// First, try create a better time format, ignoring the "time" elements.
-		if (preg_match('~%[AaBbCcDdeGghjmuYy](?:[^%]*%[AaBbCcDdeGghjmuYy])*~', $user_info['time_format'], $matches) == 0 || empty($matches[0]))
-			$date_string = $user_info['time_format'];
+		if (preg_match('~%[AaBbCcDdeGghjmuYy](?:[^%]*%[AaBbCcDdeGghjmuYy])*~', we::$user['time_format'], $matches) == 0 || empty($matches[0]))
+			$date_string = we::$user['time_format'];
 		else
 			$date_string = $matches[0];
 
@@ -53,7 +53,7 @@ function calendar_display()
 			$context['linked_calendar_events'][] = array(
 				'id' => $row['id_event'],
 				'title' => $row['title'],
-				'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == $user_info['id'] && allowedTo('calendar_edit_own')),
+				'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
 				'modify_href' => $scripturl . '?action=post;msg=' . $topicinfo['id_first_msg'] . ';topic=' . $topic . '.0;calendar;eventid=' . $row['id_event'] . ';' . $context['session_query'],
 				'start_date' => timeformat($start_date, $date_string, 'none'),
 				'start_timestamp' => $start_date,
