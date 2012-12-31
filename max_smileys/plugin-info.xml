@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<plugin id="Arantor:MaxSmileys">
+	<name>Max Smileys Per Post</name>
+	<author>Arantor</author>
+	<description>Allows the admin to set rules on the number of smileys in a given post.</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="moderation_rules" function="maxsmileys_moderation_rules" filename="$plugindir/MaxSmileys" />
+	</hooks>
+</plugin>
