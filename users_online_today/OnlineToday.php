@@ -26,7 +26,7 @@ function getOnlineToday()
 			break;
 		case 'members':
 		default:
-			$can_view = $context['user']['is_logged'];
+			$can_view = !we::$is_guest;
 			break;
 		case 'staff':
 			$can_view = allowedTo(array('moderate_forum', 'admin_forum'));

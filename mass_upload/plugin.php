@@ -62,7 +62,7 @@ function multiattach_post_form_pre()
  */
 function multiattach()
 {
-	global $settings, $topic, $scripturl, $board, $options, $language, $board, $context;
+	global $settings, $topic, $board, $options, $language, $board, $context;
 
 	header('Content-type: text/plain; charset=utf-8');
 

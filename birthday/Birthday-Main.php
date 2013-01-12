@@ -57,7 +57,7 @@ function birthdayInfoCenter()
 // Get all birthdays within the given time range.
 function getBirthdayRange($low_date, $high_date)
 {
-	global $scripturl, $settings;
+	global $settings;
 
 	// Was this cached lately? (We don't need to be clever and figure out expiry, etc. if the cache key is actually including the dates.
 	// That said, if we did something externally to force birthdays to be changed, make sure we deal with it.)

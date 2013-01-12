@@ -18,7 +18,7 @@ function flitter_admin()
 
 function ModifyFlitterSettings($return_config = false)
 {
-	global $txt, $scripturl, $context, $theme, $settings;
+	global $txt, $context, $theme, $settings;
 
 	loadSource('ManageServer');
 	loadPluginLanguage('Arantor:Flitter', 'Flitter-Admin');
@@ -57,7 +57,7 @@ function ModifyFlitterSettings($return_config = false)
 		redirectexit('action=admin;area=flitter');
 	}
 
-	$context['post_url'] = $scripturl . '?action=admin;area=flitter;save';
+	$context['post_url'] = '<URL>?action=admin;area=flitter;save';
 	$context['settings_title'] = $context['page_title'] = $txt['flitter'];
 	wetem::load('show_settings');
 	prepareDBSettingContext($config_vars);

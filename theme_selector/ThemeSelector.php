@@ -12,7 +12,7 @@ if (!defined('WEDGE'))
 
 function themeSelector()
 {
-	global $txt, $language, $context, $scripturl, $board_info;
+	global $txt, $language, $context, $board_info;
 
 	if (!empty(we::$user['possibly_robot']) || (isset($board_info) && !empty($board_info['theme']) && $board_info['override_theme']))
 		return;
@@ -90,7 +90,7 @@ function template_sidebar_theme_selector()
 		</p>
 	</section>';
 
-	if ($context['user']['is_guest'])
+	if (we::$is_guest)
 		add_js('
 	$("#boardtheme").change(function () {
 		var len, sAnchor = "", sUrl = location.href.replace(/theme=([\w+/=]+);?/i, ""), search = sUrl.indexOf("#");

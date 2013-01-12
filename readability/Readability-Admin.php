@@ -18,7 +18,7 @@ function readability_admin()
 
 function ModifyReadabilitySettings($return_config = false)
 {
-	global $txt, $scripturl, $context, $settings;
+	global $txt, $context, $settings;
 
 	loadSource('ManageServer');
 	loadPluginLanguage('Arantor:Readability', 'Readability-Admin');
@@ -52,7 +52,7 @@ function ModifyReadabilitySettings($return_config = false)
 		redirectexit('action=admin;area=readability');
 	}
 
-	$context['post_url'] = $scripturl . '?action=admin;area=readability;save';
+	$context['post_url'] = '<URL>?action=admin;area=readability;save';
 	$context['settings_title'] = $context['page_title'] = $txt['readability'];
 	wetem::load('show_settings');
 	prepareDBSettingContext($config_vars);
