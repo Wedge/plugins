@@ -177,7 +177,7 @@ $(function (jQuery, undefined)
 		var
 			filename = files[i].fileName || files[i].name,
 			filesize = files[i].fileSize || files[i].size,
-			extension = filename.substr(filename.lastIndexOf('.') + 1, filename.length).toLowerCase();
+			extension = filename.slice(filename.lastIndexOf('.') + 1).toLowerCase();
 
 		if (attachOpts.checkExtension && !in_array(extension, attachOpts.validExtensions))
 		{

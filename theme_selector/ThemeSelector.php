@@ -96,8 +96,8 @@ function template_sidebar_theme_selector()
 		var len, sAnchor = "", sUrl = location.href.replace(/theme=([\w+/=]+);?/i, ""), search = sUrl.indexOf("#");
 		if (search != -1)
 		{
-			sAnchor = sUrl.substr(search);
-			sUrl = sUrl.substr(0, search);
+			sAnchor = sUrl.slice(search);
+			sUrl = sUrl.slice(0, search);
 		}
 		location.href = sUrl + (sUrl.search(/[?;]$/) != -1 ? "" : sUrl.indexOf("?") < 0 ? "?" : ";") + "theme=" + this.value + sAnchor;
 	});');
