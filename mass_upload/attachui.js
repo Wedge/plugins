@@ -1,7 +1,7 @@
 /**
  * Multiple attachment basic JavaScript file, contains the entire UI functions
  *
- * @package Dragooon:MultiAttach
+ * @package Wedgward:MassUpload
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
@@ -10,6 +10,8 @@
  *
  * @version 1.0
  */
+
+@language Wedgeward:MassUpload:plugin;
 
 // One method would've been to hook into Wedge's attach functions, but since there are quite a lot of fundamental differences
 // between the workings, I decided to write my own instead.
@@ -35,7 +37,7 @@ $(function (jQuery, undefined)
 		// Bind the "change" event to properly handle multiple attachments into upload
 		.change(function () { return attachFiles(this.files || {}, 0); });
 
-	$('<div id="dropnotice" style="text-align: center; border: 1px solid black; padding: 20px" class="windowbg2"><div class="largetext">' + txt_drag_help + '</div><div class="mediumtext">' + txt_drag_help_subtext  + '</div></div>')
+	$('<div id="dropnotice" style="text-align: center; border: 1px solid black; padding: 20px" class="windowbg2"><div class="largetext">' + $txt['massupload_drag_help'] + '</div><div class="mediumtext">' + $txt['massupload_drag_help_subtext'] + '</div></div>')
 		.hide()
 		.prependTo($element.parent());
 
@@ -71,6 +73,16 @@ $(function (jQuery, undefined)
 				}
 			}, 200);
 		});
+
+	// Bind the form to prevent accidental submitting when uploading.
+	$('#postmodify').bind('submit', function (e)
+	{
+		if ($is_uploading)
+		{
+			say($txt['massupload_currently_uploading']);
+			return false;
+		}
+	});
 
 	$('#dropnotice')
 		.bind('dragover', function (e)
@@ -116,7 +128,7 @@ $(function (jQuery, undefined)
 				.appendTo($files[$current].element);
 
 		xhr = new XMLHttpRequest();
-		xhr.open('POST', weUrl('action=multiattach;board=' + we_board));
+		xhr.open('POST', weUrl('action=massupload;board=' + we_board));
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.setRequestHeader('X-File-Name', $files[$current].fileName || $files[$current].name);
 		xhr.setRequestHeader('Content-Type', 'application/octet-stream');

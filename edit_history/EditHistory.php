@@ -24,7 +24,7 @@ function HistoryPopup()
 	global $context, $txt, $user_profile;
 
 	// Load other stuff we need
-	loadLanguage('GenericPopup');
+	loadLanguage('Help');
 	wetem::hide();
 
 	// Go get the topic title, and validate that the information provided is valid.

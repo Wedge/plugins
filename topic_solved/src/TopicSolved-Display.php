@@ -51,7 +51,7 @@ function topicSolvedDisplay()
 			),
 		);
 		add_css('
-	ul.buttonlist a.marksolved { background-image: url(' . $context['plugins_url']['Arantor:TopicSolved'] . '/img/' . (!empty($context['topic_solved']) ? 'cross' : 'tick') . '-button.png); background-position: 2px 0; background-repeat: no-repeat; padding-left: 22px }');
+	ul.buttonlist a.marksolved { background-image: url(' . $context['plugins_url']['Arantor:TopicSolved'] . '/img/' . (!empty($context['topic_solved']) ? 'cross' : 'tick') . '-button.png); background-position: 3px 4px; background-repeat: no-repeat; padding-left: 22px }');
 
 		$context['nav_buttons']['mod'] = array_insert($context['nav_buttons']['mod'], 'move', $nav, false);
 	}

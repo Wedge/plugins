@@ -10,11 +10,16 @@ function template_historylist()
 	// Since this is a popup of its own we need to start the html, unless we're coming from jQuery.
 	if ($context['is_ajax'])
 	{
-		echo '<div class="windowbg2 wrc smalltext nodrag">', template_historylist_table(), '
-</div>
-<div class="smalltext center" style="padding: 8px 0 0">
-	<a href="#" onclick="$(\'#helf\').remove(); return false;">', $txt['close_window'], '</a>
-</div>';
+		echo '
+<header>
+	', $txt['edit_history'], '
+</header>
+<section class="nodrag">
+	', template_historylist_table(), '
+</section>
+<footer>
+	<input type="button" class="delete" onclick="$(\'#popup\').fadeOut(function () { $(this).remove(); });" value="', $txt['close_window'], '" />
+</footer>';
 	}
 	else
 	{
@@ -26,7 +31,7 @@ function template_historylist()
 	<title>', $context['page_title'], '</title>',
 	theme_base_css(), '
 </head>
-<body id="helf">
+<body id="help_page">
 	<div class="description wrc">', template_historylist_table(), '
 		<br><br>
 		<a href="#" onclick="history.back(); return false;">', $txt['back'], '</a>

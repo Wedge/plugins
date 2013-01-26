@@ -2,7 +2,7 @@
 /**
  * Multiple attachment plugin files, contains hook callback and pretty much everything
  *
- * @package Dragooon:MultiAttach
+ * @package Wedgeward:MassUpload
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
@@ -17,14 +17,13 @@
  *
  * @return void
  */
-function multiattach_post_form_pre()
+function massupload_post_form_pre()
 {
 	global $context, $board, $topic, $txt, $settings;
 
 	if (!allowedTo('post_attachment'))
 		return;
 
-	loadPluginLanguage('Dragooon:MultiAttach', 'plugin');
 	loadLanguage('Errors');
 
 	$current_attach_dir = get_attach_dir();
@@ -35,10 +34,8 @@ function multiattach_post_form_pre()
 	foreach ($_SESSION['temp_attachments'] as $attach => $filename)
 		$total_size += filesize($current_attach_dir . '/' . $attach);
 
-	add_plugin_js_file('Dragooon:MultiAttach', 'attachui.js');
+	add_plugin_js_file('Wedgeward:MassUpload', 'attachui.js');
 	add_js('
-	txt_drag_help = ', JavaScriptEscape($txt['multiattach_drag_help']), ';
-	txt_drag_help_subtext = ', JavaScriptEscape($txt['multiattach_drag_help_subtext']), ';
 	attachOpts = {
 		sizeLimit: ', $settings['attachmentSizeLimit'], ',
 		totalSizeLimit: ', $settings['attachmentPostLimit'], ',
@@ -55,12 +52,12 @@ function multiattach_post_form_pre()
 }
 
 /**
- * Action handler for multiattach, handles uploading of files via AJAX
+ * Action handler for massupload, handles uploading of files via AJAX
  * A fair amount of this is borrowed from Post.php
  *
  * @return void
  */
-function multiattach()
+function massupload()
 {
 	global $settings, $topic, $board, $options, $language, $board, $context;
 
@@ -68,11 +65,11 @@ function multiattach()
 
 	// No board?
 	if (empty($board) && empty($context['allow_no_board']))
-		multiattach_error('no_board');
+		massupload_error('no_board');
 
 	// Not allowed to post attachments?
 	if (!allowedTo('post_attachment'))
-		multiattach_error('permission_denied');
+		massupload_error('permission_denied');
 
 	$current_attach_dir = get_attach_dir();
 
@@ -80,12 +77,12 @@ function multiattach()
 	$filename = isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : '';
 
 	if (empty($filename) || !is_writable($current_attach_dir))
-		multiattach_error('invalid_filename');
+		massupload_error('invalid_filename');
 
 	// Check for extensions
 	if (!empty($settings['attachmentCheckExtensions']))
 		if (!in_array(strtolower(substr(strrchr($filename, '.'), 1)), explode(',', strtolower($settings['attachmentExtensions']))))
-			multiattach_error($txt['cant_upload_type'] . ' ' . $settings['attachmentExtensions']);
+			massupload_error($txt['cant_upload_type'] . ' ' . $settings['attachmentExtensions']);
 
 	if (!isset($_SESSION['temp_attachments']))
 		$_SESSION['temp_attachments'] = array();
@@ -108,9 +105,9 @@ function multiattach()
 
 	// Do our basic attachment validation checks before counting this file in
 	if (!empty($settings['attachmentSizeLimit']) &&	filesize($dest) > $settings['attachmentSizeLimit'] * 1024)
-		multiattach_error('file_too_big', $dest);
+		massupload_error('file_too_big', $dest);
 	if (!empty($settings['attachmentNumPerPostLimit']) && (count($_SESSION['temp_attachments']) + 1) > $settings['attachmentNumPerPostLimit'])
-		multiattach_error('attachments_limit_per_post', $dest);
+		massupload_error('attachments_limit_per_post', $dest);
 
 	$total_size = 0;
 	foreach ($_SESSION['temp_attachments'] as $attach => $dummy)
@@ -118,13 +115,13 @@ function multiattach()
 	$total_size += filesize($dest);
 
 	if (!empty($settings['attachmentPostLimit']) && $total_size > $settings['attachmentPostLimit'] * 1024)
-		multiattach_error('file_too_big', $dest);
+		massupload_error('file_too_big', $dest);
 
 	if (!empty($settings['attachmentDirSizeLimit']))
 	{
 		// Make sure the directory isn't full.
 		$dirSize = 0;
-		$dir = @scandir($current_attach_dir) or multiattach_error('cant_access_upload_path', $dest);
+		$dir = @scandir($current_attach_dir) or massupload_error('cant_access_upload_path', $dest);
 		foreach ($dir as $file)
 		{
 			if ($file == '.' || $file == '..')
@@ -143,7 +140,7 @@ function multiattach()
 
 		// Too big! Maybe you could zip it or something...
 		if (filesize($dest) + $dirSize > $settings['attachmentDirSizeLimit'] * 1024)
-			multiattach_error('ran_out_of_space', $dest);
+			massupload_error('ran_out_of_space', $dest);
 	}
 
 	$_SESSION['temp_attachments'][$attachID] = $filename;
@@ -184,7 +181,7 @@ function get_attach_dir()
  * @param string $filepath
  * @return void
  */
-function multiattach_error($error_code, $filepath = '')
+function massupload_error($error_code, $filepath = '')
 {
 	global $txt, $language;
 
