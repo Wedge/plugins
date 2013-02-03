@@ -6,7 +6,7 @@
 // This is bound to the load_theme hook, as it requires to be loaded after theme setup but before action evaluation.
 function disable_right_click()
 {
-	add_js('$("body").bind("contextmenu", function (btn) { return false; }).mousedown(function (btn) { if (btn.which & 2 == 2) { btn.stopImmediatePropagation(); } });');
+	add_js('$("body").on("contextmenu", function (btn) { return false; }).mousedown(function (btn) { if (btn.which & 2 == 2) { btn.stopImmediatePropagation(); } });');
 }
 
 ?>

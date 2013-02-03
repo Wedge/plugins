@@ -167,7 +167,7 @@
 			{
 				if (opened)
 				{
-					$(document).unbind('.d');
+					$(document).off('.d');
 
 					// do the hide
 					root.hide();
@@ -241,7 +241,7 @@
 		},
 
 		onShow = function (ev) {
-			$(document).bind('keydown.d', function(event) {
+			$(document).on('keydown.d', function(event) {
 				if (opened)
 					switch (event.keyCode)
 					{
@@ -279,7 +279,7 @@
 			});
 
 			// click outside dateinput
-			$(document).bind('click.d', function(e)
+			$(document).on('click.d', function(e)
 			{
 				var el = e.target;
 
@@ -335,7 +335,7 @@
 
 		if (!conf.editable)
 		{
-			input.bind('focus.d click.d', show).keydown(function(e)
+			input.on('focus.d click.d', show).keydown(function(e)
 			{
 				var key = e.keyCode;
 

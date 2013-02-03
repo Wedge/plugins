@@ -1,8 +1,8 @@
 /**
  * Multiple attachment basic JavaScript file, contains the entire UI functions
  *
- * @package Wedgward:MassUpload
- * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
+ * @package Wedgward:MassAttach
+ * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com> (and Nao)
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
  *		Licensed under "New BSD License (3-clause version)"
@@ -11,7 +11,7 @@
  * @version 1.0
  */
 
-@language Wedgeward:MassUpload:plugin;
+@language Wedgeward:MassAttach:plugin;
 
 // One method would've been to hook into Wedge's attach functions, but since there are quite a lot of fundamental differences
 // between the workings, I decided to write my own instead.
@@ -31,20 +31,20 @@ $(function (jQuery, undefined)
 
 	$element
 		// Release this input of the default chains, we got new ones!
-		.unbind('change')
+		.off('change')
 		// Update this element to support multiple attachments
 		.attr('name', 'attachment_holder')
 		// Bind the "change" event to properly handle multiple attachments into upload
 		.change(function () { return attachFiles(this.files || {}, 0); });
 
-	$('<div id="dropnotice" style="text-align: center; border: 1px solid black; padding: 20px" class="windowbg2"><div class="largetext">' + $txt['massupload_drag_help'] + '</div><div class="mediumtext">' + $txt['massupload_drag_help_subtext'] + '</div></div>')
+	$('<div id="dropnotice" style="text-align: center; border: 1px solid black; padding: 20px" class="windowbg2"><div class="largetext">' + $txt['massattach_drag_help'] + '</div><div class="mediumtext">' + $txt['massattach_drag_help_subtext'] + '</div></div>')
 		.hide()
 		.prependTo($element.parent());
 
 	var dragUIOpened = false, dragTimer = +new Date();
 
 	$(document.body)
-		.bind('dragover', function (e)
+		.on('dragover', function (e)
 		{
 			e.originalEvent.dataTransfer.dropEffect = 'none';
 
@@ -62,7 +62,7 @@ $(function (jQuery, undefined)
 
 			return false;
 		})
-		.bind('dragleave', function ()
+		.on('dragleave', function ()
 		{
 			setTimeout(function ()
 			{
@@ -75,27 +75,27 @@ $(function (jQuery, undefined)
 		});
 
 	// Bind the form to prevent accidental submitting when uploading.
-	$('#postmodify').bind('submit', function (e)
+	$('#postmodify').on('submit', function (e)
 	{
 		if ($is_uploading)
 		{
-			say($txt['massupload_currently_uploading']);
+			say($txt['massattach_currently_uploading']);
 			return false;
 		}
 	});
 
 	$('#dropnotice')
-		.bind('dragover', function (e)
+		.on('dragover', function (e)
 		{
 			dragTimer = +new Date();
 			e.originalEvent.dataTransfer.dropEffect = 'copy';
 
 			return false;
 		})
-		.bind('drop', function (e)
+		.on('drop', function (e)
 		{
 			// Make sure we are dragging a file over
-			if (!e.originalEvent.dataTransfer && !(dt.files || (!$.browser.webkit && e.originalEvent.dataTransfer.types.contains && e.originalEvent.dataTransfer.types.contains('Files'))))
+			if (!e.originalEvent.dataTransfer && !(dt.files || (!is_webkit && e.originalEvent.dataTransfer.types.contains && e.originalEvent.dataTransfer.types.contains('Files'))))
 				return false;
 
 			dragUIOpened = false;
@@ -128,7 +128,7 @@ $(function (jQuery, undefined)
 				.appendTo($files[$current].element);
 
 		xhr = new XMLHttpRequest();
-		xhr.open('POST', weUrl('action=massupload;board=' + we_board));
+		xhr.open('POST', weUrl('action=massattach;board=' + we_board));
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.setRequestHeader('X-File-Name', $files[$current].fileName || $files[$current].name);
 		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
