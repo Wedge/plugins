@@ -1,0 +1,465 @@
+<?xml version="1.0" standalone="yes" ?>
+<addon id="Arantor:WedgeDesk">
+	<name>WedgeDesk</name>
+	<author url="http://www.wedgedesk.com/">Arantor</author>
+	<description>WedgeDesk adds a complete helpdesk environment into your Wedge install.</description>
+	<version>1.0</version>
+
+	<settings>
+		<setting name="shd_new_search_index" default="0" />
+		<!-- Display Options -->
+		<setting name="shd_staff_badge" default="nobadge" />
+		<setting name="shd_display_avatar" default="0" />
+		<setting name="shd_theme" default="0" />
+		<setting name="shd_zerofill" default="5" />
+		<setting name="shd_hidemenuitem" default="0" />
+		<setting name="shd_disable_unread" default="0" />
+		<!-- Posting Options -->
+		<setting name="shd_thank_you_post" default="1" />
+		<setting name="shd_thank_you_nonstaff" default="0" />
+		<setting name="shd_allow_wikilinks" default="1" />
+		<setting name="shd_allow_ticket_bbc" default="1" />
+		<setting name="shd_allow_ticket_smileys" default="1" />
+		<setting name="shd_attachments_mode" default="ticket" />
+		<!-- Administrative Options -->
+		<setting name="shd_maintenance_mode" default="0" />
+		<setting name="shd_staff_ticket_self" default="0" />
+		<setting name="shd_admins_not_assignable" default="0" />
+		<setting name="shd_privacy_display" default="smart" />
+		<setting name="shd_disable_tickettotopic" default="0" />
+		<setting name="shd_disable_relationships" default="0" />
+		<!-- Standalone Options -->
+		<setting name="shd_helpdesk_only" default="0" />
+		<setting name="shd_disable_pm" default="0" />
+		<setting name="shd_disable_mlist" default="0" />
+		<!-- Action Log Options -->
+		<setting name="shd_disable_action_log" default="0" />
+		<setting name="shd_display_ticket_logs" default="1" />
+		<setting name="shd_logopt_newposts" default="1" />
+		<setting name="shd_logopt_editposts" default="1" />
+		<setting name="shd_logopt_resolve" default="1" />
+		<setting name="shd_logopt_autoclose" default="1" />
+		<setting name="shd_logopt_assign" default="1" />
+		<setting name="shd_logopt_privacy" default="1" />
+		<setting name="shd_logopt_urgency" default="1" />
+		<setting name="shd_logopt_tickettopicmove" default="1" />
+		<setting name="shd_logopt_cfchanges" default="1" />
+		<setting name="shd_logopt_delete" default="1" />
+		<setting name="shd_logopt_restore" default="1" />
+		<setting name="shd_logopt_permadelete" default="1" />
+		<setting name="shd_logopt_relationships" default="1" />
+		<setting name="shd_logopt_move_dept" default="1" />
+		<setting name="shd_logopt_monitor" default="1" />
+		<!-- Notifications Options -->
+		<setting name="shd_notify_email" default="" />
+		<setting name="shd_notify_log" default="1" />
+		<setting name="shd_notify_with_body" default="1" />
+		<setting name="shd_notify_new_ticket" default="1" />
+		<setting name="shd_notify_new_reply_own" default="1" />
+		<setting name="shd_notify_new_reply_assigned" default="1" />
+		<setting name="shd_notify_new_reply_previous" default="1" />
+		<setting name="shd_notify_new_reply_any" default="1" />
+		<setting name="shd_notify_assign_me" default="1" />
+		<setting name="shd_notify_assign_own" default="1" />
+	</settings>
+
+	<hooks>
+		<function point="display_main" function="shd_display_btn_mvtopic" />
+		<function point="behavior" function="shd_init" filename="$plugindir/src/Subs-WedgeDesk" />
+		<function point="admin_areas" function="shd_admin_bootstrap" filename="$plugindir/src/Subs-WedgeDeskAdmin" />
+		<function point="admin_search" function="shd_admin_search" />
+		<function point="action_list" function="shd_init_actions" />
+		<function point="buffer" function="shd_buffer_replace" />
+		<function point="menu_items" function="shd_main_menu" />
+		<function point="load_permissions" function="shd_admin_old_perms" />
+		<function point="place_credit" function="shd_credits" />
+		<function point="track_ip" function="shd_trackip" filename="$plugindir/src/WedgeDesk-TrackIP" />
+		<function point="get_boardindex" function="shd_add_to_boardindex" filename="$plugindir/src/Subs-WedgeDeskBoardIndex" />
+		<function point="default_action" function="shd_default_action" />
+		<function point="fallback_action" function="shd_default_action" />
+		<function point="profile_areas" function="shd_profile_areas" filename="$plugindir/src/Subs-WedgeDeskProfile" />
+		<function point="post_bbc_parse" function="shd_parse_wikilinks" />
+
+		<language point="lang_who" filename="$plugindir/lang/WedgeDeskWho" />
+		<language point="lang_help" filename="$plugindir/lang/WedgeDeskAdmin" />
+
+		<provides>
+			<hook type="function">shd_hook_init</hook><!-- functions to run as soon as main SD initialisation has completed (SD permissions are loaded by here) -->
+			<hook type="function">shd_hook_helpdesk</hook><!-- functions to run when starting the main helpdesk (before going off to subactions) -->
+			<hook type="function">shd_hook_perms</hook><!-- functions to add permissions -->
+			<hook type="function">shd_hook_permstemplate</hook><!-- functions to add permissions to any of the templates -->
+			<hook type="function">shd_hook_prefs</hook><!-- functions to add preferences -->
+			<hook type="function">shd_hook_newticket</hook><!-- functions to call when just a new ticket is made -->
+			<hook type="function">shd_hook_newreply</hook><!-- functions to call when a new reply is made -->
+			<hook type="function">shd_hook_modpost</hook><!-- functions to call when a ticket or reply is edited (since all kinds of things might be altered) -->
+			<hook type="function">shd_hook_assign</hook><!-- functions to call when a ticket is assigned to someone -->
+			<hook type="function">shd_hook_buffer</hook><!-- functions to call prior to the final page generation -->
+			<hook type="function">shd_hook_after_main</hook><!-- functions to call after action=helpdesk has been evaluated but before template calls are made -->
+			<hook type="function">shd_hook_boardindex_before</hook><!-- functions to call before setting up the injected boardindex -->
+			<hook type="function">shd_hook_boardindex_after</hook><!-- functions to call after setting up the injected boardindex -->
+			<hook type="function">shd_hook_deleteticket</hook><!-- functions to call just before actually deleting (softly) a ticket -->
+			<hook type="function">shd_hook_deletereply</hook><!-- functions to call just before actually deleting (softly) a reply -->
+			<hook type="function">shd_hook_permadeleteticket</hook><!-- functions to call just before truly deleting a ticket -->
+			<hook type="function">shd_hook_permadeletereply</hook><!-- functions to call just before truly deleting a reply -->
+			<hook type="function">shd_hook_restoreticket</hook><!-- functions to call just before restoring a previously deleted ticket -->
+			<hook type="function">shd_hook_restorereply</hook><!-- functions to call just before restoring a previously deleted reply -->
+			<hook type="function">shd_hook_markunread</hook><!-- functions to call just before marking a ticket unread -->
+			<hook type="function">shd_hook_markresolve</hook><!-- functions to call just before marking a ticket resolved -->
+			<hook type="function">shd_hook_markunresolve</hook><!-- functions to call just before marking a ticket unresolved -->
+			<hook type="function">shd_hook_relations</hook><!-- functions to call just before setting/removing ticket relationships -->
+			<hook type="function">shd_hook_movedept</hook><!-- functions to call just before moving a ticket between departments -->
+			<hook type="function">shd_hook_tickettotopic</hook><!-- functions to call just before moving a ticket into a forum topic -->
+			<hook type="function">shd_hook_topictoticket</hook><!-- functions to call just before moving a forum topic into a ticket -->
+
+			<hook type="function">shd_hook_admin</hook><!-- functions to run when starting the main WedgeDesk admin area -->
+			<hook type="function">shd_hook_adminopts</hook><!-- functions to run when working in the WedgeDesk options submenu structure -->
+			<hook type="function">shd_hook_admin_display</hook><!-- to extend the helpdesk admin / Options / Display Options -->
+			<hook type="function">shd_hook_admin_posting</hook><!-- to extend the helpdesk admin / Options / Posting Options -->
+			<hook type="function">shd_hook_admin_admin</hook><!-- to extend the helpdesk admin / Options / Admin Options -->
+			<hook type="function">shd_hook_admin_standalone</hook><!-- to extend the helpdesk admin / Options / Standalone Options -->
+			<hook type="function">shd_hook_admin_actionlog</hook><!-- to extend the helpdesk admin / Options / Action Log Options -->
+			<hook type="function">shd_hook_admin_notify</hook><!-- to extend the helpdesk admin / Options / Notifications Options -->
+
+			<hook type="language">shd_lang_init</hook><!-- language files to include on SD init, i.e. every page load when the helpdesk is active -->
+			<hook type="language">shd_lang_helpdesk</hook><!-- language files to include when going into the helpdesk (action=helpdesk) -->
+			<hook type="language">shd_lang_admin</hook><!-- language files to include when going into any part of the helpdesk admin -->
+		</provides>
+	</hooks>
+
+	<database>
+		<tables>
+			<table if-exists="update" name="{db_prefix}helpdesk_tickets">
+				<columns>
+					<column name="id_ticket" type="mediumint" autoincrement="yes" unsigned="yes" />
+					<column name="id_dept" type="smallint" unsigned="yes" />
+					<column name="id_first_msg" type="int" unsigned="yes" />
+					<column name="id_member_started" type="mediumint" unsigned="yes" />
+					<column name="id_last_msg" type="int" unsigned="yes" />
+					<column name="id_member_updated" type="mediumint" unsigned="yes" />
+					<column name="id_member_assigned" type="mediumint" unsigned="yes" />
+					<column name="num_replies" type="int" unsigned="yes" />
+					<column name="deleted_replies" type="int" unsigned="yes" />
+					<column name="subject" type="varchar" size="100" />
+					<column name="urgency" type="tinyint" unsigned="yes" />
+					<column name="status" type="tinyint" unsigned="yes" />
+					<column name="private" type="tinyint" unsigned="yes" />
+					<column name="withdeleted" type="tinyint" unsigned="yes" />
+					<column name="last_updated" type="int" unsigned="yes" />
+					<column name="next_reply" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_ticket</field>
+				</index>
+				<index type="index">
+					<field>status</field>
+					<field>id_member_assigned</field>
+				</index>
+				<index type="index">
+					<field>id_member_started</field>
+					<field>private</field>
+				</index>
+				<index type="index">
+					<field>status</field>
+					<field>withdeleted</field>
+					<field>deleted_replies</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_ticket_replies">
+				<columns>
+					<column name="id_msg" type="int" autoincrement="yes" unsigned="yes" />
+					<column name="id_ticket" type="mediumint" unsigned="yes" />
+					<column name="reply_num" type="int" unsigned="yes" />
+					<column name="body" type="mediumtext" />
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="poster_time" type="int" unsigned="yes" />
+					<column name="poster_name" type="varchar" size="255" />
+					<column name="poster_email" type="varchar" size="255" />
+					<column name="poster_ip" type="int" unsigned="yes" />
+					<column name="modified_time" type="int" unsigned="yes" />
+					<column name="modified_member" type="mediumint" unsigned="yes" />
+					<column name="modified_name" type="varchar" size="255" />
+					<column name="smileys_enabled" type="tinyint" unsigned="yes" />
+					<column name="message_status" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_msg</field>
+				</index>
+				<index type="index">
+					<field>id_ticket</field>
+					<field>id_msg</field>
+					<field>message_status</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_log_action">
+				<columns>
+					<column name="id_action" type="int" autoincrement="yes" unsigned="yes" />
+					<column name="log_time" type="int" unsigned="yes" />
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="ip" type="int" unsigned="yes" />
+					<column name="action" type="varchar" size="30" />
+					<column name="id_ticket" type="mediumint" unsigned="yes" />
+					<column name="id_msg" type="int" unsigned="yes" />
+					<column name="extra" type="mediumtext" />
+				</columns>
+				<index type="primary">
+					<field>id_action</field>
+				</index>
+				<index type="index">
+					<field>id_ticket</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_log_read">
+				<columns>
+					<column name="id_ticket" type="mediumint" unsigned="yes" />
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="id_msg" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_ticket</field>
+					<field>id_member</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_attachments">
+				<columns>
+					<column name="id_attach" type="int" unsigned="yes" />
+					<column name="id_ticket" type="mediumint" unsigned="yes" />
+					<column name="id_msg" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_attach</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_relationships">
+				<columns>
+					<column name="primary_ticket" type="mediumint" unsigned="yes" />
+					<column name="secondary_ticket" type="mediumint" unsigned="yes" />
+					<column name="rel_type" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>primary_ticket</field>
+					<field>secondary_ticket</field>
+				</index>
+				<index type="index">
+					<field>primary_ticket</field>
+					<field>rel_type</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_custom_fields">
+				<columns>
+					<column name="id_field" type="smallint" autoincrement="yes" unsigned="yes" />
+					<column name="active" type="tinyint" unsigned="yes" />
+					<column name="field_order" type="smallint" unsigned="yes" />
+					<column name="field_name" type="varchar" size="40" />
+					<column name="field_desc" type="text" />
+					<column name="field_loc" type="tinyint" unsigned="yes" />
+					<column name="icon" type="varchar" size="20" />
+					<column name="field_type" type="tinyint" unsigned="yes" />
+					<column name="field_length" type="smallint" default="255" unsigned="yes" />
+					<column name="field_options" type="text" />
+					<column name="bbc" type="tinyint" unsigned="yes" />
+					<column name="default_value" type="varchar" size="255" />
+					<column name="can_see" type="varchar" size="3" default="0,0" />
+					<column name="can_edit" type="varchar" size="3" default="0,0" />
+					<column name="display_empty" type="tinyint" unsigned="yes" />
+					<column name="placement" type="tinyint" default="1" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_field</field>
+					<field>active</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_custom_fields_values">
+				<columns>
+					<column name="id_post" type="int" autoincrement="yes" unsigned="yes" />
+					<column name="id_field" type="smallint" unsigned="yes" />
+					<column name="value" type="text" />
+					<column name="post_type" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_post</field>
+					<field>id_field</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_custom_fields_depts">
+				<columns>
+					<column name="id_field" type="smallint" unsigned="yes" />
+					<column name="id_dept" type="smallint" unsigned="yes" />
+					<column name="required" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_field</field>
+					<field>id_dept</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_roles">
+				<columns>
+					<column name="id_role" type="smallint" autoincrement="yes" unsigned="yes" />
+					<column name="template" type="tinyint" unsigned="yes" />
+					<column name="role_name" type="varchar" size="80" />
+				</columns>
+				<index type="primary">
+					<field>id_role</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_role_groups">
+				<columns>
+					<column name="id_role" type="smallint" unsigned="yes" />
+					<column name="id_group" type="smallint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_role</field>
+					<field>id_group</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_role_permissions">
+				<columns>
+					<column name="id_role" type="smallint" unsigned="yes" />
+					<column name="permission" type="varchar" size="40" />
+					<column name="add_type" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_role</field>
+					<field>permission</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_preferences">
+				<columns>
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="variable" type="varchar" size="30" />
+					<column name="value" type="text" />
+				</columns>
+				<index type="primary">
+					<field>id_member</field>
+					<field>variable</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_depts">
+				<columns>
+					<column name="id_dept" type="smallint" autoincrement="yes" unsigned="yes" />
+					<column name="dept_name" type="varchar" size="50" />
+					<column name="description" type="text" />
+					<column name="board_cat" type="smallint" unsigned="yes" />
+					<column name="before_after" type="tinyint" unsigned="yes" />
+					<column name="dept_order" type="smallint" unsigned="yes" />
+					<column name="dept_theme" type="tinyint" unsigned="yes" />
+					<column name="autoclose_days" type="smallint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_dept</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_dept_roles">
+				<columns>
+					<column name="id_role" type="smallint" unsigned="yes" />
+					<column name="id_dept" type="smallint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_role</field>
+					<field>id_dept</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_cannedreplies">
+				<columns>
+					<column name="id_reply" type="smallint" autoincrement="yes" unsigned="yes" />
+					<column name="id_cat" type="smallint" unsigned="yes" />
+					<column name="title" type="varchar" size="80" />
+					<column name="body" type="text" />
+					<column name="vis_user" type="tinyint" unsigned="yes" />
+					<column name="vis_staff" type="tinyint" unsigned="yes" />
+					<column name="reply_order" type="smallint" unsigned="yes" />
+					<column name="active" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_reply</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_cannedreplies_cats">
+				<columns>
+					<column name="id_cat" type="smallint" autoincrement="yes" unsigned="yes" />
+					<column name="cat_name" type="varchar" size="80" />
+					<column name="cat_order" type="smallint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_cat</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_cannedreplies_depts">
+				<columns>
+					<column name="id_dept" type="smallint" unsigned="yes" />
+					<column name="id_reply" type="smallint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_dept</field>
+					<field>id_reply</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_notify_override">
+				<columns>
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="id_ticket" type="mediumint" unsigned="yes" />
+					<column name="notify_state" type="tinyint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_member</field>
+					<field>id_ticket</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_search_ticket_words">
+				<columns>
+					<column name="id_word" type="bigint" unsigned="yes" />
+					<column name="id_msg" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_word</field>
+					<field>id_msg</field>
+				</index>
+			</table>
+			<table if-exists="update" name="{db_prefix}helpdesk_search_subject_words">
+				<columns>
+					<column name="id_word" type="bigint" unsigned="yes" />
+					<column name="id_ticket" type="int" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_word</field>
+					<field>id_ticket</field>
+				</index>
+			</table>
+		</tables>
+		<scripts>
+			<enable>$plugindir/enable.php</enable>
+		</scripts>
+	</database>
+
+	<scheduledtasks>
+		<task runevery="1" runfreq="day" name="shd_scheduled" file="$plugindir/src/WedgeDesk-Scheduled" />
+	</scheduledtasks>
+
+	<actions>
+		<action action="helpdesk" function="shd_main" filename="src/WedgeDesk" />
+	</actions>
+
+	<bbcodes>
+		<bbcode tag="quote" type="parsed" block-level="yes">
+			<before-code><![CDATA[<div class="bbc_quote"><header>{{quote_from}} {author} <a href="<URL>?{link}">{date}</a></header><blockquote>]]></before-code>
+			<after-code><![CDATA[</blockquote><footer></footer></div>]]></after-code>
+			<params>
+				<param name="author">
+					<match><![CDATA[([^<>]{1,192}?)]]></match>
+				</param>
+				<param name="link">
+					<match><![CDATA[(action=helpdesk;sa=ticket;ticket=[\dmsg#\./]{1,40}(?:;start=[\dmsg#\./]{1,40})?)]]></match>
+				</param>
+				<param name="date">
+					<match><![CDATA[(\d+)]]></match>
+					<validate>on_timeformat</validate>
+				</param>
+			</params>
+		</bbcode>
+	</bbcodes>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme/readme.english.txt</readme>
+	</readmes>
+
+	<acp-url>action=admin;area=helpdesk_info</acp-url>
+</addon>
