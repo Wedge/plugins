@@ -1,10 +1,10 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Arantor:ThemeSelector">
-	<name>Theme Selector</name>
+<plugin id="Wedgeward:SkinSelector">
+	<name>Skin Selector</name>
 	<author>Arantor (with a little help from Nao)</author>
 	<description>Displays a selector widget inside the sidebar for changing skins quickly.</description>
 	<version>1.0</version>
 	<hooks>
-		<function point="menu_items" function="themeSelector" filename="$plugindir/ThemeSelector" />
+		<function point="menu_items" function="skinSelector" filename="$plugindir/SkinSelector" />
 	</hooks>
 </plugin>
