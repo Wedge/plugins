@@ -27,10 +27,7 @@ function skinSelector()
 		$request = wesql::query('
 			SELECT id_theme AS id, value AS name
 			FROM {db_prefix}themes
-			WHERE variable = {string:name}',
-			array(
-				'name' => 'name',
-			)
+			WHERE variable = {literal:name}'
 		);
 		$temp = array();
 		while ($row = wesql::fetch_assoc($request))
@@ -41,10 +38,7 @@ function skinSelector()
 		$request = wesql::query('
 			SELECT id_theme AS id, value AS dir
 			FROM {db_prefix}themes
-			WHERE variable = {string:dir}',
-			array(
-				'dir' => 'theme_dir',
-			)
+			WHERE variable = {literal:theme_dir}'
 		);
 		while ($row = wesql::fetch_assoc($request))
 			$temp[$row['id']]['skins'] = wedge_get_skin_list($row['dir'] . '/skins');
@@ -107,5 +101,3 @@ function template_sidebar_skin_selector()
 		location.href = weUrl("action=skin;th=" + this.value + ";" + we_sessvar + "=" + we_sessid);
 	});');
 }
-
-?>

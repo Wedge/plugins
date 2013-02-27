@@ -29,5 +29,3 @@ function compareStrings(&$lines)
 			break;
 
 }
-
-?>

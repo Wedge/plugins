@@ -18,5 +18,3 @@ $txt['uot_order_name_asc'] = 'Par nom, de A à Z';
 $txt['uot_order_name_desc'] = 'Par nom, de Z à A';
 $txt['uot_order_time_asc'] = 'Par date de dernière connexion, les plus récents à la fin';
 $txt['uot_order_time_desc'] = 'Par date de dernière connexion, les plus récents au début';
-
-?>

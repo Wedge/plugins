@@ -108,10 +108,10 @@ function template_info_center_online_today()
 
 	echo '
 	<section class="ic">
-		<we:cat>
+		<we:title>
 			<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
 			', $txt['users_online_' . $settings['uot_type']], '
-		</we:cat>';
+		</we:title>';
 
 	if (empty($context['users_online_today']))
 		echo '
@@ -124,5 +124,3 @@ function template_info_center_online_today()
 	echo '
 	</section>';
 }
-
-?>

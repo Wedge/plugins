@@ -11,5 +11,3 @@ $txt['current'] = '(version actuelle)';
 $txt['view_post'] = 'Voir';
 
 $txt['this_edit_by_on'] = 'Cette modification a été faite par %1$s le %2$s';
-
-?>

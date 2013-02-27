@@ -7,5 +7,3 @@ $txt['users_online_today_userhidden'] = '%1$s%2$s'; // For i18n. It's not always
 $txt['users_online_today_users'] = array(1 => '%s visiteur', 'n' => '%s visiteurs');
 $txt['users_online_today_hidden'] = array(1 => ' dont %s caché', 'n' => ' dont %s cachés');
 $txt['users_online_today_none'] = 'Aucun visiteur en ligne aujourd\'hui.';
-
-?>

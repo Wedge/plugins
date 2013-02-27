@@ -8,7 +8,7 @@ function template_historylist()
 	global $context, $txt;
 
 	// Since this is a popup of its own we need to start the html, unless we're coming from jQuery.
-	if ($context['is_ajax'])
+	if (AJAX)
 	{
 		echo '
 <header>
@@ -87,5 +87,3 @@ function template_view_post()
 		<div class="windowbg2 wrc">', $context['post_details']['body'], '</div>
 		<br class="clear">';
 }
-
-?>

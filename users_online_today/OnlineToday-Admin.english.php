@@ -19,5 +19,3 @@ $txt['uot_order_name_asc'] = 'By name, A-Z';
 $txt['uot_order_name_desc'] = 'By name, Z-A';
 $txt['uot_order_time_asc'] = 'By last online time, earliest first';
 $txt['uot_order_time_desc'] = 'By last online time, latest first';
-
-?>

@@ -192,5 +192,3 @@ function massattach_error($error_code, $filepath = '')
 	echo json_encode(array('valid' => false, 'error' => isset($txt[$error_code]) ? $txt[$error_code] : $error_code));
 	exit;
 }
-
-?>

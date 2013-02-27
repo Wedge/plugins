@@ -12,5 +12,3 @@ function wedgedotorg_theme()
 	if (!empty($rev))
 		$txt['copyright'] .= ' (rev <a href="http://wedge.org/pub/feats/6108/new-revs/">' . $rev . '</a>)';
 }
-
-?>

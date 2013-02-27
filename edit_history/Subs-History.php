@@ -41,5 +41,3 @@ function saveEditedPost(&$msgOptions, &$topicOptions, &$posterOptions)
 	$edit_id = wesql::insert_id();
 	call_hook('history_save_other', array(&$edit_id, &$msgOptions, &$topicOptions, &$posterOptions));
 }
-
-?>
