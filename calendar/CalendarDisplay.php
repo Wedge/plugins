@@ -16,7 +16,7 @@ if (!defined('WEDGE'))
 
 function calendar_display()
 {
-	global $context, $settings, $topic;
+	global $context, $settings, $topic, $topicinfo;
 
 	// Permissions
 	$context['calendar_post'] = allowedTo('calendar_post');
@@ -54,7 +54,7 @@ function calendar_display()
 				'id' => $row['id_event'],
 				'title' => $row['title'],
 				'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
-				'modify_href' => $scripturl . '?action=post;msg=' . $topicinfo['id_first_msg'] . ';topic=' . $topic . '.0;calendar;eventid=' . $row['id_event'] . ';' . $context['session_query'],
+				'modify_href' => '<URL>?action=post;msg=' . $topicinfo['id_first_msg'] . ';topic=' . $topic . '.0;calendar;eventid=' . $row['id_event'] . ';' . $context['session_query'],
 				'start_date' => timeformat($start_date, $date_string, 'none'),
 				'start_timestamp' => $start_date,
 				'end_date' => timeformat($end_date, $date_string, 'none'),
@@ -67,6 +67,8 @@ function calendar_display()
 		if (!empty($context['linked_calendar_events']))
 		{
 			$context['linked_calendar_events'][count($context['linked_calendar_events']) - 1]['is_last'] = true;
+			loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+			loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
 			wetem::after('topic_poll', 'linked_calendar');
 		}
 	}

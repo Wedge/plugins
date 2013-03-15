@@ -133,10 +133,12 @@ function calendar_post_form()
 
 	// Also, add the delete-event button to the button list.
 	if (!$context['event']['new'])
-		$context['postbox']->addButton(
+		$context['postbox']->add_button(
 			'deleteevent',
 			$txt['event_delete'],
-			'return ask(' . JavaScriptEscape($txt['event_delete_confirm']) . ', e);'
+			'return ask(' . JavaScriptEscape($txt['event_delete_confirm']) . ', e);',
+			'',
+			'delete'
 		);
 
 	// Add the relevant template
