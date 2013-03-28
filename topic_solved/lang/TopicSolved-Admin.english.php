@@ -1,10 +1,10 @@
 <?php
 
 $txt['topicsolved'] = 'Topic Solved';
-$txt['topicsolved_style'] = 'Solved Topics are displayed with a different colour in the list of topics. You can configure that here - remember, topics have two different background colours, and both are configured here.';
-$txt['topicsolved_bg1'] = 'The darker column background-colour';
-$txt['topicsolved_bg2'] = 'The lighter column background-colour';
-$txt['topicsolved_fg'] = 'The colour of the text';
+$txt['topicsolved_style'] = 'Solved Topics are displayed with a different color in the list of topics. You can configure that here - remember, topics have two different background colors, and both are configured here.';
+$txt['topicsolved_bg1'] = 'The darker column background-color';
+$txt['topicsolved_bg2'] = 'The lighter column background-color';
+$txt['topicsolved_fg'] = 'The color of the text';
 $txt['topicsolved_boards'] = 'Boards that topics can be solved in';
 
 $txt['modlog_ac_solve'] = 'Mark &quot;{topic}&quot; as solved';

@@ -10,7 +10,7 @@ function shd_attach_select(oOptions)
 	shd_attach_select.prototype.id = 0;
 	shd_attach_select.prototype.max = (oOptions.max) ? oOptions.max : -1;
 	shd_attach_select.prototype.addElement(document.getElementById(shd_attach_select.prototype.opts.file_item));
-};
+}
 
 shd_attach_select.prototype.addElement = function (element)
 {
@@ -79,7 +79,7 @@ shd_attach_select.prototype.checkExtension = function (filename)
 			for (var i = -1, j = arr.length; ++i < j;)
 				if (arr[i] === obj) return true;
 			return false;
-    };
+	};
 	var value = func(arr, ext);
 	if (!value)
 		shd_attach_select.prototype.opts.message_ext_error_final = shd_attach_select.prototype.opts.message_ext_error.replace('{ext}', ext);
@@ -131,7 +131,7 @@ function QuickReply(oOptions)
 {
 	this.opt = oOptions;
 	this.bCollapsed = this.opt.bDefaultCollapsed;
-};
+}
 
 // When a user presses quote, put it in the quick reply box (if expanded).
 QuickReply.prototype.quote = function (iMessageId, sSessionId, sSessionVar, bTemplateUpgraded)
@@ -150,7 +150,7 @@ QuickReply.prototype.quote = function (iMessageId, sSessionId, sSessionVar, bTem
 			return true;
 		else
 		{
-			window.location.href = we_prepareScriptUrl(this.opt.sScriptUrl) + 'action=helpdesk;sa=reply;quote=' + iMessageId + ';ticket=' + this.opt.iTicketId + '.' + this.opt.iStart + ';' + sSessionVar + '=' + sSessionId;
+			location = we_prepareScriptUrl(this.opt.sScriptUrl) + 'action=helpdesk;sa=reply;quote=' + iMessageId + ';ticket=' + this.opt.iTicketId + '.' + this.opt.iStart + ';' + sSessionVar + '=' + sSessionId;
 			return false;
 		}
 	}
@@ -190,7 +190,7 @@ function CannedReply(oOptions)
 {
 	this.opt = oOptions;
 	document.getElementById("canned_replies").style.display = "";
-};
+}
 
 CannedReply.prototype.getReply = function ()
 {
@@ -224,9 +224,9 @@ CannedReply.prototype.onReplyReceived = function (oXMLDoc)
 // The quick jump function
 function shd_quickTicketJump(id_ticket)
 {
-	window.location.href = we_prepareScriptUrl(we_script) + '?action=helpdesk;sa=ticket;ticket=' + id_ticket;
+	location = we_prepareScriptUrl(we_script) + '?action=helpdesk;sa=ticket;ticket=' + id_ticket;
 	return false;
-};
+}
 
 function AjaxSelector(oOptions)
 {
@@ -240,7 +240,7 @@ function AjaxSelector(oOptions)
 	$('#' + this.opt.sListItem + ' dl').append('<dd><img src="' + this.opt.sImagesUrl + "/" + this.opt.sImageCollapsed + '" id="' + this.opt.sSelf + '_button" class="shd_assign_button" onclick="' + this.opt.sSelf + '.click();"></dd>');
 	$('#' + this.opt.sListItem).append('<ul id="' + this.opt.sListItem + '_list" class="shd_selector_list"></ul>');
 	$('#' + this.opt.sListItem + '_list').hide();
-};
+}
 
 AjaxSelector.prototype.click = function ()
 {

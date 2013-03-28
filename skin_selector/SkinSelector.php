@@ -93,11 +93,11 @@ function template_sidebar_skin_selector()
 			sAnchor = sUrl.slice(search);
 			sUrl = sUrl.slice(0, search);
 		}
-		location.href = sUrl + (sUrl.search(/[?;]$/) != -1 ? "" : sUrl.indexOf("?") < 0 ? "?" : ";") + "theme=" + this.value + sAnchor;
+		location = sUrl + (sUrl.search(/[?;]$/) != -1 ? "" : sUrl.indexOf("?") < 0 ? "?" : ";") + "theme=" + this.value + sAnchor;
 	});');
 	else
 		add_js('
 	$("#boardtheme").change(function () {
-		location.href = weUrl("action=skin;th=" + this.value + ";" + we_sessvar + "=" + we_sessid);
+		location = weUrl("action=skin;th=" + this.value + ";" + we_sessvar + "=" + we_sessid);
 	});');
 }

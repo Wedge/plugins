@@ -19,7 +19,7 @@
 			conf = $.extend({
 				yearRange: [-5, 10],
 			}, uconf),
-			now = new Date,
+			now = $.now(),
 			yearNow = now.getFullYear(),
 			root,
 			currYear, currMonth, currDay,
@@ -45,11 +45,12 @@
 
 			setValue = function(year, month, day, fromKey)
 			{
-				var date = integer(month) >= -1 ? new Date(integer(year), integer(month), integer(day == undefined || isNaN(day) ? 1 : day)) :
-					year || value;
+				var date = integer(month) >= -1 ? new Date(integer(year), integer(month), integer(day == undefined || isNaN(day) ? 1 : day)) : year || value;
 
-				if (date < min) { date = min; }
-				else if (date > max) { date = max; }
+				if (date < min)
+					date = min;
+				else if (date > max)
+					date = max;
 
 				year = date.getFullYear();
 				month = date.getMonth();
@@ -106,17 +107,20 @@
 					if (j % 7 === 0)
 						week = $('<tr/>').appendTo(weeks);
 
-					if (j < begin)  {
+					if (j < begin)
+					{
 						td.addClass('disabled');
 						num = prevDays - begin + j + 1;
-						thisDate = new Date(year, month-1, num);
-
-					} else if (j >= begin + days)  {
+						thisDate = new Date(year, month - 1, num);
+					}
+					else if (j >= begin + days)
+					{
 						td.addClass('disabled');
 						num = j - days - begin + 1;
-						thisDate = new Date(year, month+1, num);
-
-					} else  {
+						thisDate = new Date(year, month + 1, num);
+					}
+					else
+					{
 						num = j - begin + 1;
 						thisDate = new Date(year, month, num);
 
@@ -156,9 +160,9 @@
 			},
 
 			addMonth = function(amount) {
-				var targetMonth        = currMonth + (amount || 1),
-				daysInTargetMonth  = dayAm(currYear, targetMonth),
-				targetDay          = currDay <= daysInTargetMonth ? currDay : daysInTargetMonth;
+				var targetMonth		= currMonth + (amount || 1),
+				daysInTargetMonth	= dayAm(currYear, targetMonth),
+				targetDay			= currDay <= daysInTargetMonth ? currDay : daysInTargetMonth;
 
 				return setValue(currYear, targetMonth, targetDay);
 			},
@@ -207,7 +211,7 @@
 				// rfc3339?
 				var els = val.split('-');
 				if (els.length == 3)
-					return new Date(integer(els[0]), integer(els[1]) -1, integer(els[2]));
+					return new Date(integer(els[0]), integer(els[1]) - 1, integer(els[2]));
 
 				// invalid offset
 				if ( !(/^-?\d+$/).test(val) )
@@ -222,13 +226,13 @@
 			return date;
 		},
 
-		select = function (date) {
-
+		select = function (date)
+		{
 			// current value
-			value 	= date;
-			currYear  = date.getFullYear();
-			currMonth = date.getMonth();
-			currDay	= date.getDate();
+			value		= date;
+			currYear	= date.getFullYear();
+			currMonth	= date.getMonth();
+			currDay		= date.getDate();
 
 			// formatting
 			input.val(date.getFullYear()
@@ -240,8 +244,10 @@
 			hide();
 		},
 
-		onShow = function (ev) {
-			$(document).on('keydown.d', function(event) {
+		onShow = function (ev)
+		{
+			$(document).on('keydown.d', function(event)
+			{
 				if (opened)
 					switch (event.keyCode)
 					{
@@ -302,33 +308,33 @@
 		// use sane values for value, min & max
 		value = parseDate(value);
 		min = parseDate(min || new Date(yearNow + conf.yearRange[0], 1, 1));
-		max = parseDate(max || new Date(yearNow + conf.yearRange[1]+ 1, 1, -1));
+		max = parseDate(max || new Date(yearNow + conf.yearRange[1] + 1, 1, -1));
 
-			// root
-			root = $('<div><div><div/></div><table><tbody/><tr/></table></div>')
-				.addClass('cal');
+		// root
+		root = $('<div><div><div/></div><table><tbody/><tr/></table></div>')
+			.addClass('cal');
 
-			input.after(root).addClass('dateinput');
+		input.after(root).addClass('dateinput');
 
-			// elements
-			var
-				$children = root.children(),
-				title = $children.first(),
-				$tableChildren = $children.eq(1).children(),
-				days = $tableChildren.eq(0).append($('<tr/>')),
-				weeks = $tableChildren.eq(1);
+		// elements
+		var
+			$children = root.children(),
+			title = $children.first(),
+			$tableChildren = $children.eq(1).children(),
+			days = $tableChildren.eq(0).append($('<tr/>')),
+			weeks = $tableChildren.eq(1);
 
-			// year & month selectors
-			var monthSelector = $('<select/>').change(function() {
-				setValue(yearSelector.val(), $(this).val());
-				}),
-				yearSelector = $('<select/>').change(function() {
-					setValue($(this).val(), monthSelector.val());
-				});
-			title.append(monthSelector.add(yearSelector));
+		// year & month selectors
+		var monthSelector = $('<select/>').change(function() {
+			setValue(yearSelector.val(), $(this).val());
+			}),
+			yearSelector = $('<select/>').change(function() {
+				setValue($(this).val(), monthSelector.val());
+			});
+		title.append(monthSelector.add(yearSelector));
 
-			for (var d = 0; d < 7; d++)
-				days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
+		for (var d = 0; d < 7; d++)
+			days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
 
 		if (value)
 			select(value);
@@ -341,12 +347,12 @@
 
 				// open dateinput with navigation keys
 				// h=72, j=74, k=75, l=76, down=40, left=37, up=38, right=39
-				if (!opened && $([75, 76, 38, 39, 74, 72, 40, 37]).index(key) >= 0) {
+				if (!opened && $([75, 76, 38, 39, 74, 72, 40, 37]).index(key) >= 0)
+				{
 					show();
 					return e.preventDefault();
-
-				// clear value on backspace or delete
 				}
+				// clear value on backspace or delete
 				else if (key == 8 || key == 46)
 					input.val('');
 
@@ -354,7 +360,6 @@
 				return e.shiftKey || e.ctrlKey || e.altKey || key == 9 ? true : e.preventDefault();
 			});
 		}
-
 	}
 
 	$.fn.dateinput = function (conf)
@@ -367,6 +372,5 @@
 				$e.data('dateinput', new Dateinput($e, conf));
 		});
 	};
-
 
 }) (jQuery);

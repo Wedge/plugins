@@ -310,7 +310,7 @@ function template_shd_admin_maint_search()
 							<input type="text" class="input_text" name="shd_search_max_size" size="4" value="', $settings['shd_search_max_size'], '">
 						</dd>
 						<dt>
-							<a id="setting_shd_search_prefix_size" href="<URL>?action=help;in=shd_search_prefix_size_help" onclick="return reqWin(this);" class="help"><img src="', $theme['images_url'], '/helptopics.gif" class="icon"></a>
+							<a id="setting_shd_search_prefix_size" href="<URL>?action=help;in=shd_search_prefix_size_help" onclick="return reqWin(this);" class="help"></a>
 							<span>', $txt['shd_search_prefix_size'], '</span>
 						</dt>
 						<dd>

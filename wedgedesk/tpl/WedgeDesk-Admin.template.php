@@ -47,7 +47,7 @@ function template_shd_admin()
 				<we:cat>
 					<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/live.png">
 					', $txt['shd_live_from'], '
-					<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_live" onclick="return reqWin(this.href);"><img src="', $theme['images_url'], '/helptopics.gif" alt="', $txt['help'], '"></a></span>
+					<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_live" onclick="return reqWin(this);" class="help"></a></span>
 				</we:cat>
 				<div class="windowbg wrc">
 					<div class="content">
@@ -62,7 +62,7 @@ function template_shd_admin()
 				<we:cat>
 					<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/modification.png">
 					', $txt['shd_mod_information'], '
-					<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_modification" onclick="return reqWin(this.href);"><img src="', $theme['images_url'], '/helptopics.gif" alt="', $txt['help'], '"></a></span>
+					<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_modification" onclick="return reqWin(this);" class="help"></a></span>
 				</we:cat>
 				<div class="windowbg wrc">
 					<div class="content">
@@ -105,7 +105,7 @@ function template_shd_admin()
 		<we:title>
 			<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/credits.png">
 			', $txt['shd_credits'], '
-			<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_credits" onclick="return reqWin(this);"><img src="', $theme['images_url'], '/helptopics.gif" alt="', $txt['help'], '"></a></span>
+			<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_credits" onclick="return reqWin(this);" class="help"></a></span>
 		</we:title>';
 
 	foreach ($context['shd_credits'] as $section)
@@ -198,7 +198,7 @@ function template_shd_admin()
 						<h3 class="catbg">
 							<img src="' . $context['plugins_url']['Arantor:WedgeDesk'] . '/images/update.png">
 							%title%
-							<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_update" onclick="return reqWin(this.href);"><img src="'. $theme['images_url'] . '/helptopics.gif" alt="' . $txt['help'] . '"></a></span>
+							<span class="righttext"><a href="<URL>?action=helpadmin;help=shd_admin_help_update" onclick="return reqWin(this);" class="help"></a></span>
 						</h3>
 					</div>
 					<div class="windowbg" id="update_container">
@@ -288,7 +288,7 @@ function template_shd_show_settings()
 			{
 				echo '
 					<we:cat>
-						', ($config_var['help'] ? '<a href="<URL>?action=helpadmin;help=' . $config_var['help'] . '" onclick="return reqWin(this.href);" class="help"><img src="' . $theme['images_url'] . '/helptopics.gif" alt="' . $txt['help'] . '"></a>' : ''), '
+						', ($config_var['help'] ? '<a href="<URL>?action=helpadmin;help=' . $config_var['help'] . '" onclick="return reqWin(this);" class="help"></a>' : ''), '
 						', $config_var['label'], '
 					</we:cat>';
 			}
@@ -375,7 +375,7 @@ function template_shd_show_settings()
 				// Show the [?] button.
 				if ($config_var['help'])
 					echo '
-							<a id="setting_', $config_var['name'], '" href="<URL>?action=helpadmin;help=', $config_var['help'], '" onclick="return reqWin(this.href);" class="help"><img src="', $theme['images_url'], '/helptopics.gif" alt="', $txt['help'], '" border="0"></a><span', ($config_var['disabled'] ? ' class="disabled"' : ($config_var['invalid'] ? ' class="error"' : '')), '><label id="label_', $config_var['name'], '" for="', $config_var['name'], '">', $config_var['label'], '</label>', $subtext, ($config_var['type'] == 'password' ? '<br><em>' . $txt['admin_confirm_password'] . '</em>' : ''), '</span>
+							<a id="setting_', $config_var['name'], '" href="<URL>?action=helpadmin;help=', $config_var['help'], '" onclick="return reqWin(this);" class="help"></a><span', ($config_var['disabled'] ? ' class="disabled"' : ($config_var['invalid'] ? ' class="error"' : '')), '><label id="label_', $config_var['name'], '" for="', $config_var['name'], '">', $config_var['label'], '</label>', $subtext, ($config_var['type'] == 'password' ? '<br><em>' . $txt['admin_confirm_password'] . '</em>' : ''), '</span>
 						</dt>';
 				else
 					echo '

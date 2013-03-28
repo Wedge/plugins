@@ -41,7 +41,7 @@ $(function (jQuery, undefined)
 		.hide()
 		.prependTo($element.parent());
 
-	var dragUIOpened = false, dragTimer = +new Date();
+	var dragUIOpened = false, dragTimer = $.now();
 
 	$(document.body)
 		.on('dragover', function (e)
@@ -50,7 +50,7 @@ $(function (jQuery, undefined)
 			var dt = e.originalEvent.dataTransfer;
 			if (dt.types == null || !(dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file')))
 				return true;
-			
+
 			e.originalEvent.dataTransfer.dropEffect = 'none';
 
 			// Expand the additional option if it's collapsed
@@ -63,7 +63,7 @@ $(function (jQuery, undefined)
 				$element.fadeOut('fast', function () { $('#dropnotice').fadeIn(); });
 				dragUIOpened = true;
 			}
-			dragTimer = +new Date();
+			dragTimer = $.now();
 
 			return false;
 		})
@@ -71,7 +71,7 @@ $(function (jQuery, undefined)
 		{
 			setTimeout(function ()
 			{
-				if ((+new Date()) - dragTimer > 200)
+				if ($.now() - dragTimer > 200)
 				{
 					$('#dropnotice').fadeOut('fast', function () { $element.fadeIn(); });
 					dragUIOpened = false;
@@ -92,7 +92,7 @@ $(function (jQuery, undefined)
 	$('#dropnotice')
 		.on('dragover', function (e)
 		{
-			dragTimer = +new Date();
+			dragTimer = $.now();
 			e.originalEvent.dataTransfer.dropEffect = 'copy';
 
 			return false;
@@ -130,7 +130,7 @@ $(function (jQuery, undefined)
 
 		$is_uploading = true;
 		var
-			$timer = +new Date(),
+			$timer = $.now(),
 			$progress = $('<div class="windowbg2 inline-block middle" style="height: 16px; width: 150px; margin: 5px 10px; border: 1px solid #666"><div class="plainbox" style="background: #c2d3ca; height: 12px; padding: 0; border-radius: 0; border: 0; width: 0"></div></div>')
 				.appendTo($files[$current].element);
 
@@ -141,9 +141,9 @@ $(function (jQuery, undefined)
 		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
 		xhr.upload.onprogress = function (e)
 		{
-			if (e.lengthComputable && (+new Date()) - $timer > 500)
+			if (e.lengthComputable && ($.now() - $timer > 500))
 			{
-				$timer = +new Date();
+				$timer = $.now();
 				$progress.find('.plainbox').width((e.loaded / e.total) * 150);
 			}
 		};

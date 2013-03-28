@@ -48,7 +48,7 @@ function template_recaptcha(&$verify_id)
 
 	// Unfortunately we have to bend some rules here. We need all of this stuff to execute prior to the footer, because of the way reCAPTCHA works.
 	echo '
-	<script><!-- // --><![CDATA[
+	<script>
 		var RecaptchaOptions = {
 			custom_translations : {';
 
@@ -62,7 +62,7 @@ function template_recaptcha(&$verify_id)
 			theme: \'', (empty($settings['recaptcha_theme']) ? 'clean' : $settings['recaptcha_theme']), '\',
 			tabindex: ', ($context['tabindex']++), '
 		};
-	// ]]></script>
+	</script>
 	<script src="http://api.recaptcha.net/challenge?k=', $settings['recaptcha_public_key'], '"></script>
 	<noscript>
 		<iframe src="http://api.recaptcha.net/noscript?k=', $settings['recaptcha_public_key'], '" height="300" width="500" frameborder="0"></iframe><br />
@@ -70,5 +70,3 @@ function template_recaptcha(&$verify_id)
 		<input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
 	</noscript>';
 }
-
-?>
