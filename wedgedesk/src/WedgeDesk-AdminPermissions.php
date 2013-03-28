@@ -214,7 +214,7 @@ function shd_admin_save_role()
 		fatal_lang_error('shd_unknown_role', false);
 
 	// 2b. Oh, we have actually heard of you. That's fine, we'll just refer to you by codename because we're lazy.
-	$role = &$context['shd_permissions']['user_defined_roles'][$_REQUEST['role']];
+	$role =& $context['shd_permissions']['user_defined_roles'][$_REQUEST['role']];
 
 	// 3. Are you the gunman behind the grassy knoll?
 	if (isset($_POST['delete']))
@@ -696,7 +696,7 @@ function shd_load_role($loadrole = 0)
 	// 1. Load the templates
 	foreach ($context['shd_permissions']['user_defined_roles'] as $role => $role_details)
 	{
-		$template = &$context['shd_permissions']['roles'][$role_details['template']];
+		$template =& $context['shd_permissions']['roles'][$role_details['template']];
 		$context['shd_permissions']['user_defined_roles'][$role] += array(
 			'permissions' => $template['permissions'],
 			'template_icon' => $template['icon'],

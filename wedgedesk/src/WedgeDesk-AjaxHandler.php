@@ -273,7 +273,7 @@ function shd_ajax_canned()
  *
  *	Operations:
  *	- Session check
- * 	- Permissions check (that you can assign a ticket to someone else); if you can't assign a ticket to someone else, bail.
+ *	- Permissions check (that you can assign a ticket to someone else); if you can't assign a ticket to someone else, bail.
  *	- Get the list of information for a ticket (which implicitly checks ticket access); if you can't see the ticket, bail.
  *	- Get the list of who can be assigned a ticket.
  *	- Return that via AJAX.
@@ -330,7 +330,7 @@ function shd_ajax_assign()
  *
  *	Operations:
  *	- Session check
- * 	- Permissions check (that you can assign a ticket to someone else); if you can't assign a ticket to someone else, bail.
+ *	- Permissions check (that you can assign a ticket to someone else); if you can't assign a ticket to someone else, bail.
  *	- Get the list of information for a ticket (which implicitly checks ticket access); if you can't see the ticket, bail.
  *	- Get the list of who can be assigned a ticket; if requested user not on that list, bail.
  *	- Update and build return status, and return via AJAX.
@@ -738,7 +738,7 @@ function shd_ajax_ajax_privacy2()
 				'privacy' => $_POST['newval'],
 			)
 		);
-		
+
 		return $context['ajax_return'] = array('item' => $_POST['newval'] == 0 ? $txt['shd_ticket_notprivate'] : $txt['shd_ticket_private']);
 	}
 	else
@@ -770,7 +770,7 @@ function shd_ajax_ajax_urgency()
 			return $context['ajax_return'] = array('error' => $txt['shd_cannot_change_urgency']);
 
 		$context['ajax_raw'] = '<response>';
-		
+
 	foreach (range(0, 5) as $i)
 		$context['ajax_raw'] .= '
 <item id="' . $i . '"><![CD' . 'ATA[' . $txt['shd_urgency_' . $i] . ']' . ']></item>';
@@ -833,7 +833,7 @@ function shd_ajax_ajax_urgency2()
 				'urgency' => $_POST['newval'],
 			)
 		);
-		
+
 		return $context['ajax_return'] = array('item' => $txt['shd_urgency_' . $_POST['newval']]);
 	}
 	else

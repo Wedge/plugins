@@ -107,7 +107,7 @@ function ModifyHolidays()
 
 	$presets_to_show = array(
 		'xmas', 'newyear', 'halloween', 'thanks', 'memorial', 'labor', 'dday', 'veteran', 'id4', '5may',
-		'flag', 'category_parents', 'category_solstice', 'earth', 'un', 'pirate', 'cupid', 'stpat', 'april', 'groundhog', 
+		'flag', 'category_parents', 'category_solstice', 'earth', 'un', 'pirate', 'cupid', 'stpat', 'april', 'groundhog',
 	);
 	call_hook('calendar_holidays_admin', array(&$presets_to_show));
 	$presets_set = !empty($settings['cal_preset_holidays']) ? explode(',', $settings['cal_preset_holidays']) : array();

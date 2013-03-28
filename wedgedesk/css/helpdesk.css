@@ -1,6 +1,6 @@
-/**********************************
-* General stuff used all around the helpdesk 	*
-***********************************/
+/*********************************************
+* General stuff used all around the helpdesk *
+**********************************************/
 
 /* WedgeDesk icons */
 .shd_smallicon
@@ -30,9 +30,9 @@
 .shd_nowrap
 	white-space: nowrap
 
-/**********************************
-* The ticket listings 				*
-***********************************/
+/**********************
+* The ticket listings *
+***********************/
 .shd_ticketlist
 	td
 		padding: 5px
@@ -41,7 +41,7 @@
 		text-align: left
 	.new_icon
 		vertical-align: baseline
-		
+
 .shd_noticket
 	text-align: center
 
@@ -82,9 +82,9 @@
 dd#assigned_button
 	padding: 1px 0
 
-/**********************************
-* Stuff used within the actual tickets 	*
-***********************************/
+/***************************************
+* Stuff used within the actual tickets *
+****************************************/
 
 /* This is done to position icons perfectly in the ticket header (i.e the navigation)*/
 h3.ticketheader img
@@ -187,9 +187,9 @@ h3.ticketheader img
 #quickReplyOptions form textarea
 	margin-bottom: 0!important
 
-/**********************************
- * Huge buttons :D			 	*
-***********************************/
+/*******************
+ * Huge buttons :D *
+********************/
 
 /* The big reply button */
 .shd_bigbutton
@@ -246,9 +246,9 @@ h3.ticketheader img
 	background: url($plugindir/images/ticket.png) no-repeat left
 	background-position: 10px
 
-/**********************************
-* Ticket replies				 *
-***********************************/
+/*****************
+* Ticket replies *
+******************/
 .shd_reply
 	padding-bottom: 32px
 	padding-top: 12px
@@ -284,9 +284,9 @@ h3.ticketheader img
 	margin-right: 5%
 	float: left
 
-/**********************************
-* Attachment stuff				  *
-***********************************/
+/*******************
+* Attachment stuff *
+********************/
 .shd_reply_attachments
 	width: 66%
 	margin-bottom: 0
@@ -330,9 +330,9 @@ h3.ticketheader img
 	margin-left: auto
 	margin-right: auto
 
-/**********************************
-* Posting and editing tickets/replies		 *
-***********************************/
+/**************************************
+* Posting and editing tickets/replies *
+***************************************/
 #shd_bbcbox
 	margin: 0 0 0.5em 0
 	div
@@ -353,9 +353,9 @@ h3.ticketheader img
 	width: 66%
 	margin-top: 1em
 
-/**********************************
-* General actions				 *
-***********************************/
+/******************
+* General actions *
+*******************/
 .pm_message
 	margin-top: 1ex
 
@@ -367,9 +367,9 @@ h3.ticketheader img
 		top: 3px
 		margin-right: 2px
 
-/**********************************
-* The profile				 	*
-***********************************/
+/**************
+* The profile *
+***************/
 .shd_profile_navigation
 	margin-right: 20px
 

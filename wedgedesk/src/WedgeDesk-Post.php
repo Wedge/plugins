@@ -1767,7 +1767,7 @@ function shd_check_attachments()
 					}
 					closedir($dir);
 
-					// Too big!  Maybe you could zip it or something...
+					// Too big! Maybe you could zip it or something...
 					if ($uplfile['size'] + $dirSize > $settings['attachmentDirSizeLimit'] * 1024)
 						fatal_lang_error('ran_out_of_space');
 				}

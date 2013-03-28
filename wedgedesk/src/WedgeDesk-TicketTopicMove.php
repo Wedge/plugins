@@ -527,7 +527,7 @@ function shd_tickettotopic2()
 
 		if (wesql::num_rows($request) != 0)
 		{
-			// Now loop through each reply and post it.  Hopefully there aren't too many. *looks at clock*
+			// Now loop through each reply and post it. Hopefully there aren't too many. *looks at clock*
 			while ($row = wesql::fetch_assoc($request))
 			{
 				if ($row['message_status'] == MSG_STATUS_DELETED && !empty($context['deleted_prompt']) && $context['deleted_prompt'] == 'delete') // we don't want these replies!
@@ -1096,7 +1096,7 @@ function shd_topictoticket2()
 
 		if (wesql::num_rows($request) != 0)
 		{
-			// Now loop through each reply and post it.  Hopefully there aren't too many. *looks at clock*
+			// Now loop through each reply and post it. Hopefully there aren't too many. *looks at clock*
 			while ($row = wesql::fetch_assoc($request))
 			{
 				$msgOptions = array(

@@ -131,7 +131,7 @@ function ssi_staffTicketsUrgency($urgency, $limit = 10, $output_method = 'echo')
  *		<ul>
  *			<li>id: user id of the person who the ticket is assigned to</li>
  *			<li>name: username of the person who the ticket is assigned to or 'Unassigned' otherwise</li>
- *			<li>link: link to the profile of the person  who the ticket is assigned to or 'Unassigned' otherwise</li>
+ *			<li>link: link to the profile of the person who the ticket is assigned to or 'Unassigned' otherwise</li>
  *		</ul>
  *	</li>
  *	<li>num_replies: Number of replies in the ticket</li>

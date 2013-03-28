@@ -153,7 +153,7 @@ function shd_profile_frontpage($memID)
 		return;
 
 	$context['can_send_pm'] = allowedTo('pm_send') && (empty($settings['shd_helpdesk_only']) || empty($settings['shd_disable_pm']));
-	$context['member'] = &$memberContext[$memID];
+	$context['member'] =& $memberContext[$memID];
 
 	if (allowedTo('moderate_forum'))
 	{
@@ -221,7 +221,7 @@ function shd_profile_frontpage($memID)
 			$ban_query_vars['email'] = $context['member']['email'];
 		}
 
-		// So... are they banned?  Dying to know!
+		// So... are they banned? Dying to know!
 		$request = wesql::query('
 			SELECT bg.id_ban_group, bg.name, bg.cannot_access, bg.cannot_post, bg.cannot_register,
 				bg.cannot_login, bg.reason
@@ -505,7 +505,7 @@ function shd_profile_show_tickets($memID)
 		// Do the parsing dance! Eh...
 		$row['body'] = shd_format_text($row['body'], $row['smileys_enabled'], 'shd_reply_' . $row['id_msg']);
 
-		// And finally,  store the load of cr--... the results!
+		// And finally, store the load of cr--... the results!
 		$context['items'][$counter += $reverse ? -1 : 1] = array(
 			'body' => $row['body'],
 			'counter' => $counter,
@@ -583,7 +583,7 @@ function shd_profile_permissions($memID)
 	shd_load_all_permission_sets();
 
 	// 1. What groups is this user in? And we need all their groups, which in 'profile' mode, Wedge helpfully puts into $user_profile[$memID] for us.
-	$groups = empty($user_profile[$memID]['additional_groups']) ? array() :  explode(',', $user_profile[$memID]['additional_groups']);
+	$groups = empty($user_profile[$memID]['additional_groups']) ? array() : explode(',', $user_profile[$memID]['additional_groups']);
 	$groups[] = $user_profile[$memID]['id_group'];
 
 	// Sanitise this little lot

@@ -229,7 +229,7 @@ function template_shd_edit_role()
 	global $context, $theme, $txt;
 
 	// This is to shortcut settings for the role we want.
-	$role = &$context['shd_permissions']['user_defined_roles'][$_REQUEST['role']];
+	$role =& $context['shd_permissions']['user_defined_roles'][$_REQUEST['role']];
 
 	add_js('
 		function shd_chicon(obj)

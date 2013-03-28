@@ -152,11 +152,11 @@ function calendar_post_form()
 	add_plugin_css_file('Wedgeward:Calendar', 'css/dateinput', true);
 	add_plugin_js_file('Wedgeward:Calendar', 'js/dateinput.js');
 	add_js('
-    var
-        days = ' . json_encode(array_values($txt['days'])) . ',
-        daysShort = ' . json_encode(array_values($txt['days_short'])) . ',
-        months = ' . json_encode(array_values($txt['months'])) . ',
-        monthsShort = ' . json_encode(array_values($txt['months_short'])) . ';
+	var
+		days = ' . json_encode(array_values($txt['days'])) . ',
+		daysShort = ' . json_encode(array_values($txt['days_short'])) . ',
+		months = ' . json_encode(array_values($txt['months'])) . ',
+		monthsShort = ' . json_encode(array_values($txt['months_short'])) . ';
 	$("#date").dateinput();');
 
 	// Reset the page title.

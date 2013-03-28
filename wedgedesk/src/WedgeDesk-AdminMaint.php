@@ -1051,12 +1051,12 @@ function shd_admin_maint_search()
 			$_POST['shd_search_min_size'] = 3;
 		elseif ($_POST['shd_search_min_size'] > 15)
 			$_POST['shd_search_min_size'] = 15;
-		
+
 		if ($_POST['shd_search_max_size'] < $_POST['shd_search_min_size'])
 			$_POST['shd_search_max_size'] = $_POST['shd_search_min_size'];
 		elseif ($_POST['shd_search_max_size'] > 15)
 			$_POST['shd_search_max_size'] = 15;
-			
+
 		if ($_POST['shd_search_prefix_size'] < 0)
 			$_POST['shd_search_prefix_size'] = 0;
 		elseif ($_POST['shd_search_prefix_size'] > 0 && $_POST['shd_search_prefix_size'] < $_POST['shd_search_min_size'])

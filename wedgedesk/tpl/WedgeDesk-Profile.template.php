@@ -705,7 +705,7 @@ function template_shd_profile_navigation_above()
 		{
 			echo '
 						<li', (!empty($menuitem['is_last']) ? ' class="shd_inline_last"' : ''), '>
-							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/', $menuitem['image'], '"  class="floatright">
+							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/', $menuitem['image'], '" class="floatright">
 							<a href="', $menuitem['link'], '"><strong>', $menuitem['text'], '</strong></a>
 							', (empty($options['use_sidebar_menu']) && empty($menuitem['is_last'])) ? '<hr>' : '', '
 						</li>';

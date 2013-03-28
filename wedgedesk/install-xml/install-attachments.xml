@@ -320,7 +320,7 @@ function shd_list_get_num_files($browse_type)
 		)
 	);
 
-	list ($num_files) = wesql::fetch_row($request);
+	list($num_files) = wesql::fetch_row($request);
 	wesql::free_result($request);
 
 	return $num_files;
@@ -334,7 +334,7 @@ function shd_list_get_num_files($browse_type)
 		<operation>
 			<search position="before"><![CDATA[$txt['attachment_manager_thumbs'], ']]></search>
 			<add><![CDATA[', (empty($GLOBALS['modSettings']['helpdesk_active']) ? '' : '</a> |
-				<a href="' . $scripturl . '?action=admin;area=manageattachments;sa=browse;shd_attach">' . ($context['browse_type'] == 'shd_attach' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') .  $txt['attachment_manager_shd_attach'] . '</a> |
+				<a href="' . $scripturl . '?action=admin;area=manageattachments;sa=browse;shd_attach">' . ($context['browse_type'] == 'shd_attach' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_attach'] . '</a> |
 				<a href="' . $scripturl . '?action=admin;area=manageattachments;sa=browse;shd_thumb">' . ($context['browse_type'] == 'shd_thumb' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_thumb']), ']]></add>
 		</operation>
 	</file>

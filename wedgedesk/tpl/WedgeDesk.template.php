@@ -80,7 +80,7 @@ function template_hdmain()
 			</table>
 		</div>';
 
-	//echo 'I\'m alive!!!!!!!!!!1111oneone'; 	- I had to save this :P
+	// echo 'I\'m alive!!!!!!!!!!1111oneone';	- I had to save this :P
 }
 
 function template_shd_depts()
@@ -564,7 +564,7 @@ function template_shd_menu_header($header, $string)
 
 	if ($context['ticket_blocks'][$context['current_block']]['sort']['item'] == $header)
 	{
-		$html .= '<img src="' . $theme['images_url']  . '/sort_' . ($context['ticket_blocks'][$context['current_block']]['sort']['direction'] == 'asc' ? 'down' : 'up') . '.gif">';
+		$html .= '<img src="' . $theme['images_url'] . '/sort_' . ($context['ticket_blocks'][$context['current_block']]['sort']['direction'] == 'asc' ? 'down' : 'up') . '.gif">';
 	}
 
 	return $html;
