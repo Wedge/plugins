@@ -47,19 +47,18 @@
 		<setting name="cal_showbdays" default="1" /><!-- This is going to be removed -->
 		<setting name="cal_showevents" default="1" />
 		<setting name="cal_showweeknum" default="0" />
-		<setting name="cal_maxspan" default="7" />
 		<setting name="cal_days_for_index" default="7" />
 		<setting name="cal_preset_holidays" default="xmas,newyear,pirate,cupid,stpat,april,earth,un,halloween,category_parents,category_solstice,id4,5may,flag,veteran,groundhog,thanks,memorial,labor,dday" />
 	</settings>
 
 	<newperms filename="lang/ManageCalendar">
 		<groups>
-			<group type="membergroup" class="calendar" simple="post_calendar" />
+			<group type="membergroup" name="calendar" />
 		</groups>
 		<permissionlist>
-			<permission type="membergroup" name="calendar_view" ownany="false" classic="calendar" simple="post_calendar" />
-			<permission type="membergroup" name="calendar_post" ownany="false" classic="calendar" simple="post_calendar" />
-			<permission type="membergroup" name="calendar_edit" ownany="true" classic="calendar" simple="post_calendar" />
+			<permission type="membergroup" name="calendar_view" ownany="false" group="calendar" />
+			<permission type="membergroup" name="calendar_post" ownany="false" group="calendar" />
+			<permission type="membergroup" name="calendar_edit" ownany="true" group="calendar" />
 		</permissionlist>
 	</newperms>
 

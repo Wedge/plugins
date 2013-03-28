@@ -25,10 +25,10 @@
 
 	<newperms filename="lang/TopicSolved-Admin">
 		<groups>
-			<group type="membergroup" class="ts_group" simple="ts_group" />
+			<group type="membergroup" name="ts_group" />
 		</groups>
 		<permissionlist>
-			<permission type="membergroup" name="topicsolved" ownany="true" classic="ts_group" simple="ts_group" />
+			<permission type="membergroup" name="topicsolved" ownany="true" group="ts_group" />
 		</permissionlist>
 	</newperms>
 
