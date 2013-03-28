@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:PiePolls">
+	<name>Pie Polls</name>
+	<author>Arantor</author>
+	<description>Displays poll results as pie charts.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="pie_fg1" default="#004586" />
+		<setting name="pie_fg2" default="#ff420e" />
+		<setting name="pie_fg3" default="#ffd320" />
+		<setting name="pie_fg4" default="#579d1c" />
+		<setting name="pie_fg5" default="#7e0021" />
+		<setting name="pie_fg6" default="#83caff" />
+		<setting name="pie_fg7" default="#314004" />
+		<setting name="pie_fg8" default="#aecf00" />
+		<setting name="pie_fg9" default="#4b1f6f" />
+		<setting name="pie_fg10" default="#ff950e" />
+		<setting name="pie_fg11" default="#c5000b" />
+		<setting name="pie_fg12" default="#0084d1" />
+	</settings>
+
+	<settings-page area="piepolls" icon="$pluginurl/img/piepoll.png" bigicon="$pluginurl/img/piepoll_big.png">
+		<language file="lang/PiePolls" />
+		<text name="pie_fg1" />
+		<text name="pie_fg2" />
+		<text name="pie_fg3" />
+		<text name="pie_fg4" />
+		<text name="pie_fg5" />
+		<text name="pie_fg6" />
+		<text name="pie_fg7" />
+		<text name="pie_fg8" />
+		<text name="pie_fg9" />
+		<text name="pie_fg10" />
+		<text name="pie_fg11" />
+		<text name="pie_fg12" />
+	</settings-page>
+
+	<hooks>
+		<function point="display_main" function="piepolls" filename="$plugindir/PiePolls" />
+	</hooks>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme/readme.english.txt</readme>
+		<readme lang="english-uk">$plugindir/readme/readme.english-uk.txt</readme>
+	</readmes>
+
+	<acp-url>action=admin;area=piepolls</acp-url>
+</plugin>
