@@ -32,11 +32,11 @@ function template_piepolls()
 
 	// Drawing the chart itself.
 	echo '
-		<canvas id="poll" width="400" height="400" class="floatleft w50"></canvas>';
+		<canvas id="poll" width="200" height="200" class="floatleft"></canvas>';
 
 	// Legendary.
 	echo '
-		<div class="roundframe floatright w50" id="pie_legend">
+		<div class="roundframe" id="pie_legend">
 			<h6>', $txt['pie_legend'], '</h6>';
 
 	$col_index = 0;
@@ -49,9 +49,9 @@ function template_piepolls()
 		$context['poll']['options'][$key]['color'] = $settings['pie_fg' . $col_index];
 
 		echo '
-				<div>
-					<span style="color:', $settings['pie_fg' . $col_index], '">&diams;</span> ', $option['option'], '
-					<div>', sprintf($txt['pie_votes'], $option['votes'], $option['percent'] . '%');
+			<div>
+				<span style="color:', $settings['pie_fg' . $col_index], '">&diams;</span> ', $option['option'], '
+				<div>', sprintf($txt['pie_votes'], $option['votes'], $option['percent'] . '%');
 
 		if (!empty($option['voters']))
 		{
@@ -59,8 +59,8 @@ function template_piepolls()
 				$option['voters'][$k] = '<a href="<URL>?action=profile;u=' . $k . '">' . $v . '</a>';
 			echo ' - ', sprintf($txt['pie_voted'], implode(', ', $option['voters']));
 		}
-					echo '</div>
-				</div>';
+				echo '</div>
+			</div>';
 	}
 
 	echo '
@@ -70,15 +70,15 @@ function template_piepolls()
 	$first = true;
 
 	$js = '
-var ctx = document.getElementById("poll").getContext("2d");
-var myNewChart = new Chart(ctx).Pie([';
+	var ctx = document.getElementById("poll").getContext("2d");
+	var myNewChart = new Chart(ctx).Pie([';
 
 	$total = 0;
 	foreach ($context['poll']['options'] as $option)
 	{
 		$total += $option['votes'];
 		$js .= (!$first ? ',' : '') . '
-	{ value: ' . $option['votes'] . ', color: ' . JavaScriptEscape($option['color']) . '}';
+		{ value: ' . $option['votes'] . ', color: ' . JavaScriptEscape($option['color']) . '}';
 
 		$first = false;
 		$index++;
@@ -87,9 +87,9 @@ var myNewChart = new Chart(ctx).Pie([';
 	}
 
 	$js .= '
-], {
-	segmentShowStroke: false
-});';
+	], {
+		segmentShowStroke: false
+	});';
 
 	add_js($js);
 
