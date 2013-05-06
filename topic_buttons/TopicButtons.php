@@ -7,7 +7,7 @@ function topic_buttons_display()
 {
 	global $context;
 
-	if (!we::$is_guest)
+	if (we::$is_member)
 	{
 		if (allowedTo('post_new'))
 			$context['nav_buttons']['normal'] = array_merge(

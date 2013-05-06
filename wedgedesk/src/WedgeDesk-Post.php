@@ -879,9 +879,9 @@ function shd_post_reply()
 		{
 			loadLanguage('Post');
 			if ($newReplies > 1)
-				$txt['error_new_replies_reading'] = sprintf($txt['error_new_replies_reading'], $newReplies);
+				$txt['error_new_replies_reading'] = number_context($txt['error_new_replies_reading'], $newReplies);
 
-			$context['shd_errors'][] = $newReplies == 1 ? 'new_reply_reading' : 'new_replies_reading';
+			$context['shd_errors'][] = 'new_replies_reading';
 		}
 	}
 
@@ -1114,9 +1114,9 @@ function shd_save_reply()
 		{
 			loadLanguage('Post');
 			if ($newReplies > 1)
-				$txt['error_new_replies'] = sprintf($txt['error_new_replies'], $newReplies);
+				$txt['error_new_replies'] = number_context($txt['error_new_replies'], $newReplies);
 
-			$context['shd_errors'][] = $newReplies == 1 ? 'new_reply' : 'new_replies';
+			$context['shd_errors'][] = 'new_replies';
 		}
 	}
 
