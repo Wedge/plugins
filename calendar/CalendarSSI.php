@@ -107,7 +107,7 @@ function ssi_todaysCalendar($output_method = 'echo')
 // Show the most recent events.
 function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 {
-	global $db_prefix, $scripturl, $settings, $txt, $context;
+	global $scripturl, $settings, $txt, $context;
 
 	if (empty($settings['allow_guestAccess']))
 		return array();

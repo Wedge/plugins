@@ -396,7 +396,7 @@ function shd_view_ticket()
 		$field = array(
 			'id' => $row['id_field'],
 			'name' => $row['field_name'],
-			'desc' => parse_bbc($row['field_desc'], false),
+			'desc' => parse_bbc($row['field_desc'], 'wedgedesk-custom-fields-description', array('smileys' => false)),
 			'icon' => $row['icon'],
 			'type' => $row['field_type'],
 			'default_value' => $row['field_type'] == CFIELD_TYPE_LARGETEXT ? explode(',', $row['default_value']) : $row['default_value'],
@@ -412,7 +412,7 @@ function shd_view_ticket()
 		{
 			foreach ($field['options'] as $k => $v)
 				if ($k != 'inactive' && strpos($v, '[') !== false)
-					$field['options'][$k] = parse_bbc($v, false);
+					$field['options'][$k] = parse_bbc($v, 'wedgedesk-custom-fields', array('smileys' => false));
 		}
 
 		if (($row['field_loc'] & CFIELD_REPLY) && $field['editable'])

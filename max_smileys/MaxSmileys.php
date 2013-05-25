@@ -24,7 +24,7 @@ function displayRow_maxsmileys($rule)
 
 function count_maxsmileys($subject, $body)
 {
-	$post = parse_bbc($body, true);
+	$post = parse_bbc($body, 'count-smileys', array('smileys' => true));
 	return substr_count($post, '<i class="smiley');
 }
 

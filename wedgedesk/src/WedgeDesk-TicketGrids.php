@@ -753,7 +753,7 @@ function shd_helpdesk_listing()
 					unset($row['field_options']['inactive']);
 				foreach ($row['field_options'] as $k => $v)
 					if (strpos($v, '[') !== false)
-						$row['field_options'][$k] = parse_bbc($v);
+						$row['field_options'][$k] = parse_bbc($v, 'wedgedesk-custom-fields');
 			}
 			$fields[$row['id_field']] = $row;
 

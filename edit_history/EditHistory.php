@@ -158,7 +158,7 @@ function HistoryView()
 				'time' => !empty($row['modified_time']) ? $row['modified_time'] : $row['poster_time'],
 				'id_member' => !empty($row['modified_member']) ? $row['modified_member'] : $row['id_member'],
 				'name' => !empty($row['modified_name']) ? $row['modified_name'] : $row['modified_name'],
-				'body' => parse_bbc($row['body'], $row['smileys_enabled']),
+				'body' => parse_bbc($row['body'], 'history', array('smileys' => !empty($row['smileys_enabled']))),
 				'current' => $_GET['edit'] == 'current',
 			);
 			if (!empty($context['post_details']['id_member']))

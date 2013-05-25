@@ -154,32 +154,26 @@ function template_search()
 	// Lastly, the JavaScript we need.
 	add_js_file('scripts/suggest.js');
 	add_js('
-		var oTicketStarter = new weAutoSuggest({
-			sSelf: \'oTicketStarter\',
-			sSessionId: \'' . $context['session_id'] . '\',
-			sSessionVar: \'' . $context['session_var'] . '\',
-			sControlId: \'starter_name\',
-			sSuggestId: \'starter\',
-			sSearchType: \'member\',
-			sPostName: \'starter_name_form\',
-			sURLMask: \'action=profile;u=%item_id%\',
-			bItemList: true,
-			sItemListContainerId: \'starter_name_container\',
-			aListItems: []
-		});
-		var oTicketAssignee = new weAutoSuggest({
-			sSelf: \'oTicketAssignee\',
-			sSessionId: \'' . $context['session_id'] . '\',
-			sSessionVar: \'' . $context['session_var'] . '\',
-			sControlId: \'assignee_name\',
-			sSuggestId: \'assignee\',
-			sSearchType: \'member\',
-			sPostName: \'assigned_name_form\',
-			sURLMask: \'action=profile;u=%item_id%\',
-			bItemList: true,
-			sItemListContainerId: \'assignee_name_container\',
-			aListItems: []
-		});');
+	var oTicketStarter = new weAutoSuggest({
+		', min_chars(), ',
+		sControlId: \'starter_name\',
+		sSuggestId: \'starter\',
+		sPostName: \'starter_name_form\',
+		sURLMask: \'action=profile;u=%item_id%\',
+		bItemList: true,
+		sItemListContainerId: \'starter_name_container\',
+		aListItems: []
+	});
+	var oTicketAssignee = new weAutoSuggest({
+		', min_chars(), ',
+		sControlId: \'assignee_name\',
+		sSuggestId: \'assignee\',
+		sPostName: \'assigned_name_form\',
+		sURLMask: \'action=profile;u=%item_id%\',
+		bItemList: true,
+		sItemListContainerId: \'assignee_name_container\',
+		aListItems: []
+	});');
 }
 
 function template_search_no_results()

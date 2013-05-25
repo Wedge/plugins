@@ -745,7 +745,7 @@ function shd_format_text($text, $smileys = true, $cache = '')
 			parsesmileys($text);
 	}
 	else
-		$text = parse_bbc($text, (!empty($settings['shd_allow_ticket_smileys']) ? $smileys : false), $cache);
+		$text = parse_bbc($text, 'wedgedesk-format', array('smileys' => !empty($settings['shd_allow_ticket_smileys']) ? $smileys : false, 'cache' => $cache));
 
 	return $text;
 }

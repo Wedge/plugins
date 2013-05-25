@@ -456,5 +456,3 @@ $txt['shd_search_prefix_size_help'] = 'Prefix searching is where the index is bu
 $txt['shd_search_charset'] = 'Characters to consider as valid parts of words to search.';
 $txt['shd_search_rebuilt'] = 'The search index has been rebuilt.';
 //@}
-
-?>

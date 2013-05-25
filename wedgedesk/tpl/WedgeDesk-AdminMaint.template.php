@@ -82,47 +82,43 @@ function template_shd_admin_maint_home()
 
 	add_js_file('scripts/suggest.js');
 	add_js('
-		var oAttributeMemberSuggest = new weAutoSuggest({
-			sSelf: \'oAttributeMemberSuggest\',
-			sSessionId: \'' . $context['session_id'] . '\',
-			sSessionVar: \'' . $context['session_var'] . '\',
-			sSuggestId: \'attributeMember\',
-			sControlId: \'to\',
-			sSearchType: \'member\',
-			sTextDeleteItem: \'' . $txt['autosuggest_delete_item'] . '\',
-			bItemList: false
-		});
-		var warningMessage = \'\';
+	var oAttributeMemberSuggest = new weAutoSuggest({
+		', min_chars(), ',
+		sSuggestId: \'attributeMember\',
+		sControlId: \'to\',
+		bItemList: false
+	});
+	var warningMessage = \'\';
 
-		function checkAttributeValidity()
+	function checkAttributeValidity()
+	{
+		origText = \'' . $txt['shd_reattribute_confirm'] . '\';
+		valid = true;
+
+		// Do all the fields!
+		if (!document.getElementById(\'to\').value)
+			valid = false;
+		warningMessage = origText.replace(/%member_to%/, document.getElementById(\'to\').value);
+
+		if (document.getElementById(\'type_email\').checked)
 		{
-			origText = \'' . $txt['shd_reattribute_confirm'] . '\';
-			valid = true;
-
-			// Do all the fields!
-			if (!document.getElementById(\'to\').value)
+			if (!document.getElementById(\'from_email\').value)
 				valid = false;
-			warningMessage = origText.replace(/%member_to%/, document.getElementById(\'to\').value);
+			warningMessage = warningMessage.replace(/%type%/, \'' . addcslashes($txt['shd_reattribute_confirm_email'], "'") . '\').replace(/%find%/, document.getElementById(\'from_email\').value);
+		}
+		else
+		{
+			if (!document.getElementById(\'from_name\').value)
+				valid = false;
+			warningMessage = warningMessage.replace(/%type%/, \'' . addcslashes($txt['shd_reattribute_confirm_username'], "'") . '\').replace(/%find%/, document.getElementById(\'from_name\').value);
+		}
 
-			if (document.getElementById(\'type_email\').checked)
-			{
-				if (!document.getElementById(\'from_email\').value)
-					valid = false;
-				warningMessage = warningMessage.replace(/%type%/, \'' . addcslashes($txt['shd_reattribute_confirm_email'], "'") . '\').replace(/%find%/, document.getElementById(\'from_email\').value);
-			}
-			else
-			{
-				if (!document.getElementById(\'from_name\').value)
-					valid = false;
-				warningMessage = warningMessage.replace(/%type%/, \'' . addcslashes($txt['shd_reattribute_confirm_username'], "'") . '\').replace(/%find%/, document.getElementById(\'from_name\').value);
-			}
+		document.getElementById(\'do_attribute\').disabled = valid ? \'\' : \'disabled\';
 
-			document.getElementById(\'do_attribute\').disabled = valid ? \'\' : \'disabled\';
-
-			setTimeout("checkAttributeValidity();", 500);
-			return valid;
-		};
-		setTimeout("checkAttributeValidity();", 500);');
+		setTimeout("checkAttributeValidity();", 500);
+		return valid;
+	};
+	setTimeout("checkAttributeValidity();", 500);');
 
 	// Moving home?
 	if (!empty($context['dept_list']))

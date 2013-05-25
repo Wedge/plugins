@@ -73,9 +73,6 @@ $txt['permissionname_calendar_edit'] = 'Edit events in the calendar';
 $txt['permissionhelp_calendar_edit'] = 'An Event is a topic linked to a certain date or date range. The Event can be edited by clicking the red asterisk (*) next to the event in the calendar view. In order to be able to edit an event, a user must have sufficient permissions to edit the first message of the topic that is linked to the event.';
 $txt['permissionname_calendar_edit_own'] = 'Own events';
 $txt['permissionname_calendar_edit_any'] = 'Any events';
-$txt['permissiongroup_simple_post_calendar'] = 'Post events onto the calendar';
-$txt['permissionname_simple_calendar_edit_own'] = 'Edit their own calendar events';
-$txt['permissionname_simple_calendar_edit_any'] = 'Edit anyone\'s calendar events';
 
 // Reporting
 $txt['group_perms_name_calendar_edit_any'] = 'Edit any event';

@@ -160,5 +160,3 @@ $txt['shd_show_forum_permissions'] = 'Show Forum Permissions';
 $txt['shd_acct_information'] = 'Account Information';
 $txt['shd_replies_per_page'] = 'Replies to display per page';
 $txt['shd_per_page_default'] = 'Helpdesk default';
-
-?>

@@ -910,7 +910,7 @@ function shd_load_custom_fields($is_ticket = true, $ticketContext = 0, $dept = 0
 				'location' => $row['field_loc'],
 				'length' => $row['field_length'],
 				'name' => $row['field_name'],
-				'desc' => parse_bbc($row['field_desc'], false),
+				'desc' => parse_bbc($row['field_desc'], 'wedgedesk-custom-fields', array('smileys' => false)),
 				'icon' => $row['icon'],
 				'options' => !empty($row['field_options']) ? unserialize($row['field_options']) : array(),
 				'type' => $row['field_type'],
@@ -925,18 +925,14 @@ function shd_load_custom_fields($is_ticket = true, $ticketContext = 0, $dept = 0
 			if ($row['field_type'] == CFIELD_TYPE_RADIO || $row['field_type'] == CFIELD_TYPE_MULTI)
 			{
 				foreach ($context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'] as $k => $v)
-				{
 					if ($k != 'inactive')
-						$context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'][$k] = (strpos($v, '[') !== false) ? parse_bbc($v) : $v;
-				}
+						$context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'][$k] = (strpos($v, '[') !== false) ? parse_bbc($v, 'wedgedesk-custom-fields') : $v;
 			}
 			elseif ($row['field_type'] == CFIELD_TYPE_SELECT)
 			{
 				foreach ($context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'] as $k => $v)
-				{
 					if ($k != 'inactive')
-						$context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'][$k] = (strpos($v, '[') !== false) ? trim(strip_tags(parse_bbc($v))) : trim($v);
-				}
+						$context['ticket_form']['custom_fields'][$loc][$row['id_field']]['options'][$k] = (strpos($v, '[') !== false) ? trim(strip_tags(parse_bbc($v, 'wedgedesk-custom-fields'))) : trim($v);
 			}
 		}
 		$context['ticket_form']['custom_fields'][$loc][$row['id_field']]['depts'][] = $row['id_dept'];

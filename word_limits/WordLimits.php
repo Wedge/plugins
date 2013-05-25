@@ -38,7 +38,7 @@ function displayRow_chars($rule)
 
 function count_words_post($subject, $body)
 {
-	$body = trim(un_htmlspecialchars(strip_tags(parse_bbc($body))));
+	$body = trim(un_htmlspecialchars(strip_tags(parse_bbc($body, 'word-limits'))));
 	if (empty($body))
 		return 0;
 	$count = @preg_match_all('~\p{L}[\p{L}\p{Mn}\'\x{2019}]{2,}~u', $body, $matches);

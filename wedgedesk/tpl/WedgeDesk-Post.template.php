@@ -388,16 +388,13 @@ function template_ticket_proxy_js()
 
 	add_js_file('scripts/suggest.js');
 	add_js('
-		var oProxyAutoSuggest = new weAutoSuggest({
-			sSelf: \'oProxyAutoSuggest\',
-			sSessionId: \'', $context['session_id'], '\',
-			sSessionVar: \'', $context['session_var'], '\',
-			sControlId: \'proxy_author\',
-			sSearchType: \'member\',
-			sPostName: \'proxy_author_form\',
-			sURLMask: \'action=profile;u=%item_id%\',
-			bItemList: false
-		});');
+	var oProxyAutoSuggest = new weAutoSuggest({
+		', min_chars(), ',
+		sControlId: \'proxy_author\',
+		sPostName: \'proxy_author_form\',
+		sURLMask: \'action=profile;u=%item_id%\',
+		bItemList: false
+	});');
 }
 
 function template_ticket_content()
@@ -578,8 +575,8 @@ function template_ticket_additional_options()
 	global $context, $options, $txt, $settings;
 
 	echo '
-					<div class="information shd_reply_attachments" id="shd_attach_container"', !empty($context['shd_display']) ? ' style="display:none;"' : '', '>
-						<ul class="post_options">';
+					<div class="information shd_reply_attachments" id="shd_attach_container"', !empty($context['shd_display']) ? ' style="display: none"' : '', '>
+						<ul id="postOptions">';
 
 	foreach ($context['ticket_form']['additional_opts'] as $key => $details)
 	{

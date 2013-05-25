@@ -73,9 +73,9 @@ shd_attach_select.prototype.checkExtension = function (filename)
 
 	var ext = (filename.substr(dot + 1, filename.length)).toLowerCase();
 	var arr = shd_attach_select.prototype.opts.attachment_ext;
-	var func = Array.prototype.indexOf ?
-		function(arr, obj) { return arr.indexOf(obj) !== -1; } :
-		function(arr, obj) {
+	var func = [].indexOf ?
+		function (arr, obj) { return arr.indexOf(obj) !== -1; } :
+		function (arr, obj) {
 			for (var i = -1, j = arr.length; ++i < j;)
 				if (arr[i] === obj) return true;
 			return false;

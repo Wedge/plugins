@@ -76,7 +76,7 @@ function shd_admin_custom_main()
 		$row['field_type'] = $context['field_types'][$row['field_type']][1]; // convert the integer in the DB into the string for language + image uses
 		$row['can_see'] = explode(',', $row['can_see']);
 		$row['can_edit'] = explode(',', $row['can_edit']);
-		$row['field_desc'] = parse_bbc($row['field_desc'], false);
+		$row['field_desc'] = parse_bbc($row['field_desc'], 'wedgedesk-custom-fields-description', array('smileys' => false));
 		$context['custom_fields'][] = $row;
 	}
 

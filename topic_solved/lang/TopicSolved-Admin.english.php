@@ -15,11 +15,7 @@ $txt['topicsolved_any'] = 'Who can mark any topics solved?';
 $txt['permissionname_topicsolved'] = 'Mark a topic solved';
 $txt['permissionname_topicsolved_own'] = 'Own topics';
 $txt['permissionname_topicsolved_any'] = 'Any topics';
-$txt['permissionname_simple_topicsolved_own'] = 'Mark their own topics as solved';
-$txt['permissionname_simple_topicsolved_any'] = 'Mark any topics as solved';
 $txt['permissiongroup_ts_group'] = 'Topic Solved';
-$txt['permissiongroup_simple_ts_group'] = 'Topic Solved';
 
 $txt['group_perms_name_topicsolved_own'] = 'Mark own topics solved';
 $txt['group_perms_name_topicsolved_any'] = 'Mark any topics solved';
-?>

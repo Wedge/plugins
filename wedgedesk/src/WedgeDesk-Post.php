@@ -1344,7 +1344,7 @@ function shd_done_posting()
 				'{forumlink}' => '<URL>',
 				'{prefslink}' => '<URL>?action=profile;area=hd_prefs',
 			);
-			$context['page_body'] = parse_bbc(str_replace(array_keys($replacements), array_values($replacements), $body), true);
+			$context['page_body'] = parse_bbc(str_replace(array_keys($replacements), array_values($replacements), $body), 'wedgedesk-thank-you', array('smileys' => true));
 		}
 	}
 

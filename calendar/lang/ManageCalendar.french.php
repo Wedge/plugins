@@ -9,16 +9,16 @@ $txt['calendar_desc'] = 'Ici vous pouvez modifier tous les aspects du calendrier
 
 // !!! Convert this into what's needed for the admin panel as $helptxt
 $helptxt['cal_enabled'] = 'Le calendrier peut êre utilisé afin d\'afficher les dates importantes à votre communauté.<br><br>
-		<strong>Montrer les jours en tant que liens vers \'Poster un Événement\'</strong>&nbsp;:<br>Permet à vos membres de poster des événements pour ce jour, lorsqu\'ils cliquent sur la date.<br>
+		<strong>Montrer les jours en tant que liens vers \'Poster un Événement\'</strong>&#8239;:<br>Permet à vos membres de poster des événements pour ce jour, lorsqu\'ils cliquent sur la date.<br>
 		<strong>Jours d\'avance max. sur l\'accueil</strong>:<br>Si cette option est mise à 7, tous les événements de la semaine à venir seront montrés.<br>
-		<strong>Montrer les jours de fête sur l\'accueil du forum</strong>&nbsp;:<br>Montre les jours de fête dans une barre sur l\'accueil du forum.<br>
-		<strong>Montrer les événements sur l\'accueil du forum</strong>&nbsp;:<br>Affiche les événements du jour dans une barre sur l\'accueil du forum.<br>
-		<strong>Section où Poster par Défaut</strong>:<br>Quelle est la section par défaut pour poster les événements&nbsp;?<br>
-		<strong>Permettre les événements qui ne sont liés à aucun message</strong>&nbsp;:<br>Permet aux membres de poster des événements sans nécessiter la création d\'un nouveau sujet dans le forum.<br>
-		<strong>Année minimale</strong>&nbsp;:<br>Sélectionne la "première" année dans la liste du calendrier.<br>
-		<strong>Année maximale</strong>&nbsp;:<br>Sélectionne la "dernière" année dans la liste du calendrier<br>
-		<strong>Permettre aux événements de durer plusieurs jours</strong>&nbsp;:<br>Sélectionnez pour permettre aux événements de durer plusieurs jours.<br>
-		<strong>Durée maximale (en jours) d\'un événement</strong>&nbsp;:<br>Sélectionnez le nombre maximal de jours pour la duré d\'un événement.<br><br>
+		<strong>Montrer les jours de fête sur l\'accueil du forum</strong>&#8239;:<br>Montre les jours de fête dans une barre sur l\'accueil du forum.<br>
+		<strong>Montrer les événements sur l\'accueil du forum</strong>&#8239;:<br>Affiche les événements du jour dans une barre sur l\'accueil du forum.<br>
+		<strong>Section où Poster par Défaut</strong>:<br>Quelle est la section par défaut pour poster les événements&#8239;?<br>
+		<strong>Permettre les événements qui ne sont liés à aucun message</strong>&#8239;:<br>Permet aux membres de poster des événements sans nécessiter la création d\'un nouveau sujet dans le forum.<br>
+		<strong>Année minimale</strong>&#8239;:<br>Sélectionne la "première" année dans la liste du calendrier.<br>
+		<strong>Année maximale</strong>&#8239;:<br>Sélectionne la "dernière" année dans la liste du calendrier<br>
+		<strong>Permettre aux événements de durer plusieurs jours</strong>&#8239;:<br>Sélectionnez pour permettre aux événements de durer plusieurs jours.<br>
+		<strong>Durée maximale (en jours) d\'un événement</strong>&#8239;:<br>Sélectionnez le nombre maximal de jours pour la duré d\'un événement.<br><br>
 		Rappelez-vous que l\'usage du calendrier (poster des événements, voir des événements, etc.) est contrôlable par les réglages des permissions à partir de l\'écran de gestion des permissions.';
 
 // Calendar Settings
@@ -72,9 +72,6 @@ $txt['permissionname_calendar_edit'] = 'Modifier les événements du calendrier'
 $txt['permissionhelp_calendar_edit'] = 'Un événement est un sujet lié à une certaine date ou plage de dates. Il peut être modifié en cliquant l\'astérisque rouge (<span style="color: red;">*</span>) sur la page du calendrier. Pour modifier un événement, l\'utilisateur doit avoir les permissions suffisantes pour modifier le premier message du sujet lié à cet événement.';
 $txt['permissionname_calendar_edit_own'] = 'Événements personnels';
 $txt['permissionname_calendar_edit_any'] = 'Tous les événements';
-$txt['permissiongroup_simple_post_calendar'] = 'Poster des événements sur le calendrier';
-$txt['permissionname_simple_calendar_edit_own'] = 'Modifier ses propres événements de calendrier';
-$txt['permissionname_simple_calendar_edit_any'] = 'Modifier les événements de calendrier de tous les utilisateurs';
 
 // Reporting
 $txt['group_perms_name_calendar_edit_any'] = 'Modifier n\'importe quel événement';
