@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Nao:OldURLs">
+	<name>Old URLs</name>
+	<author>Nao</author>
+	<description>Add support for some deprecated URLs from SMF: media URLs, media feed URLs.</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="determine_location" function="fixOldURLs" filename="$plugindir/OldURLs" />
+	</hooks>
+</plugin>
