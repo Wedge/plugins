@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin id="Dragooon:WeMentions">
+	<name>Member mentions</name>
+	<author email="mail@dragooon.net" url="http://smf-media.com/">Shitiz "Dragooon" Garg</author>
+	<description>Allows a user to mention another user and notifies the mentioned user</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="notification_callback" function="wementions_notification_callback" filename="$plugindir/plugin" />
+		<function point="post_form_pre" function="wementions_post_form_pre" filename="$plugindir/plugin" />
+		<function point="create_post_before" function="wementions_post" filename="$plugindir/plugin" />
+		<function point="modify_post_before" function="wementions_post" filename="$plugindir/plugin" />
+		<function point="create_post_after" function="wementions_create_post_after" filename="$plugindir/plugin" />
+		<function point="display_message_list" function="wementions_display_message_list" filename="$plugindir/plugin" />
+		<function point="load_permissions" function="wementions_load_permissions" filename="$plugindir/plugin" />
+	</hooks>
+
+	<bbcodes>
+		<bbcode tag="member" type="unparsed_equals">
+			<before-code><![CDATA[<a href="<URL>?action=profile;u=$1" class="mention">@]]></before-code>
+			<after-code><![CDATA[</a>]]></after-code>
+		</bbcode>
+	</bbcodes>
+
+	<newperms>
+		<permissionlist>
+			<permission>mention_member</permission>
+		</permissionlist>
+	</newperms>
+</plugin>
