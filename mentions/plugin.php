@@ -140,7 +140,7 @@ function wementions_create_post_after(&$msgOptions, &$topicOptions, &$posterOpti
 		return;
 
 	// Issue the notifications
-	Notification::issue($msgOptions['mentions'], weNotif::getNotifiers('mentions'), $msgOptions['id'], array(
+	Notification::issue('mentions', $msgOptions['mentions'], $msgOptions['id'], array(
 		'topic' => $topicOptions['id'],
 		'subject' => $msgOptions['subject'],
 		'member' => array(
@@ -175,12 +175,12 @@ function wementions_display_message_list(&$messages, &$times, &$all_posters)
 }
 
 /**
- * Notifier interface
+ * Notifier interface. Pretty empty, as we're using the default notifier, which is tailored to posts.
  */
 class Mentions_Notifier extends Notifier
 {
 	/**
-	 * Constructor, loads this plugin's language
+	 * Constructor, loads this plugin's language.
 	 *
 	 * @access public
 	 * @return void
@@ -188,113 +188,5 @@ class Mentions_Notifier extends Notifier
 	public function __construct()
 	{
 		loadPluginLanguage('Dragooon:WeMentions', 'plugin');
-	}
-
-	/**
-	 * Returns the URL for this notification
-	 *
-	 * @access public
-	 * @param Notification $notification
-	 * @return string
-	 */
-	public function getURL(Notification $notification)
-	{
-		$data = $notification->getData();
-		return 'topic=' . $data['topic'] . '.msg' . $notification->getObject() . '#msg' . $notification->getObject();
-	}
-
-	/**
-	 * Returns this notifier's identifier
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function getName()
-	{
-		return 'mentions';
-	}
-
-	/**
-	 * Returns this notification's text to be displayed
-	 *
-	 * @access public
-	 * @param Notification $notification
-	 * @return string
-	 */
-	public function getText(Notification $notification)
-	{
-		global $txt;
-
-		$data = $notification->getData();
-		return sprintf($txt['wementions_notification'], '<a href="<URL>?action=profile;u=' . $data['member']['id'] . '">' . $data['member']['name'] . '</a>', '<a href="<URL>?topic=' . $data['topic'] . '.msg' . $notification->getObject() . '#msg' . $notification->getObject() . '">' . $data['subject'] . '</a>');
-	}
-
-	/**
-	 * Returns this notification's avatar to be displayed
-	 *
-	 * @access public
-	 * @param Notification $notification
-	 * @return string
-	 */
-	public function getIcon(Notification $notification)
-	{
-		global $txt, $memberContext;
-
-		$data = $notification->getData();
-		if (empty($memberContext[$data['member']['id']]['avatar']))
-			loadMemberAvatar($data['member']['id'], true);
-		if (empty($memberContext[$data['member']['id']]['avatar']))
-			return '';
-		return $memberContext[$data['member']['id']]['avatar']['image'];
-	}
-
-	/**
-	 * Callback for handling multiple notifications, we basically ignore this since the
-	 * mentions are per-post and we need no multiple mentions
-	 *
-	 * @access public
-	 * @param Notification $notification
-	 * @param array &$data
-	 * @param array &$email_data
-	 * @return bool
-	 */
-	public function handleMultiple(Notification $notification, array &$data, array &$email_data)
-	{
-		return false;
-	}
-
-	/**
-	 * Returns elements for profile area
-	 *
-	 * @access public
-	 * @param int $id_member
-	 * @return array
-	 */
-	public function getProfile($id_member)
-	{
-		global $txt;
-
-		return array($txt['wementions_title'], $txt['wementions_desc'], array());
-	}
-
-	public function getPreview(Notification $notification)
-	{
-		$data = $notification->getData();
-		return get_single_post($notification->getObject());
-	}
-
-	/**
-	 * E-mail handler for instantanous notification
-	 *
-	 * @access public
-	 * @param Notification $notification
-	 * @param array $email_data
-	 * @return array(subject, body)
-	 */
-	public function getEmail(Notification $notification, array $email_data)
-	{
-		global $txt;
-
-		return array($txt['wementions_subject'], $this->getText($notification));
 	}
 }
