@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin id="live627:ajax_qr">
+	<name>AJAX Quick Reply</name>
+	<author email="live627@gmail.com" url="http://livemods.net/">live627</author>
+	<description>Use AJAX for the quick reply.</description>
+	<version>1.0</version>
+	<website>http://wedge.livemods.net/</website>
+	<hooks>
+		<function point="load_theme" function="AJAXQR\Integration::load_theme" filename="$plugindir/AJAXQR" />
+		<function point="display_message_list" function="AJAXQR\Integration::display_message_list" filename="$plugindir/AJAXQR" />
+		<function point="create_post_after" function="AJAXQR\Integration::create_post_after" filename="$plugindir/AJAXQR" />
+		<function point="redirect" function="AJAXQR\Integration::redirect" filename="$plugindir/AJAXQR" />
+	</hooks>
+</plugin>
