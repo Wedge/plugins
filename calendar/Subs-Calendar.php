@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Contains several functions for retrieving and manipulating calendar events and holidays.
  *
  * @package wedge

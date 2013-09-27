@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Provides functionality for showing the calendar contents.
  *
  * @package wedge

@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Provides functionality for showing the calendar items externally to the forum through SSI.
  *
  * @package wedge

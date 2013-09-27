@@ -59,7 +59,7 @@ function template_viewticket()
 
 	echo '
 		<div id="forumposts">
-			<div class="postbg wrc first-post right-side">
+			<div class="msg wrc first-post right-side">
 				<div class="post_wrapper">';
 
 			echo '

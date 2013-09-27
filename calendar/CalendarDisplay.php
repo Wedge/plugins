@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Provides functionality for showing the calendar items in the topic display view.
  *
  * @package wedge

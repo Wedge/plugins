@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Interface for managing holidays in the calendar.
  *
  * @package wedge

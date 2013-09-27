@@ -359,53 +359,52 @@ function template_ticket_block()
 	$max = count($context['ticket_blocks'][$context['current_block']]['columns']) - 1;
 	foreach ($context['ticket_blocks'][$context['current_block']]['columns'] as $column)
 	{
-		$class = 'shd_nowrap' . ($block_width == 0 ? ' first_th' : ($block_width == $max ? ' last_th' : ''));
 		$block_width++;
 		switch ($column)
 		{
 			case 'ticket_id':
 				echo '
-							<th scope="col" width="3%" class="', $class, '">', template_shd_menu_header('ticketid', $txt['shd_ticket']), '</th>';
+							<th width="3%" class="shd_nowrap">', template_shd_menu_header('ticketid', $txt['shd_ticket']), '</th>';
 				break;
 			case 'ticket_name':
 				echo '
-							<th scope="col" width="15%" class="', $class, '">', template_shd_menu_header('ticketname', $txt['shd_ticket_name']), '</th>';
+							<th width="15%" class="shd_nowrap">', template_shd_menu_header('ticketname', $txt['shd_ticket_name']), '</th>';
 				break;
 			case 'starting_user':
 				echo '
-							<th scope="col" width="12%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/user.png" class="shd_smallicon"> ', template_shd_menu_header('starter', $txt['shd_ticket_started_by']), '</th>';
+							<th width="12%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/user.png" class="shd_smallicon"> ', template_shd_menu_header('starter', $txt['shd_ticket_started_by']), '</th>';
 				break;
 			case 'last_reply':
 				echo '
-							<th scope="col" width="12%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/staff.png" class="shd_smallicon"> ', template_shd_menu_header('lastreply', $txt['shd_ticket_updated_by']), '</th>';
+							<th width="12%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/staff.png" class="shd_smallicon"> ', template_shd_menu_header('lastreply', $txt['shd_ticket_updated_by']), '</th>';
 				break;
 			case 'assigned':
 				echo '
-							<th scope="col" width="12%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/staff.png" class="shd_smallicon"> ', template_shd_menu_header('assigned', $txt['shd_ticket_assigned']), '</th>';
+							<th width="12%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/staff.png" class="shd_smallicon"> ', template_shd_menu_header('assigned', $txt['shd_ticket_assigned']), '</th>';
 				break;
 			case 'status':
 				echo '
-							<th scope="col" width="15%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/status.png" class="shd_smallicon"> ', template_shd_menu_header('status', $txt['shd_ticket_status']), '</th>';
+							<th width="15%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/status.png" class="shd_smallicon"> ', template_shd_menu_header('status', $txt['shd_ticket_status']), '</th>';
 				break;
 			case 'urgency':
 				echo '
-							<th scope="col" width="8%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/urgency.png" class="shd_smallicon"> ', template_shd_menu_header('urgency', $txt['shd_ticket_urgency']), '</th>';
+							<th width="8%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/urgency.png" class="shd_smallicon"> ', template_shd_menu_header('urgency', $txt['shd_ticket_urgency']), '</th>';
 				break;
 			case 'updated':
 				echo '
-							<th scope="col" width="17%" class="', $class, '"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/time.png" class="shd_smallicon"> ', template_shd_menu_header('updated', $txt['shd_ticket_updated']), '</th>';
+							<th width="17%" class="shd_nowrap"><img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/time.png" class="shd_smallicon"> ', template_shd_menu_header('updated', $txt['shd_ticket_updated']), '</th>';
 				break;
 			case 'replies':
 				echo '
-							<th scope="col" width="7%" class="', $class, '">', template_shd_menu_header('replies', $txt['shd_ticket_num_replies']), '</th>';
+							<th width="7%" class="shd_nowrap">', template_shd_menu_header('replies', $txt['shd_ticket_num_replies']), '</th>';
 				break;
 			case 'allreplies':
 				echo '
-							<th scope="col" width="7%" class="', $class, '">', template_shd_menu_header('allreplies', $txt['shd_ticket_num_replies']), '</th>';
+							<th width="7%" class="shd_nowrap">', template_shd_menu_header('allreplies', $txt['shd_ticket_num_replies']), '</th>';
 				break;
 			case 'actions':
 				echo '
-							<th scope="col" width="5%" class="', $class, '">', $txt['shd_actions'] , '</th>';
+							<th width="5%" class="shd_nowrap">', $txt['shd_actions'] , '</th>';
 				break;
 			default:
 				echo '

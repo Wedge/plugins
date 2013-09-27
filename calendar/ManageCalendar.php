@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * The various aspects of configuration for the calendar.
  *
  * @package wedge

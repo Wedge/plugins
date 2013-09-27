@@ -50,8 +50,8 @@ function template_historylist_table()
 			<table class="table_grid cs0" style="width: 100%">
 				<thead>
 					<tr class="catbg">
-						<th scope="col" class="first_th left">', $txt['edited_by'], '</th>
-						<th scope="col" class="last_th left" colspan="4">', $txt['edited_on'], '</th>
+						<th class="left">', $txt['edited_by'], '</th>
+						<th class="left" colspan="4">', $txt['edited_on'], '</th>
 					</tr>
 				</thead>
 				<tbody>';

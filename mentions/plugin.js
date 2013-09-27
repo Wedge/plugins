@@ -3,8 +3,8 @@
  *
  * @package Dragooon:WeMentions
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
- * @author René-Gilles "Nao" Deberdt
- * @copyright 2013, Shitiz Garg & René-Gilles Deberdt
+ * @author RenÃ©-Gilles "Nao" Deberdt
+ * @copyright 2013, Shitiz Garg & RenÃ©-Gilles Deberdt
  * @license
  *		Original code by Dragooon
  *			Licensed under the New BSD License (3-clause version)

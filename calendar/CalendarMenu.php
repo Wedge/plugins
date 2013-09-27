@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Per-page processing, e.g. adding the menu item and potentially banned permissions too.
  *
  * @package wedge

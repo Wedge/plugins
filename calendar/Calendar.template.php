@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Displays the main calendar, plus the previous and next month mini-calendars, as well as the event-posting interface.
  *
  * @package wedge
@@ -175,12 +173,12 @@ function template_show_month_grid($grid_name)
 
 		if (!empty($calendar_data['show_week_links']))
 			echo '
-					<th class="first_th" scope="col">&nbsp;</th>';
+					<th>&nbsp;</th>';
 
 		// There are 7 items in this indexed array, 0-6, and we want to know whether we're on the last one - this is the cheapest way to do it.
 		foreach ($calendar_data['week_days'] as $day_num => $day)
 			echo '
-					<th class="days', empty($calendar_data['show_week_links']) && $day_num == 0 ? ' first_th' : '', $day_num == 6 ? ' last_th' : '', '" scope="col" ', $calendar_data['size'] == 'small' ? 'style="font-size: x-small;"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
+					<th class="days"', $calendar_data['size'] == 'small' ? ' style="font-size: x-small"' : '', '>', !empty($calendar_data['short_day_titles']) ? (westr::substr($txt['days'][$day], 0, 1)) : $txt['days'][$day], '</th>';
 
 		echo '
 				</tr>';

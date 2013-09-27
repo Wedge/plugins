@@ -1,7 +1,5 @@
 <?php
 /**
- * Wedge
- *
  * Displays the calendar integration into the info center and the topic display.
  *
  * @package wedge
