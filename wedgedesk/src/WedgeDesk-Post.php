@@ -102,7 +102,7 @@ function shd_post_ticket()
 	if ($context['ticket_form']['status'] == TICKET_STATUS_CLOSED)
 		fatal_lang_error('shd_cannot_edit_closed', false);
 	elseif ($context['ticket_form']['status'] == TICKET_STATUS_DELETED)
-		fatal_lang_error('shd_cannon_edit_deleted', false);
+		fatal_lang_error('shd_cannot_edit_deleted', false);
 
 	shd_load_custom_fields(true, $context['ticket_form']['ticket'], $context['ticket_form']['dept']);
 
@@ -528,7 +528,7 @@ function shd_save_ticket()
 	if ($context['ticket_form']['status'] == TICKET_STATUS_CLOSED)
 		fatal_lang_error('shd_cannot_edit_closed', false);
 	elseif ($context['ticket_form']['status'] == TICKET_STATUS_DELETED)
-		fatal_lang_error('shd_cannon_edit_deleted', false);
+		fatal_lang_error('shd_cannot_edit_deleted', false);
 
 	// OK, does the user want to close this ticket? Are there any problems with that?
 	if (!empty($context['can_solve']) && !empty($_POST['resolve_ticket']))
@@ -863,7 +863,7 @@ function shd_post_reply()
 	if ($context['ticket_form']['status'] == TICKET_STATUS_CLOSED)
 		fatal_lang_error('shd_cannot_reply_closed', false);
 	elseif ($context['ticket_form']['status'] == TICKET_STATUS_DELETED)
-		fatal_lang_error('shd_cannon_reply_deleted', false);
+		fatal_lang_error('shd_cannot_reply_deleted', false);
 
 	shd_load_custom_fields(false, $context['ticket_form']['msg'], $context['ticket_form']['dept']);
 
@@ -1102,7 +1102,7 @@ function shd_save_reply()
 	if ($context['ticket_form']['status'] == TICKET_STATUS_CLOSED)
 		fatal_lang_error('shd_cannot_edit_closed', false);
 	elseif ($context['ticket_form']['status'] == TICKET_STATUS_DELETED)
-		fatal_lang_error('shd_cannon_edit_deleted', false);
+		fatal_lang_error('shd_cannot_edit_deleted', false);
 
 	// Have there been any new replies that we missed?
 	if (empty($options['no_new_reply_warning']) && isset($_REQUEST['num_replies']))

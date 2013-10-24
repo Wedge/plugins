@@ -2,20 +2,20 @@
 
 	var errors = false, msg = 0;
 
-	$("form#postmodify").submit(function() {
+	$('form#postmodify').submit(function() {
 		var $that = $(this);
 
 		show_ajax();
 		$.post(
-			$that.attr("action"),
+			$that.attr('action'),
 			$that.serializeArray(),
 			function (XMLDoc)
 			{
 				if (!XMLDoc);
 
-				// Let Wedge handle the errors. This is hard enough as it is, plus, who likes to write Javascript?
+				// Let Wedge handle the errors. This is hard enough as it is, plus, who likes to write JavaScript?
 				else if ($('errors', XMLDoc).length)
-					window.location = $that.attr("action");
+					window.location = $that.attr('action');
 
 				else if ($('msg', XMLDoc).length)
 				{

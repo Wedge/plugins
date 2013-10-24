@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Arantor:LangCacheFlush">
+	<name>Lang Cache Flush</name>
+	<author>Arantor</author>
+	<description>Makes it crazy-easy to flush the language cache. Not as safe or nice as putting it in the admin panel though.</description>
+	<version>1.0</version>
+
+	<hooks>
+		<function point="menu_items" function="LangCache_menu" filename="$plugindir/LangCache" />
+	</hooks>
+
+	<actions>
+		<action action="langcache" function="LangCache" filename="LangCache" />
+	</actions>
+</plugin>
