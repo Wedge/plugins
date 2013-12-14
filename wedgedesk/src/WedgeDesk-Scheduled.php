@@ -33,7 +33,7 @@ function scheduled_wedgedesk()
 
 function shd_scheduled_close_tickets()
 {
-	global $settings, $txt;
+	global $settings;
 
 	@set_time_limit(600); // Ten minutes. Is a big job, possibly.
 

@@ -129,7 +129,7 @@ function shd_load_action_log_entries($start = 0, $items_per_page = 10, $sort = '
 		if (strpos($row['action'], 'cf_') === 0)
 			$actions[$row['id_action']]['action_icon'] = 'log_cfchange.png';
 
-		if (shd_allowed_to('shd_view_ip_any', 0) || ($row['id_member'] == we::$id && shd_allowed_to('shd_view_ip_own', 0)))
+		if (shd_allowed_to('shd_view_ip_any', 0) || ($row['id_member'] == MID && shd_allowed_to('shd_view_ip_own', 0)))
 		{
 			$ip = format_ip($row['member_ip']);
 			$actions[$row['id_action']]['member']['ip'] = !empty($ip) ? $ip : $txt['shd_admin_actionlog_unknown'];

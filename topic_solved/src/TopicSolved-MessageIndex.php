@@ -5,7 +5,7 @@ if (!defined('WEDGE'))
 
 function topicSolvedMessageIndex()
 {
-	global $context, $txt, $board, $board_info, $settings;
+	global $context, $board_info, $settings;
 
 	loadPluginLanguage('Arantor:TopicSolved', 'lang/TopicSolved-MessageIndex');
 
@@ -40,7 +40,7 @@ function topicSolvedMessageIndex()
 // Since the usual case for this function is message index, save something by putting this here.
 function topicSolvedQuickModeration(&$quickmod)
 {
-	global $context, $txt, $board, $board_info, $settings;
+	global $txt, $board, $board_info, $settings;
 
 	loadPluginLanguage('Arantor:TopicSolved', 'lang/TopicSolved-MessageIndex');
 

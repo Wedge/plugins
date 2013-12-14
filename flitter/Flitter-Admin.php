@@ -18,7 +18,7 @@ function flitter_admin()
 
 function ModifyFlitterSettings($return_config = false)
 {
-	global $txt, $context, $theme, $settings;
+	global $txt, $context, $settings;
 
 	loadSource('ManageServer');
 	loadPluginLanguage('Arantor:Flitter', 'Flitter-Admin');

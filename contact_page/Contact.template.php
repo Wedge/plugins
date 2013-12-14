@@ -70,7 +70,7 @@ function template_contact_form()
 
 function template_contact_sent()
 {
-	global $txt, $context;
+	global $txt;
 
 	echo '
 	<we:cat>', $txt['contact_us'], '</we:cat>

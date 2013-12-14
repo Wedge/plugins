@@ -226,7 +226,7 @@ function template_shd_create_role()
 */
 function template_shd_edit_role()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
 	// This is to shortcut settings for the role we want.
 	$role =& $context['shd_permissions']['user_defined_roles'][$_REQUEST['role']];
@@ -412,7 +412,7 @@ function template_shd_edit_role()
 		{
 			$stars = explode('#', $group['stars']);
 			if (!empty($stars[0]) && !empty($stars[1]))
-				echo str_repeat('<img src="' . $theme['images_url'] . '/' . $stars[1] . '">', $stars[0]);
+				echo str_repeat('<img src="' . ASSETS . '/' . $stars[1] . '">', $stars[0]);
 		}
 
 		echo '</td>

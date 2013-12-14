@@ -42,7 +42,7 @@ if (!defined('WEDGE'))
 // Show the calendar.
 function CalendarMain()
 {
-	global $txt, $context, $settings, $scripturl, $options;
+	global $txt, $context, $settings, $options;
 
 	// Permissions, permissions, permissions.
 	isAllowedTo('calendar_view');
@@ -135,25 +135,25 @@ function CalendarMain()
 
 	// Load up the linktree!
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=calendar',
+		'url' => '<URL>?action=calendar',
 		'name' => $txt['calendar']
 	);
 	// Add the current month to the linktree.
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=calendar;year=' . $context['current_year'] . ';month=' . $context['current_month'],
+		'url' => '<URL>?action=calendar;year=' . $context['current_year'] . ';month=' . $context['current_month'],
 		'name' => $txt['months'][$context['current_month']] . ' ' . $context['current_year']
 	);
 	// If applicable, add the current week to the linktree.
 	if ($context['view_week'])
 		$context['linktree'][] = array(
-			'url' => $scripturl . '?action=calendar;viewweek;year=' . $context['current_year'] . ';month=' . $context['current_month'] . ';day=' . $context['current_day'],
+			'url' => '<URL>?action=calendar;viewweek;year=' . $context['current_year'] . ';month=' . $context['current_month'] . ';day=' . $context['current_day'],
 			'name' => $txt['calendar_week'] . ' ' . $context['calendar_grid_main']['week_number']
 		);
 }
 
 function CalendarPost()
 {
-	global $context, $txt, $scripturl, $settings, $topic;
+	global $context, $txt, $settings, $topic;
 
 	// Well - can they?
 	isAllowedTo('calendar_post');
@@ -177,7 +177,7 @@ function CalendarPost()
 
 		// If you're not allowed to edit any events, you have to be the poster.
 		if ($_REQUEST['eventid'] > 0 && !allowedTo('calendar_edit_any'))
-			isAllowedTo('calendar_edit_' . (!empty(we::$id) && getEventPoster($_REQUEST['eventid']) == we::$id ? 'own' : 'any'));
+			isAllowedTo('calendar_edit_' . (MID && getEventPoster($_REQUEST['eventid']) == MID ? 'own' : 'any'));
 
 		// New - and directing?
 		if ($_REQUEST['eventid'] == -1 && isset($_POST['link_to_board']))
@@ -193,7 +193,7 @@ function CalendarPost()
 				'board' => 0,
 				'topic' => 0,
 				'title' => substr($_REQUEST['evtitle'], 0, 60),
-				'member' => we::$id,
+				'member' => MID,
 				'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
 				'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 			);
@@ -221,7 +221,7 @@ function CalendarPost()
 		));
 
 		// No point hanging around here now...
-		redirectexit($scripturl . '?action=calendar;month=' . $_POST['month'] . ';year=' . $_POST['year']);
+		redirectexit(SCRIPT . '?action=calendar;month=' . $_POST['month'] . ';year=' . $_POST['year']);
 	}
 
 	// If we are not enabled... we are not enabled.
@@ -281,7 +281,7 @@ function CalendarPost()
 		}
 
 		// Make sure the user is allowed to edit this event.
-		if ($context['event']['member'] != we::$id)
+		if ($context['event']['member'] != MID)
 			isAllowedTo('calendar_edit_any');
 		elseif (!allowedTo('calendar_edit_any'))
 			isAllowedTo('calendar_edit_own');

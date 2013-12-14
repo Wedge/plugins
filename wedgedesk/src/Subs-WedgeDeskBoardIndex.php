@@ -17,7 +17,7 @@ if (!defined('WEDGE'))
 
 function shd_add_to_boardindex(&$boardIndexOptions, &$categories)
 {
-	global $context, $settings, $board, $txt, $theme;
+	global $context, $settings, $board, $txt;
 
 	// Does the category exist? If it has no boards, it actually might not exist, daft as it sounds.
 	// But it's more tricky than that, too! We need to be at the board index, not in a child board.
@@ -83,7 +83,7 @@ function shd_add_to_boardindex(&$boardIndexOptions, &$categories)
 			WHERE c.id_cat IN ({array_int:cat})',
 			array(
 				'cat' => $cat_list,
-				'current_member' => we::$id,
+				'current_member' => MID,
 			)
 		);
 		while ($this_cat = wesql::fetch_assoc($request))
@@ -94,7 +94,7 @@ function shd_add_to_boardindex(&$boardIndexOptions, &$categories)
 				'is_collapsed' => isset($this_cat['can_collapse']) && $this_cat['can_collapse'] == 1 && $this_cat['is_collapsed'] > 0,
 				'can_collapse' => isset($this_cat['can_collapse']) && $this_cat['can_collapse'] == 1,
 				'collapse_href' => isset($this_cat['can_collapse']) ? '<URL>?action=collapse;c=' . $this_cat['id_cat'] . ';sa=' . ($this_cat['is_collapsed'] > 0 ? 'expand;' : 'collapse;') . $context['session_var'] . '=' . $context['session_id'] . '#c' . $this_cat['id_cat'] : '',
-				'collapse_image' => isset($this_cat['can_collapse']) ? '<img src="' . $theme['images_url'] . '/' . ($this_cat['is_collapsed'] > 0 ? 'expand.gif" alt="+"' : 'collapse.gif" alt="-"') . '>' : '',
+				'collapse_image' => isset($this_cat['can_collapse']) ? '<img src="' . ASSETS . '/' . ($this_cat['is_collapsed'] > 0 ? 'expand.gif" alt="+"' : 'collapse.gif" alt="-"') . '>' : '',
 				'href' => '<URL>?category=' . $this_cat['id_cat'],
 				'boards' => array(),
 				'new' => false,
@@ -212,7 +212,7 @@ function shd_dept_board($dept)
 
 function shd_get_ticket_counts()
 {
-	global $txt, $context;
+	global $context;
 
 	if (empty($context['dept_list']))
 		return;
@@ -250,7 +250,7 @@ function shd_get_unread_departments()
 		array(
 			'dept_list' => array_keys($context['dept_list']),
 			'the_last_week' => time() - (86400 * 7),
-			'user_id' => we::$id,
+			'user_id' => MID,
 		)
 	);
 	while ($row = wesql::fetch_assoc($query))

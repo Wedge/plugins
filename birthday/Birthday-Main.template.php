@@ -11,11 +11,11 @@
 
 function template_birthdays_info_center()
 {
-	global $theme, $txt, $context, $settings;
+	global $context, $settings;
 
 	echo '
 			<we:title2>
-				<img src="', $theme['images_url'], '/icons/online.gif">', '
+				<img src="', ASSETS, '/icons/online.gif">', '
 				', number_context('birthdays_upcoming', $settings['birthday_info_center_days']), '
 			</we:title2>
 			<p class="inline smalltext">';

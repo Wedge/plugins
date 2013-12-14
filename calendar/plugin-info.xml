@@ -25,7 +25,7 @@
 		<function point="post_post_validate" function="validateCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="create_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="modify_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
-		<function point="member_prefs" function="calendarMemberPrefs" filename="$plugindir/ManageCalendar" />
+		<function point="member_options" function="calendarMemberPrefs" filename="$plugindir/ManageCalendar" />
 
 		<provides>
 			<hook type="function">calendar_grid_month</hook>

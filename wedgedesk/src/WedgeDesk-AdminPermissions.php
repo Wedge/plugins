@@ -200,7 +200,7 @@ function shd_admin_edit_role()
 */
 function shd_admin_save_role()
 {
-	global $context, $txt;
+	global $context;
 
 	// 1. Time for one of our sessions, mistress?
 	checkSession();

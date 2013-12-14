@@ -104,12 +104,12 @@ function getOnlineToday()
 
 function template_info_center_online_today()
 {
-	global $context, $theme, $txt, $settings;
+	global $context, $txt, $settings;
 
 	echo '
 	<section class="ic">
 		<we:title>
-			<img src="', $theme['images_url'], '/icons/online.gif', '" alt="', $txt['online_users'], '">
+			<img src="', ASSETS, '/icons/online.gif', '" alt="', $txt['online_users'], '">
 			', $txt['users_online_' . $settings['uot_type']], '
 		</we:title>';
 

@@ -5,12 +5,12 @@ if (!defined('WEDGE'))
 
 function template_recentitems_infocenter()
 {
-	global $context, $theme, $options, $txt, $settings;
+	global $context, $txt, $settings;
 
 	echo '
 		<section class="ic">
 			<we:title>
-				<a href="<URL>?action=recent"><img src="', $theme['images_url'], '/post/xx.gif"></a>
+				<a href="<URL>?action=recent"><img src="', ASSETS, '/post/xx.gif"></a>
 				', $txt['recent_items_' . $settings['recentitems_posttopic']], '
 			</we:title>
 			<dl id="ic_recentposts" class="stats">';

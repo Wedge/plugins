@@ -19,7 +19,7 @@
  */
 function massattach_post_form_pre()
 {
-	global $context, $board, $topic, $txt, $settings;
+	global $txt, $settings;
 
 	if (!allowedTo('post_attachment'))
 		return;
@@ -59,7 +59,7 @@ function massattach_post_form_pre()
  */
 function massattach()
 {
-	global $settings, $topic, $board, $options, $language, $board, $context;
+	global $settings, $board, $context, $txt;
 
 	header('Content-type: text/plain; charset=utf-8');
 
@@ -86,7 +86,7 @@ function massattach()
 
 	if (!isset($_SESSION['temp_attachments']))
 		$_SESSION['temp_attachments'] = array();
-	$attachID = 'post_tmp_' . we::$id . '_' . (count($_SESSION['temp_attachments']) + 1);
+	$attachID = 'post_tmp_' . MID . '_' . (count($_SESSION['temp_attachments']) + 1);
 	$dest = $current_attach_dir . '/' . $attachID;
 
 	$target = fopen($dest, 'w');
@@ -147,7 +147,7 @@ function massattach()
 
 	@chmod($dest, 0644);
 
-	echo json_encode(array('valid' => true, 'id' => $attachID, 'name' => $filename));
+	echo we_json_encode(array('valid' => true, 'id' => $attachID, 'name' => $filename));
 	exit;
 }
 
@@ -189,6 +189,6 @@ function massattach_error($error_code, $filepath = '')
 		@unlink($filepath);
 
 	loadLanguage(array('Errors', 'Post'), $language);
-	echo json_encode(array('valid' => false, 'error' => isset($txt[$error_code]) ? $txt[$error_code] : $error_code));
+	echo we_json_encode(array('valid' => false, 'error' => isset($txt[$error_code]) ? $txt[$error_code] : $error_code));
 	exit;
 }

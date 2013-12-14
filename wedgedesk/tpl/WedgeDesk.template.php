@@ -85,7 +85,7 @@ function template_hdmain()
 
 function template_shd_depts()
 {
-	global $context, $txt, $theme;
+	global $context, $txt, $settings;
 
 	echo '
 		<div class="pagesection">';
@@ -127,8 +127,8 @@ function template_shd_depts()
 	foreach ($context['dept_list'] as $dept)
 	{
 		$state = $context['dept_list'][$dept['id_dept']]['new'] ? 'on' : 'off';
-		if (file_exists($theme['theme_dir'] . '/icons/shd' . $dept['id_dept'] . '/on.png'))
-			$icon = $theme['theme_url'] . '/icons/shd' . $dept['id_dept'] . '/' . $state . '.png';
+		if (file_exists($settings['theme_dir'] . '/images/icons/shd' . $dept['id_dept'] . '/on.png'))
+			$icon = ASSETS . '/icons/shd' . $dept['id_dept'] . '/' . $state . '.png';
 		else
 			$icon = $context['plugins_url']['Arantor:WedgeDesk'] . '/images/helpdesk_' . $state . '.png';
 
@@ -534,7 +534,7 @@ function template_ticket_block()
 */
 function template_shd_menu_header($header, $string)
 {
-	global $context, $theme;
+	global $context;
 
 	if (empty($context['ticket_blocks'][$context['current_block']]['tickets']))
 		return $string; // no sense doing any work if it's an empty block and thus not sortable!
@@ -563,7 +563,7 @@ function template_shd_menu_header($header, $string)
 
 	if ($context['ticket_blocks'][$context['current_block']]['sort']['item'] == $header)
 	{
-		$html .= '<img src="' . $theme['images_url'] . '/sort_' . ($context['ticket_blocks'][$context['current_block']]['sort']['direction'] == 'asc' ? 'down' : 'up') . '.gif">';
+		$html .= '<img src="' . ASSETS . '/sort_' . ($context['ticket_blocks'][$context['current_block']]['sort']['direction'] == 'asc' ? 'down' : 'up') . '.gif">';
 	}
 
 	return $html;

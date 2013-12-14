@@ -248,7 +248,7 @@ function shd_init()
 */
 function shd_get_active_tickets()
 {
-	global $settings, $context, $txt;
+	global $settings, $context;
 
 	if (!$settings['helpdesk_active'] || we::$is_guest || !empty($context['shd_maintenance_mode']) || !empty($settings['shd_hidemenuitem']))
 		return '';
@@ -258,7 +258,7 @@ function shd_get_active_tickets()
 		return $context['active_tickets'];
 
 	// Can we get it from the cache?
-	$temp = cache_get_data('shd_active_tickets_' . we::$id, 120);
+	$temp = cache_get_data('shd_active_tickets_' . MID, 120);
 	if ($temp !== null)
 		return $context['active_tickets'] = $temp;
 
@@ -286,7 +286,7 @@ function shd_get_active_tickets()
 	else
 		$context['active_tickets'] = '';
 
-	cache_put_data('shd_active_tickets_' . we::$id, $context['active_tickets'], 120);
+	cache_put_data('shd_active_tickets_' . MID, $context['active_tickets'], 120);
 
 	return $context['active_tickets'];
 }
@@ -355,7 +355,7 @@ function shd_clear_active_tickets($dept = 0)
 */
 function shd_log_action($action, $params, $do_last_update = true)
 {
-	global $context, $settings;
+	global $settings;
 	static $last_cache;
 
 	// Before we go any further, we use this function to globally update tickets' last updated time (since every ticket action should potentially
@@ -465,7 +465,7 @@ function shd_log_action($action, $params, $do_last_update = true)
 			'log_time' => 'int', 'id_member' => 'int', 'ip' => 'int', 'action' => 'string', 'id_ticket' => 'int', 'id_msg' => 'int', 'extra' => 'string-65534',
 		),
 		array(
-			time(), we::$id, get_ip_identifier(we::$user['ip']), $action, $ticket_id, $msg_id, serialize($params),
+			time(), MID, get_ip_identifier(we::$user['ip']), $action, $ticket_id, $msg_id, serialize($params),
 		),
 		array('id_action')
 	);
@@ -499,7 +499,7 @@ function shd_can_alter_urgency($urgency, $ticket_starter, $closed, $deleted, $de
 
 	if (shd_allowed_to('shd_alter_urgency_any', $dept))
 	{
-		if (shd_allowed_to('shd_alter_urgency_higher_any', $dept) || (shd_allowed_to('shd_alter_urgency_higher_own', $dept) && $ticket_starter == we::$id))
+		if (shd_allowed_to('shd_alter_urgency_higher_any', $dept) || (shd_allowed_to('shd_alter_urgency_higher_own', $dept) && $ticket_starter == MID))
 			$can_urgency = array( // can alter any urgency and can alter this one's higher urgency too
 				'increase' => ($urgency < TICKET_URGENCY_CRITICAL),
 				'decrease' => ($urgency > TICKET_URGENCY_LOW),
@@ -510,7 +510,7 @@ function shd_can_alter_urgency($urgency, $ticket_starter, $closed, $deleted, $de
 				'decrease' => ($urgency > TICKET_URGENCY_LOW && $urgency < TICKET_URGENCY_VHIGH),
 			);
 	}
-	elseif (shd_allowed_to('shd_alter_urgency_own', $dept) && $ticket_starter == we::$id)
+	elseif (shd_allowed_to('shd_alter_urgency_own', $dept) && $ticket_starter == MID)
 		$can_urgency = array( // ok, so this is our ticket and we can change it
 			'increase' => ($urgency < (shd_allowed_to('shd_alter_urgency_higher_own', $dept) ? TICKET_URGENCY_CRITICAL : TICKET_URGENCY_HIGH)),
 			'decrease' => ($urgency > TICKET_URGENCY_LOW && $urgency <= (shd_allowed_to('shd_alter_urgency_higher_own', $dept) ? TICKET_URGENCY_CRITICAL : TICKET_URGENCY_VHIGH)),
@@ -552,7 +552,7 @@ function shd_count_helpdesk_tickets($status = '', $is_staff = false)
 		for ($i = 0; $i <= 6; $i++)
 			$context['ticket_count'][$i] = 0; // set the count to zero for all known states
 
-		$cache_id = 'shd_ticket_count_' . (!empty($context['shd_department']) ? 'dept' . $context['shd_department'] . '_' : '') . we::$id;
+		$cache_id = 'shd_ticket_count_' . (!empty($context['shd_department']) ? 'dept' . $context['shd_department'] . '_' : '') . MID;
 
 		$temp = cache_get_data($cache_id, 180);
 		if ($temp !== null)
@@ -588,7 +588,7 @@ function shd_count_helpdesk_tickets($status = '', $is_staff = false)
 					GROUP BY status
 					ORDER BY null',
 					array(
-						'user' => we::$id,
+						'user' => MID,
 					)
 				);
 
@@ -711,7 +711,7 @@ function shd_load_ticket($ticket = 0)
 	wesql::free_result($query);
 
 	// Anything else we'll use a lot?
-	$ticketinfo['is_own'] = (we::$id == $ticketinfo['starter_id']);
+	$ticketinfo['is_own'] = (MID == $ticketinfo['starter_id']);
 	$ticketinfo['closed'] = $ticketinfo['status'] == TICKET_STATUS_CLOSED;
 	$ticketinfo['deleted'] = $ticketinfo['status'] == TICKET_STATUS_DELETED;
 	$ticketinfo['starter_ip'] = format_ip($ticketinfo['starter_ip']);
@@ -852,7 +852,6 @@ function shd_profile_link($name, $id = 0)
 */
 function shd_determine_status($action, $starter_id = 0, $replier_id = 0, $replies = -1, $dept = -1)
 {
-	global $context;
 	static $staff = null;
 
 	if (!isset($staff[$dept]))
@@ -1029,7 +1028,7 @@ function shd_recalc_ids($ticket)
 */
 function shd_load_user_prefs($user = 0)
 {
-	global $settings, $txt;
+	global $settings;
 	static $pref_groups = null, $base_prefs = null;
 
 	if ($pref_groups === null)
@@ -1295,9 +1294,9 @@ function shd_load_user_prefs($user = 0)
 		);
 
 	$prefs = array();
-	if ($user == 0 || $user == we::$id)
+	if ($user == 0 || $user == MID)
 	{
-		$user = we::$id;
+		$user = MID;
 
 		// Start with the defaults, but dealing with permissions as we go
 		foreach ($base_prefs as $pref => $details)
@@ -1358,7 +1357,7 @@ function shd_load_user_prefs($user = 0)
 */
 function shd_display_btn_mvtopic()
 {
-	global $context, $txt, $settings;
+	global $context, $settings;
 
 	if (!empty($settings['helpdesk_active']) && empty($settings['shd_disable_tickettotopic']) && empty($settings['shd_helpdesk_only']) && shd_allowed_to('shd_topic_to_ticket', 0))
 		$context['nav_buttons']['normal']['topictoticket'] = array(

@@ -23,7 +23,7 @@ if (!defined('WEDGE'))
 */
 function shd_search_charset()
 {
-	global $context, $settings, $txt;
+	global $settings;
 
 	if (empty($settings['shd_search_charset']))
 		$settings['shd_search_charset'] = '0..9, A..Z, a..z, &, ~';

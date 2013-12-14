@@ -55,7 +55,7 @@ function template_display_ticket_header()
 */
 function template_viewticket()
 {
-	global $context, $txt, $theme, $settings, $options;
+	global $context, $txt, $settings, $options;
 
 	echo '
 		<div id="forumposts">
@@ -108,7 +108,7 @@ function template_viewticket()
 						<div class="post">
 							<div class="inner">', $context['ticket']['body'], '</div>';
 
-			if ($theme['show_modify'] && !empty($context['ticket']['modified']))
+			if (!empty($context['ticket']['modified']))
 			{
 				echo '
 							<div class="moderatorbar">
@@ -354,7 +354,7 @@ function template_viewticket()
 */
 function template_viewticketattach()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
 	$remove_txt = JavaScriptEscape($txt['shd_delete_attach_confirm']);
 
@@ -407,7 +407,7 @@ function template_viewticketattach()
 */
 function template_viewnotifications()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
 	echo '
 					<we:title>
@@ -440,7 +440,7 @@ function template_viewnotifications()
 
 			if (!empty($context['display_notifications']['can_change']))
 				echo '
-							<form action="<URL>?action=profile;area=hd_prefs;u=', we::$id, '" method="post">
+							<form action="<URL>?action=profile;area=hd_prefs;u=', MID, '" method="post">
 								<div>
 									<input type="submit" value="', $txt['shd_ticket_notify_changeprefs'], '" class="button_submit">
 								</div>
@@ -512,7 +512,7 @@ function template_viewnotifications()
 */
 function template_additional_fields()
 {
-	global $context, $options, $txt, $theme;
+	global $context, $txt;
 
 	if (empty($context['ticket']['custom_fields']['information']))
 		return;
@@ -611,7 +611,7 @@ function template_additional_fields()
 */
 function template_quickreply()
 {
-	global $context, $options, $txt, $theme;
+	global $context, $options, $txt;
 
 	if (!$context['can_reply'] || empty($options['display_quick_reply']))
 		return;
@@ -677,7 +677,7 @@ function template_quickreply()
 // Arantor: I swear I spent more time farting around with this trying to make it not look like crap than I did the rest of the thumbnail code.
 function template_inline_attachments($msg)
 {
-	global $context, $txt, $theme;
+	global $context, $txt;
 
 	$remove_txt = JavaScriptEscape($txt['shd_delete_attach_confirm']);
 
@@ -755,7 +755,7 @@ function template_inline_attachments($msg)
 */
 function template_viewreplies()
 {
-	global $context, $theme, $txt, $options, $settings, $reply_request;
+	global $context, $txt, $options, $settings, $reply_request;
 
 	echo '
 		<we:title>
@@ -831,44 +831,44 @@ function template_viewreplies()
 							', $reply['body'], '
 							<br><br>';
 
-		// Custom fields for replies!
-		if (!empty($context['custom_fields_replies'][$reply['id']]))
-		{
-			echo '
+			// Custom fields for replies!
+			if (!empty($context['custom_fields_replies'][$reply['id']]))
+			{
+				echo '
 							<hr>';
 
-			foreach ($context['custom_fields_replies'][$reply['id']] AS $field)
-			{
-				if ($field['display_empty'] || !empty($field['value']) || $field['type'] == CFIELD_TYPE_CHECKBOX)
+				foreach ($context['custom_fields_replies'][$reply['id']] AS $field)
 				{
-					echo '
+					if ($field['display_empty'] || !empty($field['value']) || $field['type'] == CFIELD_TYPE_CHECKBOX)
+					{
+						echo '
 							', !empty($field['icon']) ? '<img src="' . $context['plugins_url']['Arantor:WedgeDesk'] . '/images/cf/' . $field['icon'] . '" class="shd_smallicon">' : '','
 							<strong>', $field['name'],': </strong>';
 
-					if ($field['type'] == CFIELD_TYPE_CHECKBOX)
-						echo !empty($field['value']) ? $txt['yes'] : $txt['no'], '<br><br>';
-					elseif (empty($field['value']) && $field['display_empty'])
-						echo $txt['shd_ticket_empty_field'], '<br><br>';
-					else
-					{
-						if ($field['type'] == CFIELD_TYPE_SELECT || $field['type'] == CFIELD_TYPE_RADIO)
-							echo $field['options'][$field['value']], '<br><br>';
-						elseif ($field['type'] == CFIELD_TYPE_MULTI)
-						{
-							$values = explode(',', $field['value']);
-							$string = '';
-							foreach ($values as $value)
-								$string .= $field['options'][$value] . ' ';
-							echo trim($string), '<br><br>';
-						}
+						if ($field['type'] == CFIELD_TYPE_CHECKBOX)
+							echo !empty($field['value']) ? $txt['yes'] : $txt['no'], '<br><br>';
+						elseif (empty($field['value']) && $field['display_empty'])
+							echo $txt['shd_ticket_empty_field'], '<br><br>';
 						else
-							echo $field['value'], '<br><br>';
+						{
+							if ($field['type'] == CFIELD_TYPE_SELECT || $field['type'] == CFIELD_TYPE_RADIO)
+								echo $field['options'][$field['value']], '<br><br>';
+							elseif ($field['type'] == CFIELD_TYPE_MULTI)
+							{
+								$values = explode(',', $field['value']);
+								$string = '';
+								foreach ($values as $value)
+									$string .= $field['options'][$value] . ' ';
+								echo trim($string), '<br><br>';
+							}
+							else
+								echo $field['value'], '<br><br>';
+						}
 					}
 				}
 			}
-		}
 
-			if ($theme['show_modify'] && !empty($reply['modified']))
+			if (!empty($reply['modified']))
 			{
 				echo '
 							<div class="smalltext shd_modified" style="margin-top:20px;">
@@ -910,7 +910,7 @@ function template_viewreplies()
 */
 function template_viewrelationships()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
 	if (!empty($context['display_relationships']))
 	{
@@ -980,7 +980,8 @@ function template_viewrelationships()
 */
 function template_ticketactionlog()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
+
 	if (empty($context['display_ticket_log']))
 		return;
 

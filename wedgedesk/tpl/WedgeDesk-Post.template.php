@@ -399,7 +399,7 @@ function template_ticket_proxy_js()
 
 function template_ticket_content()
 {
-	global $context, $txt, $theme, $settings;
+	global $context, $txt;
 
 	echo '
 					<div class="shd_ticket_description">';
@@ -410,7 +410,7 @@ function template_ticket_content()
 						<hr><br>
 							', $context['ticket_form']['message'];
 
-	if ($theme['show_modify'] && !empty($context['ticket']['modified']))
+	if (!empty($context['ticket']['modified']))
 	{
 		echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
@@ -466,7 +466,7 @@ function template_ticket_shd_replyarea()
 
 function template_ticket_postbox()
 {
-	global $settings, $context, $txt;
+	global $settings, $context;
 
 	// The postbox
 	echo '
@@ -532,9 +532,9 @@ function template_ticket_cannedreplies()
 
 function template_ticket_footer()
 {
-	global $theme, $context, $txt;
+	global $context, $txt;
 
-	if ($theme['show_modify'] && !empty($context['ticket_form']['modified']))
+	if (!empty($context['ticket_form']['modified']))
 	{
 		echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
@@ -572,7 +572,7 @@ function template_preview()
 
 function template_ticket_additional_options()
 {
-	global $context, $options, $txt, $settings;
+	global $context, $txt, $settings;
 
 	echo '
 					<div class="information shd_reply_attachments" id="shd_attach_container"', !empty($context['shd_display']) ? ' style="display: none"' : '', '>
@@ -731,7 +731,7 @@ function template_ticket_replies_before()
 
 function template_ticket_do_replies()
 {
-	global $context, $theme, $txt, $options, $settings, $reply_request;
+	global $context, $txt, $options, $settings, $reply_request;
 
 	echo '
 		<we:title>
@@ -782,7 +782,7 @@ function template_ticket_do_replies()
 						', $reply['body'], '
 						<br><br>';
 
-			if ($theme['show_modify'] && !empty($reply['modified']))
+			if (!empty($reply['modified']))
 			{
 				echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
@@ -848,7 +848,7 @@ function template_ticket_pageend()
 */
 function template_shd_thank_posting()
 {
-	global $context, $options, $txt;
+	global $context;
 
 	echo '
 	<div id="fatal_error">

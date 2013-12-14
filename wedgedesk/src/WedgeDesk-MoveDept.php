@@ -25,7 +25,7 @@ if (!defined('WEDGE'))
 */
 function shd_movedept()
 {
-	global $context, $txt;
+	global $context, $txt, $settings;
 
 	checkSession('get');
 
@@ -61,7 +61,7 @@ function shd_movedept()
 
 	wesql::free_result($query);
 
-	if (shd_allowed_to('shd_move_dept_any', $context['current_dept']) || (shd_allowed_to('shd_move_dept_own', $context['current_dept']) && $ticket_starter == we::$id))
+	if (shd_allowed_to('shd_move_dept_any', $context['current_dept']) || (shd_allowed_to('shd_move_dept_own', $context['current_dept']) && $ticket_starter == MID))
 	{
 		$visible_depts = shd_allowed_to('access_helpdesk', false);
 		$context['dept_list'] = array();
@@ -179,7 +179,7 @@ function shd_movedept()
 */
 function shd_movedept2()
 {
-	global $context, $txt;
+	global $context, $txt, $settings;
 
 	checkSession();
 	checkSubmitOnce('check');
@@ -228,7 +228,7 @@ function shd_movedept2()
 	if ($context['current_dept'] == $dest)
 		fatal_lang_error('shd_cannot_move_dept', false);
 
-	if (shd_allowed_to('shd_move_dept_any', $context['current_dept']) || (shd_allowed_to('shd_move_dept_own', $context['current_dept']) && $ticket_starter == we::$id))
+	if (shd_allowed_to('shd_move_dept_any', $context['current_dept']) || (shd_allowed_to('shd_move_dept_own', $context['current_dept']) && $ticket_starter == MID))
 	{
 		// Find the new department. We've already established the user can see it, but we need its name.
 		$query = wesql::query('

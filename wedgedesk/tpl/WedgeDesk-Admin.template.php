@@ -28,7 +28,7 @@
 */
 function template_shd_admin()
 {
-	global $context, $theme, $options, $txt, $settings;
+	global $context, $txt, $settings;
 
 	// Make our admin feel welcome
 	echo '
@@ -233,7 +233,7 @@ function template_shd_admin()
 */
 function template_shd_show_settings()
 {
-	global $context, $txt, $theme;
+	global $context, $txt;
 
 	add_js('
 		function invertList(state, id_list)
@@ -491,7 +491,7 @@ function template_shd_show_settings()
 */
 function template_shd_action_log()
 {
-	global $theme, $txt, $context, $sort_types;
+	global $txt, $context, $sort_types;
 
 	// The sort stuff here is huge.
 	echo '
@@ -507,35 +507,35 @@ function template_shd_action_log()
 							<a href="<URL>?action=admin;area=helpdesk_info;sa=actionlog', $context['sort'] == $sort_types['action'] && !isset($_REQUEST['asc']) ? ';sort=action;asc' : ';sort=action', '">
 								', $txt['shd_admin_actionlog_action'], '
 							</a>
-							', ($context['sort'] == $sort_types['action'] ? '<img src="' . $theme['default_images_url'] . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
+							', ($context['sort'] == $sort_types['action'] ? '<img src="' . ASSETS . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
 						</td>
 						<td width="20%">
 							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/time.png" class="shd_smallicon">
 							<a href="<URL>?action=admin;area=helpdesk_info;sa=actionlog', $context['sort'] == $sort_types['time'] && !isset($_REQUEST['asc']) ? ';sort=time;asc' : ';sort=time', '">
 								', $txt['shd_admin_actionlog_date'], '
 							</a>
-							', ($context['sort'] == $sort_types['time'] ? '<img src="' . $theme['default_images_url'] . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
+							', ($context['sort'] == $sort_types['time'] ? '<img src="' . ASSETS . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
 						</td>
 						<td width="16%">
 							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/user.png" class="shd_smallicon">
 							<a href="<URL>?action=admin;area=helpdesk_info;sa=actionlog', $context['sort'] == $sort_types['member'] && !isset($_REQUEST['asc']) ? ';sort=member;asc' : ';sort=member', '">
 								', $txt['shd_admin_actionlog_member'], '
 							</a>
-							', ($context['sort'] == $sort_types['member'] ? '<img src="' . $theme['default_images_url'] . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
+							', ($context['sort'] == $sort_types['member'] ? '<img src="' . ASSETS . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
 						</td>
 						<td width="16%">
 							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/position.png" class="shd_smallicon">
 							<a href="<URL>?action=admin;area=helpdesk_info;sa=actionlog', $context['sort'] == $sort_types['position'] && !isset($_REQUEST['asc']) ? ';sort=position;asc' : ';sort=position', '">
 								', $txt['shd_admin_actionlog_position'], '
 							</a>
-							', ($context['sort'] == $sort_types['position'] ? '<img src="' . $theme['default_images_url'] . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
+							', ($context['sort'] == $sort_types['position'] ? '<img src="' . ASSETS . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
 						</td>
 						<td width="10%">
 							<img src="', $context['plugins_url']['Arantor:WedgeDesk'], '/images/ip.png" class="shd_smallicon">
 							<a href="<URL>?action=admin;area=helpdesk_info;sa=actionlog', $context['sort'] == $sort_types['ip'] && !isset($_REQUEST['asc']) ? ';sort=ip;asc' : ';sort=ip', '">
 								', $txt['shd_admin_actionlog_ip'], '
 							</a>
-							', ($context['sort'] == $sort_types['ip'] ? '<img src="' . $theme['default_images_url'] . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
+							', ($context['sort'] == $sort_types['ip'] ? '<img src="' . ASSETS . '/' . (isset($_REQUEST['asc']) ? 'sort_up.gif' : 'sort_down.gif' ). '">' : ''), '
 						</td>
 						<td width="2%">&nbsp;</td>
 					</tr>';

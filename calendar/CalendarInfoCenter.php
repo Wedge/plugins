@@ -14,7 +14,7 @@ if (!defined('WEDGE'))
 
 function info_center_calendar()
 {
-	global $context, $txt, $settings;
+	global $context, $settings;
 	// Load the calendar?
 	if (allowedTo('calendar_view'))
 	{

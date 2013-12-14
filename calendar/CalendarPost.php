@@ -21,9 +21,10 @@ function calendar_post_form_pre()
 	if ($context['make_event'])
 		$context['allow_no_board'] = true;
 }
+
 function calendar_post_form()
 {
-	global $context, $txt, $settings;
+	global $context, $txt, $settings, $board;
 
 	// Guess not posting an event after all?
 	if (!$context['make_event'])
@@ -50,11 +51,11 @@ function calendar_post_form()
 	if (!isset($settings['cal_defaultboard']))
 		$settings['cal_defaultboard'] = 0;
 
-	// Editing an event?  (but NOT previewing!?)
+	// Editing an event? (But NOT previewing!?)
 	if (!$context['event']['new'] && !isset($_REQUEST['subject']))
 	{
 		// If the user doesn't have permission to edit the post in this topic, redirect them.
-		if ((empty($id_member_poster) || $id_member_poster != we::$id || !allowedTo('modify_own')) && !allowedTo('modify_any'))
+		if ((empty($id_member_poster) || $id_member_poster != MID || !allowedTo('modify_own')) && !allowedTo('modify_any'))
 		{
 			loadPluginSource('Wedgeward:Calendar', 'Calendar');
 			return CalendarPost();
@@ -76,7 +77,7 @@ function calendar_post_form()
 		wesql::free_result($request);
 
 		// Make sure the user is allowed to edit this event.
-		if ($row['id_member'] != we::$id)
+		if ($row['id_member'] != MID)
 			isAllowedTo('calendar_edit_any');
 		elseif (!allowedTo('calendar_edit_any'))
 			isAllowedTo('calendar_edit_own');
@@ -177,7 +178,7 @@ function validateCalendarEvent(&$post_errors, &$posterIsGuest)
 // !!! This probably should be returning back from the validateCalendarEvent setup and reflowing the form if necessary.
 function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 {
-	global $settings;
+	global $settings, $board, $topic;
 
 	// Editing or posting an event?
 	if (isset($_POST['calendar']) && (!isset($_REQUEST['eventid']) || $_REQUEST['eventid'] == -1))
@@ -192,7 +193,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 			'board' => $board,
 			'topic' => $topic,
 			'title' => $_POST['evtitle'],
-			'member' => we::$id,
+			'member' => MID,
 			'start_date' => sprintf('%04d-%02d-%02d', $_POST['year'], $_POST['month'], $_POST['day']),
 			'span' => isset($_POST['span']) && $_POST['span'] > 0 ? min((int) $settings['cal_maxspan'], (int) $_POST['span'] - 1) : 0,
 		);
@@ -222,7 +223,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 			wesql::free_result($request);
 
 			// Silly hacker, Trix are for kids. ...probably trademarked somewhere, this is FAIR USE! (parody...)
-			isAllowedTo('calendar_edit_' . ($row2['id_member'] == we::$id ? 'own' : 'any'));
+			isAllowedTo('calendar_edit_' . ($row2['id_member'] == MID ? 'own' : 'any'));
 		}
 
 		// Delete it?
@@ -259,4 +260,5 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 		));
 	}
 }
+
 ?>

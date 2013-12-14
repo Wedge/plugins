@@ -90,7 +90,7 @@ if (!defined('WEDGE'))
 // Get all events within the given time range.
 function getEventRange($low_date, $high_date, $use_permissions = true)
 {
-	global $scripturl, $settings, $context;
+	global $settings, $context;
 
 	$low_date_time = sscanf($low_date, '%04d-%02d-%02d');
 	$low_date_time = mktime(0, 0, 0, $low_date_time[1], $low_date_time[2], $low_date_time[0]);
@@ -144,10 +144,10 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 				$events[strftime('%Y-%m-%d', $date)][] = array(
 					'id' => $row['id_event'],
 					'title' => $row['title'],
-					'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
-					'modify_href' => $scripturl . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
-					'href' => $row['id_board'] == 0 ? '' : $scripturl . '?topic=' . $row['id_topic'] . '.0',
-					'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
+					'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == MID && allowedTo('calendar_edit_own')),
+					'modify_href' => SCRIPT . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
+					'href' => $row['id_board'] == 0 ? '' : SCRIPT . '?topic=' . $row['id_topic'] . '.0',
+					'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . SCRIPT . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
 					'start_date' => $row['start_date'],
 					'end_date' => $row['end_date'],
 					'is_last' => false,
@@ -166,8 +166,8 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 					'is_last' => false,
 					'allowed_groups' => explode(',', $row['member_groups']),
 					'id_board' => $row['id_board'],
-					'href' => $row['id_topic'] == 0 ? '' : $scripturl . '?topic=' . $row['id_topic'] . '.0',
-					'link' => $row['id_topic'] == 0 ? $row['title'] : '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
+					'href' => $row['id_topic'] == 0 ? '' : SCRIPT . '?topic=' . $row['id_topic'] . '.0',
+					'link' => $row['id_topic'] == 0 ? $row['title'] : '<a href="' . SCRIPT . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
 					'can_edit' => false,
 				);
 		}
@@ -345,7 +345,7 @@ function canLinkEvent()
 		if ($row = wesql::fetch_assoc($result))
 		{
 			// Not the owner of the topic.
-			if ($row['id_member_started'] != we::$id)
+			if ($row['id_member_started'] != MID)
 				fatal_lang_error('not_your_topic', 'user');
 		}
 		// Topic/Board doesn't exist.....
@@ -369,7 +369,7 @@ function getTodayInfo()
 // Returns the information needed to show a calendar grid for the given month.
 function getCalendarGrid($month, $year, $calendarOptions)
 {
-	global $scripturl, $settings, $txt;
+	global $settings, $txt;
 
 	// Eventually this is what we'll be returning.
 	$calendarGrid = array(
@@ -512,9 +512,9 @@ function getCalendarGrid($month, $year, $calendarOptions)
 	}
 
 	// Set the previous and the next month's links.
-	$calendarGrid['previous_calendar']['href'] = $scripturl . '?action=calendar;year=' . $calendarGrid['previous_calendar']['year'] . ';month=' . $calendarGrid['previous_calendar']['month'];
+	$calendarGrid['previous_calendar']['href'] = SCRIPT . '?action=calendar;year=' . $calendarGrid['previous_calendar']['year'] . ';month=' . $calendarGrid['previous_calendar']['month'];
 	$calendarGrid['previous_calendar']['title'] = $txt['months'][$calendarGrid['previous_calendar']['month']] . ' ' . $calendarGrid['previous_calendar']['year'];
-	$calendarGrid['next_calendar']['href'] = $scripturl . '?action=calendar;year=' . $calendarGrid['next_calendar']['year'] . ';month=' . $calendarGrid['next_calendar']['month'];
+	$calendarGrid['next_calendar']['href'] = SCRIPT . '?action=calendar;year=' . $calendarGrid['next_calendar']['year'] . ';month=' . $calendarGrid['next_calendar']['month'];
 	$calendarGrid['next_calendar']['title'] = $txt['months'][$calendarGrid['next_calendar']['month']] . ' ' . $calendarGrid['next_calendar']['year'];
 
 	return $calendarGrid;
@@ -523,7 +523,7 @@ function getCalendarGrid($month, $year, $calendarOptions)
 // Returns the information needed to show a calendar for the given week.
 function getCalendarWeek($month, $year, $day, $calendarOptions)
 {
-	global $scripturl, $settings;
+	global $settings;
 
 	// Get todays date.
 	$today = getTodayInfo();
@@ -637,13 +637,13 @@ function getCalendarWeek($month, $year, $day, $calendarOptions)
 	}
 
 	// Set the previous and the next week's links.
-	$calendarGrid['previous_week']['href'] = $scripturl . '?action=calendar;viewweek;year=' . $calendarGrid['previous_week']['year'] . ';month=' . $calendarGrid['previous_week']['month'] . ';day=' . $calendarGrid['previous_week']['day'];
-	$calendarGrid['next_week']['href'] = $scripturl . '?action=calendar;viewweek;year=' . $calendarGrid['next_week']['year'] . ';month=' . $calendarGrid['next_week']['month'] . ';day=' . $calendarGrid['next_week']['day'];
+	$calendarGrid['previous_week']['href'] = SCRIPT . '?action=calendar;viewweek;year=' . $calendarGrid['previous_week']['year'] . ';month=' . $calendarGrid['previous_week']['month'] . ';day=' . $calendarGrid['previous_week']['day'];
+	$calendarGrid['next_week']['href'] = SCRIPT . '?action=calendar;viewweek;year=' . $calendarGrid['next_week']['year'] . ';month=' . $calendarGrid['next_week']['month'] . ';day=' . $calendarGrid['next_week']['day'];
 
 	return $calendarGrid;
 }
 
-// Retrieve all events for the given days, independently of the users offset.
+// Retrieve all events for the given days, independently of the user's offset.
 function cache_getOffsetIndependentEvents($days_to_index)
 {
 	$low_date = strftime('%Y-%m-%d', forum_time(false) - 24 * 3600);
@@ -654,7 +654,7 @@ function cache_getOffsetIndependentEvents($days_to_index)
 			'holidays' => getHolidayRange($low_date, $high_date),
 			'events' => getEventRange($low_date, $high_date, false),
 		),
-		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($settings[\'calendar_updated\']) && ' . time() . ' < $settings[\'calendar_updated\']);',
+		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($GLOBALS[\'settings\'][\'calendar_updated\']) && ' . time() . ' < $GLOBALS[\'settings\'][\'calendar_updated\']);',
 		'expires' => time() + 3600,
 	);
 }
@@ -662,8 +662,6 @@ function cache_getOffsetIndependentEvents($days_to_index)
 // Called from the homepage to display the current day's events on it.
 function cache_getRecentEvents($eventOptions)
 {
-	global $settings, $scripturl;
-
 	// With the 'static' cached data we can calculate the user-specific data.
 	$cached_data = cache_quick_get('calendar_index', array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
 
@@ -729,9 +727,9 @@ function cache_getRecentEvents($eventOptions)
 	return array(
 		'data' => $return_data,
 		'expires' => time() + 3600,
-		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($settings[\'calendar_updated\']) && ' . time() . ' < $settings[\'calendar_updated\']);',
+		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false)) || (!empty($GLOBALS[\'settings\'][\'calendar_updated\']) && ' . time() . ' < $GLOBALS[\'settings\'][\'calendar_updated\']);',
 		'post_retri_eval' => '
-			global $context, $scripturl;
+			global $context;
 
 			foreach ($cache_block[\'data\'][\'calendar_events\'] as $k => $event)
 			{
@@ -741,10 +739,10 @@ function cache_getRecentEvents($eventOptions)
 				else
 				{
 					// Whether the event can be edited depends on the permissions.
-					$cache_block[\'data\'][\'calendar_events\'][$k][\'can_edit\'] = allowedTo(\'calendar_edit_any\') || ($event[\'poster\'] == we::$id && allowedTo(\'calendar_edit_own\'));
+					$cache_block[\'data\'][\'calendar_events\'][$k][\'can_edit\'] = allowedTo(\'calendar_edit_any\') || ($event[\'poster\'] == MID && allowedTo(\'calendar_edit_own\'));
 
 					// The added session code makes this URL not cachable.
-					$cache_block[\'data\'][\'calendar_events\'][$k][\'modify_href\'] = $scripturl . \'?action=\' . ($event[\'topic\'] == 0 ? \'calendar;sa=post;\' : \'post;msg=\' . $event[\'msg\'] . \';topic=\' . $event[\'topic\'] . \'.0;calendar;\') . \'eventid=\' . $event[\'id\'] . \';\' . $context[\'session_query\'];
+					$cache_block[\'data\'][\'calendar_events\'][$k][\'modify_href\'] = SCRIPT . \'?action=\' . ($event[\'topic\'] == 0 ? \'calendar;sa=post;\' : \'post;msg=\' . $event[\'msg\'] . \';topic=\' . $event[\'topic\'] . \'.0;calendar;\') . \'eventid=\' . $event[\'id\'] . \';\' . $context[\'session_query\'];
 				}
 			}
 
@@ -760,7 +758,7 @@ function cache_getRecentEvents($eventOptions)
 // Makes sure the calendar post is valid.
 function validateEventPost()
 {
-	global $settings, $txt;
+	global $settings;
 
 	if (!isset($_POST['deleteevent']))
 	{
@@ -840,8 +838,6 @@ function getEventPoster($event_id)
 // Consolidating the various INSERT statements into this function.
 function insertEvent(&$eventOptions)
 {
-	global $settings;
-
 	// Add special chars to the title.
 	$eventOptions['title'] = westr::htmlspecialchars($eventOptions['title'], ENT_QUOTES);
 

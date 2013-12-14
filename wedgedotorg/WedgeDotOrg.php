@@ -6,9 +6,9 @@ if (!defined('WEDGE'))
 // Add the revision number to the footer. It's pretty quick and dirty.
 function wedgedotorg_theme()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
-	$rev = @file_get_contents($theme['default_theme_dir'] . '/rev.txt');
+	$rev = @file_get_contents(TEMPLATES_DIR . '/rev.txt');
 	if (!empty($rev))
 		$txt['copyright'] .= ', ' . (we::$user['language'] == 'french' ? 'révision' : 'revision') . ' <a href="http://wedge.org/pub/feats/6108/new-revs/">' . $rev . '</a>';
 

@@ -100,7 +100,7 @@ function HistoryPopup()
 				if (isset($user_profile[$data['id_member']]))
 					$context['versions'][$id]['name'] = $user_profile[$data['id_member']]['member_name'];
 				else
-					unset ($context['versions'][$id]['id_member']);
+					unset($context['versions'][$id]['id_member']);
 				$context['versions'][$id]['time_format'] = timeformat($data['time']);
 			}
 		}

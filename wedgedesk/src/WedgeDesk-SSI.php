@@ -36,7 +36,7 @@ if (!defined('WEDGE'))
 function ssi_userTickets($started_by = 0, $limit = 10, $output_method = 'echo')
 {
 	if (empty($started_by))
-		$started_by = we::$id;
+		$started_by = MID;
 
 	$limit = (int) $limit;
 	if (empty($limit))
@@ -63,7 +63,7 @@ function ssi_userTickets($started_by = 0, $limit = 10, $output_method = 'echo')
 function ssi_staffAssignedTickets($assignee = 0, $limit = 10, $output_method = 'echo')
 {
 	if (empty($assignee))
-		$assignee = we::$id;
+		$assignee = MID;
 
 	$limit = (int) $limit;
 	if (empty($limit))

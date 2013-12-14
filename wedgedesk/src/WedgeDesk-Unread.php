@@ -77,7 +77,7 @@ function shd_unread_posts()
 					AND (hdlr.id_msg IS NULL OR hdlr.id_msg < hdt.id_last_msg)
 				ORDER BY hdt.urgency DESC, hdt.last_updated',
 				array(
-					'user' => we::$id,
+					'user' => MID,
 					'status' => array(TICKET_STATUS_NEW, TICKET_STATUS_PENDING_STAFF),
 				)
 			);

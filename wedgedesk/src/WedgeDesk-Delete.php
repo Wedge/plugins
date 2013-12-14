@@ -56,7 +56,7 @@ function shd_ticket_delete()
 	if ($row = wesql::fetch_assoc($query_ticket))
 	{
 		wesql::free_result($query_ticket);
-		if (!shd_allowed_to('shd_delete_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_delete_ticket_own', $row['id_dept']) || we::$id != $row['id_member_started']))
+		if (!shd_allowed_to('shd_delete_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_delete_ticket_own', $row['id_dept']) || MID != $row['id_member_started']))
 			fatal_lang_error('shd_cannot_delete_ticket', false);
 	}
 	else
@@ -149,7 +149,7 @@ function shd_reply_delete()
 	if ($row = wesql::fetch_assoc($query_ticket))
 	{
 		wesql::free_result($query_ticket);
-		if (($row['status'] == TICKET_STATUS_CLOSED || $row['status'] == TICKET_STATUS_DELETED) || (!shd_allowed_to('shd_delete_reply_any', $row['id_dept']) && (!shd_allowed_to('shd_delete_reply_own', $row['id_dept']) || we::$id != $row['id_member'])))
+		if (($row['status'] == TICKET_STATUS_CLOSED || $row['status'] == TICKET_STATUS_DELETED) || (!shd_allowed_to('shd_delete_reply_any', $row['id_dept']) && (!shd_allowed_to('shd_delete_reply_own', $row['id_dept']) || MID != $row['id_member'])))
 			fatal_lang_error('shd_cannot_delete_reply', false);
 	}
 	else
@@ -205,7 +205,7 @@ function shd_reply_delete()
 // Delete the given reply or ticket from the database. This is the final deletion which cannot be undone.
 function shd_perma_delete()
 {
-	global $context;
+	global $context, $settings;
 
 	checkSession('get');
 
@@ -588,7 +588,7 @@ function shd_ticket_restore()
 	if ($row = wesql::fetch_assoc($query_ticket))
 	{
 		wesql::free_result($query_ticket);
-		if ($row['status'] != TICKET_STATUS_DELETED || (!shd_allowed_to('shd_restore_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_restore_ticket_own', $row['id_dept']) || we::$id != $row['id_member_started'])))
+		if ($row['status'] != TICKET_STATUS_DELETED || (!shd_allowed_to('shd_restore_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_restore_ticket_own', $row['id_dept']) || MID != $row['id_member_started'])))
 			fatal_lang_error('shd_cannot_restore_ticket', false);
 
 		$subject = $row['subject'];
@@ -662,7 +662,7 @@ function shd_reply_restore()
 	if ($row = wesql::fetch_assoc($query_ticket))
 	{
 		wesql::free_result($query_ticket);
-		if (($row['status'] == TICKET_STATUS_DELETED || $row['status'] == TICKET_STATUS_CLOSED || $row['message_status'] != MSG_STATUS_DELETED) || (!shd_allowed_to('shd_restore_reply_any', $row['id_dept']) && (!shd_allowed_to('shd_restore_reply_own', $row['id_dept']) || we::$id != $row['id_member'])))
+		if (($row['status'] == TICKET_STATUS_DELETED || $row['status'] == TICKET_STATUS_CLOSED || $row['message_status'] != MSG_STATUS_DELETED) || (!shd_allowed_to('shd_restore_reply_any', $row['id_dept']) && (!shd_allowed_to('shd_restore_reply_own', $row['id_dept']) || MID != $row['id_member'])))
 			fatal_lang_error('shd_cannot_restore_reply', false);
 
 		$context['ticket_id'] = (int) $row['id_ticket'];

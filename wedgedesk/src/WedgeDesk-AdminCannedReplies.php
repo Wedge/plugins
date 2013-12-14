@@ -123,8 +123,6 @@ function shd_admin_canned_list()
 */
 function shd_admin_canned_movecat()
 {
-	global $context;
-
 	checkSession('get');
 
 	$_REQUEST['cat'] = isset($_REQUEST['cat']) ? (int) $_REQUEST['cat'] : 0;
@@ -190,8 +188,6 @@ function shd_admin_canned_movecat()
 */
 function shd_admin_canned_movereply()
 {
-	global $context;
-
 	checkSession('get');
 
 	$_REQUEST['reply'] = isset($_REQUEST['reply']) ? (int) $_REQUEST['reply'] : 0;
@@ -297,8 +293,6 @@ function shd_admin_canned_editcat()
 
 function shd_admin_canned_savecat()
 {
-	global $context, $txt;
-
 	checkSession('request');
 
 	// If we're deleting a category, do it first, get it out the way.
@@ -596,8 +590,6 @@ function shd_admin_canned_editreply()
 
 function shd_admin_canned_savereply()
 {
-	global $context, $txt;
-
 	checkSession('request');
 
 	loadSource('Class-Editor');

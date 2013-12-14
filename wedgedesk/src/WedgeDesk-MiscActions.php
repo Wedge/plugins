@@ -42,7 +42,7 @@ function shd_ticket_unread()
 				AND id_member = {int:user}',
 			array(
 				'current_ticket' => $context['ticket_id'],
-				'user' => we::$id,
+				'user' => MID,
 			)
 		);
 	}
@@ -64,7 +64,7 @@ function shd_ticket_unread()
 */
 function shd_ticket_resolve()
 {
-	global $context;
+	global $context, $settings;
 
 	checkSession('get');
 
@@ -92,7 +92,7 @@ function shd_ticket_resolve()
 
 		call_hook('shd_hook_mark' . $action);
 
-		if (!shd_allowed_to('shd_' . $action . '_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_' . $action . '_ticket_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (!shd_allowed_to('shd_' . $action . '_ticket_any', $row['id_dept']) && (!shd_allowed_to('shd_' . $action . '_ticket_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			fatal_lang_error('shd_cannot_' . $action, false);
 
 		// OK, so what about any children related tickets that are still open? Eeek, could be awkward.
@@ -180,7 +180,7 @@ function shd_privacy_change_noajax()
 
 	if ($row = wesql::fetch_assoc($query))
 	{
-		if (in_array($row['status'], array(TICKET_STATUS_CLOSED, TICKET_STATUS_DELETED)) || !shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (in_array($row['status'], array(TICKET_STATUS_CLOSED, TICKET_STATUS_DELETED)) || !shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			fatal_lang_error('shd_cannot_change_privacy', false);
 
 		wesql::free_result($query);

@@ -31,7 +31,7 @@ if (!defined('WEDGE'))
 */
 function shd_main()
 {
-	global $context, $txt, $settings, $user_profile;
+	global $context, $txt, $settings;
 
 	// Basic sanity stuff
 	if (!$settings['helpdesk_active'])
@@ -213,7 +213,7 @@ function shd_main()
 							AND hdt.id_ticket = {int:ticket}
 						LIMIT 1',
 						array(
-							'member' => we::$id,
+							'member' => MID,
 							'ticket' => $context['ticket_id'],
 						)
 					);

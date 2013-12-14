@@ -523,7 +523,7 @@ function shd_tickettotopic2()
 		);
 
 		// The ID of the topic we created
-		$topic = $topicOptions['id'];
+		$id_topic = $topicOptions['id'];
 
 		if (wesql::num_rows($request) != 0)
 		{
@@ -542,7 +542,7 @@ function shd_tickettotopic2()
 					'smileys_enabled' => !empty($row['smileys_enabled']) ? 1 : 0,
 				);
 				$topicOptions = array(
-					'id' => $topic,
+					'id' => $id_topic,
 					'board' => $_POST['toboard'],
 					'lock_mode' => 0,
 					'mark_as_read' => false,
@@ -600,7 +600,7 @@ function shd_tickettotopic2()
 				'{user}' => $username,
 				'{subject}' => $old_subject,
 				'{board}' => '[url=<URL>?board=' . $_POST['toboard'] . '.0]' . $board_name . '[/url]',
-				'{link}' => '<URL>?topic=' . $topic . '.0',
+				'{link}' => '<URL>?topic=' . $id_topic . '.0',
 			);
 			$message = str_replace(array_keys($replacements), array_values($replacements), $_POST['pm_content']);
 
@@ -709,7 +709,7 @@ function shd_tickettotopic2()
 			'subject' => $subject,
 			'board_id' => $_POST['toboard'],
 			'board_name' => $board_name,
-			'ticket' => $topic,
+			'ticket' => $id_topic,
 		);
 		shd_log_action('tickettotopic', $log_params);
 
@@ -748,7 +748,7 @@ function shd_tickettotopic2()
 	shd_clear_active_tickets($dept);
 
 	// Send them to the topic.
-	redirectexit('topic=' . $topic . '.0');
+	redirectexit('topic=' . $id_topic . '.0');
 }
 
 /**
@@ -1031,7 +1031,7 @@ function shd_topictoticket2()
 	if (wesql::num_rows($request) == 0)
 		fatal_lang_error('shd_move_ticket_not_created');
 	else
-		list ($subject, $board, $owner, $body, $firstmsg, $smileys_enabled, $memberupdated, $numreplies, $postername, $posteremail, $posterip, $postertime, $modified_time, $modified_name, $forum_id_msg) = wesql::fetch_row($request);
+		list ($subject, $id_board, $owner, $body, $firstmsg, $smileys_enabled, $memberupdated, $numreplies, $postername, $posteremail, $posterip, $postertime, $modified_time, $modified_name, $forum_id_msg) = wesql::fetch_row($request);
 
 	wesql::free_result($request);
 
@@ -1254,7 +1254,7 @@ function shd_topictoticket2()
 		loadSource('Subs-Post');
 		updateStats('message');
 		updateStats('topic');
-		updateLastMessages($board);
+		updateLastMessages($id_board);
 
 		// Update board post counts.
 		wesql::query('
@@ -1263,7 +1263,7 @@ function shd_topictoticket2()
 				num_posts = num_posts - {int:num_posts}
 			WHERE id_board = {int:board}',
 			array(
-				'board' => $board,
+				'board' => $id_board,
 				'num_posts' => $num_replies,
 			)
 		);

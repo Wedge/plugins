@@ -111,7 +111,7 @@
 
 function shd_admin_browse_attachments()
 {
-	global $context, $txt, $scripturl, $options, $modSettings;
+	global $context, $txt, $options, $modSettings;
 
 	$context['browse_type'] = isset($_REQUEST['shd_attach']) ? 'shd_attach' : 'shd_thumb';
 
@@ -120,7 +120,7 @@ function shd_admin_browse_attachments()
 		'id' => 'file_list',
 		'title' => $txt['attachment_manager_' . $context['browse_type']],
 		'items_per_page' => $modSettings['defaultMaxMessages'],
-		'base_href' => $scripturl . '?action=admin;area=manageattachments;sa=browse;' . $context['browse_type'],
+		'base_href' => SCRIPT . '?action=admin;area=manageattachments;sa=browse;' . $context['browse_type'],
 		'default_sort_col' => 'name',
 		'no_items_label' => $txt['attachment_manager_' . $context['browse_type'] . '_no_entries'],
 		'get_items' => array(
@@ -142,11 +142,11 @@ function shd_admin_browse_attachments()
 				),
 				'data' => array(
 					'function' => create_function('$rowData', '
-						global $modSettings, $context, $scripturl;
+						global $modSettings, $context;
 
 						$link = \'<a href="\';
 
-						$link .= sprintf(\'%1$s?action=dlattach;ticket=%2$d.0;attach=%3$d\', $scripturl, $rowData[\'id_ticket\'], $rowData[\'id_attach\']);
+						$link .= sprintf(\'%1$s?action=dlattach;ticket=%2$d.0;attach=%3$d\', SCRIPT, $rowData[\'id_ticket\'], $rowData[\'id_attach\']);
 
 						$link .= \'"\';
 
@@ -191,8 +191,6 @@ function shd_admin_browse_attachments()
 				),
 				'data' => array(
 					'function' => create_function('$rowData', '
-						global $scripturl;
-
 						return htmlspecialchars($rowData[\'poster_name\']);
 					'),
 				),
@@ -207,7 +205,7 @@ function shd_admin_browse_attachments()
 				),
 				'data' => array(
 					'function' => create_function('$rowData', '
-						global $txt, $context, $scripturl;
+						global $txt, $context;
 
 						return empty($rowData[\'poster_time\']) ? $txt[\'never\'] : timeformat($rowData[\'poster_time\']);
 						'),
@@ -251,7 +249,7 @@ function shd_admin_browse_attachments()
 			),
 		),
 		'form' => array(
-			'href' => $scripturl . '?action=admin;area=manageattachments;sa=remove;' . $context['browse_type'],
+			'href' => SCRIPT . '?action=admin;area=manageattachments;sa=remove;' . $context['browse_type'],
 			'include_sort' => true,
 			'include_start' => true,
 			'hidden_fields' => array(
@@ -334,8 +332,8 @@ function shd_list_get_num_files($browse_type)
 		<operation>
 			<search position="before"><![CDATA[$txt['attachment_manager_thumbs'], ']]></search>
 			<add><![CDATA[', (empty($GLOBALS['modSettings']['helpdesk_active']) ? '' : '</a> |
-				<a href="' . $scripturl . '?action=admin;area=manageattachments;sa=browse;shd_attach">' . ($context['browse_type'] == 'shd_attach' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_attach'] . '</a> |
-				<a href="' . $scripturl . '?action=admin;area=manageattachments;sa=browse;shd_thumb">' . ($context['browse_type'] == 'shd_thumb' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_thumb']), ']]></add>
+				<a href="' . SCRIPT . '?action=admin;area=manageattachments;sa=browse;shd_attach">' . ($context['browse_type'] == 'shd_attach' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_attach'] . '</a> |
+				<a href="' . SCRIPT . '?action=admin;area=manageattachments;sa=browse;shd_thumb">' . ($context['browse_type'] == 'shd_thumb' ? '<img src="' . $settings['images_url'] . '/selected.gif" alt="&gt;" border="0" /> ' : '') . $txt['attachment_manager_shd_thumb']), ']]></add>
 		</operation>
 	</file>
 

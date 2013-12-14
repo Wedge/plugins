@@ -18,7 +18,7 @@ if (!defined('WEDGE'))
 
 function shd_profile_main($memID)
 {
-	global $context, $txt, $user_profile, $settings;
+	global $context, $txt, $settings;
 
 	// Load the profile details
 	loadPluginTemplate('Arantor:WedgeDesk', 'tpl/WedgeDesk-Profile');
@@ -99,7 +99,7 @@ function shd_profile_main($memID)
 
 function shd_profile_frontpage($memID)
 {
-	global $context, $memberContext, $txt, $settings, $user_profile;
+	global $context, $memberContext, $txt, $settings;
 
 	// Attempt to load the member's profile data.
 	if (!loadMemberContext($memID) || !isset($memberContext[$memID]))
@@ -145,8 +145,8 @@ function shd_profile_frontpage($memID)
 	wesql::free_result($query);
 	$context['shd_numassigned'] = comma_format($context['shd_numassigned']);
 
-	$context['can_post_ticket'] = shd_allowed_to('shd_new_ticket', 0) && $memID == we::$id;
-	$context['can_post_proxy'] = shd_allowed_to('shd_new_ticket', 0) && shd_allowed_to('shd_post_proxy', 0) && $memID != we::$id; // since it's YOUR permissions, whether you can post on behalf of this user and this user isn't you!
+	$context['can_post_ticket'] = shd_allowed_to('shd_new_ticket', 0) && $memID == MID;
+	$context['can_post_proxy'] = shd_allowed_to('shd_new_ticket', 0) && shd_allowed_to('shd_post_proxy', 0) && $memID != MID; // since it's YOUR permissions, whether you can post on behalf of this user and this user isn't you!
 
 	// Everything hereafter is HD only stuff.
 	if (empty($settings['shd_helpdesk_only']))
@@ -364,7 +364,7 @@ function shd_profile_preferences($memID)
 
 function shd_profile_show_tickets($memID)
 {
-	global $txt, $settings, $board, $user_profile, $context;
+	global $txt, $settings, $user_profile, $context;
 
 	// Navigation
 	$context['show_tickets_navigation'] = array(
@@ -372,7 +372,7 @@ function shd_profile_show_tickets($memID)
 		'replies' => array('text' => 'shd_profile_show_replies', 'lang' => true, 'url' => '<URL>?action=profile;u=' . $memID . ';area=hd_showtickets;sa=replies'),
 	);
 	// We might be adding the monitor/ignore lists, but we're only interested in those if we're actually on our own page.
-	if ($memID == we::$id)
+	if ($memID == MID)
 	{
 		if (shd_allowed_to('shd_monitor_ticket_any') || shd_allowed_to('shd_monitor_ticket_own'))
 			$context['show_tickets_navigation']['monitor'] = array('text' => 'shd_profile_show_monitor', 'lang' => true, 'url' => '<URL>?action=profile;u=' . $memID . ';area=hd_showtickets;sa=monitor');
@@ -529,7 +529,7 @@ function shd_profile_show_tickets($memID)
 
 function shd_profile_show_notify_override($memID)
 {
-	global $txt, $settings, $board, $user_profile, $context;
+	global $txt, $settings, $user_profile, $context;
 
 	$context['notify_type'] = $_GET['sa']; // We already checked it's monitor or ignore, if we didn't, we wouldn't be here!
 
@@ -733,7 +733,7 @@ function shd_profile_actionlog($memID)
 
 function shd_profile_theme_wrapper($memID)
 {
-	global $txt, $context, $user_profile, $settings, $profile_fields;
+	global $txt, $context, $settings;
 
 	loadTemplate('Profile');
 	loadPluginTemplate('Arantor:WedgeDesk', 'tpl/WedgeDesk-Profile');

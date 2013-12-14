@@ -131,13 +131,13 @@ function shd_assign()
 		if ($ticket_owner == 0) // unassigned
 		{
 			$log_params += array(
-				'user_id' => we::$id,
+				'user_id' => MID,
 				'user_name' => we::$user['name'],
 			);
 			shd_log_action('assign', $log_params);
-			shd_commit_assignment($context['ticket_id'], we::$id);
+			shd_commit_assignment($context['ticket_id'], MID);
 		}
-		elseif ($ticket_owner == we::$id) // assigned to self already, unassign it
+		elseif ($ticket_owner == MID) // assigned to self already, unassign it
 		{
 			shd_log_action('unassign', $log_params);
 			shd_commit_assignment($context['ticket_id'], 0);
@@ -239,13 +239,13 @@ function shd_assign2()
 		if ($ticket_owner == 0) // unassigned
 		{
 			$log_params += array(
-				'user_id' => we::$id,
+				'user_id' => MID,
 				'user_name' => we::$user['name'],
 			);
 			shd_log_action('assign', $log_params);
-			shd_commit_assignment($context['ticket_id'], we::$id);
+			shd_commit_assignment($context['ticket_id'], MID);
 		}
-		elseif ($ticket_starter == we::$id) // assigned to self already, unassign it
+		elseif ($ticket_starter == MID) // assigned to self already, unassign it
 		{
 			shd_log_action('unassign', $log_params);
 			shd_commit_assignment($context['ticket_id'], 0);
@@ -324,7 +324,7 @@ function shd_commit_assignment($ticket, $assignment, $is_ajax = false)
 */
 function shd_get_possible_assignees($private = false, $ticket_owner = 0, $dept = -1)
 {
-	global $context, $settings;
+	global $settings;
 
 	// people who can handle a ticket
 	$staff = shd_members_allowed_to('shd_staff', $dept);

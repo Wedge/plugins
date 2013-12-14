@@ -2,8 +2,6 @@
 
 function postsperday_moderation_rules(&$known_variables, $admin)
 {
-	global $txt, $admin_areas;
-
 	loadPluginLanguage('Arantor:PostsPerDay', 'PostsPerDay');
 	loadPluginTemplate('Arantor:PostsPerDay', 'PostsPerDay');
 	$known_variables['postsperday'] = array(
@@ -33,7 +31,7 @@ function count_postsperday($subject, $body)
 		WHERE id_member = {int:member}
 			AND poster_time >= {int:time}',
 		array(
-			'member' => we::$id,
+			'member' => MID,
 			'time' => time() - 86400,
 		)
 	);

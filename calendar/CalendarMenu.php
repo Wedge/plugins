@@ -12,7 +12,7 @@ if (!defined('WEDGE'))
 
 function calendarMenu(&$items)
 {
-	global $context, $txt, $scripturl;
+	global $context, $txt;
 	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
 
 	$context['allow_calendar'] = allowedTo('calendar_view');
@@ -20,17 +20,17 @@ function calendarMenu(&$items)
 	$menu_item = array(
 		'calendar' => array(
 			'title' => $txt['calendar'],
-			'href' => $scripturl . '?action=calendar',
+			'href' => SCRIPT . '?action=calendar',
 			'show' => $context['allow_calendar'],
 			'sub_items' => array(
 				'view' => array(
 					'title' => $txt['calendar_menu'],
-					'href' => $scripturl . '?action=calendar',
+					'href' => SCRIPT . '?action=calendar',
 					'show' => allowedTo('calendar_post'),
 				),
 				'post' => array(
 					'title' => $txt['calendar_post_event'],
-					'href' => $scripturl . '?action=calendar;sa=post',
+					'href' => SCRIPT . '?action=calendar;sa=post',
 					'show' => allowedTo('calendar_post'),
 				),
 			),

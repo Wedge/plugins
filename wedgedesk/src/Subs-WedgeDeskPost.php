@@ -89,7 +89,7 @@ function shd_create_ticket_post(&$msgOptions, &$ticketOptions, &$posterOptions)
 			$posterOptions['name'] = $txt['guest_title'];
 			$posterOptions['email'] = '';
 		}
-		elseif ($posterOptions['id'] != we::$id)
+		elseif ($posterOptions['id'] != MID)
 		{
 			if (empty($user_profile[$posterOptions['id']]))
 				loadMemberData($posterOptions['id'], false, 'minimal');
@@ -462,7 +462,7 @@ function shd_create_ticket_post(&$msgOptions, &$ticketOptions, &$posterOptions)
 */
 function shd_modify_ticket_post(&$msgOptions, &$ticketOptions, &$posterOptions)
 {
-	global $txt, $context;
+	global $context;
 
 	$messages_columns = array();
 	$ticket_columns = array();

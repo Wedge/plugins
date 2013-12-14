@@ -59,7 +59,7 @@ if (!defined('WEDGE'))
 */
 function shd_view_tracker()
 {
-	global $context, $txt, $user_profile;
+	global $context, $txt;
 
 	$is_staff = shd_allowed_to('shd_staff', 0);
 	// Stuff we need to add to $context, page title etc etc

@@ -25,7 +25,7 @@ if (!defined('WEDGE'))
 */
 function shd_admin_main()
 {
-	global $context, $scripturl, $txt, $settings;
+	global $context, $txt, $settings;
 
 	shd_init();
 	loadPluginLanguage('Arantor:WedgeDesk', 'lang/WedgeDeskAdmin');
@@ -87,7 +87,7 @@ function shd_admin_main()
 	foreach ($linktree as $linktreeitem)
 	{
 		$context['linktree'][] = $linktreeitem;
-		if ($linktreeitem['url'] == $scripturl . '?action=admin')
+		if ($linktreeitem['url'] == SCRIPT . '?action=admin')
 		{
 			$context['linktree'][] = array(
 				'url' => '<URL>?action=admin;area=helpdesk_info',
@@ -118,7 +118,7 @@ function shd_admin_main()
 */
 function shd_admin_info()
 {
-	global $context, $txt;
+	global $context, $txt, $settings;
 
 	add_plugin_js_file('Arantor:WedgeDesk', 'js/helpdesk_admin.js');
 
@@ -197,7 +197,7 @@ function shd_admin_info()
 */
 function shd_admin_options($return_config)
 {
-	global $context, $txt, $settings;
+	global $context, $txt;
 
 	add_js('
 		function shd_switchable_item(item, state)
@@ -295,21 +295,6 @@ function shd_modify_display_options($return_config)
 	$theme_list = array(
 		0 => $txt['shd_theme_use_default'],
 	);
-	$request = wesql::query('
-		SELECT id_theme, value
-		FROM {db_prefix}themes
-		WHERE id_member = {int:member}
-			AND id_theme > {int:theme}
-			AND variable = {string:name}',
-		array(
-			'member' => 0,
-			'theme' => 0,
-			'name' => 'name',
-		)
-	);
-	while ($row = wesql::fetch_assoc($request))
-		$theme_list[$row['id_theme']] = $row['value'];
-	wesql::free_result($request);
 
 	$config_vars = array(
 		array('select', 'shd_staff_badge', array('nobadge' => $txt['shd_staff_badge_nobadge'], 'staffbadge' => $txt['shd_staff_badge_staffbadge'], 'userbadge' => $txt['shd_staff_badge_userbadge'], 'bothbadge' => $txt['shd_staff_badge_bothbadge']), 'help' => 'shd_staff_badge_note'),
@@ -590,7 +575,7 @@ function shd_modify_actionlog_options($return_config)
 */
 function shd_modify_notifications_options($return_config)
 {
-	global $context, $settings, $txt, $webmaster_email;
+	global $context, $txt, $webmaster_email;
 
 	$txt['shd_notify_email'] = sprintf($txt['shd_notify_email'], $webmaster_email);
 
@@ -660,7 +645,7 @@ function shd_modify_notifications_options($return_config)
 */
 function shd_admin_action_log()
 {
-	global $context, $txt, $sort_types;
+	global $context, $sort_types;
 
 	loadPluginSource('Arantor:WedgeDesk', 'src/Subs-WedgeDeskLog');
 	loadPluginLanguage('Arantor:WedgeDesk', 'lang/WedgeDeskLogAction');

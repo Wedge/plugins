@@ -56,9 +56,10 @@ function template_shd_tickettotopic()
 		echo '
 							<optgroup label="', $category['name'], '">';
 
-		foreach ($category['boards'] as $board)
+		foreach ($category['boards'] as $bdata)
 			echo '
-								<option value="', $board['id'], '">', $board['child_level'] > 0 ? str_repeat('==', $board['child_level']-1) . '=&gt; ' : '', $board['name'], '</option>';
+								<option value="', $bdata['id'], '">', $bdata['child_level'] > 0 ? str_repeat('==', $bdata['child_level']-1) . '=&gt; ' : '', $bdata['name'], '</option>';
+
 		echo '
 							</optgroup>';
 	}

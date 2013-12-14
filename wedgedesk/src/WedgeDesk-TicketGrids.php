@@ -59,7 +59,7 @@ if (!defined('WEDGE'))
 */
 function shd_main_helpdesk()
 {
-	global $context, $txt, $user_profile;
+	global $context, $txt;
 
 	$is_staff = shd_allowed_to('shd_staff', 0);
 	// Stuff we need to add to $context, page title etc etc
@@ -69,7 +69,7 @@ function shd_main_helpdesk()
 			'assigned' => array(
 				'block_icon' => 'assign.png',
 				'title' => $txt['shd_status_assigned_heading'],
-				'where' => 'hdt.id_member_assigned = ' . we::$id . ' AND hdt.status NOT IN (' . TICKET_STATUS_CLOSED . ',' . TICKET_STATUS_DELETED . ')',
+				'where' => 'hdt.id_member_assigned = ' . MID . ' AND hdt.status NOT IN (' . TICKET_STATUS_CLOSED . ',' . TICKET_STATUS_DELETED . ')',
 				'display' => $is_staff,
 				'count' => shd_count_helpdesk_tickets('assigned'),
 				'columns' => shd_get_block_columns('assigned'),
@@ -79,7 +79,7 @@ function shd_main_helpdesk()
 			'new' => array(
 				'block_icon' => 'status.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_NEW . '_heading'],
-				'where' => 'hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_NEW,
+				'where' => 'hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_NEW,
 				'display' => $is_staff,
 				'count' => shd_count_helpdesk_tickets('new'),
 				'columns' => shd_get_block_columns('new'),
@@ -89,7 +89,7 @@ function shd_main_helpdesk()
 			'staff' => array(
 				'block_icon' => 'staff.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_PENDING_STAFF . '_heading'],
-				'where' => $is_staff ? ('hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_PENDING_STAFF) : ('hdt.status IN (' . TICKET_STATUS_NEW . ',' . TICKET_STATUS_PENDING_STAFF . ')'), // put new and with staff together in 'waiting for staff' for end user
+				'where' => $is_staff ? ('hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_PENDING_STAFF) : ('hdt.status IN (' . TICKET_STATUS_NEW . ',' . TICKET_STATUS_PENDING_STAFF . ')'), // put new and with staff together in 'waiting for staff' for end user
 				'display' => true,
 				'count' => shd_count_helpdesk_tickets('staff', $is_staff),
 				'columns' => shd_get_block_columns('staff'),
@@ -99,7 +99,7 @@ function shd_main_helpdesk()
 			'user' => array(
 				'block_icon' => 'user.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_PENDING_USER . '_heading'],
-				'where' => $is_staff ? ('hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_PENDING_USER) : ('hdt.status = ' . TICKET_STATUS_PENDING_USER),
+				'where' => $is_staff ? ('hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_PENDING_USER) : ('hdt.status = ' . TICKET_STATUS_PENDING_USER),
 				'display' => true,
 				'count' => shd_count_helpdesk_tickets('with_user'),
 				'columns' => shd_get_block_columns($is_staff ? 'user_staff' : 'user_user'),
@@ -130,7 +130,7 @@ function shd_main_helpdesk()
 */
 function shd_view_block()
 {
-	global $context, $txt, $user_profile;
+	global $context, $txt;
 
 	$is_staff = shd_allowed_to('shd_staff', 0);
 	// Stuff we need to add to $context, page title etc etc
@@ -140,7 +140,7 @@ function shd_view_block()
 			'assigned' => array(
 				'block_icon' => 'assign.png',
 				'title' => $txt['shd_status_assigned_heading'],
-				'where' => 'hdt.id_member_assigned = ' . we::$id . ' AND hdt.status NOT IN (' . TICKET_STATUS_CLOSED . ',' . TICKET_STATUS_DELETED . ')',
+				'where' => 'hdt.id_member_assigned = ' . MID . ' AND hdt.status NOT IN (' . TICKET_STATUS_CLOSED . ',' . TICKET_STATUS_DELETED . ')',
 				'display' => $is_staff,
 				'count' => shd_count_helpdesk_tickets('assigned'),
 				'columns' => shd_get_block_columns('assigned'),
@@ -150,7 +150,7 @@ function shd_view_block()
 			'new' => array(
 				'block_icon' => 'status.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_NEW . '_heading'],
-				'where' => 'hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_NEW,
+				'where' => 'hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_NEW,
 				'display' => $is_staff,
 				'count' => shd_count_helpdesk_tickets('new'),
 				'columns' => shd_get_block_columns('new'),
@@ -160,7 +160,7 @@ function shd_view_block()
 			'staff' => array(
 				'block_icon' => 'staff.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_PENDING_STAFF . '_heading'],
-				'where' => $is_staff ? ('hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_PENDING_STAFF) : ('hdt.status IN (' . TICKET_STATUS_NEW . ',' . TICKET_STATUS_PENDING_STAFF . ')'), // put new and with staff together in 'waiting for staff' for end user
+				'where' => $is_staff ? ('hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_PENDING_STAFF) : ('hdt.status IN (' . TICKET_STATUS_NEW . ',' . TICKET_STATUS_PENDING_STAFF . ')'), // put new and with staff together in 'waiting for staff' for end user
 				'display' => true,
 				'count' => shd_count_helpdesk_tickets('staff', $is_staff),
 				'columns' => shd_get_block_columns('staff'),
@@ -170,7 +170,7 @@ function shd_view_block()
 			'user' => array(
 				'block_icon' => 'user.png',
 				'title' => $txt['shd_status_' . TICKET_STATUS_PENDING_USER . '_heading'],
-				'where' => $is_staff ? ('hdt.id_member_assigned != ' . we::$id . ' AND hdt.status = ' . TICKET_STATUS_PENDING_USER) : ('hdt.status = ' . TICKET_STATUS_PENDING_USER),
+				'where' => $is_staff ? ('hdt.id_member_assigned != ' . MID . ' AND hdt.status = ' . TICKET_STATUS_PENDING_USER) : ('hdt.status = ' . TICKET_STATUS_PENDING_USER),
 				'display' => true,
 				'count' => shd_count_helpdesk_tickets('with_user'),
 				'columns' => shd_get_block_columns($is_staff ? 'user_staff' : 'user_user'),
@@ -217,7 +217,7 @@ function shd_view_block()
 */
 function shd_closed_tickets()
 {
-	global $context, $txt, $user_profile;
+	global $context, $txt;
 
 	if (!shd_allowed_to('shd_view_closed_own', $context['shd_department']) && !shd_allowed_to('shd_view_closed_any', $context['shd_department']))
 		fatal_lang_error('shd_cannot_view_resolved', false);
@@ -266,7 +266,7 @@ function shd_closed_tickets()
 */
 function shd_recycle_bin()
 {
-	global $context, $txt, $user_profile;
+	global $context, $txt;
 
 	// Stuff we need to add to $context, the permission we want to use, page title etc etc
 	$context += array(
@@ -329,7 +329,7 @@ function shd_recycle_bin()
 */
 function shd_helpdesk_listing()
 {
-	global $context, $txt, $user_profile, $settings, $language;
+	global $context, $txt, $user_profile, $settings;
 
 	if (!empty($context['shd_permission']))
 		shd_is_allowed_to($context['shd_permission']);
@@ -502,7 +502,7 @@ function shd_helpdesk_listing()
 				WHERE {query_see_ticket}' . (!empty($block['where']) ? ' AND ' . $block['where'] : '') . (!empty($context['shd_department']) ? ' AND hdt.id_dept = {int:dept}' : '') . $context['filter_where'],
 				array(
 					'dept' => $context['shd_department'],
-					'user' => we::$id,
+					'user' => MID,
 					'field' => $_REQUEST['field'],
 					'filter' => $_REQUEST['filter'],
 					'type_ticket' => CFIELD_TICKET,
@@ -536,7 +536,7 @@ function shd_helpdesk_listing()
 			LIMIT {int:start}, {int:items_per_page}',
 			array(
 				'dept' => $context['shd_department'],
-				'user' => we::$id,
+				'user' => MID,
 				'start' => $block['start'],
 				'items_per_page' => $block['num_per_page'],
 				'field' => $_REQUEST['field'],
@@ -548,7 +548,7 @@ function shd_helpdesk_listing()
 
 		while ($row = wesql::fetch_assoc($query))
 		{
-			$is_own = we::$id == $row['id_member_started'];
+			$is_own = MID == $row['id_member_started'];
 			censorText($row['subject']);
 
 			$new_block = array(
@@ -606,8 +606,8 @@ function shd_helpdesk_listing()
 				$langstring = '';
 				if (shd_allowed_to('shd_assign_ticket_any', $context['shd_department']))
 					$langstring = empty($row['id_member_assigned']) ? $txt['shd_ticket_assign'] : $txt['shd_ticket_reassign'];
-				elseif (shd_allowed_to('shd_assign_ticket_own', $context['shd_department']) && (empty($row['id_member_assigned']) || $row['id_member_assigned'] == we::$id))
-					$langstring = $row['id_member_assigned'] == we::$id ? $txt['shd_ticket_unassign'] : $txt['shd_ticket_assign_self'];
+				elseif (shd_allowed_to('shd_assign_ticket_own', $context['shd_department']) && (empty($row['id_member_assigned']) || $row['id_member_assigned'] == MID))
+					$langstring = $row['id_member_assigned'] == MID ? $txt['shd_ticket_unassign'] : $txt['shd_ticket_assign_self'];
 
 				if (!empty($langstring))
 					$new_block['actions']['assign'] = '<a href="<URL>?action=helpdesk;sa=assign;ticket=' . $row['id_ticket'] . ';home;' . $context['session_var'] . '=' . $context['session_id'] . '" title="' . $langstring . '"><img src="' . $context['plugins_url']['Arantor:WedgeDesk'] . '/images/assign.png" alt="' . $langstring . '"></a>';

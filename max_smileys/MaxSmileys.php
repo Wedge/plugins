@@ -2,8 +2,6 @@
 
 function maxsmileys_moderation_rules(&$known_variables, $admin)
 {
-	global $txt, $admin_areas;
-
 	loadPluginLanguage('Arantor:MaxSmileys', 'MaxSmileys');
 	loadPluginTemplate('Arantor:MaxSmileys', 'MaxSmileys');
 	$known_variables['maxsmileys'] = array(

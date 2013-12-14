@@ -12,7 +12,7 @@
 // The main calendar - January, for example.
 function template_main()
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt, $settings;
 
 	echo '
 		<div id="calendar">';
@@ -44,7 +44,7 @@ function template_main()
 
 	// Show some controls to allow easy calendar navigation.
 	echo '
-				<form id="calendar_navigation" action="', $scripturl, '?action=calendar" method="post" accept-charset="UTF-8">
+				<form id="calendar_navigation" action="', SCRIPT, '?action=calendar" method="post" accept-charset="UTF-8">
 					<select name="month">';
 
 	// Show a select box with all the months.
@@ -72,7 +72,7 @@ function template_main()
 // The components are the same, but if it's standalone, we need form stuff - which is these two bad boys.
 function template_event_container_before()
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt;
 
 	// Start the javascript for drop down boxes...
 	add_js('
@@ -128,7 +128,7 @@ function template_event_container_after()
 // Display a monthly calendar grid.
 function template_show_month_grid($grid_name)
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt, $settings;
 
 	if (!isset($context['calendar_grid_' . $grid_name]))
 		return false;
@@ -155,7 +155,7 @@ function template_show_month_grid($grid_name)
 					', $txt['months'][$calendar_data['current_month']], ' ', $calendar_data['current_year'];
 		else
 			echo '
-					<a href="', $scripturl, '?action=calendar;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], '">', $txt['months'][$calendar_data['current_month']], ' ', $calendar_data['current_year'], '</a>';
+					<a href="', SCRIPT, '?action=calendar;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], '">', $txt['months'][$calendar_data['current_month']], ' ', $calendar_data['current_year'], '</a>';
 
 		echo '
 				</div>
@@ -194,7 +194,7 @@ function template_show_month_grid($grid_name)
 		if (!empty($calendar_data['show_week_links']))
 			echo '
 					<td class="windowbg2 weeks">
-						<a href="', $scripturl, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $week['days'][0]['day'], '">&#187;</a>
+						<a href="', SCRIPT, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $week['days'][0]['day'], '">&#187;</a>
 					</td>';
 
 		/* Every day has the following:
@@ -212,14 +212,14 @@ function template_show_month_grid($grid_name)
 				// Should the day number be a link?
 				if (!empty($settings['cal_daysaslink']) && $context['can_post'])
 					echo '
-						<a href="', $scripturl, '?action=calendar;sa=post;month=', $calendar_data['current_month'], ';year=', $calendar_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
+						<a href="', SCRIPT, '?action=calendar;sa=post;month=', $calendar_data['current_month'], ';year=', $calendar_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
 				else
 					echo '
 						', $day['day'];
 
 				// Is this the first day of the week? (and are we showing week numbers?)
 				if ($day['is_first_day'] && $calendar_data['size'] != 'small')
-					echo '<span class="smalltext"> - <a href="', $scripturl, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $day['day'], '">', $txt['calendar_week'], ' ', $week['number'], '</a></span>';
+					echo '<span class="smalltext"> - <a href="', SCRIPT, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $day['day'], '">', $txt['calendar_week'], ' ', $week['number'], '</a></span>';
 
 				if ($grid_name == 'main')
 					foreach ($calendar_data['event_types'] as $event)
@@ -245,7 +245,7 @@ function template_show_month_grid($grid_name)
 // Or show a weekly one?
 function template_show_week_grid($grid_name)
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt, $settings;
 
 	if (!isset($context['calendar_grid_' . $grid_name]))
 		return false;
@@ -268,7 +268,7 @@ function template_show_week_grid($grid_name)
 					<span class="floatright"><a href="', $calendar_data['next_week']['href'], '">&#187;</a></span>';
 
 		echo '
-					<a href="', $scripturl, '?action=calendar;month=', $month_data['current_month'], ';year=', $month_data['current_year'], '">', $txt['months'][$month_data['current_month']], ' ', $month_data['current_year'], '</a>', empty($done_title) && !empty($calendar_data['week_number']) ? (' - ' . $txt['calendar_week'] . ' ' . $calendar_data['week_number']) : '', '
+					<a href="', SCRIPT, '?action=calendar;month=', $month_data['current_month'], ';year=', $month_data['current_year'], '">', $txt['months'][$month_data['current_month']], ' ', $month_data['current_year'], '</a>', empty($done_title) && !empty($calendar_data['week_number']) ? (' - ' . $txt['calendar_week'] . ' ' . $calendar_data['week_number']) : '', '
 				</div>
 			</we:cat>';
 
@@ -293,7 +293,7 @@ function template_show_week_grid($grid_name)
 			// Should the day number be a link?
 			if (!empty($settings['cal_daysaslink']) && $context['can_post'])
 				echo '
-						<a href="', $scripturl, '?action=calendar;sa=post;month=', $month_data['current_month'], ';year=', $month_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
+						<a href="', SCRIPT, '?action=calendar;sa=post;month=', $month_data['current_month'], ';year=', $month_data['current_year'], ';day=', $day['day'], ';', $context['session_query'], '">', $day['day'], '</a>';
 			else
 				echo '
 						', $day['day'];
@@ -330,7 +330,7 @@ function template_event_holidays($day, $grid_name)
 
 function template_event_events($day, $grid_name)
 {
-	global $txt, $theme;
+	global $txt;
 
 	echo '
 						<div class="smalltext">
@@ -343,7 +343,7 @@ function template_event_events($day, $grid_name)
 		// If they can edit the event, show a star they can click on....
 		if ($event['can_edit'])
 			echo '
-							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>';
+							<a class="modify_event" href="', $event['modify_href'], '"><img src="' . ASSETS . '/icons/modify_small.gif"></a>';
 
 		echo '
 							', $event['link'], $event['is_last'] ? '' : ', ';

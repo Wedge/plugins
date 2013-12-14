@@ -69,7 +69,7 @@ function ssi_todaysEvents($output_method = 'echo')
 // Show all calendar entries for today. (holidays, and events.)
 function ssi_todaysCalendar($output_method = 'echo')
 {
-	global $settings, $txt, $scripturl;
+	global $settings, $txt;
 
 	if (empty($settings['allow_guestAccess']) && we::$is_guest)
 		return array();
@@ -105,7 +105,7 @@ function ssi_todaysCalendar($output_method = 'echo')
 // Show the most recent events.
 function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 {
-	global $scripturl, $settings, $txt, $context;
+	global $settings, $txt, $context;
 
 	if (empty($settings['allow_guestAccess']))
 		return array();
@@ -151,10 +151,10 @@ function ssi_recentEvents($max_events = 7, $output_method = 'echo')
 		$return[$date][] = array(
 			'id' => $row['id_event'],
 			'title' => $row['title'],
-			'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
-			'modify_href' => $scripturl . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
-			'href' => $row['id_board'] == 0 ? '' : $scripturl . '?topic=' . $row['id_topic'] . '.0',
-			'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
+			'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == MID && allowedTo('calendar_edit_own')),
+			'modify_href' => SCRIPT . '?action=' . ($row['id_board'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $row['id_first_msg'] . ';topic=' . $row['id_topic'] . '.0;calendar;') . 'eventid=' . $row['id_event'] . ';' . $context['session_query'],
+			'href' => $row['id_board'] == 0 ? '' : SCRIPT . '?topic=' . $row['id_topic'] . '.0',
+			'link' => $row['id_board'] == 0 ? $row['title'] : '<a href="' . SCRIPT . '?topic=' . $row['id_topic'] . '.0">' . $row['title'] . '</a>',
 			'start_date' => $row['start_date'],
 			'end_date' => $row['end_date'],
 			'is_last' => false

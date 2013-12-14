@@ -40,7 +40,7 @@ if (!defined('WEDGE'))
 */
 function shd_ajax()
 {
-	global $context;
+	global $context, $txt;
 
 	// Just in case
 	loadLanguage('Errors');
@@ -124,7 +124,7 @@ function shd_ajax()
 */
 function shd_ajax_quote()
 {
-	global $txt, $context;
+	global $context;
 
 	loadLanguage('Post');
 	checkSession('get');
@@ -195,7 +195,7 @@ function shd_ajax_quote()
 */
 function shd_ajax_canned()
 {
-	global $txt, $context;
+	global $context;
 
 	loadLanguage('Post');
 	checkSession('get');
@@ -234,7 +234,7 @@ function shd_ajax_canned()
 			return $context['ajax_raw'] = '<quote>' . $message . '</quote>';
 
 		// Now check for can-reply-to-own (reply to any will pass this check correctly anyway)
-		if (!shd_allowed_to('shd_reply_ticket_any', $row['id_dept']) && shd_allowed_to('shd_reply_ticket_own', $row['id_dept']) && $row['id_member_started'] != we::$id)
+		if (!shd_allowed_to('shd_reply_ticket_any', $row['id_dept']) && shd_allowed_to('shd_reply_ticket_own', $row['id_dept']) && $row['id_member_started'] != MID)
 			return $context['ajax_raw'] = '<quote>' . $message . '</quote>';
 
 		// Now verify the per-reply visibility. Only applies to non admins anyway...
@@ -459,10 +459,10 @@ function shd_ajax_notify()
 	// Now we get the list by preferences. This is where it starts to get complicated.
 	$possible_members = array();
 	// People who want replies to their own ticket, without including the ticket starter because they'd know about it...
-	if (!empty($settings['shd_notify_new_reply_own']) && we::$id != $ticket['id_member_started'])
+	if (!empty($settings['shd_notify_new_reply_own']) && MID != $ticket['id_member_started'])
 		$possible_members[$ticket['id_member_started']]['new_reply_own'] = true;
 	// The ticket is assigned to someone and they want to be notified if it changes.
-	if (!empty($settings['shd_notify_new_reply_assigned']) && !empty($ticket['id_member_assigned']) && we::$id != $ticket['id_member_assigned'])
+	if (!empty($settings['shd_notify_new_reply_assigned']) && !empty($ticket['id_member_assigned']) && MID != $ticket['id_member_assigned'])
 		$possible_members[$ticket['id_member_assigned']]['new_reply_assigned'] = true;
 	// So, if you're staff, and you've replied to this ticket before, do you want to be notified this time?
 	if (!empty($settings['shd_notify_new_reply_previous']))
@@ -576,7 +576,7 @@ function shd_ajax_notify()
 		{
 			foreach ($list_members as $id_member => $data)
 			{
-				if (isset($people[$id_member]) && $id_member != we::$id) // We really shouldn't be in this list.
+				if (isset($people[$id_member]) && $id_member != MID) // We really shouldn't be in this list.
 					$list_members[$id_member] = $people[$id_member]['name'];
 				else
 					unset($list_members[$id_member]);
@@ -675,7 +675,7 @@ function shd_ajax_ajax_privacy()
 	// Can we do this, are we powerful enough?
 	if ($row = wesql::fetch_assoc($query))
 	{
-		if (!shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (!shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			return $context['ajax_return'] = array('error' => $txt['shd_cannot_change_privacy']);
 
 		$context['ajax_raw'] = '<response>
@@ -713,7 +713,7 @@ function shd_ajax_ajax_privacy2()
 	// Can we do this, are we powerful enough?
 	if ($row = wesql::fetch_assoc($query))
 	{
-		if (!shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (!shd_allowed_to('shd_alter_privacy_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_privacy_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			return $context['ajax_return'] = array('error' => $txt['shd_cannot_change_privacy']);
 
 		// It's unchanged.
@@ -766,7 +766,7 @@ function shd_ajax_ajax_urgency()
 	// Can we do this, are we powerful enough?
 	if ($row = wesql::fetch_assoc($query))
 	{
-		if (!shd_allowed_to('shd_alter_urgency_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_urgency_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (!shd_allowed_to('shd_alter_urgency_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_urgency_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			return $context['ajax_return'] = array('error' => $txt['shd_cannot_change_urgency']);
 
 		$context['ajax_raw'] = '<response>';
@@ -808,7 +808,7 @@ function shd_ajax_ajax_urgency2()
 	// Can we do this, are we powerful enough?
 	if ($row = wesql::fetch_assoc($query))
 	{
-		if (!shd_allowed_to('shd_alter_urgency_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_urgency_own', $row['id_dept']) || $row['id_member_started'] != we::$id))
+		if (!shd_allowed_to('shd_alter_urgency_any', $row['id_dept']) && (!shd_allowed_to('shd_alter_urgency_own', $row['id_dept']) || $row['id_member_started'] != MID))
 			return $context['ajax_return'] = array('error' => $txt['shd_cannot_change_urgency']);
 
 		// It's unchanged.

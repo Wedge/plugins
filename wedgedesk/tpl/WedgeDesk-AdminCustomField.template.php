@@ -14,7 +14,7 @@
 
 function template_shd_custom_field_home()
 {
-	global $context, $txt, $settings;
+	global $context, $txt;
 
 	echo '
 					<we:cat>
@@ -98,7 +98,7 @@ function template_shd_custom_field_home()
 
 function template_shd_custom_field_edit()
 {
-	global $context, $txt, $settings, $boarddir;
+	global $context, $txt, $settings;
 
 	add_js('
 				function set_fieldicon(filename)
@@ -192,7 +192,7 @@ function template_shd_custom_field_edit()
 								<dd><textarea name="description" id="cf_description" cols="40" rows="4">', !empty($context['custom_field']['field_desc']) ? $context['custom_field']['field_desc'] : '', '</textarea></dd>
 								<dt><strong>', $txt['shd_admin_custom_fields_active'], ':</strong><br><span class="smalltext">', $txt['shd_admin_custom_fields_active_desc'], '</span></dt>
 								<dd><input type="checkbox" name="active" id="cf_active"', $context['field_active'],'class="input_check"></dd>
-								<dt><strong>', $txt['shd_admin_custom_fields_icon'], ':</strong><br><span class="smalltext">', sprintf($txt['shd_admin_custom_fields_icon_desc'], str_replace($boarddir, '', $context['plugins_dir']['Arantor:WedgeDesk'])), '</span></dt>
+								<dt><strong>', $txt['shd_admin_custom_fields_icon'], ':</strong><br><span class="smalltext">', sprintf($txt['shd_admin_custom_fields_icon_desc'], str_replace(ROOT_DIR, '', $context['plugins_dir']['Arantor:WedgeDesk'])), '</span></dt>
 								<dd class="nowrap">
 									<span id="cf_fieldicon_icon"', $context['field_icon_value'] != '' ? ' style="background: url(' . $context['plugins_url']['Arantor:WedgeDesk'] . '/images/cf/' . $context['field_icon_value'] . ') no-repeat left;"' : '','></span>
 									<select name="field_icon" id="cf_fieldicon" onchange="javascript:set_fieldicon(this.value);">';

@@ -71,8 +71,8 @@ function shd_notifications_notify_newticket(&$msgOptions, &$ticketOptions, &$pos
 			unset($members[$member]);
 	}
 
-	if (isset($members[we::$id]))
-		unset($members[we::$id]);
+	if (isset($members[MID]))
+		unset($members[MID]);
 
 	if (empty($members))
 		return;
@@ -232,8 +232,8 @@ function shd_notifications_notify_newreply(&$msgOptions, &$ticketOptions, &$post
 	}
 
 	// Lastly, prevent the reply author getting notified for any reason.
-	if (!empty($members[we::$id]))
-		unset($members[we::$id]);
+	if (!empty($members[MID]))
+		unset($members[MID]);
 
 	// So, at this point, $members contains a list of the members and a sequence of the possible messages they could get. We need to make some sense of it.
 	$notify_data['members'] = array();
@@ -264,7 +264,7 @@ function shd_notifications_notify_newreply(&$msgOptions, &$ticketOptions, &$post
 
 function shd_notifications_notify_assign(&$ticket, &$assignment)
 {
-	global $context, $settings;
+	global $settings;
 
 	if (empty($settings['shd_notify_assign_me']) && empty($settings['shd_notify_assign_own']))
 		return;
@@ -301,8 +301,8 @@ function shd_notifications_notify_assign(&$ticket, &$assignment)
 		$member_prefs[$assignment] = $base_prefs['notify_assign_me']['default'];
 	}
 
-	if (isset($members[we::$id]))
-		unset($members[we::$id]);
+	if (isset($members[MID]))
+		unset($members[MID]);
 
 	if (empty($members))
 		return; // whoops
@@ -350,7 +350,7 @@ function shd_notifications_notify_assign(&$ticket, &$assignment)
 */
 function shd_notify_users($notify_data)
 {
-	global $context, $txt, $settings, $language;
+	global $txt, $settings, $language;
 
 	if (empty($notify_data['members']))
 		return;
@@ -589,10 +589,10 @@ function shd_notify_popup()
 
 function shd_notify_ticket_options()
 {
-	global $context, $txt;
+	global $context;
 
 	$ticketinfo = shd_load_ticket(); // This does permissions to access the ticket too.
-	$ticket_starter = $ticketinfo['starter_id'] == we::$id;
+	$ticket_starter = $ticketinfo['starter_id'] == MID;
 
 	checkSession();
 
@@ -606,7 +606,7 @@ function shd_notify_ticket_options()
 		WHERE id_member = {int:user}
 			AND id_ticket = {int:ticket}',
 		array(
-			'user' => we::$id,
+			'user' => MID,
 			'ticket' => $context['ticket_id'],
 		)
 	);
@@ -640,7 +640,7 @@ function shd_notify_ticket_options()
 					'id_member' => 'int', 'id_ticket' => 'int', 'notify_state' => 'int',
 				),
 				array(
-					we::$id, $context['ticket_id'], NOTIFY_ALWAYS,
+					MID, $context['ticket_id'], NOTIFY_ALWAYS,
 				),
 				array('id_member', 'id_ticket')
 			);
@@ -660,7 +660,7 @@ function shd_notify_ticket_options()
 				WHERE id_member = {int:member}
 					AND id_ticket = {int:ticket}',
 				array(
-					'member' => we::$id,
+					'member' => MID,
 					'ticket' => $context['ticket_id'],
 				)
 			);
@@ -693,7 +693,7 @@ function shd_notify_ticket_options()
 					'id_member' => 'int', 'id_ticket' => 'int', 'notify_state' => 'int',
 				),
 				array(
-					we::$id, $context['ticket_id'], NOTIFY_NEVER,
+					MID, $context['ticket_id'], NOTIFY_NEVER,
 				),
 				array('id_member', 'id_ticket')
 			);
@@ -713,7 +713,7 @@ function shd_notify_ticket_options()
 				WHERE id_member = {int:member}
 					AND id_ticket = {int:ticket}',
 				array(
-					'member' => we::$id,
+					'member' => MID,
 					'ticket' => $context['ticket_id'],
 				)
 			);
@@ -820,7 +820,7 @@ function shd_get_visible_list($dept, $private, $ticket_starter = 0, $include_adm
 	}
 
 	if (!$include_current_user)
-		$people = array_diff($people, array(we::$id));
+		$people = array_diff($people, array(MID));
 
 	return $people;
 }

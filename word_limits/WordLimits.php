@@ -2,8 +2,6 @@
 
 function wordcount_moderation_rules(&$known_variables, $admin)
 {
-	global $txt, $admin_areas;
-
 	loadPluginLanguage('Arantor:WordCount', 'WordLimits');
 	loadPluginTemplate('Arantor:WordCount', 'WordLimits');
 	$known_variables['words'] = array(

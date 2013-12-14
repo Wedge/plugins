@@ -153,8 +153,8 @@ function shd_view_ticket()
 			'name' => ($ticketinfo['assigned_id'] > 0) ? $ticketinfo['assigned_name'] : $txt['shd_unassigned'],
 			'link' => ($ticketinfo['assigned_id'] > 0) ? shd_profile_link($ticketinfo['assigned_name'], $ticketinfo['assigned_id']) : '<span class="error">' . $txt['shd_unassigned'] . '</span>',
 		),
-		'assigned_self' => $ticketinfo['assigned_id'] == we::$id,
-		'ticket_opener' => $ticketinfo['starter_id'] == we::$id,
+		'assigned_self' => $ticketinfo['assigned_id'] == MID,
+		'ticket_opener' => $ticketinfo['starter_id'] == MID,
 		'urgency' => array(
 			'level' => $ticketinfo['urgency'],
 			'label' => $ticketinfo['urgency'] > TICKET_URGENCY_HIGH ? '<span class="error">' . $txt['shd_urgency_' . $ticketinfo['urgency']] . '</span>' : $txt['shd_urgency_' . $ticketinfo['urgency']],
@@ -168,7 +168,7 @@ function shd_view_ticket()
 		'poster_time' => timeformat($ticketinfo['poster_time']),
 		'privacy' => array(
 			'label' => $ticketinfo['private'] ? $txt['shd_ticket_private'] : $txt['shd_ticket_notprivate'],
-			'can_change' => shd_allowed_to('shd_alter_privacy_any', $ticketinfo['dept']) || (shd_allowed_to('shd_alter_privacy_own', $ticketinfo['dept']) && $ticketinfo['id_member'] == we::$id),
+			'can_change' => shd_allowed_to('shd_alter_privacy_any', $ticketinfo['dept']) || (shd_allowed_to('shd_alter_privacy_own', $ticketinfo['dept']) && $ticketinfo['id_member'] == MID),
 		),
 		'closed' => $ticketinfo['closed'],
 		'deleted' => $ticketinfo['deleted'],
@@ -463,7 +463,7 @@ function shd_view_ticket()
 	shd_display_load_attachments();
 
 	// Mark read goes here
-	if (!empty(we::$id))
+	if (MID)
 	{
 		wesql::insert('replace',
 			'{db_prefix}helpdesk_log_read',
@@ -471,9 +471,8 @@ function shd_view_ticket()
 				'id_ticket' => 'int', 'id_member' => 'int', 'id_msg' => 'int',
 			),
 			array(
-				$context['ticket_id'], we::$id, $ticketinfo['id_last_msg'],
-			),
-			array('id_member', 'id_topic')
+				$context['ticket_id'], MID, $ticketinfo['id_last_msg'],
+			)
 		);
 	}
 
@@ -747,7 +746,7 @@ function shd_view_ticket()
 		WHERE id_member = {int:user}
 			AND id_ticket = {int:ticket}',
 		array(
-			'user' => we::$id,
+			'user' => MID,
 			'ticket' => $context['ticket_id'],
 		)
 	);
@@ -776,7 +775,7 @@ function shd_view_ticket()
 					AND hdtr.id_msg != hdt.id_first_msg',
 				array(
 					'ticket' => $context['ticket_id'],
-					'user' => we::$id,
+					'user' => MID,
 				)
 			);
 			list($count) = wesql::fetch_row($query);
@@ -841,7 +840,7 @@ function shd_view_ticket()
 */
 function shd_prepare_ticket_context()
 {
-	global $txt, $options, $memberContext, $context, $reply_request, $user_profile;
+	global $txt, $memberContext, $context, $reply_request, $user_profile;
 
 	if (empty($reply_request))
 		return false;
@@ -876,16 +875,16 @@ function shd_prepare_ticket_context()
 		'timestamp' => forum_time(true, $message['poster_time']),
 		'body' => $message['body'],
 		'is_staff' => !empty($context['shd_is_staff'][$message['id_member']]),
-		'can_edit' => $message['message_status'] != MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_edit_reply_any', $context['ticket']['dept']) || ($message['id_member'] == we::$id && shd_allowed_to('shd_edit_reply_own', $context['ticket']['dept']))),
-		'can_delete' => $message['message_status'] != MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_delete_reply_any', $context['ticket']['dept']) || ($message['id_member'] == we::$id && shd_allowed_to('shd_delete_reply_own', $context['ticket']['dept']))),
-		'can_restore' => $message['message_status'] == MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_restore_reply_any', $context['ticket']['dept']) || ($message['id_member'] == we::$id && shd_allowed_to('shd_restore_reply_own', $context['ticket']['dept']))),
+		'can_edit' => $message['message_status'] != MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_edit_reply_any', $context['ticket']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_edit_reply_own', $context['ticket']['dept']))),
+		'can_delete' => $message['message_status'] != MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_delete_reply_any', $context['ticket']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_delete_reply_own', $context['ticket']['dept']))),
+		'can_restore' => $message['message_status'] == MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_restore_reply_any', $context['ticket']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_restore_reply_own', $context['ticket']['dept']))),
 		'can_permadelete' => $message['message_status'] == MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && shd_allowed_to('shd_delete_recycling', $context['ticket']['dept']),
 		'message_status' => $message['message_status'],
 		'link' => '<URL>?action=helpdesk;sa=ticket;ticket=' . $context['ticket_id'] . '.msg' . $message['id_msg'] . '#msg' . $message['id_msg'],
 		'reply_num' => $message['reply_num'],
 	);
 
-	if (shd_allowed_to('shd_view_ip_any', $context['ticket']['dept']) || ($message['id_member'] == we::$id && shd_allowed_to('shd_view_ip_own', $context['ticket']['dept'])))
+	if (shd_allowed_to('shd_view_ip_any', $context['ticket']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_view_ip_own', $context['ticket']['dept'])))
 	{
 		$ip = format_ip($message['poster_ip']);
 		if (!empty($ip))
@@ -931,7 +930,7 @@ function shd_prepare_ticket_context()
 */
 function shd_display_load_attachments()
 {
-	global $settings, $context, $txt;
+	global $settings, $context;
 
 	$context['ticket_attach'][$settings['shd_attachments_mode']] = array();
 
@@ -1081,8 +1080,7 @@ function shd_attachment_info($attach_info)
 					wesql::insert('',
 						'{db_prefix}attachments',
 						array('id_folder' => 'int', 'id_msg' => 'int', 'attachment_type' => 'int', 'filename' => 'string', 'file_hash' => 'string', 'size' => 'int', 'width' => 'int', 'height' => 'int', 'fileext' => 'string', 'mime_type' => 'string'),
-						array($id_folder_thumb, 0, 3, $thumb_filename, $thumb_hash, (int) $thumb_size, (int) $attach_info['thumb_width'], (int) $attach_info['thumb_height'], $thumb_ext, $thumb_mime),
-						array('id_attach')
+						array($id_folder_thumb, 0, 3, $thumb_filename, $thumb_hash, (int) $thumb_size, (int) $attach_info['thumb_width'], (int) $attach_info['thumb_height'], $thumb_ext, $thumb_mime)
 					);
 					$old_id_thumb = $attach_info['id_thumb'];
 					$attach_info['id_thumb'] = wesql::insert_id();
@@ -1102,8 +1100,7 @@ function shd_attachment_info($attach_info)
 						wesql::insert('replace',
 							'{db_prefix}helpdesk_attachments',
 							array('id_attach' => 'int', 'id_ticket' => 'int', 'id_msg' => 'int'),
-							array($attach_info['id_thumb'], $attach_info['id_ticket'], $attach_info['id_msg']),
-							array('id_attach')
+							array($attach_info['id_thumb'], $attach_info['id_ticket'], $attach_info['id_msg'])
 						);
 
 						$thumb_realname = getAttachmentFilename($thumb_filename, $attach_info['id_thumb'], $id_folder_thumb, false, $thumb_hash);

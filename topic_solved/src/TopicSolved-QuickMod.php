@@ -25,27 +25,27 @@ function topicSolvedApplyQuickMod(&$quickMod)
 
 function quickMod_marksolved($topic_data, $boards_can)
 {
-	global $settings, $board;
+	global $settings;
 
 	$board_list = unserialize($settings['topicsolved_boards']);
 
 	if (!in_array(0, $boards_can['topicsolved_any']))
 	{
-		foreach ($topic_data as $topic => $this_topic)
+		foreach ($topic_data as $id_topic => $this_topic)
 		{
 			if (!in_array($this_topic['id_board'], $boards_can['topicsolved_any']))
 			{
 				// So they can't just (un)solve *any* topic. That makes things more complicated. It needs to be their topic and they have to have permission
-				if ($this_topic['id_member_started'] != we::$id || !in_array($this_topic['id_board'], $boards_can['topicsolved_own']))
-					unset($topic_data[$topic]);
+				if ($this_topic['id_member_started'] != MID || !in_array($this_topic['id_board'], $boards_can['topicsolved_own']))
+					unset($topic_data[$id_topic]);
 			}
 		}
 	}
 
 	// Check that all topics are in boards that topic solved is active in.
-	foreach ($topic_data as $topic => $this_topic)
+	foreach ($topic_data as $id_topic => $this_topic)
 		if (!in_array($this_topic['id_board'], $board_list))
-			unset($topic_data[$topic]);
+			unset($topic_data[$id_topic]);
 
 	if (empty($topic_data))
 		return;
@@ -79,8 +79,8 @@ function quickMod_marksolved($topic_data, $boards_can)
 		);
 
 		// Log them in the moderation log
-		foreach ($purge_rows as $topic)
-			logAction('unsolve', array('topic' => $topic), 'moderate');
+		foreach ($purge_rows as $id_topic)
+			logAction('unsolve', array('topic' => $id_topic), 'moderate');
 	}
 
 	// Anything else left to mark solved?
@@ -88,10 +88,10 @@ function quickMod_marksolved($topic_data, $boards_can)
 	{
 		$time = time();
 		$insert = array();
-		foreach ($topic_data as $topic => $this_topic)
+		foreach ($topic_data as $id_topic => $this_topic)
 		{
-			$insert[] = array($topic, $time, we::$id);
-			logAction('solve', array('topic' => $topic), 'moderate');
+			$insert[] = array($id_topic, $time, MID);
+			logAction('solve', array('topic' => $id_topic), 'moderate');
 		}
 
 		wesql::insert('replace',

@@ -40,7 +40,7 @@ function topicSolvedDisplay()
 	.solved { color: ' . $settings['topicsolved_fg'] . '; background-color: ' . $settings['topicsolved_bg1'] . ' }');
 	}
 
-	if (allowedTo('topicsolved_any') || (allowedTo('topicsolved_own') && $topicinfo['id_member_started'] == we::$id))
+	if (allowedTo('topicsolved_any') || (allowedTo('topicsolved_own') && $topicinfo['id_member_started'] == MID))
 	{
 		$context['can_solve'] = true;
 		$nav = array(
@@ -60,7 +60,7 @@ function topicSolvedDisplay()
 // Yes, yes, I know this is naughty. But loading an extra file for this silly little function? REALLY?
 function template_topic_solved_warning()
 {
-	global $context, $txt;
+	global $context;
 
 	echo '
 		<div class="description solved">

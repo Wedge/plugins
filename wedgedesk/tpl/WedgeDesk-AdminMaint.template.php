@@ -19,7 +19,7 @@
 */
 function template_shd_admin_maint_home()
 {
-	global $context, $txt, $settings;
+	global $context, $txt;
 
 	// OK, recount all the important figures.
 	echo '
@@ -260,7 +260,7 @@ function template_shd_admin_maint_massdeptmovedone()
 
 function template_shd_admin_maint_search()
 {
-	global $context, $theme, $txt, $settings;
+	global $context, $txt, $settings;
 
 	if (isset($_GET['rebuilddone']))
 		echo '

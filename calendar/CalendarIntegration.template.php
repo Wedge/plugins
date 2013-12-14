@@ -11,7 +11,7 @@
 
 function template_linked_calendar()
 {
-	global $context, $theme, $txt;
+	global $context, $txt;
 
 	// Does this topic have some events linked to it?
 	if (empty($context['linked_calendar_events']))
@@ -28,7 +28,7 @@ function template_linked_calendar()
 	foreach ($context['linked_calendar_events'] as $event)
 		echo '
 						<li>
-							', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '"> <img src="' . $theme['images_url'] . '/icons/modify_small.gif" title="' . $txt['modify'] . '" class="edit_event"></a> ' : '',
+							', $event['can_edit'] ? '<a href="' . $event['modify_href'] . '"> <img src="' . ASSETS . '/icons/modify_small.gif" title="' . $txt['modify'] . '" class="edit_event"></a> ' : '',
 							'<strong>', $event['title'], '</strong>: ', $event['start_date'], ($event['start_date'] != $event['end_date'] ? ' - ' . $event['end_date'] : ''), '
 						</li>';
 
@@ -40,7 +40,7 @@ function template_linked_calendar()
 
 function template_info_center_calendar()
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt;
 
 	if (!$context['show_calendar'])
 		return;
@@ -48,7 +48,7 @@ function template_info_center_calendar()
 	echo '
 		<section class="ic">
 			<we:title>
-				<a href="', $scripturl, '?action=calendar"><img src="', $theme['images_url'], '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
+				<a href="', SCRIPT, '?action=calendar"><img src="', ASSETS, '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
 				', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '
 			</we:title>
 			<p class="smalltext">';
@@ -69,7 +69,7 @@ function template_info_center_calendar()
 
 		foreach ($context['calendar_events'] as $event)
 			echo $event['can_edit'] ? '
-				<a href="' . $event['modify_href'] . '" title="' . $txt['calendar_edit'] . '"><img src="' . $theme['images_url'] . '/icons/modify_small.gif"></a>' : '', '
+				<a href="' . $event['modify_href'] . '" title="' . $txt['calendar_edit'] . '"><img src="' . ASSETS . '/icons/modify_small.gif"></a>' : '', '
 				', $event['href'] == '' ? '' : '<a href="' . $event['href'] . '">', $event['is_today'] ? '<strong>' . $event['title'] . '</strong>' : $event['title'], $event['href'] == '' ? '' : '</a>', $event['is_last'] ? '<br>' : ', ';
 	}
 
@@ -99,17 +99,17 @@ function template_form_event_details()
 		if (!empty($settings['cal_allowspan']))
 		{
 			echo '
-								<li>
-									', $txt['calendar_numb_days'], '
-									<select name="span">';
+						<span>
+							', $txt['calendar_numb_days'], '
+							<select name="span">';
 
 			for ($days = 1; $days <= $settings['cal_maxspan']; $days++)
 				echo '
-										<option value="', $days, '"', $days == $context['event']['span'] ? ' selected' : '', '>', $days, '&nbsp;</option>';
+								<option value="', $days, '"', $days == $context['event']['span'] ? ' selected' : '', '>', $days, '&nbsp;</option>';
 
 			echo '
-									</select>
-								</li>';
+							</select>
+						</span>';
 		}
 
 	echo '
@@ -118,7 +118,7 @@ function template_form_event_details()
 
 function template_form_link_calendar()
 {
-	global $context, $theme, $options, $txt, $scripturl, $settings;
+	global $context, $txt;
 
 	echo '
 					<fieldset id="event_options">
@@ -126,25 +126,29 @@ function template_form_link_calendar()
 						<div class="event_options smalltext">
 							<ul class="event_options">';
 
-		echo '
+	echo '
 								<li>
 									', $txt['calendar_post_in'], '
 									<select name="board">';
-		foreach ($context['event']['categories'] as $category)
-		{
-			echo '
-										<optgroup label="', $category['name'], '">';
-			foreach ($category['boards'] as $board)
-				echo '
-											<option value="', $board['id'], '"', $board['selected'] ? ' selected' : '', '>', $board['child_level'] > 0 ? str_repeat('==', $board['child_level'] - 1) . '=&gt;' : '', ' ', $board['name'], '&nbsp;</option>';
-			echo '
-										</optgroup>';
-		}
+
+	foreach ($context['event']['categories'] as $category)
+	{
 		echo '
-									</select>
-								</li>';
+										<optgroup label="', $category['name'], '">';
+
+		foreach ($category['boards'] as $bdata)
+			echo '
+											<option value="', $bdata['id'], '"', $bdata['selected'] ? ' selected' : '', '>',
+												$bdata['child_level'] > 0 ? str_repeat('==', $bdata['child_level'] - 1) . '=&gt;' : '', ' ', $bdata['name'],
+											'&nbsp;</option>';
+
+		echo '
+										</optgroup>';
+	}
 
 	echo '
+									</select>
+								</li>
 							</ul>
 						</div>
 					</fieldset>';

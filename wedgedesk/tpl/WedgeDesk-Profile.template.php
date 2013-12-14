@@ -313,7 +313,7 @@ function template_shd_profile_preferences()
 
 function template_shd_profile_show_tickets()
 {
-	global $context, $txt, $options, $settings;
+	global $context, $txt;
 
 	echo '
 	<we:cat>
@@ -369,7 +369,7 @@ function template_shd_profile_show_tickets()
 
 function template_shd_profile_show_notify_override()
 {
-	global $context, $txt, $options, $settings;
+	global $context, $txt;
 
 	echo '
 				<we:cat>
@@ -692,7 +692,7 @@ function template_shd_profile_actionlog()
 
 function template_shd_profile_navigation_above()
 {
-	global $context, $txt, $options;
+	global $context, $options;
 
 	echo '
 		<div class="', empty($options['use_sidebar_menu']) ? 'shd_ticket_leftcolumn floatleft' : '', '">
@@ -737,7 +737,7 @@ function template_shd_profile_summary_wrapper()
 // Template for showing theme settings. Note: template_options() actually adds the theme specific options.
 function template_profile_shd_theme_settings()
 {
-	global $context, $options, $settings, $txt;
+	global $context, $settings, $txt;
 
 	echo '
 							<dd></dd>

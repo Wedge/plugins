@@ -38,7 +38,7 @@ function calendarAdminSearch(&$settings_search)
 // The main controlling function doesn't have much to do... yet.
 function ManageCalendar()
 {
-	global $context, $txt, $scripturl, $settings;
+	global $context, $txt;
 
 	isAllowedTo('admin_forum');
 
@@ -75,7 +75,7 @@ function ManageCalendar()
 // The function that handles adding, and deleting holiday data
 function ModifyHolidays()
 {
-	global $scripturl, $txt, $context, $settings;
+	global $txt, $context, $settings;
 
 	// Due to two buttons awkwardly inside the one form, we can end up here when we don't mean to be.
 	if (isset($_REQUEST['add']))
@@ -139,7 +139,7 @@ function ModifyHolidays()
 		'id' => 'holiday_list',
 		'title' => $txt['custom_holidays'],
 		'items_per_page' => 20,
-		'base_href' => $scripturl . '?action=admin;area=managecalendar;sa=holidays',
+		'base_href' => SCRIPT . '?action=admin;area=managecalendar;sa=holidays',
 		'default_sort_col' => 'name',
 		'get_items' => array(
 			'function' => 'list_getHolidays',
@@ -155,7 +155,7 @@ function ModifyHolidays()
 				),
 				'data' => array(
 					'sprintf' => array(
-						'format' => '<a href="' . $scripturl . '?action=admin;area=managecalendar;sa=editholiday;holiday=%1$d">%2$s</a>',
+						'format' => '<a href="' . SCRIPT . '?action=admin;area=managecalendar;sa=editholiday;holiday=%1$d">%2$s</a>',
 						'params' => array(
 							'id_holiday' => false,
 							'title' => false,
@@ -204,7 +204,7 @@ function ModifyHolidays()
 			),
 		),
 		'form' => array(
-			'href' => $scripturl . '?action=admin;area=managecalendar;sa=holidays',
+			'href' => SCRIPT . '?action=admin;area=managecalendar;sa=holidays',
 		),
 		'additional_rows' => array(
 			array(
@@ -229,7 +229,7 @@ function ModifyHolidays()
 // This function is used for adding/editing a specific holiday
 function EditHoliday()
 {
-	global $txt, $context, $scripturl;
+	global $txt, $context;
 
 	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
 
@@ -330,7 +330,7 @@ function EditHoliday()
 
 function ModifyCalendarSettings($return_config = false)
 {
-	global $settings, $context, $theme, $txt, $boarddir, $scripturl;
+	global $context, $txt;
 
 	// Load the boards list.
 	$boards = array('');
@@ -384,7 +384,7 @@ function ModifyCalendarSettings($return_config = false)
 	wetem::load('show_settings');
 
 	// Get the final touches in place.
-	$context['post_url'] = $scripturl . '?action=admin;area=managecalendar;save;sa=settings';
+	$context['post_url'] = SCRIPT . '?action=admin;area=managecalendar;save;sa=settings';
 	$context['settings_title'] = $txt['calendar_settings'];
 
 	// Saving the settings?
@@ -528,7 +528,7 @@ function calendarPermissions(&$permissionGroups, &$permissionList, &$leftPermiss
 
 function calendarMemberPrefs(&$config_vars, &$return_config)
 {
-	global $context, $txt;
+	global $txt;
 
 	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
 

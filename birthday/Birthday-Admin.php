@@ -11,7 +11,7 @@
 
 function birthdayAdmin()
 {
-	global $admin_areas, $context, $txt;
+	global $admin_areas, $txt;
 
 	loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Admin');
 

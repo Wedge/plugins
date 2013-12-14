@@ -10,7 +10,7 @@
 		<setting name="recaptcha_private_key" default="" />
 	</settings>
 	<hooks>
-		<function point="spam_settings" function="reCaptchaAdmin" filename="$plugindir/reCaptcha-Admin" />
+		<function point="settings_spam" function="reCaptchaAdmin" filename="$plugindir/reCaptcha-Admin" />
 		<function point="verification_setup" function="setup_recaptcha" filename="$plugindir/reCaptcha-Main" />
 		<function point="verification_test" function="validate_recaptcha" /><!-- No file needed; reCaptcha-Main is the right file. -->
 		<function point="verification_display" function="template_recaptcha" />

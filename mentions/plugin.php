@@ -144,7 +144,7 @@ function wementions_create_post_after(&$msgOptions, &$topicOptions, &$posterOpti
 		'topic' => $topicOptions['id'],
 		'subject' => $msgOptions['subject'],
 		'member' => array(
-			'id' => we::$id,
+			'id' => MID,
 			'name' => we::$user['name'],
 		),
 	));
@@ -171,7 +171,7 @@ function wementions_notification_callback(array &$notifiers)
  */
 function wementions_display_message_list(&$messages, &$times, &$all_posters)
 {
-//	Notification::markReadForNotifier(we::$id, weNotif::getNotifiers('mentions'), $messages);
+//	Notification::markReadForNotifier(MID, weNotif::getNotifiers('mentions'), $messages);
 }
 
 /**

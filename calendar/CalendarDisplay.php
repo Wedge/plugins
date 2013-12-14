@@ -51,7 +51,7 @@ function calendar_display()
 			$context['linked_calendar_events'][] = array(
 				'id' => $row['id_event'],
 				'title' => $row['title'],
-				'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == we::$id && allowedTo('calendar_edit_own')),
+				'can_edit' => allowedTo('calendar_edit_any') || ($row['id_member'] == MID && allowedTo('calendar_edit_own')),
 				'modify_href' => '<URL>?action=post;msg=' . $topicinfo['id_first_msg'] . ';topic=' . $topic . '.0;calendar;eventid=' . $row['id_event'] . ';' . $context['session_query'],
 				'start_date' => timeformat($start_date, $date_string, 'none'),
 				'start_timestamp' => $start_date,

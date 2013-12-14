@@ -84,8 +84,6 @@ function shd_admin_dept_list()
 
 function shd_admin_dept_move()
 {
-	global $context;
-
 	checkSession('get');
 
 	$_REQUEST['dept'] = isset($_REQUEST['dept']) ? (int) $_REQUEST['dept'] : 0;
@@ -496,26 +494,11 @@ function shd_admin_save_dept()
 
 function shd_get_dept_theme_list()
 {
-	global $txt, $context;
+	global $context, $txt;
 
 	$context['dept_theme_list'] = array(
 		0 => $txt['shd_dept_theme_use_default'],
 	);
-	$request = wesql::query('
-		SELECT id_theme, value
-		FROM {db_prefix}themes
-		WHERE id_member = {int:member}
-			AND id_theme > {int:theme}
-			AND variable = {string:name}',
-		array(
-			'member' => 0,
-			'theme' => 0,
-			'name' => 'name',
-		)
-	);
-	while ($row = wesql::fetch_assoc($request))
-		$context['dept_theme_list'][$row['id_theme']] = $row['value'];
-	wesql::free_result($request);
 }
 
 ?>

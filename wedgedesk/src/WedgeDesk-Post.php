@@ -21,7 +21,7 @@ if (!defined('WEDGE'))
 */
 function shd_post_ticket()
 {
-	global $context, $txt, $reply_request, $options, $memberContext, $new_ticket, $settings;
+	global $context, $txt, $memberContext, $new_ticket, $settings;
 	$context['tabindex'] = 1;
 
 	$new_ticket = $_REQUEST['sa'] == 'newticket';
@@ -79,7 +79,7 @@ function shd_post_ticket()
 		'return_to_ticket' => isset($_REQUEST['goback']),
 		'disable_smileys' => $new_ticket ? !empty($_REQUEST['no_smileys']) : ($ticketinfo['smileys_enabled'] == 0),
 	);
-	$context['can_solve'] = !$new_ticket && (shd_allowed_to('shd_resolve_ticket_any', $dept) || (shd_allowed_to('shd_resolve_ticket_own', $dept) && $ticketinfo['starter_id'] == we::$id));
+	$context['can_solve'] = !$new_ticket && (shd_allowed_to('shd_resolve_ticket_any', $dept) || (shd_allowed_to('shd_resolve_ticket_own', $dept) && $ticketinfo['starter_id'] == MID));
 	$context['can_post_proxy'] = $new_ticket && isset($_REQUEST['proxy']) && shd_allowed_to('shd_post_proxy', $dept);
 	if ($context['can_post_proxy'] && !empty($_REQUEST['proxy']))
 	{
@@ -117,8 +117,8 @@ function shd_post_ticket()
 		$context['ticket_form'] += array(
 			'member' => array(
 				'name' => we::$user['name'],
-				'id' => we::$id,
-				'link' => shd_profile_link(we::$user['name'], we::$id),
+				'id' => MID,
+				'link' => shd_profile_link(we::$user['name'], MID),
 			),
 			'assigned' => array(
 				'id' => 0,
@@ -252,7 +252,7 @@ function shd_reply_form_setup()
 // All the magically common posting stuff goes in here
 function shd_save_post()
 {
-	global $txt, $settings, $context, $options;
+	global $txt, $settings, $context;
 
 	// Oh no, robots!
 	$context['robot_no_index'] = true;
@@ -313,7 +313,7 @@ function shd_save_post()
 
 function shd_save_ticket()
 {
-	global $txt, $settings, $context, $options, $memberContext;
+	global $txt, $settings, $context, $memberContext;
 
 	// Ticket's gotta have a subject
 	if (!isset($_POST['subject']) || westr::htmltrim(westr::htmlspecialchars($_POST['subject'])) === '')
@@ -410,7 +410,7 @@ function shd_save_ticket()
 	if (!empty($context['ticket_form']['selecting_dept']))
 		shd_get_postable_depts();
 
-	$context['can_solve'] = !$new_ticket && (shd_allowed_to('shd_resolve_ticket_any', $dept) || (shd_allowed_to('shd_resolve_ticket_own', $dept) && $ticketinfo['starter_id'] == we::$id));
+	$context['can_solve'] = !$new_ticket && (shd_allowed_to('shd_resolve_ticket_any', $dept) || (shd_allowed_to('shd_resolve_ticket_own', $dept) && $ticketinfo['starter_id'] == MID));
 	$context['log_action'] = $new_ticket ? 'newticket' : 'editticket';
 	$context['log_params']['subject'] = $context['ticket_form']['subject'];
 
@@ -573,7 +573,7 @@ function shd_save_ticket()
 		{
 			// Now to add the ticket details
 			$posterOptions = array(
-				'id' => we::$id,
+				'id' => MID,
 			);
 
 			$msgOptions = array(
@@ -601,7 +601,7 @@ function shd_save_ticket()
 				// 1. Fix the poster options
 				$posterOptions['id'] = $context['ticket_form']['proxy_id'];
 				// 2. Make sure it's marked read for the right user
-				$ticketOptions['mark_as_read_proxy'] = we::$id;
+				$ticketOptions['mark_as_read_proxy'] = MID;
 				// 3. Fix the log items
 				$context['log_action'] = 'newticketproxy';
 				$context['log_params']['user_id'] = $context['ticket_form']['proxy_id'];
@@ -672,7 +672,7 @@ function shd_save_ticket()
 
 			if (isset($ticketOptions['subject']) || isset($msgOptions['body']))
 				$msgOptions['modified'] = array(
-					'id' => we::$id,
+					'id' => MID,
 					'name' => we::$user['name'],
 					'time' => time(),
 				);
@@ -711,7 +711,7 @@ function shd_save_ticket()
 
 function shd_post_reply()
 {
-	global $context, $txt, $reply_request, $settings, $options, $memberContext;
+	global $context, $txt, $settings, $options, $memberContext;
 
 	checkSession('get');
 
@@ -769,7 +769,7 @@ function shd_post_reply()
 		{
 			if (shd_allowed_to('shd_edit_reply_own', $ticketinfo['dept']))
 			{
-				if ($reply['id_member'] != we::$id)
+				if ($reply['id_member'] != MID)
 					fatal_lang_error('shd_cannot_edit_reply_any_but_own', false);
 			}
 			else
@@ -824,7 +824,7 @@ function shd_post_reply()
 		'return_to_ticket' => isset($_REQUEST['goback']),
 		'disable_smileys' => !$new_reply ? !empty($_REQUEST['no_smileys']) : ($ticketinfo['smileys_enabled'] == 0),
 	);
-	$context['can_solve'] = (shd_allowed_to('shd_resolve_ticket_any', $ticketinfo['dept']) || (shd_allowed_to('shd_resolve_ticket_own', $ticketinfo['dept']) && $ticketinfo['starter_id'] == we::$id));
+	$context['can_solve'] = (shd_allowed_to('shd_resolve_ticket_any', $ticketinfo['dept']) || (shd_allowed_to('shd_resolve_ticket_own', $ticketinfo['dept']) && $ticketinfo['starter_id'] == MID));
 	$context['can_silent_update'] = $new_reply && shd_allowed_to('shd_silent_update', $ticketinfo['dept']);
 	shd_posting_additional_options();
 	shd_load_canned_replies();
@@ -1005,7 +1005,7 @@ function shd_save_reply()
 		{
 			if (shd_allowed_to('shd_edit_reply_own', $ticketinfo['dept']))
 			{
-				if ($reply['id_member'] != we::$id)
+				if ($reply['id_member'] != MID)
 					fatal_lang_error('shd_cannot_edit_reply_any_but_own', false);
 			}
 			else
@@ -1051,7 +1051,7 @@ function shd_save_reply()
 		'return_to_ticket' => isset($_REQUEST['goback']),
 		'disable_smileys' => !empty($_REQUEST['no_smileys']),
 	);
-	$context['can_solve'] = (shd_allowed_to('shd_resolve_ticket_any', $ticketinfo['dept']) || (shd_allowed_to('shd_resolve_ticket_own', $ticketinfo['dept']) && $ticketinfo['starter_id'] == we::$id));
+	$context['can_solve'] = (shd_allowed_to('shd_resolve_ticket_any', $ticketinfo['dept']) || (shd_allowed_to('shd_resolve_ticket_own', $ticketinfo['dept']) && $ticketinfo['starter_id'] == MID));
 	$context['can_silent_update'] = $new_reply && shd_allowed_to('shd_silent_update', $ticketinfo['dept']);
 	$context['log_action'] = $new_reply ? 'newreply' : 'editreply';
 	$context['log_params']['subject'] = $context['ticket_form']['subject'];
@@ -1199,11 +1199,11 @@ function shd_save_reply()
 		if ($new_reply)
 		{
 			// So... what is the new status?
-			$new_status = shd_determine_status('reply', $ticketinfo['starter_id'], we::$id, -1, $context['ticket_form']['dept']); // We explicitly don't care about how many replies - but it must be non-zero. Default in function spec is -1.
+			$new_status = shd_determine_status('reply', $ticketinfo['starter_id'], MID, -1, $context['ticket_form']['dept']); // We explicitly don't care about how many replies - but it must be non-zero. Default in function spec is -1.
 
 			// Now to add the ticket details
 			$posterOptions = array(
-				'id' => we::$id,
+				'id' => MID,
 			);
 
 			$msgOptions = array(
@@ -1261,7 +1261,7 @@ function shd_save_reply()
 
 			if (isset($msgOptions['body']))
 				$msgOptions['modified'] = array(
-					'id' => we::$id,
+					'id' => MID,
 					'name' => we::$user['name'],
 					'time' => time(),
 				);
@@ -1368,7 +1368,7 @@ function shd_done_posting()
 
 function shd_setup_replies($first_msg)
 {
-	global $reply_request, $context, $settings, $theme;
+	global $reply_request, $context, $settings;
 
 	$context['ticket_form']['do_replies'] = false;
 	$context['can_quote'] = false;
@@ -1440,17 +1440,17 @@ function shd_setup_replies($first_msg)
 			)
 		);
 
-		// Can we have a quote button in the replies? If so, we also need the relevant JS instantiation
+		// Can we have a quote button in the replies? If so, we also need the relevant JS instantiation.
 		if (!empty($settings['shd_allow_ticket_bbc']))
 		{
 			$context['can_quote'] = true;
 			add_js('
 			var oQuickReply = new QuickReply({
 				bDefaultCollapsed: false,
-				iTicketId: ' . $context['ticket_id'] . ',
-				iStart: ' . $context['start'] . ',
+				iTicketId: ', $context['ticket_id'], ',
+				iStart: ', $context['start'], ',
 				sScriptUrl: we_script,
-				sImagesUrl: "' . $theme['images_url'] . '",
+				sImagesUrl: "', ASSETS, '",
 				sContainerId: "quickReplyOptions",
 				sImageId: "quickReplyExpand",
 				sImageCollapsed: "collapse.gif",
@@ -1519,7 +1519,7 @@ function shd_postbox($id, $message, $buttons, $width = '70%')
 
 function shd_prepare_reply_context()
 {
-	global $txt, $settings, $options;
+	global $txt;
 	global $memberContext, $context, $reply_request;
 
 	if (empty($reply_request))
@@ -1556,7 +1556,7 @@ function shd_prepare_reply_context()
 		'timestamp' => forum_time(true, $message['poster_time']),
 		'body' => $message['body'],
 		'is_staff' => !empty($context['shd_is_staff'][$message['id_member']]),
-		'can_edit' => shd_allowed_to('shd_edit_reply_any', $context['ticket_form']['dept']) || ($message['id_member'] == we::$id && shd_allowed_to('shd_edit_reply_own', $context['ticket_form']['dept'])),
+		'can_edit' => shd_allowed_to('shd_edit_reply_any', $context['ticket_form']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_edit_reply_own', $context['ticket_form']['dept'])),
 		'ip_address' => $message['poster_ip'],
 		'reply_num' => $message['reply_num'],
 	);
@@ -1664,7 +1664,7 @@ function shd_check_attachments()
 			{
 				$temp_start++;
 
-				if (preg_match('~^post_tmp_' . we::$id . '_\d+$~', $attachID) == 0)
+				if (preg_match('~^post_tmp_' . MID . '_\d+$~', $attachID) == 0)
 				{
 					unset($_SESSION['temp_attachments'][$attachID]);
 					continue;
@@ -1775,7 +1775,7 @@ function shd_check_attachments()
 				if (!is_writable($current_attach_dir))
 					fatal_lang_error('attachments_no_write', 'critical');
 
-				$attachID = 'post_tmp_' . we::$id . '_' . $temp_start++;
+				$attachID = 'post_tmp_' . MID . '_' . $temp_start++;
 				$_SESSION['temp_attachments'][$attachID] = basename($uplfile['name']);
 				$context['current_attachments'][] = array(
 					'name' => basename($uplfile['name']),
@@ -1918,7 +1918,7 @@ function shd_handle_attachments()
 		if (!empty($_SESSION['temp_attachments']))
 			foreach ($_SESSION['temp_attachments'] as $attachID => $name)
 			{
-				if (preg_match('~^post_tmp_' . we::$id . '_\d+$~', $attachID) == 0)
+				if (preg_match('~^post_tmp_' . MID . '_\d+$~', $attachID) == 0)
 					continue;
 
 				if (!empty($_POST['attach_del']) && !in_array($attachID, $_POST['attach_del']))
@@ -1964,7 +1964,7 @@ function shd_handle_attachments()
 
 			$attachmentOptions = array(
 				'post' => 0,
-				'poster' => we::$id,
+				'poster' => MID,
 				'name' => $uplfile['name'],
 				'tmp_name' => $uplfile['tmp_name'],
 				'size' => $uplfile['size'],
@@ -2024,7 +2024,7 @@ function shd_handle_attachments()
 */
 function shd_posting_additional_options()
 {
-	global $context, $settings, $txt, $options, $new_ticket;
+	global $context, $settings, $txt, $options;
 
 	$context['ticket_form']['additional_opts'] = array(
 		'goback' => array(
@@ -2058,7 +2058,7 @@ function shd_posting_additional_options()
 */
 function shd_check_dependencies()
 {
-	global $context;
+	global $context, $settings;
 
 	if (!empty($settings['shd_disable_relationships']))
 		return '';

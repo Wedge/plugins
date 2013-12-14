@@ -68,7 +68,7 @@ function template_flitter_twitter()
 
 function template_flitter_google()
 {
-	global $context, $settings;
+	global $context;
 
 	echo '
 		<div class="g-plusone" data-size="medium" data-href="', $context['canonical_url'], '"></div>';

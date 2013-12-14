@@ -410,11 +410,11 @@ function shd_load_user_perms()
 		if (!empty($tickets_any_private)) // Depts where we can see private tickets, thus we don't need to check anything else for this part.
 			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_any_private) . '))';
 		if (!empty($tickets_own_private)) // Depts where we can see our own private tickets, so need to validate id_dept and id_member_started, but we can discount checking private here.
-			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_own_private) . ') AND hdt.id_member_started = ' . we::$id . ')';
+			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_own_private) . ') AND hdt.id_member_started = ' . MID . ')';
 		if (!empty($tickets_any_nonprivate)) // Depts where we can see nonprivate tickets. We need to validate privacy on these but that's it.
 			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_any_nonprivate) . ') AND hdt.private = 0)';
 		if (!empty($tickets_own_nonprivate)) // Depts where we can see our own nonprivate tickets. Validate id_dept, id_member_started and private.
-			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_own_nonprivate) . ') AND hdt.private = 0 AND hdt.id_member_started = ' . we::$id . ')';
+			$privacy_clauses[] = '(hdt.id_dept IN (' . implode(',', $tickets_own_nonprivate) . ') AND hdt.private = 0 AND hdt.id_member_started = ' . MID . ')';
 
 		if (!empty($privacy_clauses))
 			$clauses[] = implode(' OR ', $privacy_clauses);
@@ -431,9 +431,9 @@ function shd_load_user_perms()
 		elseif (!empty($depts_closed_any) && empty($depts_closed_own)) // Only where we can access 'all closed' but not 'any of our own closed', e.g. admins
 			$clauses[] = 'hdt.status != 3 OR (hdt.status = 3 AND hdt.id_dept IN (' . implode(',', $depts_closed_any) . '))';
 		elseif (!empty($depts_closed_any) && !empty($depts_closed_own)) // So we have a mixture
-			$clauses[] = 'hdt.status != 3 OR (hdt.status = 3 AND (hdt.id_dept IN (' . implode(',', $depts_closed_any) . ') OR (hdt.id_member_started = ' . we::$id . ' AND hdt.id_dept IN (' . implode(',', $depts_closed_own) . '))))';
+			$clauses[] = 'hdt.status != 3 OR (hdt.status = 3 AND (hdt.id_dept IN (' . implode(',', $depts_closed_any) . ') OR (hdt.id_member_started = ' . MID . ' AND hdt.id_dept IN (' . implode(',', $depts_closed_own) . '))))';
 		elseif (empty($depts_closed_any) && !empty($depts_closed_own)) // We can't ever see 'any', but we can see our own
-			$clauses[] = 'hdt.status != 3 OR (hdt.status = 3 AND hdt.id_dept IN (' . implode(',', $depts_closed_own) . ') AND hdt.id_member_started = ' . we::$id . ')';
+			$clauses[] = 'hdt.status != 3 OR (hdt.status = 3 AND hdt.id_dept IN (' . implode(',', $depts_closed_own) . ') AND hdt.id_member_started = ' . MID . ')';
 
 		// And finally, deleted tickets.
 		$depts_deleted = shd_allowed_to('shd_access_recyclebin', false);
@@ -450,7 +450,7 @@ function shd_load_user_perms()
 	}
 
 	wesql::register_replacement('query_see_ticket', we::$user['query_see_ticket']);
-	wesql::register_replacement('user_info_id', we::$id);
+	wesql::register_replacement('user_info_id', MID);
 }
 
 /**
