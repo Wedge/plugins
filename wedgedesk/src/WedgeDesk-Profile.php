@@ -754,7 +754,7 @@ function shd_profile_theme_wrapper($memID)
 	$context['page_desc'] = $txt['theme_info'];
 
 	$opts = array(
-		'id_theme', 'smiley_set', 'hr',
+		'smiley_set', 'hr',
 		'time_format', 'time_offset', 'hr',
 		'theme_settings',
 	);

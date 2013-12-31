@@ -8,19 +8,19 @@ function wordcount_moderation_rules(&$known_variables, $admin)
 		'type' => 'range',
 		'current' => 0,
 		'func_val' => 'count_words_post',
-		'function' => create_function('$criteria', '
+		'function' => function ($criteria) {
 			global $txt;
-			return $txt[\'modfilter_cond_\' . $criteria[\'name\']] . \': \' . $txt[\'modfilter_range_\' . $criteria[\'term\']] . \' \' . $criteria[\'value\'];
-		'),
+			return $txt['modfilter_cond_' . $criteria['name']] . ': ' . $txt['modfilter_range_' . $criteria['term']] . ' ' . $criteria['value'];
+		},
 	);
 	$known_variables['chars'] = array(
 		'type' => 'range',
 		'current' => 0,
 		'func_val' => 'count_chars_post',
-		'function' => create_function('$criteria', '
+		'function' => function ($criteria) {
 			global $txt;
-			return $txt[\'modfilter_cond_\' . $criteria[\'name\']] . \': \' . $txt[\'modfilter_range_\' . $criteria[\'term\']] . \' \' . $criteria[\'value\'];
-		'),
+			return $txt['modfilter_cond_' . $criteria['name']] . ': ' . $txt['modfilter_range_' . $criteria['term']] . ' ' . $criteria['value'];
+		},
 	);
 }
 

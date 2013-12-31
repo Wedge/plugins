@@ -127,7 +127,7 @@ function template_shd_depts()
 	foreach ($context['dept_list'] as $dept)
 	{
 		$state = $context['dept_list'][$dept['id_dept']]['new'] ? 'on' : 'off';
-		if (file_exists($settings['theme_dir'] . '/images/icons/shd' . $dept['id_dept'] . '/on.png'))
+		if (file_exists(ASSETS_DIR . '/icons/shd' . $dept['id_dept'] . '/on.png'))
 			$icon = ASSETS . '/icons/shd' . $dept['id_dept'] . '/' . $state . '.png';
 		else
 			$icon = $context['plugins_url']['Arantor:WedgeDesk'] . '/images/helpdesk_' . $state . '.png';

@@ -172,15 +172,15 @@ function ModifyHolidays()
 					'value' => $txt['date'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function ($rowData) {
 						global $txt;
 
 						// Recurring every year or just a single year?
-						$year = $rowData[\'year\'] == \'0004\' ? sprintf(\'(%1$s)\', $txt[\'every_year\']) : $rowData[\'year\'];
+						$year = $rowData['year'] == '0004' ? sprintf('(%1$s)', $txt['every_year']) : $rowData['year'];
 
 						// Construct the date.
-						return sprintf(\'%1$d %2$s %3$s\', $rowData[\'day\'], $txt[\'months\'][(int) $rowData[\'month\']], $year);
-					'),
+						return sprintf('%1$d %2$s %3$s', $rowData['day'], $txt['months'][(int) $rowData['month']], $year);
+					},
 					'class' => 'windowbg',
 				),
 				'sort' => array(
@@ -475,16 +475,16 @@ function repairBoards_calendar_tests(&$errorTests)
 			ORDER BY cal.id_topic',
 		'fix_collect' => array(
 			'index' => 'id_topic',
-			'process' => create_function('$events', '
-				wesql::query(\'
+			'process' => function ($events) {
+				wesql::query('
 					UPDATE {db_prefix}calendar
 					SET id_topic = 0, id_board = 0
-					WHERE id_topic IN ({array_int:events})\',
+					WHERE id_topic IN ({array_int:events})',
 					array(
-						\'events\' => $events
+						'events' => $events
 					)
 				);
-			'),
+			},
 		),
 		'messages' => array('repair_missing_calendar_topics', 'id_event', 'id_topic'),
 	);
