@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Wedgeward:SkinSelector">
+<plugin id="Wedge:SkinSelector">
 	<name>Skin Selector</name>
-	<author>Arantor (with a little help from Nao)</author>
+	<author>Wedge Team</author>
 	<description>Displays a selector widget inside the sidebar for changing skins quickly.</description>
 	<version>1.0</version>
 	<hooks>

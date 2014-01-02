@@ -55,10 +55,10 @@ $txt['cant_edit_event'] = 'You do not have permission to edit this event.';
 $txt['no_span'] = 'The span feature is currently disabled.';
 $txt['invalid_days_numb'] = 'Invalid number of days to span.';
 
-$helptxt['calendar'] = '
+$txt['help_calendar'] = '
 	Here you can modify the current calendar settings as well as add and remove holidays that appear on the calendar.';
 
-$helptxt['calendar_how_edit'] = 'You can edit these events by clicking on the red asterisk (*) next to their names.';
+$txt['help_calendar_how_edit'] = 'You can edit these events by clicking on the red asterisk (*) next to their names.';
 
 $txt['whoallow_calendar'] = 'Viewing the <a href="<URL>?action=calendar">calendar</a>.';
 

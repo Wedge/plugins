@@ -1,4 +1,4 @@
 <?php
 
 $txt['skin_selector'] = 'Skin selector';
-$txt['select_skin'] = 'Select a skin:';
+$txt['skin_overall_default'] = '(default)';

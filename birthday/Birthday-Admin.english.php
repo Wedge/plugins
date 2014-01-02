@@ -20,6 +20,6 @@ $txt['birthday_email'] = 'Birthday Message to use';
 $txt['birthday_body'] = 'Email Body';
 $txt['birthday_subject'] = 'Email Subject';
 
-$helptxt['birthday_email'] = 'Choose the index of the birthday email message to use. A preview will be shown in the Email Subject and Email Body fields.<br><strong>Note:</strong> This requires that the Birthdays scheduled task is enabled, which it should be after installing this plugin. You can check the <a href="%1$s?action=admin;area=scheduledtasks;%2$s" target="_blank" class="new_win">Scheduled Tasks</a> page if you wish.';
+$txt['help_birthday_email'] = 'Choose the index of the birthday email message to use. A preview will be shown in the Email Subject and Email Body fields.<br><strong>Note:</strong> This requires that the Birthdays scheduled task is enabled, which it should be after installing this plugin. You can check the <a href="%1$s?action=admin;area=scheduledtasks;%2$s" target="_blank" class="new_win">Scheduled Tasks</a> page if you wish.';
 
 ?>

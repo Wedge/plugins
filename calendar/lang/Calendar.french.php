@@ -53,10 +53,10 @@ $txt['cant_edit_event'] = 'Vous n\'êtes pas autorisé à modifier cet événeme
 $txt['no_span'] = 'La fonction d\'étalement est désactivée.';
 $txt['invalid_days_numb'] = 'Nombre de jours d\'étalement invalide.';
 
-$helptxt['calendar'] = '
+$txt['help_calendar'] = '
 	Ici vous pouvez modifier les réglages courants du calendrier, ou ajouter et supprimer des fêtes qui apparaissent dans le calendrier.';
 
-$helptxt['calendar_how_edit'] = 'Vous pouvez modifier ces événements en cliquant sur l\'astérisque (*) rouge accompagnant leur nom.';
+$txt['help_calendar_how_edit'] = 'Vous pouvez modifier ces événements en cliquant sur l\'astérisque (*) rouge accompagnant leur nom.';
 
 $txt['whoallow_calendar'] = 'Consulte le <a href="<URL>?action=calendar">calendrier</a>.';
 

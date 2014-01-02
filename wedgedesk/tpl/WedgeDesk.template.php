@@ -85,7 +85,7 @@ function template_hdmain()
 
 function template_shd_depts()
 {
-	global $context, $txt, $settings;
+	global $context, $txt;
 
 	echo '
 		<div class="pagesection">';

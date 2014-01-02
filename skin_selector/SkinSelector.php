@@ -25,8 +25,7 @@ function template_sidebar_skin_selector()
 {
 	global $context, $txt;
 
-	loadPluginLanguage('Wedgeward:SkinSelector', 'SkinSelector');
-	loadLanguage('ManageBoards');
+	loadPluginLanguage('Wedge:SkinSelector', 'SkinSelector');
 
 	$skin = $context['skin_actual'];
 	$skin_selector = wedge_show_skins($context['skin_selector']['skins'], true);
@@ -39,7 +38,7 @@ function template_sidebar_skin_selector()
 		</we:title>
 		<p>
 			<select name="skinse" id="skinse"', $current_skin ? 'data-default="' . westr::safe($current_skin) . '"' : '', '>
-				<option value=""', $context['skin_actual'] == '' ? ' selected' : '', '>', $txt['mboards_skin_default'], '</option>
+				<option value=""', $context['skin_actual'] == '' ? ' selected' : '', '>', $txt['skin_overall_default'], '</option>
 				', $skin_selector, '
 			</select>
 		</p>

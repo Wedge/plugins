@@ -7,8 +7,7 @@ $txt['calendar_settings'] = 'Paramètres';
 
 $txt['calendar_desc'] = 'Ici vous pouvez modifier tous les aspects du calendrier.';
 
-// !!! Convert this into what's needed for the admin panel as $helptxt
-$helptxt['cal_enabled'] = 'Le calendrier peut êre utilisé afin d\'afficher les dates importantes à votre communauté.<br><br>
+$txt['help_cal_enabled'] = 'Le calendrier peut êre utilisé afin d\'afficher les dates importantes à votre communauté.<br><br>
 		<strong>Montrer les jours en tant que liens vers \'Poster un Événement\'</strong>&#8239;:<br>Permet à vos membres de poster des événements pour ce jour, lorsqu\'ils cliquent sur la date.<br>
 		<strong>Jours d\'avance max. sur l\'accueil</strong>:<br>Si cette option est mise à 7, tous les événements de la semaine à venir seront montrés.<br>
 		<strong>Montrer les jours de fête sur l\'accueil du forum</strong>&#8239;:<br>Montre les jours de fête dans une barre sur l\'accueil du forum.<br>

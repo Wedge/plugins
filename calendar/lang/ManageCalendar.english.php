@@ -7,8 +7,7 @@ $txt['calendar_settings'] = 'Calendar Settings';
 
 $txt['calendar_desc'] = 'From here you can modify all aspects of the calendar.';
 
-// !!! Convert this into what's needed for the admin panel as $helptxt
-$helptxt['cal_enabled'] = 'The calendar can be used for showing important moments happening in your community.<br><br>
+$txt['help_cal_enabled'] = 'The calendar can be used for showing important moments happening in your community.<br><br>
 		<strong>Show days as link to \'Post Event\'</strong>:<br>This will allow members to post events for that day, when they click on that date<br>
 		<strong>Max days in advance on board index</strong>:<br>If this is set to 7, the next week\'s worth of events will be shown.<br>
 		<strong>Show holidays on board index</strong>:<br>Show today\'s holidays in a calendar bar on the board index.<br>

@@ -1,4 +1,4 @@
 <?php
 
 $txt['skin_selector'] = 'Changer de thème';
-$txt['select_skin'] = 'Choisissez un thème&#8239;:';
+$txt['skin_overall_default'] = '(par défaut)';
