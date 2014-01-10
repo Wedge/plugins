@@ -160,7 +160,7 @@ $(function ()
 				var caretPos = function ($input)
 				{
 					if ($editor.hasClass('rich')) // WYSIWYG..?
-						oEditorHandle_message.insertText('<img alt=":)" class="smiley cool_gif" src="' + we_theme_url + '/images/blank.gif" onresizestart="return false;" title=":)">');
+						oEditorHandle_message.insertText('<img alt=":)" class="smiley cool_gif" src="' + we_assets + '/blank.gif" onresizestart="return false;" title=":)">');
 
 					// More accurate solution. IE-only.
 					if (is_ie8down)

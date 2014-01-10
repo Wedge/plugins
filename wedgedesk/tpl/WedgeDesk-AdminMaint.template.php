@@ -80,7 +80,7 @@ function template_shd_admin_maint_home()
 		</div>
 		<br>';
 
-	add_js_file('scripts/suggest.js');
+	add_js_file('suggest.js');
 	add_js('
 	var oAttributeMemberSuggest = new weAutoSuggest({
 		', min_chars(), ',

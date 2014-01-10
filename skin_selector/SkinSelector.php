@@ -16,7 +16,7 @@ function skinSelector()
 	loadSource('Themes');
 
 	// Get a list of all the skins.
-	$context['skin_selector'] = wedge_get_skin_list(SKINS_DIR);
+	$context['skin_selector'] = wedge_get_skin_list();
 
 	wetem::add('sidebar', 'sidebar_skin_selector');
 }

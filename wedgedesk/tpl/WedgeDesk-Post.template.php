@@ -386,7 +386,7 @@ function template_ticket_proxy_js()
 	if (empty($context['can_post_proxy']))
 		return;
 
-	add_js_file('scripts/suggest.js');
+	add_js_file('suggest.js');
 	add_js('
 	var oProxyAutoSuggest = new weAutoSuggest({
 		', min_chars(), ',

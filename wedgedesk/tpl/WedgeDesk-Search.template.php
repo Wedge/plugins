@@ -152,7 +152,7 @@ function template_search()
 	</div>';
 
 	// Lastly, the JavaScript we need.
-	add_js_file('scripts/suggest.js');
+	add_js_file('suggest.js');
 	add_js('
 	var oTicketStarter = new weAutoSuggest({
 		', min_chars(), ',
