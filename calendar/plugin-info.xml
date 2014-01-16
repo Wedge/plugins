@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Wedgeward:Calendar">
+<plugin id="Wedge:Calendar">
 	<name>Calendar</name>
-	<author url="http://wedge.org/">Wedgeward</author>
+	<author url="http://wedge.org/">Wedge Team</author>
 	<description>Allows adding of date-based events.</description>
 	<version>1.0</version>
 

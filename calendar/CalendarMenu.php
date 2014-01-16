@@ -3,7 +3,7 @@
  * Per-page processing, e.g. adding the menu item and potentially banned permissions too.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  */
 
@@ -13,7 +13,7 @@ if (!defined('WEDGE'))
 function calendarMenu(&$items)
 {
 	global $context, $txt;
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
 
 	$context['allow_calendar'] = allowedTo('calendar_view');
 

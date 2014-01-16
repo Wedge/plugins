@@ -3,7 +3,7 @@
  * Provides functionality for showing the calendar items in the topic display view.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  *
  * @version 0.1
@@ -65,8 +65,8 @@ function calendar_display()
 		if (!empty($context['linked_calendar_events']))
 		{
 			$context['linked_calendar_events'][count($context['linked_calendar_events']) - 1]['is_last'] = true;
-			loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
-			loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
+			loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
+			loadPluginTemplate('Wedge:Calendar', 'CalendarIntegration');
 			wetem::after('topic_poll', 'linked_calendar');
 		}
 	}

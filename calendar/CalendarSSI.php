@@ -3,7 +3,7 @@
  * Provides functionality for showing the calendar items externally to the forum through SSI.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  *
  * @version 0.1
@@ -15,7 +15,7 @@ if (!defined('WEDGE'))
 function ssi_calendar_init()
 {
 	// It might already be loaded, it might not.
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
 }
 
 // Show today's holidays.
@@ -30,7 +30,7 @@ function ssi_todaysHolidays($output_method = 'echo')
 		'include_holidays' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedge:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_holidays'];
@@ -51,7 +51,7 @@ function ssi_todaysEvents($output_method = 'echo')
 		'include_events' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedge:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return['calendar_events'];
@@ -79,7 +79,7 @@ function ssi_todaysCalendar($output_method = 'echo')
 		'include_events' => true,
 		'num_days_shown' => empty($settings['cal_days_for_index']) || $settings['cal_days_for_index'] < 1 ? 1 : $settings['cal_days_for_index'],
 	);
-	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
+	$return = cache_quick_get('calendar_index_offset_' . (we::$user['time_offset'] + $settings['time_offset']), array('Wedge:Calendar', 'Subs-Calendar'), 'cache_getRecentEvents', array($eventOptions));
 
 	if ($output_method != 'echo')
 		return $return;

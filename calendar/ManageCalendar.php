@@ -3,7 +3,7 @@
  * The various aspects of configuration for the calendar.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  */
 
@@ -14,13 +14,13 @@ function calendarAdmin()
 {
 	global $admin_areas, $context, $txt;
 
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/ManageCalendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/ManageCalendar');
 
 	$admin_areas['plugins']['areas']['managecalendar'] = array(
 		'label' => $txt['manage_calendar'],
 		'function' => 'ManageCalendar',
-		'icon' => $context['plugins_url']['Wedgeward:Calendar'] . '/img/calendar.gif',
-		'bigicon' => $context['plugins_url']['Wedgeward:Calendar'] . '/img/calendar.png',
+		'icon' => $context['plugins_url']['Wedge:Calendar'] . '/img/calendar.gif',
+		'bigicon' => $context['plugins_url']['Wedge:Calendar'] . '/img/calendar.png',
 		'permission' => array('admin_forum'),
 		'subsections' => array(
 			'holidays' => array($txt['manage_holidays']),
@@ -86,10 +86,10 @@ function ModifyHolidays()
 		return EditHoliday();
 	}
 
-	add_plugin_css_file('Wedgeward:Calendar', 'css/calendar', true);
-	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
-	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/CalendarHolidays');
+	add_plugin_css_file('Wedge:Calendar', 'css/calendar', true);
+	loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
+	loadPluginTemplate('Wedge:Calendar', 'ManageCalendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/CalendarHolidays');
 
 	// Submitting something...
 	if (isset($_REQUEST['delete']) && !empty($_REQUEST['holiday']))
@@ -231,7 +231,7 @@ function EditHoliday()
 {
 	global $txt, $context;
 
-	loadPluginTemplate('Wedgeward:Calendar', 'ManageCalendar');
+	loadPluginTemplate('Wedge:Calendar', 'ManageCalendar');
 
 	$context['is_new'] = !isset($_REQUEST['holiday']);
 	$context['page_title'] = $context['is_new'] ? $txt['holidays_add'] : $txt['holidays_edit'];
@@ -457,7 +457,7 @@ function removeCalendarBoard(&$boards_to_remove)
 
 function repairBoards_calendar_tests(&$errorTests)
 {
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/ManageCalendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/ManageCalendar');
 	$errorTests['missing_calendar_topics'] = array(
 		'substeps' => array(
 			'step_size' => 1000,
@@ -530,7 +530,7 @@ function calendarMemberPrefs(&$config_vars, &$return_config)
 {
 	global $txt;
 
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
 
 	$config_vars[] = array('select', 'calendar_start_day', array(
 			0 => $txt['days'][0],

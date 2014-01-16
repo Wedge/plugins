@@ -5,7 +5,7 @@
  * This handles the task of any processing that occurs once per day, e.g. sending birthday emails.
  *
  * @package wedge-birthdays
- * @copyright 2010-2011 Wedgeward, wedge.org, 2011 Simple Machines, simplemachines.org
+ * @copyright 2010-2011 Wedge Team, wedge.org, 2011 Simple Machines, simplemachines.org
  * @license http://wedge.org/license/
  */
 
@@ -66,7 +66,7 @@ function scheduled_birthdays()
 		foreach ($birthdays as $lang => $recps)
 		{
 			// We need to do some shuffling to make this work properly.
-			loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Mails', $lang);
+			loadPluginLanguage('Wedge:Birthdays', 'Birthday-Mails', $lang);
 
 			foreach ($recps as $recp)
 			{

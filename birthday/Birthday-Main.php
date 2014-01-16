@@ -5,7 +5,7 @@
  * This forms the info center handling.
  *
  * @package wedge-birthdays
- * @copyright 2010-2011 Wedgeward, wedge.org, 2011 Simple Machines, simplemachines.org
+ * @copyright 2010-2011 Wedge Team, wedge.org, 2011 Simple Machines, simplemachines.org
  * @license http://wedge.org/license/
  */
 
@@ -23,8 +23,8 @@ function birthdayInfoCenter()
 	if (!empty($birthdays))
 	{
 		// Load dependencies
-		loadPluginTemplate('Wedgeward:Birthdays', 'Birthday-Main');
-		loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Main');
+		loadPluginTemplate('Wedge:Birthdays', 'Birthday-Main');
+		loadPluginLanguage('Wedge:Birthdays', 'Birthday-Main');
 		$context['birthdays_to_display'] = array();
 
 		// Make sure we set the "it's your birthday TODAY!" flag for folks, as well as transposing it into a more useful structure for templating.

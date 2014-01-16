@@ -3,7 +3,7 @@
  * Provides functionality for showing the calendar contents.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  *
  * @version 0.1
@@ -57,11 +57,11 @@ function CalendarMain()
 		return $subActions[$_GET['sa']]();
 
 	// These are gonna be needed...
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
-	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
-	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
+	loadPluginTemplate('Wedge:Calendar', 'Calendar');
+	loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
 
-	add_plugin_css_file('Wedgeward:Calendar', 'css/calendar', true);
+	add_plugin_css_file('Wedge:Calendar', 'css/calendar', true);
 
 	// Set the page title to mention the calendar ;).
 	$context['page_title'] = $txt['calendar'];
@@ -159,8 +159,8 @@ function CalendarPost()
 	isAllowedTo('calendar_post');
 
 	// We need this for all kinds of useful functions.
-	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+	loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
 
 	// Cast this for safety...
 	if (isset($_REQUEST['eventid']))
@@ -288,16 +288,16 @@ function CalendarPost()
 	}
 
 	// Template, block, etc.
-	loadPluginTemplate('Wedgeward:Calendar', 'Calendar');
-	loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
+	loadPluginTemplate('Wedge:Calendar', 'Calendar');
+	loadPluginTemplate('Wedge:Calendar', 'CalendarIntegration');
 	$tpls = array('form_event_details');
 	if ($context['event']['new'])
 		$tpls[] = 'form_link_calendar';
 	wetem::load(array('event_container' => $tpls));
 
 	// Add the date input magic
-	add_plugin_css_file('Wedgeward:Calendar', 'css/dateinput', true);
-	add_plugin_js_file('Wedgeward:Calendar', 'js/dateinput.js');
+	add_plugin_css_file('Wedge:Calendar', 'css/dateinput', true);
+	add_plugin_js_file('Wedge:Calendar', 'js/dateinput.js');
 	add_js('
 	var
 		days = ' . json_encode(array_values($txt['days'])) . ',
@@ -321,7 +321,7 @@ function iCalDownload()
 		fatal_lang_error('no_access', false);
 
 	// This is kinda wanted.
-	loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+	loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
 
 	// Load up the event in question and check it exists.
 	$event = getEventProperties($_REQUEST['eventid']);

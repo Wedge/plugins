@@ -2,7 +2,7 @@
 /**
  * Multiple attachment plugin files, contains hook callback and pretty much everything
  *
- * @package Wedgeward:MassAttach
+ * @package Wedge:MassAttach
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com> (and Nao)
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
@@ -34,7 +34,7 @@ function massattach_post_form_pre()
 	foreach ($_SESSION['temp_attachments'] as $attach => $filename)
 		$total_size += filesize($current_attach_dir . '/' . $attach);
 
-	add_plugin_js_file('Wedgeward:MassAttach', 'attachui.js');
+	add_plugin_js_file('Wedge:MassAttach', 'attachui.js');
 	add_js('
 	attachOpts = {
 		sizeLimit: ', $settings['attachmentSizeLimit'], ',

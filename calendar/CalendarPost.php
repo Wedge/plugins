@@ -3,7 +3,7 @@
  * Provides functionality for showing the calendar items in the topic posting view, including creating events.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  *
  * @version 0.1
@@ -31,8 +31,8 @@ function calendar_post_form()
 		return;
 
 	// Just in case for whatever reason we don't have this.
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
-	loadPluginTemplate('Wedgeward:Calendar', 'CalendarIntegration');
+	loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
+	loadPluginTemplate('Wedge:Calendar', 'CalendarIntegration');
 
 	// They might want to pick a board.
 	if (!isset($context['current_board']))
@@ -57,7 +57,7 @@ function calendar_post_form()
 		// If the user doesn't have permission to edit the post in this topic, redirect them.
 		if ((empty($id_member_poster) || $id_member_poster != MID || !allowedTo('modify_own')) && !allowedTo('modify_any'))
 		{
-			loadPluginSource('Wedgeward:Calendar', 'Calendar');
+			loadPluginSource('Wedge:Calendar', 'Calendar');
 			return CalendarPost();
 		}
 
@@ -148,8 +148,8 @@ function calendar_post_form()
 	$context['postbox']->addEntityField('evtitle');
 
 	// Add the date input magic
-	add_plugin_css_file('Wedgeward:Calendar', 'css/dateinput', true);
-	add_plugin_js_file('Wedgeward:Calendar', 'js/dateinput.js');
+	add_plugin_css_file('Wedge:Calendar', 'css/dateinput', true);
+	add_plugin_js_file('Wedge:Calendar', 'js/dateinput.js');
 	add_js('
 	var
 		days = ' . json_encode(array_values($txt['days'])) . ',
@@ -170,7 +170,7 @@ function validateCalendarEvent(&$post_errors, &$posterIsGuest)
 	if (isset($_POST['calendar']) && !isset($_REQUEST['deleteevent']) && (empty($_POST['evtitle']) || westr::htmltrim($_POST['evtitle']) === ''))
 	{
 		// Just in case for whatever reason we don't have this.
-		loadPluginLanguage('Wedgeward:Calendar', 'lang/Calendar');
+		loadPluginLanguage('Wedge:Calendar', 'lang/Calendar');
 		$post_errors[] = 'no_event';
 	}
 }
@@ -183,7 +183,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 	// Editing or posting an event?
 	if (isset($_POST['calendar']) && (!isset($_REQUEST['eventid']) || $_REQUEST['eventid'] == -1))
 	{
-		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+		loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
 
 		// Make sure they can link an event to this post.
 		canLinkEvent();
@@ -204,7 +204,7 @@ function postCalendarEvent(&$msgOptions, &$topicOptions, &$posterOptions)
 		$_REQUEST['eventid'] = (int) $_REQUEST['eventid'];
 
 		// Validate the post...
-		loadPluginSource('Wedgeward:Calendar', 'Subs-Calendar');
+		loadPluginSource('Wedge:Calendar', 'Subs-Calendar');
 		validateEventPost();
 
 		// If you're not allowed to edit any events, you have to be the poster.

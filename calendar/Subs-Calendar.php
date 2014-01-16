@@ -3,7 +3,7 @@
  * Contains several functions for retrieving and manipulating calendar events and holidays.
  *
  * @package wedge
- * @copyright 2010-2011 Wedgeward, wedge.org
+ * @copyright 2010-2011 Wedge Team, wedge.org
  * @license http://wedge.org/license/
  *
  * @version 0.1
@@ -188,7 +188,7 @@ function getEventRange($low_date, $high_date, $use_permissions = true)
 function getHolidayRange($low_date, $high_date)
 {
 	global $settings, $txt;
-	loadPluginLanguage('Wedgeward:Calendar', 'lang/CalendarHolidays');
+	loadPluginLanguage('Wedge:Calendar', 'lang/CalendarHolidays');
 
 	$holidays = array();
 
@@ -664,7 +664,7 @@ function cache_getOffsetIndependentEvents($days_to_index)
 function cache_getRecentEvents($eventOptions)
 {
 	// With the 'static' cached data we can calculate the user-specific data.
-	$cached_data = cache_quick_get('calendar_index', array('Wedgeward:Calendar', 'Subs-Calendar'), 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
+	$cached_data = cache_quick_get('calendar_index', array('Wedge:Calendar', 'Subs-Calendar'), 'cache_getOffsetIndependentEvents', array($eventOptions['num_days_shown']));
 
 	// Get the information about today (from user perspective).
 	$today = getTodayInfo();

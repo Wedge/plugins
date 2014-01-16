@@ -5,7 +5,7 @@
  * This handles the task of providing configuration items.
  *
  * @package wedge-birthdays
- * @copyright 2010-2011 Wedgeward, wedge.org, 2011 Simple Machines, simplemachines.org
+ * @copyright 2010-2011 Wedge Team, wedge.org, 2011 Simple Machines, simplemachines.org
  * @license http://wedge.org/license/
  */
 
@@ -13,7 +13,7 @@ function birthdayAdmin()
 {
 	global $admin_areas, $txt;
 
-	loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Admin');
+	loadPluginLanguage('Wedge:Birthdays', 'Birthday-Admin');
 
 	// The name in use here is the plugin's name. It doesn't need to be translatable. Plus the file we need will already be loaded.
 	$admin_areas['plugins']['areas']['birthdays'] = array(
@@ -32,7 +32,7 @@ function ModifyBirthdaySettings($return_config = false)
 	global $txt, $settings, $context;
 
 	loadSource('ManageServer');
-	loadPluginLanguage('Wedgeward:Birthdays', 'Birthday-Mails');
+	loadPluginLanguage('Wedge:Birthdays', 'Birthday-Mails');
 
 	if (empty($settings['birthday_email']))
 		$settings['birthday_email'] = 'happy_birthday';

@@ -1,7 +1,7 @@
 /**
  * Multiple attachment basic JavaScript file, contains the entire UI functions
  *
- * @package Wedgeward:MassAttach
+ * @package Wedge:MassAttach
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com> (and Nao)
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
@@ -11,7 +11,7 @@
  * @version 1.0
  */
 
-@language Wedgeward:MassAttach:plugin;
+@language Wedge:MassAttach:plugin;
 
 // One method would've been to hook into Wedge's attach functions, but since there are quite a lot of fundamental differences
 // between the workings, I decided to write my own instead.

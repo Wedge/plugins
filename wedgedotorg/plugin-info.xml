@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Wedgeward:WedgeDotOrg">
+<plugin id="Wedge:WedgeDotOrg">
 	<name>Wedge.org Changes</name>
-	<author>Wedgeward</author>
+	<author>Wedge Team</author>
 	<description>Changes unique to Wedge.org</description>
 	<version>1.0</version>
 

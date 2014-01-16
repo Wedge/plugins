@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Wedgeward:Birthdays">
+<plugin id="Wedge:Birthdays">
 	<name>Birthdays</name>
-	<author url="http://wedge.org/">Wedgeward</author>
+	<author url="http://wedge.org/">Wedge Team</author>
 	<description>Displays users' birthdays on the info center, sends birthday emails and more.</description>
 	<version>1.0</version>
 
