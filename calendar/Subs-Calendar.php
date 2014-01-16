@@ -730,32 +730,35 @@ function cache_getRecentEvents($eventOptions)
 		'expires' => time() + 3600,
 		'refresh_eval' => 'return \'' . strftime('%Y%m%d', forum_time(false)) . '\' != strftime(\'%Y%m%d\', forum_time(false))
 			|| (!empty($GLOBALS[\'settings\'][\'calendar_updated\']) && ' . time() . ' < $GLOBALS[\'settings\'][\'calendar_updated\']);',
-		'after_run' => function ($params) {
-			global $context, $cache_block;
-
-			foreach ($cache_block['data']['calendar_events'] as $k => $event)
-			{
-				// Remove events that the user may not see or wants to ignore.
-				if ((count(array_intersect(we::$user['groups'], $event['allowed_groups'])) === 0 && !allowedTo('admin_forum') && !empty($event['id_board'])) || in_array($event['id_board'], we::$user['ignoreboards']))
-					unset($cache_block['data']['calendar_events'][$k]);
-				else
-				{
-					// Whether the event can be edited depends on the permissions.
-					$cache_block['data']['calendar_events'][$k]['can_edit'] = allowedTo('calendar_edit_any') || ($event['poster'] == MID && allowedTo('calendar_edit_own'));
-
-					// The added session code makes this URL not cachable.
-					$cache_block['data']['calendar_events'][$k]['modify_href'] = SCRIPT . '?action=' . ($event['topic'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $event['msg'] . ';topic=' . $event['topic'] . '.0;calendar;') . 'eventid=' . $event['id'] . ';' . $context['session_query'];
-				}
-			}
-
-			if (empty($params[0]['include_holidays']))
-				$cache_block['data']['calendar_holidays'] = array();
-			if (empty($params[0]['include_events']))
-				$cache_block['data']['calendar_events'] = array();
-
-			$cache_block['data']['show_calendar'] = !empty($cache_block['data']['calendar_holidays']) || !empty($cache_block['data']['calendar_events']);
-		},
+		'after_run' => 'calendar_after_run',
 	);
+}
+
+function calendar_after_run($params)
+{
+	global $context, $cache_block;
+
+	foreach ($cache_block['data']['calendar_events'] as $k => $event)
+	{
+		// Remove events that the user may not see or wants to ignore.
+		if ((count(array_intersect(we::$user['groups'], $event['allowed_groups'])) === 0 && !allowedTo('admin_forum') && !empty($event['id_board'])) || in_array($event['id_board'], we::$user['ignoreboards']))
+			unset($cache_block['data']['calendar_events'][$k]);
+		else
+		{
+			// Whether the event can be edited depends on the permissions.
+			$cache_block['data']['calendar_events'][$k]['can_edit'] = allowedTo('calendar_edit_any') || ($event['poster'] == MID && allowedTo('calendar_edit_own'));
+
+			// The added session code makes this URL not cachable.
+			$cache_block['data']['calendar_events'][$k]['modify_href'] = SCRIPT . '?action=' . ($event['topic'] == 0 ? 'calendar;sa=post;' : 'post;msg=' . $event['msg'] . ';topic=' . $event['topic'] . '.0;calendar;') . 'eventid=' . $event['id'] . ';' . $context['session_query'];
+		}
+	}
+
+	if (empty($params[0]['include_holidays']))
+		$cache_block['data']['calendar_holidays'] = array();
+	if (empty($params[0]['include_events']))
+		$cache_block['data']['calendar_events'] = array();
+
+	$cache_block['data']['show_calendar'] = !empty($cache_block['data']['calendar_holidays']) || !empty($cache_block['data']['calendar_events']);
 }
 
 // Makes sure the calendar post is valid.

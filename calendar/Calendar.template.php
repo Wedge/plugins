@@ -61,7 +61,7 @@ function template_main()
 						<option value="', $year, '"', $year == $context['current_year'] ? ' selected' : '', '>', $year, '</option>';
 	echo '
 					</select>
-					<input type="submit" value="', $txt['view'], '">
+					<input type="submit" value="', $txt['go'], '">
 				</form>
 				<br class="clear">
 			</div>
@@ -163,7 +163,7 @@ function template_show_month_grid($grid_name)
 	}
 
 	echo '
-			<table class="calendar_table cs0 center">';
+			<table class="calendar_table w100 cs0 center">';
 
 	// Show each day of the week.
 	if (empty($calendar_data['disable_day_titles']))

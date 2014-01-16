@@ -8,7 +8,7 @@ function wedgedotorg_theme()
 {
 	global $context, $txt;
 
-	$rev = @file_get_contents(TEMPLATES_DIR . '/rev.txt');
+	$rev = @file_get_contents(CORE_DIR . '/rev.txt');
 	if (!empty($rev))
 		$txt['copyright'] .= ', ' . (we::$user['language'] == 'french' ? 'révision' : 'revision') . ' <a href="http://wedge.org/pub/feats/6108/new-revs/">' . $rev . '</a>';
 
