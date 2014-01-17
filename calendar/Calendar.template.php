@@ -15,56 +15,52 @@ function template_main()
 	global $context, $txt, $settings;
 
 	echo '
-		<div id="calendar">';
+		<div id="calendar_head">';
 
 	if ($context['can_post'])
 		echo '
-			<div class="right">
-				<form action="<URL>?action=calendar;sa=post;month=', $context['current_month'], ';year=' . $context['current_year'], ';', $context['session_query'], '" method="get">
-					<input type="submit" class="new" value="', $txt['calendar_post_event'], '">
-				</form>
-			</div>';
+			<form class="floatright" action="<URL>?action=calendar;sa=post;month=', $context['current_month'], ';year=' . $context['current_year'], ';', $context['session_query'], '" method="get">
+				<input type="submit" class="new" value="', $txt['calendar_post_event'], '">
+			</form>';
+
+	// Show some controls to allow easy calendar navigation.
+	echo '
+			<form id="calendar_navigation" action="', SCRIPT, '?action=calendar" method="post" accept-charset="UTF-8">
+				<select name="month">';
+
+	// Show a select box with all the months.
+	foreach ($txt['months'] as $number => $month)
+		echo '<option value="', $number, '"', $number == $context['current_month'] ? ' selected' : '', '>', $month, '</option>';
 
 	echo '
-			<br class="clear">
-			<div id="main_grid">', $context['view_week'] ? template_show_week_grid('main') : template_show_month_grid('main');
+				</select>
+				<select name="year">';
+
+	// Show a link for every year.....
+	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
+		echo '<option value="', $year, '"', $year == $context['current_year'] ? ' selected' : '', '>', $year, '</option>';
+
+	echo '
+				</select>
+				<input type="submit" value="', $txt['go'], '">
+			</form>
+		</div>
+
+		<div id="main_grid">', $context['view_week'] ? template_show_week_grid('main') : template_show_month_grid('main');
 
 	$items = $context['view_week'] ? array('prev', 'current', 'next') : array('prev', 'next');
 	$class = count($items) == 3 ? 'inline-block three' : 'two';
 
 	echo '
 			<br class="clear">';
+
 	foreach ($items as $cal)
 		echo '
 			<div class="', $class, '-columns">
 				', template_show_month_grid($cal), '
 			</div>';
-	echo '
-			<br class="clear">';
 
-	// Show some controls to allow easy calendar navigation.
 	echo '
-				<form id="calendar_navigation" action="', SCRIPT, '?action=calendar" method="post" accept-charset="UTF-8">
-					<select name="month">';
-
-	// Show a select box with all the months.
-	foreach ($txt['months'] as $number => $month)
-		echo '
-						<option value="', $number, '"', $number == $context['current_month'] ? ' selected' : '', '>', $month, '</option>';
-	echo '
-					</select>
-					<select name="year">';
-
-	// Show a link for every year.....
-	for ($year = $settings['cal_minyear']; $year <= $settings['cal_maxyear']; $year++)
-		echo '
-						<option value="', $year, '"', $year == $context['current_year'] ? ' selected' : '', '>', $year, '</option>';
-	echo '
-					</select>
-					<input type="submit" value="', $txt['go'], '">
-				</form>
-				<br class="clear">
-			</div>
 		</div>';
 }
 
@@ -163,7 +159,7 @@ function template_show_month_grid($grid_name)
 	}
 
 	echo '
-			<table class="calendar_table w100 cs0 center">';
+			<table class="calendar_table cs0 center">';
 
 	// Show each day of the week.
 	if (empty($calendar_data['disable_day_titles']))
@@ -275,7 +271,7 @@ function template_show_week_grid($grid_name)
 		$done_title = true;
 
 		echo '
-			<table class="calendar_table weeklist w100 cs1 cp0">';
+			<table class="calendar_table weeklist cs1 cp0">';
 
 		foreach ($month_data['days'] as $day)
 		{

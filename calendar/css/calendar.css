@@ -1,3 +1,4 @@
+
 .calendar_table
 	width: 100%
 	th.days
@@ -43,3 +44,11 @@ div.day
 
 .holiday
 	color: #000080
+
+#calendar_head
+	padding: 8px
+	input
+		margin-top: 4px
+
+#main_grid
+	margin-bottom: 12px
