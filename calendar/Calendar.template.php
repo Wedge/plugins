@@ -140,11 +140,11 @@ function template_show_month_grid($grid_name)
 
 		if (empty($calendar_data['next_calendar']['disabled']) && $calendar_data['show_next_prev'])
 			echo '
-					<span class="floatright"><a href="', $calendar_data['next_calendar']['href'], '">', $grid_name == 'main' ? $calendar_data['next_calendar']['title'] . ' &#187;' : '&#187;', '</a></span>';
+					<span class="floatright"><a href="', $calendar_data['next_calendar']['href'], '">', $grid_name == 'main' ? $calendar_data['next_calendar']['title'] . ' »' : '»', '</a></span>';
 
 		if (empty($calendar_data['previous_calendar']['disabled']) && $calendar_data['show_next_prev'])
 			echo '
-					<span class="floatleft"><a href="', $calendar_data['previous_calendar']['href'], '">', $grid_name == 'main' ? '&#171; ' . $calendar_data['previous_calendar']['title'] : '&#171;', '</a></span>';
+					<span class="floatleft"><a href="', $calendar_data['previous_calendar']['href'], '">', $grid_name == 'main' ? '« ' . $calendar_data['previous_calendar']['title'] : '«', '</a></span>';
 
 		if ($calendar_data['show_next_prev'])
 			echo '
@@ -190,7 +190,7 @@ function template_show_month_grid($grid_name)
 		if (!empty($calendar_data['show_week_links']))
 			echo '
 					<td class="windowbg2 weeks">
-						<a href="', SCRIPT, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $week['days'][0]['day'], '">&#187;</a>
+						<a href="', SCRIPT, '?action=calendar;viewweek;year=', $calendar_data['current_year'], ';month=', $calendar_data['current_month'], ';day=', $week['days'][0]['day'], '">»</a>
 					</td>';
 
 		/* Every day has the following:
@@ -257,11 +257,11 @@ function template_show_week_grid($grid_name)
 
 		if (empty($calendar_data['previous_calendar']['disabled']) && $calendar_data['show_next_prev'] && empty($done_title))
 			echo '
-					<span class="floatleft"><a href="', $calendar_data['previous_week']['href'], '">&#171;</a></span>';
+					<span class="floatleft"><a href="', $calendar_data['previous_week']['href'], '">«</a></span>';
 
 		if (empty($calendar_data['next_calendar']['disabled']) && $calendar_data['show_next_prev'] && empty($done_title))
 			echo '
-					<span class="floatright"><a href="', $calendar_data['next_week']['href'], '">&#187;</a></span>';
+					<span class="floatright"><a href="', $calendar_data['next_week']['href'], '">»</a></span>';
 
 		echo '
 					<a href="', SCRIPT, '?action=calendar;month=', $month_data['current_month'], ';year=', $month_data['current_year'], '">', $txt['months'][$month_data['current_month']], ' ', $month_data['current_year'], '</a>', empty($done_title) && !empty($calendar_data['week_number']) ? (' - ' . $txt['calendar_week'] . ' ' . $calendar_data['week_number']) : '', '

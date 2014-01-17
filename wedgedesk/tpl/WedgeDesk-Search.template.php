@@ -327,7 +327,7 @@ function template_search_results()
 				<div class="topic_details floatleft" style="width: 94%">
 					<div class="counter">', $result['result'], '</div>
 					<h5>', $result['dept_link'], '<a href="<URL>action=helpdesk;sa=ticket;ticket=', $result['id_ticket'], '">', sprintf($result['is_ticket'] ? $txt['shd_search_result_ticket'] : $txt['shd_search_result_reply'], $result['display_id']), '</a> - ', $result['subject'], ' (', $txt['shd_search_last_updated'], ' ', timeformat($result['last_updated']), ')</h5>
-					<span class="smalltext">&#171;&nbsp;<strong>', $result['is_ticket'] ? $txt['shd_search_ticket_opened_by'] : $txt['shd_search_ticket_replied_by'], ' ', shd_profile_link($result['poster_name'], $result['id_member']), '</strong>&nbsp;', $txt['on'], '&nbsp;<em>', timeformat($result['poster_time']), '</em>&nbsp;&#187;</span>
+					<span class="smalltext">«&nbsp;<strong>', $result['is_ticket'] ? $txt['shd_search_ticket_opened_by'] : $txt['shd_search_ticket_replied_by'], ' ', shd_profile_link($result['poster_name'], $result['id_member']), '</strong>&nbsp;', $txt['on'], '&nbsp;<em>', timeformat($result['poster_time']), '</em>&nbsp;»</span>
 				</div>
 				<br class="clear">
 				<div class="list_posts double_height">', $result['body'], '</div>

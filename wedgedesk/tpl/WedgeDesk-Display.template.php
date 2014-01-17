@@ -872,7 +872,7 @@ function template_viewreplies()
 			{
 				echo '
 							<div class="smalltext shd_modified" style="margin-top:20px;">
-								&#171; <em>', $txt['last_edit'], ': ', $reply['modified']['time'], ' ', $txt['by'], ' ', $reply['modified']['link'], '</em> &#187;
+								« <em>', $txt['last_edit'], ': ', $reply['modified']['time'], ' ', $txt['by'], ' ', $reply['modified']['link'], '</em> »
 							</div>';
 			}
 

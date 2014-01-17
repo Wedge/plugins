@@ -414,7 +414,7 @@ function template_ticket_content()
 	{
 		echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
-							&#171; <em>', $txt['last_edit'], ': ', $context['ticket']['modified']['time'], ' ', $txt['by'], ' ', $context['ticket']['modified']['link'], '</em> &#187;
+							« <em>', $txt['last_edit'], ': ', $context['ticket']['modified']['time'], ' ', $txt['by'], ' ', $context['ticket']['modified']['link'], '</em> »
 						</div>';
 	}
 }
@@ -538,7 +538,7 @@ function template_ticket_footer()
 	{
 		echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
-							&#171; <em>', $txt['last_edit'], ': ', $context['ticket_form']['modified']['time'], ' ', $txt['by'], ' ', $context['ticket_form']['modified']['link'], '</em> &#187;
+							« <em>', $txt['last_edit'], ': ', $context['ticket_form']['modified']['time'], ' ', $txt['by'], ' ', $context['ticket_form']['modified']['link'], '</em> »
 						</div>';
 	}
 
@@ -786,7 +786,7 @@ function template_ticket_do_replies()
 			{
 				echo '
 						<div class="smalltext shd_modified" style="margin-top:20px;">
-							&#171; <em>', $txt['last_edit'], ': ', $reply['modified']['time'], ' ', $txt['by'], ' ', $reply['modified']['link'], '</em> &#187;
+							« <em>', $txt['last_edit'], ': ', $reply['modified']['time'], ' ', $txt['by'], ' ', $reply['modified']['link'], '</em> »
 						</div>';
 			}
 
