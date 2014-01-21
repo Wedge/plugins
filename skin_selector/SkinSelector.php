@@ -9,7 +9,7 @@ function skinSelector()
 {
 	global $context, $board_info;
 
-	if (!empty(we::$user['possibly_robot']) || (isset($board_info) && !empty($board_info['skin']) && $board_info['override_theme']))
+	if (!empty(we::$user['possibly_robot']) || (isset($board_info) && !empty($board_info['skin']) && $board_info['override_skin']))
 		return;
 
 	// Will need this.
