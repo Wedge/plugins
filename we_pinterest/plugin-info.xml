@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="Pandos:We-Pinterest">
+	<name>We-Pinterest</name>
+	<author>Pandos</author>
+	<description>Adds a floating Pin It button over any image.</description>
+	<version>1.0</version>
+	<settings>
+		<setting name="we_pinterest_position" default="topic" />
+		<setting name="we_pinterest_on" default="" />
+	</settings>
+	<hooks>
+		<function point="admin_areas" function="we_pinterest_admin" filename="$plugindir/We-Pinterest-Admin" />
+		<function point="display_main" function="we_pinterest_main" filename="$plugindir/We-Pinterest-Main" />
+	</hooks>
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+		<readme lang="english">$plugindir/readme.german.txt</readme>
+	</readmes>
+	<acp-url>action=admin;area=we_pinterest</acp-url>
+</plugin>
