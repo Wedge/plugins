@@ -31,7 +31,5 @@ function we_pinterest_main()
 		wetem::after('title_upper', array($dest => array()));
 	}
 
-		if (!empty($settings['we_pinterest_on' . $service]))
-			wetem::add($dest, 'we_pinterest_' . $service);
-
+		
 ?>
