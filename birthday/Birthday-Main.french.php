@@ -10,6 +10,6 @@
  */
 
 $txt['birthdays_upcoming'] = array(
-	1 => 'Today\'s Birthdays',
-	'n' => 'Birthdays (%1$s days)',
+	1 => 'Anniversaires du jour',
+	'n' => 'Anniversaires (%1$s prochains jours)',
 );
