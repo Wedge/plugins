@@ -10,6 +10,8 @@
  */
 
 $txt['birthdays'] = 'Birthdays';
+$txt['birthday_info_center'] = 'Show upcoming birthdays in the info center?';
+$txt['birthday_info_center_days'] = 'For how many days?';
 $txt['scheduled_task_birthdays'] = 'Birthday Processing';
 $txt['scheduled_task_desc_birthdays'] = 'Daily processing needed for birthdays, including sending out notifications.';
 
