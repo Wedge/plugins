@@ -11,17 +11,17 @@
 
 $txt['birthdays'] = 'Anniversaires';
 $txt['birthday_info_center'] = 'Montrer les prochains anniversaires dans le centre d\'informations&#8239;?';
-$txt['birthday_info_center_days'] = 'Combien de jours à l\'avance&#8239;?';
+$txt['birthday_info_center_days'] = 'Combien de jours Ã  l\'avance&#8239;?';
 $txt['scheduled_task_birthdays'] = 'Envoi des cartes d\'anniversaire';
-$txt['scheduled_task_desc_birthdays'] = 'Envoi quotidien nécessaire pour souhaiter les anniversaires par e-mail.';
+$txt['scheduled_task_desc_birthdays'] = 'Envoi quotidien nÃ©cessaire pour souhaiter les anniversaires par e-mail.';
 
-$txt['birthday_show_ages'] = 'Montrer l\'âge des membres du forum';
+$txt['birthday_show_ages'] = 'Montrer l\'Ã¢ge des membres du forum';
 
 $txt['birthday_send_email'] = 'Envoyer des e-mails aux membres pour leur anniversaire&#8239;?';
-$txt['birthday_email'] = 'Message à utiliser';
+$txt['birthday_email'] = 'Message Ã  utiliser';
 $txt['birthday_body'] = 'Contenu du mail';
 $txt['birthday_subject'] = 'Sujet du mail';
 
-$txt['help_birthday_email'] = 'Choisissez le message à envoyer pour souhaiter un anniversaire. Vous pouvez prévisualiser son titre et son contenu.<br><strong>Note&#8239;</strong>: la tâche programmée Envoi des cartes d\'anniversaire doit être activée, ce qui est normalement le cas après l\'installation de cette extension. Vous pouvez le vérifier <a href="%1$s?action=admin;area=scheduledtasks;%2$s" target="_blank" class="new_win">dès maintenant</a> si vous le désirez.';
+$txt['help_birthday_email'] = 'Choisissez le message Ã  envoyer pour souhaiter un anniversaire. Vous pouvez prÃ©visualiser son titre et son contenu.<br><strong>Note&#8239;</strong>: la tÃ¢che programmÃ©e Envoi des cartes d\'anniversaire doit Ãªtre activÃ©e, ce qui est normalement le cas aprÃ¨s l\'installation de cette extension. Vous pouvez le vÃ©rifier <a href="%1$s?action=admin;area=scheduledtasks;%2$s" target="_blank" class="new_win">dÃ¨s maintenant</a> si vous le dÃ©sirez.';
 
 ?>

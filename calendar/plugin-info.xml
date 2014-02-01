@@ -40,11 +40,10 @@
 	<settings>
 		<setting name="calendar_updated" default="1" />
 		<setting name="cal_maxyear" default="2020" />
-		<setting name="cal_minyear" default="2008" />
+		<setting name="cal_minyear" default="2012" />
 		<setting name="cal_daysaslink" default="0" />
 		<setting name="cal_defaultboard" default="0" />
 		<setting name="cal_showholidays" default="1" />
-		<setting name="cal_showbdays" default="1" /><!-- This is going to be removed -->
 		<setting name="cal_showevents" default="1" />
 		<setting name="cal_showweeknum" default="0" />
 		<setting name="cal_days_for_index" default="7" />

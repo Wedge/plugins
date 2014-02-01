@@ -53,8 +53,8 @@ function ModifyBirthdaySettings($return_config = false)
 		'',
 		array('check', 'birthday_send_email'),
 		array('select', 'birthday_email', $types, 'javascript' => 'onchange="fetch_birthday_preview()"'),
-			'birthday_subject' => array('var_message', 'birthday_subject', 'var_message' => $subject, 'disabled' => true, 'size' => strlen($subject) + 3),
-			'birthday_body' => array('var_message', 'birthday_body', 'var_message' => westr::nl2br($body), 'disabled' => true, 'size' => ceil(strlen($body) / 25)),
+		'birthday_subject' => array('var_message', 'birthday_subject', 'var_message' => $subject, 'disabled' => true, 'size' => strlen($subject) + 3),
+		'birthday_body' => array('var_message', 'birthday_body', 'var_message' => westr::nl2br($body), 'disabled' => true, 'size' => ceil(strlen($body) / 25)),
 	);
 
 	$context['post_url'] = '<URL>?action=admin;area=birthdays;save';

@@ -215,6 +215,7 @@ function getHolidayRange($low_date, $high_date)
 			'autumn' => array('2012-09-22', '2013-09-22', '2014-09-22', '2015-09-23', '2016-09-22', '2017-09-22', '2018-09-22', '2019-09-23', '2020-09-22'),
 			'winter' => array('2012-12-21', '2013-12-21', '2014-12-21', '2015-12-21', '2016-12-21', '2017-12-21', '2018-12-21', '2019-12-21', '2020-12-21'),
 		),
+		'1789' => '0004-07-14',
 		'id4' => '0004-07-04',
 		'5may' => '0004-05-05',
 		'flag' => '0004-06-14',
@@ -285,7 +286,7 @@ function getHolidayRange($low_date, $high_date)
 	else
 		$allyear_part = 'event_date BETWEEN {date:all_year_low} AND {date:all_year_high}';
 
-	// Find some holidays... ;).
+	// Find some holidays... ;)
 	$result = wesql::query('
 		SELECT event_date, YEAR(event_date) AS year, title
 		FROM {db_prefix}calendar_holidays

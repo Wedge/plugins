@@ -15,6 +15,7 @@ $txt['cal_hol_vernal'] = 'Vernal Equinox';
 $txt['cal_hol_summer'] = 'Summer Solstice';
 $txt['cal_hol_autumn'] = 'Autumnal Equinox';
 $txt['cal_hol_winter'] = 'Winter Solstice';
+$txt['cal_hol_1789'] = 'Bastille Day';
 $txt['cal_hol_id4'] = 'Independence Day';
 $txt['cal_hol_5may'] = 'Cinco de Mayo';
 $txt['cal_hol_flag'] = 'Flag Day';
