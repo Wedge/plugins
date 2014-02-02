@@ -27,9 +27,8 @@ function we_pinterest_main()
 			break;
 	}
 
-		$dest = 'we_pinterest_topic';
-		wetem::after('title_upper', array($dest => array()));
-	}
-
+	$dest = 'we_pinterest_topic';
+	wetem::after('title_upper', array($dest => array()));
+}
 		
 ?>
