@@ -20,6 +20,7 @@ function scheduled_birthdays()
 	if (!empty($settings['birthday_send_email']))
 	{
 		loadSource('Subs-Post');
+		loadLanguage('EmailTemplates');
 
 		$greeting = isset($settings['birthday_email']) ? $settings['birthday_email'] : 'happy_birthday';
 

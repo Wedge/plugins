@@ -394,6 +394,7 @@ function shd_notify_users($notify_data)
 	if (!function_exists('sendmail'))
 		loadSource('Subs-Post');
 
+	loadLanguage('EmailTemplates');
 	$log = array(
 		'emails' => array(),
 		'auto' => true,
