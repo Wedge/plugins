@@ -2,7 +2,7 @@
 /**
  * Facebook plugin's real-time update callback handler
  *
- * @package Dragooon:WeFB
+ * @package Wedge:Facebook
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
@@ -17,14 +17,13 @@ require_once('../../SSI.php');
 
 global $settings, $context;
 
-loadPluginSource('Dragooon:WeFB', array('facebook', 'Subs-Plugin'));
+loadPluginSource('Wedge:Facebook', array('facebook', 'Subs-Plugin'));
 loadSource(array('Subs-Members', 'Subs-Graphics'));
 
 $facebook = facebook_instance();
 
 // Verifying?
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['hub_mode']) &&
-	$_GET['hub_mode'] == 'subscribe' && $_GET['hub_verify_token'] == $settings['facebook_real_time_token__temp'])
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['hub_mode']) && $_GET['hub_mode'] == 'subscribe' && $_GET['hub_verify_token'] == $settings['facebook_real_time_token__temp'])
 {
 	updateSettings(array('facebook_real_time_token' => $settings['facebook_real_time_token__temp']));
 	updateSettings(array('facebook_real_time_token__temp' => ''));

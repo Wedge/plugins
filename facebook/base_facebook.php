@@ -19,10 +19,10 @@ if (!defined('WEDGE'))
 	die('File cannot be requested directly');
 
 if (!function_exists('curl_init')) {
-	throw new Exception('Facebook needs the CURL PHP extension.');
+	throw new Exception('Facebook requires the CURL PHP extension.');
 }
 if (!function_exists('json_decode')) {
-	throw new Exception('Facebook needs the JSON PHP extension.');
+	throw new Exception('Facebook requires the JSON PHP extension.');
 }
 
 /**
@@ -758,7 +758,7 @@ abstract class BaseFacebook
 		// json_encode all params values that are not strings
 		foreach ($params as $key => $value) {
 			if (!is_string($value)) {
-				$params[$key] = json_encode($value);
+				$params[$key] = we_json_encode($value);
 			}
 		}
 

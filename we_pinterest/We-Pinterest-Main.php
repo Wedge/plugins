@@ -5,7 +5,7 @@ if (!defined('WEDGE'))
 
 function we_pinterest_main()
 {
-	global $settings, $language, $txt;
+	global $language, $txt;
 
 	loadPluginTemplate('Pandos:We-Pinterest', 'We-Pinterest-Main');
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin id="Dragooon:WeFB">
+<plugin id="Wedge:Facebook">
 	<name>Facebook</name>
-	<author email="mail@dragooon.net" url="http://smf-media.com/">Shitiz "Dragooon" Garg</author>
+	<author email="mail@dragooon.net" url="http://smf-media.com/">Shitiz Garg (Dragooon) &amp; René-Gilles Deberdt (Nao)</author>
 	<description>Basic Facebook integration with Wedge</description>
 	<version>1.0</version>
 

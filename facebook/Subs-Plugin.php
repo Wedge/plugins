@@ -2,7 +2,7 @@
 /**
  * Contains helper functions needed for the addon
  * 
- * @package Dragooon:WeFB
+ * @package Wedge:Facebook
  * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
  * @copyright 2012, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
