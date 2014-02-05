@@ -46,7 +46,7 @@
 	</database>
 
 	<settings-page area="facebook" icon="$pluginurl/templates/images/adminicon.png">
-		<load-language file="plugin" />
+		<language file="plugin" />
 		<desc name="facebook_admin_desc" />
 		<text name="facebook_app_id" />
 		<text name="facebook_app_secret" />
