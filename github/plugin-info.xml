@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin id="Wedge:GitHub">
+	<name>GitHub Hooks</name>
+	<author url="http://wedge.org/">René-Gilles Deberdt (Nao)</author>
+	<description>GitHub webhook handler for Wedge</description>
+	<version>1.0</version>
+
+	<required-functions>
+		<php-function>json_decode</php-function>
+	</required-functions>
+
+	<settings-page area="github" icon="$pluginurl/gh.png">
+		<language file="languages/github" />
+		<desc name="github_admin_desc" />
+		<large_text name="github_repos" />
+		<hr />
+		<text name="github_secret" />
+		<text name="github_token" />
+	</settings-page>
+
+	<readmes>
+		<readme lang="english">$plugindir/readme.english.txt</readme>
+	</readmes>
+</plugin>
