@@ -146,7 +146,7 @@ if (!empty($changes['feed']))
 	{
 		// Check for duplicates
 		//!!! Should the message be stored per-member or site-wide?
-		$cached_thought = cache_get_data('fb_last_thought_' . $id_member, 7 * 86400);
+		$cached_thought = cache_get_data('fb_last_thought:' . $id_member, 7 * 86400);
 
 		if ($cached_thought != null && $cached_thought['message'] == $message)
 			continue;
@@ -166,7 +166,7 @@ if (!empty($changes['feed']))
 		$last_thought = wesql::insert_id();
 
 		// Cache this for several days in order to prevent duplicates
-		cache_put_data('fb_last_thought_' . $id_member, array('message' => $message), 7 * 86400);
+		cache_put_data('fb_last_thought:' . $id_member, array('message' => $message), 7 * 86400);
 
 		if (!empty($last_thought))
 			updateMemberData($id_member, array('personal_text' => $message));

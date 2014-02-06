@@ -55,7 +55,7 @@ function facebook_app_token()
 }
 
 /**
- * Return's the facebook info for this user, tries to cache the data in order to improve effeciency
+ * Return's the facebook info for this user, tries to cache the data in order to improve efficiency
  *
  * @param mixed $id_member
  * @param bool $by_id_facebook Use this if you want to search by id_facebook instead of id_member

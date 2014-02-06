@@ -75,7 +75,7 @@ foreach ($payload->commits as $commit)
 				'[cli=$1]$2[/cli]',
 				'[li]$1[/li]',
 			),
-			preg_replace('~\n\nSigned-off-by: [^\v]+~', '', $item->commit->message)
+			westr::safe(preg_replace('~\n\nSigned-off-by: [^\v]+~', '', $item->commit->message), ENT_QUOTES, false)
 		)
 	) . '[/list]';
 
