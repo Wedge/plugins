@@ -1,7 +1,7 @@
 <?php
 
 $txt['users_online_today'] = 'Benutzer heute';
-$txt['users_online_24h'] = 'Benutzerin den letzten 24 Stunden';
+$txt['users_online_24h'] = 'Benutzer in den letzten 24 Stunden';
 $txt['users_online_7d'] = 'Benutzer in den letzten 7 Tagen';
 $txt['users_online_today_userhidden'] = '%1$s%2$s'; // For i18n. It's not always possible to have all the combinations but between this and users/hidden combinations, it should cover everything.
 $txt['users_online_today_users'] = array(1 => '1 Benutzer', 'n' => '%s Benutzer');

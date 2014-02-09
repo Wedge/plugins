@@ -5,13 +5,13 @@
 $txt['uot'] = 'Benutzer online heute';
 $txt['uot_type'] = 'Was sollen die User angezeigt bekommen?';
 $txt['uot_today'] = 'Benutzer die heute angemeldet waren (basierend auf Serverzeit)';
-$txt['uot_24h'] = 'Benutzer die in dne letzten 24 Stunden angemeldet waren';
+$txt['uot_24h'] = 'Benutzer die in den letzten 24 Stunden angemeldet waren';
 $txt['uot_7d'] = 'Benutzer, die in den letzten 7 Tagen angemeldet waren';
 
 $txt['uot_whoview'] = 'Wer darf die Liste mit den Online-Benutzern sehen?';
 $txt['uot_whoview_any'] = 'Alle';
 $txt['uot_whoview_members'] = 'Alle angemeldeten Benutzer';
-$txt['uot_whoview_staff'] = 'Administratoren ond Global-Moderatoren';
+$txt['uot_whoview_staff'] = 'Administratoren und Global-Moderatoren';
 $txt['uot_whoview_admin'] = 'Nur der Administrator';
 
 $txt['uot_order'] = 'Wie soll die Benutzeranzeige sortiert werden?';
