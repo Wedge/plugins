@@ -2,11 +2,10 @@
 /**
  * Displays the calendar integration into the info center and the topic display.
  *
- * @package wedge
- * @copyright 2010-2011 Wedge Team, wedge.org
- * @license http://wedge.org/license/
- *
- * @version 0.1
+ * Wedge (http://wedge.org)
+ * Copyright © 2010 René-Gilles Deberdt, wedge.org
+ * Portions are © 2011 Simple Machines.
+ * License: http://wedge.org/license/
  */
 
 function template_linked_calendar()

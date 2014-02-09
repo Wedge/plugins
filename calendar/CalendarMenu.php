@@ -2,9 +2,10 @@
 /**
  * Per-page processing, e.g. adding the menu item and potentially banned permissions too.
  *
- * @package wedge
- * @copyright 2010-2011 Wedge Team, wedge.org
- * @license http://wedge.org/license/
+ * Wedge (http://wedge.org)
+ * Copyright © 2010 René-Gilles Deberdt, wedge.org
+ * Portions are © 2011 Simple Machines.
+ * License: http://wedge.org/license/
  */
 
 if (!defined('WEDGE'))

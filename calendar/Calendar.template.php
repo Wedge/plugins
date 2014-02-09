@@ -2,11 +2,10 @@
 /**
  * Displays the main calendar, plus the previous and next month mini-calendars, as well as the event-posting interface.
  *
- * @package wedge
- * @copyright 2010-2011 Wedge Team, wedge.org
- * @license http://wedge.org/license/
- *
- * @version 0.1
+ * Wedge (http://wedge.org)
+ * Copyright © 2010 René-Gilles Deberdt, wedge.org
+ * Portions are © 2011 Simple Machines.
+ * License: http://wedge.org/license/
  */
 
 // The main calendar - January, for example.
