@@ -30,15 +30,17 @@ Some plugins of interest.
 -------------------------
 
 - `ajax_qr` is an Ajax Quick Reply plugin. Not thoroughly tested.
-- `birthday` and `calendar` are SMF features which were ported to plugins.
+- `birthday` and `calendar` are SMF features which were moved to plugins. Calendar isn't finished yet.
 - `edit_history` puts a bit of wiki into your posts. No more ninja edits!
+- `facebook` has the official Facebook bridge (and Facebook Login). Can be useful.
+- `github` has the official GitHub WebHooks handler. Developed for wedge.org, of course.
 - `mass_attach` (as used on wedge.org) allows you to add (and upload) multiple attachments at once by drag'n'drop.
 - `mentions` is another popular wedge.org plugin, allowing you to mention a @user and draw their attention.
 - `skin_selector` is a must-use plugin. It adds a sidebar box that lets you quickly switch between skins.
 - `topic_solved` allows you to turn a board into a basic helpdesk, where users can mark their topics as solved or not.
 - `users_online_today` adds a sidebar box with a list of all members who passed by your forum today.
-- `wedgedesk` is the only broken plugin. It's completely untested, and will probably remain this way.
-- `word_limits` allows you to add moderation filters preventing users from posting messages that are either too short, or too long.
+- `wedgedesk` is the only really broken plugin. It'll probably remain so, unless someone wants to finish it.
+- `word_limits` can be used as a base for plugins adding moderation filters. This one prevents users from posting messages that are either too short, or too long.
 
 All plugins have a more thorough description, along with author credits, in their respective `plugin-info.xml' files.
 
