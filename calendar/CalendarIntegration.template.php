@@ -123,9 +123,7 @@ function template_form_link_calendar()
 					<fieldset id="event_options">
 						<legend>', $txt['calendar_event_options'], '</legend>
 						<div class="event_options smalltext">
-							<ul class="event_options">';
-
-	echo '
+							<ul class="event_options">
 								<li>
 									', $txt['calendar_post_in'], '
 									<select name="board">';

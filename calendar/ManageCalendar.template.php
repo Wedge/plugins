@@ -50,28 +50,23 @@ function template_edit_holiday()
 {
 	global $context, $txt, $settings;
 
-	// Start with javascript for getting the calendar dates right.
+	// This will refill the day list with the proper number of days when switching months or years.
+	// Note that February 29 is available if year is set to repeat.
 	add_js('
-	var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
+	var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	function generateDays()
 	{
-		var days = 0, selected = 0, dayElement = $("#day"), year = $("#year").val(), monthElement = $("#month")[0];
+		var year = $("#year").val(), $day = $("#day"), selected = $day.val();
+		monthDays[1] = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) ? 29 : 28;
+		$day.empty();
 
-		monthLength[1] = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
+		for (var i = 1, days = monthDays[$("#month").val() - 1]; i <= days; i++)
+			$day.append(new Option(i, i));
 
-		selected = dayElement.val();
-		dayElement.empty();
+		if (selected <= days)
+			$day.val(selected);
 
-		days = monthLength[monthElement.value - 1];
-
-		for (i = 1; i <= days; i++)
-			dayElement.append(\'<option value="\' + i + \'">\' + i + \'</option>\');
-
-		if (selected < days)
-			dayElement.val(selected);
-
-		$("#day").sb();
+		$day.sb();
 	}');
 
 	// Show a form for all the holiday information.
@@ -90,9 +85,10 @@ function template_edit_holiday()
 						<input type="text" name="title" value="', $context['holiday']['title'], '" size="55" maxlength="60">
 					</dd>
 					<dt class="small_caption">
-						<strong>', $txt['calendar_year'], '</strong>
+						<strong>', $txt['date'], ':</strong>
 					</dt>
 					<dd class="small_caption">
+						', $txt['calendar_year'], '&nbsp;
 						<select name="year" id="year" onchange="generateDays();">
 							<option value="0000"', $context['holiday']['year'] == '0000' ? ' selected' : '', '>', $txt['every_year'], '</option>';
 
@@ -114,7 +110,7 @@ function template_edit_holiday()
 	echo '
 						</select>&nbsp;
 						', $txt['calendar_day'], '&nbsp;
-						<select name="day" id="day" onchange="generateDays();">';
+						<select name="day" id="day">';
 
 	// This prints out all the days in the current month - this changes dynamically as we switch months.
 	for ($day = 1; $day <= $context['holiday']['last_day']; $day++)

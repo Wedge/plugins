@@ -45,7 +45,8 @@ $txt['setting_cal_showInTopic'] = 'Montrer les événements liés lors de l\'aff
 
 // Adding/Editing/Viewing Holidays
 $txt['manage_holidays_desc'] = 'Ici vous pouvez ajouter et enlever des fêtes de votre calendrier sur votre forum.';
-$txt['current_holidays'] = 'Fêtes courantes';
+$txt['predefined_holidays'] = 'Fêtes prédéfinies';
+$txt['custom_holidays'] = 'Fêtes personnalisées';
 $txt['holidays_title'] = 'Fête';
 $txt['holidays_title_label'] = 'Titre';
 $txt['holidays_delete_confirm'] = 'Êtes-vous sûr de vouloir enlever ces fêtes ?';
