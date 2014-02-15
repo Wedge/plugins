@@ -31,14 +31,14 @@ Just hit Submit and save.
 ONE LAST STEP, though!
 
 Now, go to your GitHub account. See the list of repos you want to repost to your forum? You'll have to visit them one by one.
-Go to the repo's homepage, then click on [b]Settings[/b], then click [b]Service Hooks[/b], then click [b]WebHook URLs[/b] (first choice in the list, normally.)
-You're now presented with an input box where you'll need to enter your callback URL.
+Go to the repo's homepage, then click on [b]Settings[/b], then click [b]Webhooks & Services[/b], then click [b]Add webhooks[/b].
+You're now presented with an input box where you'll need to enter your callback URL. (If you're lost, follow [url=https://github.com/blog/1778-webhooks-level-up]this tutorial[/url].)
 
 The URL in question should be something like:
 [tt][nobbc]http://my-forum.com/plugins/github/github.php?key=MY-SECRET-KEY-FROM-BEFORE[/nobbc][/tt]
 
 Replace my-forum.com with your proper forum URL, of course. The GitHub admin page should give you the proper URL, and you can copy the secret key from that page as well.
-Now, just keep that full URL in your clipboard, submit your WebHook, then proceed to the next repository, where you'll follow the same instructions, and enter exactly the same URL. The magic of Ctrl+V. If you're not on Windows, it's not my problem. There are worse things that could happen. You could be on a ZX-81, in which case I feel for you.
+Now, just keep that full URL in your clipboard, submit your webhook, then proceed to the next repository, where you'll follow the same instructions, and enter exactly the same URL. The magic of Ctrl+V. If you're not on Windows, it's not my problem. There are worse things that could happen. You could be on a ZX-81, in which case I feel for you.
 
 Done!
 Well, see how long it took you to read all of this..? The good news is, it will only take half as long for you to finish setting up the plugin.

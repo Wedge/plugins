@@ -1,13 +1,10 @@
 <?php
 /**
- * Callback for the GitHub WebHooks plugin.
+ * Callback for the GitHub Hooks plugin.
  *
- * @package wedge
- * @author René-Gilles Deberdt, wedge.org
- * @copyright 2010-2011 Wedge Team, wedge.org
- * @license http://wedge.org/license/
- *
- * @version 0.1
+ * Wedge (http://wedge.org)
+ * Copyright © 2010 René-Gilles Deberdt, wedge.org
+ * License: http://wedge.org/license/
  */
 
 require_once('../../SSI.php');

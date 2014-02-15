@@ -345,7 +345,7 @@ function iCalDownload()
 	$filecontents = '';
 	$filecontents .= 'BEGIN:VCALENDAR' . "\n";
 	$filecontents .= 'VERSION:2.0' . "\n";
-	$filecontents .= 'PRODID:-//Wedge.org//Wedge ' . (!defined('WEDGE_VERSION') ? '0.1' : WEDGE_VERSION) . '//EN' . "\n";
+	$filecontents .= 'PRODID:-//Wedge.org//Wedge ' . (!defined('WEDGE_VERSION') ? '1.0' : WEDGE_VERSION) . '//EN' . "\n";
 	$filecontents .= 'BEGIN:VEVENT' . "\n";
 	$filecontents .= 'DTSTART:' . $date . "\n";
 	$filecontents .= 'DTEND:' . $date . "\n";
