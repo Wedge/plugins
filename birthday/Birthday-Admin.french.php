@@ -22,6 +22,6 @@ $txt['birthday_email'] = 'Message à utiliser';
 $txt['birthday_body'] = 'Contenu du mail';
 $txt['birthday_subject'] = 'Sujet du mail';
 
-$txt['help_birthday_email'] = 'Choisissez le message à envoyer pour souhaiter un anniversaire. Vous pouvez prévisualiser son titre et son contenu.<br><strong>Note&#8239;</strong>: la tâche programmée Envoi des cartes d\'anniversaire doit être activée, ce qui est normalement le cas après l\'installation de cette extension. Vous pouvez le vérifier <a href="%1$s?action=admin;area=scheduledtasks;%2$s" target="_blank" class="new_win">dès maintenant</a> si vous le désirez.';
+$txt['help_birthday_email'] = 'Choisissez le message à envoyer pour souhaiter un anniversaire. Vous pouvez prévisualiser son titre et son contenu.<br><strong>Note&#8239;</strong>: la tâche programmée Envoi des cartes d\'anniversaire doit être activée, ce qui est normalement le cas après l\'installation de cette extension. Vous pouvez le vérifier <a href="<URL>?action=admin;area=scheduledtasks" target="_blank" class="new_win">dès maintenant</a> si vous le désirez.';
 
 ?>

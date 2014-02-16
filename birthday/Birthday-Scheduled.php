@@ -76,7 +76,7 @@ function scheduled_birthdays()
 				$subject = strtr($txt['birthday_template_subject_' . $greeting], $replacements);
 				$body = strtr($txt['birthday_template_body_' . $greeting], $replacements);
 
-				sendmail($recp['email'], $subject, $emaildata['body'], null, null, false, 4);
+				sendmail($recp['email'], $subject, $body, null, null, false, 4);
 
 				// Try to stop a timeout, this would be bad...
 				@set_time_limit(300);
