@@ -62,7 +62,7 @@ function scheduled_birthdays()
 		$replacements = array(
 			'{FORUMNAME}' => $mbname,
 			'{SCRIPTURL}' => SCRIPT,
-			'{REGARDS}' => str_replace('{forum_name}', $mbname, $txt['regards_team']),
+			'{REGARDS}' => str_replace('{FORUMNAME}', $mbname, $txt['regards_team']),
 		);
 		foreach ($birthdays as $lang => $recps)
 		{
