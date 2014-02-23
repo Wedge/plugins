@@ -147,7 +147,7 @@ function massattach()
 
 	@chmod($dest, 0644);
 
-	echo we_json_encode(array('valid' => true, 'id' => $attachID, 'name' => $filename));
+	echo json_encode(array('valid' => true, 'id' => $attachID, 'name' => $filename));
 	exit;
 }
 
@@ -189,6 +189,6 @@ function massattach_error($error_code, $filepath = '')
 		@unlink($filepath);
 
 	loadLanguage(array('Errors', 'Post'), $language);
-	echo we_json_encode(array('valid' => false, 'error' => isset($txt[$error_code]) ? $txt[$error_code] : $error_code));
+	echo json_encode(array('valid' => false, 'error' => isset($txt[$error_code]) ? $txt[$error_code] : $error_code));
 	exit;
 }
