@@ -39,10 +39,11 @@ function calendarMenu(&$items)
 	);
 
 	$items = array_insert($items, 'media', $menu_item, false);
+	add_css('#m_calendar { float: left; width: 16px; height: 16px; padding: 0; margin: 4px 4px 0 2px; background: url(' . $context['plugins_url']['Wedge:Calendar'] . '/img/calendar.gif) 0 2px no-repeat; }');
 }
+
 // Remove these permissions if post-banned.
 function bannedCalendar(&$denied_permissions)
 {
 	$denied_permissions += array('calendar_post', 'calendar_edit_own', 'calendar_edit_any');
 }
-?>
