@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Wedge:WedgeDotOrg">
+<plugin id="Wedge:Wedge.org">
 	<name>Wedge.org Changes</name>
 	<author>Wedge Team</author>
 	<description>Changes unique to Wedge.org</description>
