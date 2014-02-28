@@ -26,3 +26,4 @@ $txt['facebook_sync_thoughttofeed'] = 'Publish new thoughts';
 $txt['facebook_sync_thoughttofeed_subtext'] = 'When you post a new thought, a new status update is published on your wall/timeline';
 $txt['facebook_sync_topictofeed'] = 'Publish new topics';
 $txt['facebook_sync_topictofeed_subtext'] = 'When you post a new topic, a new link is published on your wall/timeline';
+$txt['facebook_user_already_exists'] = 'Sorry, this Facebook account is already linked to user <a href="<URL>?action=profile;u=%1$d">%2$s</a>.';

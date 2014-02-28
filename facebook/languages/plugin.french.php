@@ -26,3 +26,4 @@ $txt['facebook_sync_thoughttofeed'] = 'Republier mes pensées';
 $txt['facebook_sync_thoughttofeed_subtext'] = 'Quand vous postez une pensée ici, elle est automatiquement repostée sur votre journal Facebook';
 $txt['facebook_sync_topictofeed'] = 'Republier mes sujets';
 $txt['facebook_sync_topictofeed_subtext'] = 'Quand vous postez un nouveau sujet ici, un lien vers celui-ci sera publié sur votre journal Facebook';
+$txt['facebook_user_already_exists'] = 'Désolé, ce compte Facebook est déjà lié à l\'utilisateur <a href="<URL>?action=profile;u=%1$d">%2$s</a>.';

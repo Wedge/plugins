@@ -122,6 +122,7 @@ function facebook_hook_profile_areas($profile_areas)
 function facebook_hook_thought_add($privacy, $text, $id_parent, $id_master, $id_thought, $id_member, $member_name)
 {
 	// Irrelevant thought?
+	// !! @todo: fix privacy setting (it's the old system.)
 	if ($id_parent != 0 || $id_master != 0 || $privacy != '-3')
 		return;
 	
@@ -160,7 +161,7 @@ function Facebook_profile($memID)
 		$_POST['facebook_fields'] = (array) $_POST['facebook_fields'];
 		foreach ($_POST['facebook_fields'] as $k => $field)
 			if (!in_array($field, array('name', 'birthday', 'feed', 'thoughttofeed', 'topictofeed')))
-				unset ($_POST['facebook_fields'][$k]);
+				unset($_POST['facebook_fields'][$k]);
 
 		updateMemberData((int) $memID, array(
 			'facebook_fields' => implode(',', $_POST['facebook_fields']),
@@ -225,7 +226,7 @@ function Facebook_login_redirect()
 
 /**
  * Actually logs in the user returning from Facebook, if not found, prompts the password field
- * if the user's a guest, otherwise assigns the facebook ID to the current member
+ * if the user's a guest, otherwise assigns the Facebook ID to the current member
  * 
  * @return void
  */
@@ -262,8 +263,8 @@ function Facebook_login_return()
 	$user_settings = wesql::fetch_assoc($request);
 	wesql::free_result($request);
 
+	// Log this user in
 	if ($rows > 0 && we::$is_guest)
-		// Log this user in
 		DoLogin();
 	// Otherwise register them if they're a guest
 	elseif (we::$is_guest)
@@ -288,7 +289,7 @@ function Facebook_login_return()
 		redirectexit('action=profile;area=facebook');
 	}
 	else
-		fatal_lang_error('facebook_user_already_exists');
+		fatal_lang_error('facebook_user_already_exists', 'general', array($user_settings['id_member'], $user_settings['member_name']));
 }
 
 /**
