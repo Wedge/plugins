@@ -27,6 +27,8 @@
 		<function point="modify_post_before" function="postCalendarEvent" filename="$plugindir/CalendarPost" />
 		<function point="member_options" function="calendarMemberPrefs" filename="$plugindir/ManageCalendar" />
 
+		<language point="lang_who" filename="$plugindir/lang/CalendarWho" />
+
 		<provides>
 			<hook type="function">calendar_grid_month</hook>
 			<hook type="function">calendar_grid_week</hook>

@@ -60,8 +60,6 @@ $helptxt['calendar'] = '
 
 $helptxt['calendar_how_edit'] = 'Du kannst durch einen Klick auf den roten Stern (*) neben den Namen die Einträge bearbeiten.';
 
-$txt['whoallow_calendar'] = 'Betrachtet den <a href="<URL>?action=calendar">Kalender</a>.';
-
 $txt['calendar_start_day'] = 'Erster Tag der Woche in diesem Kalender';
 
 ?>

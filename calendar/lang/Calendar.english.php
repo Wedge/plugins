@@ -60,8 +60,6 @@ $txt['help_calendar'] = '
 
 $txt['help_calendar_how_edit'] = 'You can edit these events by clicking on the red asterisk (*) next to their names.';
 
-$txt['whoallow_calendar'] = 'Viewing the <a href="<URL>?action=calendar">calendar</a>.';
-
 $txt['calendar_start_day'] = 'First day of the week on the calendar';
 
 ?>
