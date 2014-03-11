@@ -37,7 +37,7 @@ function template_sidebar_skin_selector()
 			', $txt['skin_selector'], '
 		</we:title>
 		<p>
-			<select name="skinse" id="skinse"', $current_skin ? 'data-default="' . westr::safe($current_skin) . '"' : '', '>
+			<select name="skinse" id="skinse"', $current_skin ? ' data-default="' . westr::safe($current_skin) . '"' : '', '>
 				<option value=""', $context['skin_actual'] == '' ? ' selected' : '', '>', $txt['skin_overall_default'], '</option>
 				', $skin_selector, '
 			</select>
