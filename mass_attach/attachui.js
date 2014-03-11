@@ -24,8 +24,8 @@ $(function (jQuery, undefined)
 	var
 		$element = $('#attachments_container > input[type=file]:first'),
 		$files = [],
-		$current = -1,
-		$is_uploading = false,
+		current = -1,
+		is_uploading = false,
 		total_size = 0,
 		xhr = null;
 
@@ -82,7 +82,7 @@ $(function (jQuery, undefined)
 	// Bind the form to prevent accidental submitting when uploading.
 	$('#postmodify').on('submit', function (e)
 	{
-		if ($is_uploading)
+		if (is_uploading)
 		{
 			say($txt['massattach_currently_uploading']);
 			return false;
@@ -118,26 +118,26 @@ $(function (jQuery, undefined)
 
 	var startUpload = function ()
 	{
-		if ($is_uploading)
+		if (is_uploading)
 			return true;
 
 		// Are we done?
-		if ($files[++$current] === undefined)
+		if ($files[++current] === undefined)
 		{
-			$current--;
+			current--;
 			return true;
 		}
 
-		$is_uploading = true;
+		is_uploading = true;
 		var
 			$timer = $.now(),
 			$progress = $('<div class="windowbg2 inline-block middle" style="height: 16px; width: 150px; margin: 5px 10px; border: 1px solid #666"><div class="plainbox" style="background: #c2d3ca; height: 12px; padding: 0; border-radius: 0; border: 0; width: 0"></div></div>')
-				.appendTo($files[$current].element);
+				.appendTo($files[current].element);
 
 		xhr = new XMLHttpRequest();
 		xhr.open('POST', weUrl('action=massattach;board=' + we_board));
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-		xhr.setRequestHeader('X-File-Name', $files[$current].fileName || $files[$current].name);
+		xhr.setRequestHeader('X-File-Name', $files[current].fileName || $files[current].name);
 		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
 		xhr.upload.onprogress = function (e)
 		{
@@ -157,34 +157,34 @@ $(function (jQuery, undefined)
 				// !! @todo: still needs to be able to handle removal requests...
 				if ($response.valid)
 				{
-					$files[$current].element
+					$files[current].element
 						.find('.delete').val(we_delete).end()
 						.find('span').css('font-style', '');
 					$('input[name="attach_del\[\]"]').last().closest('dd').after('<dd class="smalltext"><label><input type="checkbox" id="attachment_' + $response.id + '" name="attach_del[]" value="' + $response.id + '" checked onclick="oAttach().checkActive();" /> ' + $response.name + '</label></dd>');
 				}
 				else
-					$files[$current].element
+					$files[current].element
 						.find('.delete').remove().end()
 						.find('span').css('color', 'red')
 						.append('<br>' + $response.error);
 
 				// Move onto the next file
-				$is_uploading = false;
+				is_uploading = false;
 				startUpload();
 			}
 		};
 
-		xhr.send($files[$current]);
+		xhr.send($files[current]);
 	},
 
 	attachFiles = function (files, i)
 	{
 		if (files[i] === undefined)
 		{
-			// Since we automatically take the files and upload them, the file input
-			// should be empty so that we don't upload on POST
+			// Since we automatically take the files and upload them,
+			// the file input should be empty so that we don't upload on POST.
 			$clone = $element.clone(true);
-			$('<form></form>').append($clone)[0].reset();
+			$('<form />').append($clone)[0].reset();
 			$element.before($clone).detach();
 			$.cleanData($element);
 			$element = $clone;
@@ -192,7 +192,7 @@ $(function (jQuery, undefined)
 			return true;
 		}
 
-		// Check for file's extension
+		// Check the file extension
 		var
 			filename = files[i].fileName || files[i].name,
 			filesize = files[i].fileSize || files[i].size,
@@ -211,14 +211,14 @@ $(function (jQuery, undefined)
 			return;
 		}
 
-		// Check for file's size
+		// Check the file size
 		if (attachOpts.sizeLimit > 0 && filesize / 1024 > attachOpts.sizeLimit)
 		{
 			say(attachOpts.filesize_error);
 			return attachFiles(files, ++i);
 		}
 
-		// Check total file's size
+		// Check the total file size
 		if (attachOpts.totalSizeLimit > 0 && (filesize / 1024 + attachOpts.totalSize + total_size) > attachOpts.totalSizeLimit)
 		{
 			say(attachOpts.totalFilesize_error);
@@ -231,22 +231,22 @@ $(function (jQuery, undefined)
 			.val(we_cancel)
 			.click(function ()
 			{
-				var i = $(this).parent().data('id');
+				var rem = $(this).parent().data('id');
 
 				$(this).parent().remove();
 
-				$files.splice(i, 1);
+				$files.splice(rem, 1);
 
 				// Fix all the IDs to correctly match their array index
 				for (j = 0; j < $files.length; j++)
 					$files[j].element.data('id', j);
 
 				// This the one being uploaded?
-				if (i == $current && $is_uploading)
+				if (rem == current && is_uploading)
 				{
 					xhr.abort();
-					$is_uploading = false;
-					$current--;
+					is_uploading = false;
+					current--;
 					startUpload();
 				}
 			})
