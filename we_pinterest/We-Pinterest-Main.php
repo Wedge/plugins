@@ -38,7 +38,7 @@ function we_pinterest_main()
 	$("img").load(function () {
 		if ($(this).width() < 300)
 			return;
-		($(this).parent("a") || $(this)).wrap("<div style=\"display: inline-block; position: relative\"/>").after(\'\
+		($(this).parent("a") || $(this)).wrap("<span style=\"position: relative\"/>").after(\'\
 			<div style="display: none; position: absolute; right: 8px; bottom: 8px">\
 				<a href="//www.pinterest.com/pin/create/button/?url=%url%&media=%img%" data-pin-do="buttonPin" data-pin-config="none">\
 					<img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png">\
