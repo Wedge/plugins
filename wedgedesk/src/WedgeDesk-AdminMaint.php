@@ -30,7 +30,7 @@ function shd_admin_maint()
 	$db_show_debug = false;
 
 	loadPluginTemplate('Arantor:WedgeDesk', 'tpl/WedgeDesk-AdminMaint');
-	add_css_file('admin', true);
+	add_css_file('admin');
 	add_plugin_css_file('Arantor:WedgeDesk', 'helpdesk_admin', true);
 	loadLanguage('ManageMaintenance');
 
