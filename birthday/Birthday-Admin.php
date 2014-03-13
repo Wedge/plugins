@@ -24,7 +24,7 @@ function birthdayAdmin()
 
 function birthdayAdminSearch(&$settings_search)
 {
-	$settings_search[] = array('ModifyBirthdaySettings', 'area=birthdays');
+	$settings_search['plugins'][] = array('ModifyBirthdaySettings', 'area=birthdays');
 }
 
 function ModifyBirthdaySettings($return_config = false)

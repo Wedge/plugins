@@ -126,12 +126,12 @@ function shd_admin_bootstrap()
  */
 function shd_admin_search(&$settings_search)
 {
-	$settings_search[] = array('shd_modify_display_options', 'area=helpdesk_options;sa=display');
-	$settings_search[] = array('shd_modify_posting_options', 'area=helpdesk_options;sa=posting');
-	$settings_search[] = array('shd_modify_admin_options', 'area=helpdesk_options;sa=admin');
-	$settings_search[] = array('shd_modify_standalone_options', 'area=helpdesk_options;sa=standalone');
-	$settings_search[] = array('shd_modify_actionlog_options', 'area=helpdesk_options;sa=actionlog');
-	$settings_search[] = array('shd_modify_notifications_options', 'area=helpdesk_options;sa=notifications');
+	$settings_search['plugins'][] = array('shd_modify_display_options', 'area=helpdesk_options;sa=display');
+	$settings_search['plugins'][] = array('shd_modify_posting_options', 'area=helpdesk_options;sa=posting');
+	$settings_search['plugins'][] = array('shd_modify_admin_options', 'area=helpdesk_options;sa=admin');
+	$settings_search['plugins'][] = array('shd_modify_standalone_options', 'area=helpdesk_options;sa=standalone');
+	$settings_search['plugins'][] = array('shd_modify_actionlog_options', 'area=helpdesk_options;sa=actionlog');
+	$settings_search['plugins'][] = array('shd_modify_notifications_options', 'area=helpdesk_options;sa=notifications');
 }
 
 /**

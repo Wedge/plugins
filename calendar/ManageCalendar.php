@@ -33,7 +33,7 @@ function calendarAdmin()
 
 function calendarAdminSearch(&$settings_search)
 {
-	$settings_search[] = array('ModifyCalendarSettings', 'area=managecalendar;sa=settings');
+	$settings_search['plugins'][] = array('ModifyCalendarSettings', 'area=managecalendar;sa=settings');
 }
 
 // The main controlling function doesn't have much to do... yet.
