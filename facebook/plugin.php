@@ -94,7 +94,7 @@ function facebook_hook_create_post_after($msgOptions, $topicOptions, $posterOpti
  */
 function facebook_hook_profile_areas($profile_areas)
 {
-	global $context, $txt;
+	global $txt;
 
 	$profile_areas['edit_profile']['areas']['facebook'] = array(
 		'label' => $txt['facebook'],

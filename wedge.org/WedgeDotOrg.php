@@ -10,7 +10,7 @@ function wedgedotorg_theme()
 
 	$context['main_css_files'][$context['plugins_dir']['Wedge:Wedge.org'] . '/wedge.org.css'] = false;
 
-	$rev = @file_get_contents(CORE_DIR . '/rev.txt');
+	$rev = @file_get_contents(ROOT_DIR . '/core/rev.txt');
 	if (!empty($rev))
 		$txt['copyright'] .= ', ' . (we::$user['language'] == 'french' ? 'révision' : 'revision') . ' <a href="http://wedge.org/pub/feats/6108/new-revs/">' . $rev . '</a>';
 
