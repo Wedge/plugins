@@ -24,12 +24,12 @@ if (!defined('WEDGE'))
 */
 function shd_unread_posts()
 {
-	global $context, $sourcedir, $txt, $user_profile, $settings;
+	global $context, $txt, $user_profile, $settings;
 
 	// If we're here, it's because we have a $_REQUEST['action'] of 'unread' or 'unreadreplies', both of which
 	// are defined in $context['shd_unread_actions'] thanks to shd_init_actions back in Subs-WedgeDesk.php.
-	// !!! Fix this $sourcedir for loadSource
-	require_once($sourcedir . '/' . $context['shd_unread_actions'][$_REQUEST['action']][0]);
+	// !!! Fix this to use loadSource
+	require_once(APP_DIR . '/' . $context['shd_unread_actions'][$_REQUEST['action']][0]);
 	$context['shd_unread_actions'][$_REQUEST['action']][1]();
 
 	// Are we using Dragooon's very swish mobile theme, or other wireless? If so, disable this.
