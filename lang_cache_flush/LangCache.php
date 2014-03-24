@@ -5,11 +5,10 @@ if (!defined('WEDGE'))
 
 function LangCache()
 {
-	global $cachedir;
 	if (we::$is_admin)
 	{
 		checkSession('get');
-		foreach (glob($cachedir . '/lang_*.php') as $filename)
+		foreach (glob(CACHE_DIR . '/lang_*.php') as $filename)
 			@unlink($filename);
 	}
 
