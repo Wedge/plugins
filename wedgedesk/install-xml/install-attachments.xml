@@ -4,7 +4,7 @@
 	<id>SimpleDeskTeam:SimpleDesk</id>
 	<version>2.0</version>
 
-	<file name="$sourcedir/Dlattach.php">
+	<file name="APP_DIR/Dlattach.php">
 		<operation><!-- add the option to the download system to ensure it handles SD attachments -->
 			<search position="after"><![CDATA[
 	// This is just a regular attachment...
@@ -53,7 +53,7 @@
 		</operation>
 	</file>
 
-	<file name="$sourcedir/ManageAttachments.php">
+	<file name="APP_DIR/ManageAttachments.php">
 		<operation><!-- extend removeAttachments to cover SD's table items since it's doing the rest of the work anyway -->
 			<search position="after"><![CDATA[	if ($return_affected_messages)]]></search>
 			<add><![CDATA[	// And now lastly to remove SimpleDesk attachments
