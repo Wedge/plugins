@@ -13,7 +13,7 @@
 
 ob_start();
 
-require_once('../../SSI.php');
+require_once('../../core/SSI.php');
 
 global $settings, $context;
 

@@ -7,7 +7,7 @@
  * License: http://wedge.org/license/
  */
 
-require_once('../../SSI.php');
+require_once('../../core/SSI.php');
 
 global $settings;
 
