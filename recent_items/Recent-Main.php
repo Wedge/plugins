@@ -134,8 +134,8 @@ function recentitems_common()
 				'time' => timeformat($row['poster_time']),
 				'timestamp' => forum_time(true, $row['poster_time']),
 				'raw_timestamp' => $row['poster_time'],
-				'href' => '<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#msg' . $row['id_msg'],
-				'link' => '<a href="<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>'
+				'href' => '<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';seen#msg' . $row['id_msg'],
+				'link' => '<a href="<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';seen#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>'
 			);
 		}
 		wesql::free_result($request);
