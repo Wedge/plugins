@@ -143,9 +143,8 @@ function shd_admin_search(&$settings_search)
  *	@param array &$permissionList The master list of permissions themselves
  *	@param array &$leftPermissionGroups The list of permission groups that are displayed on the left hand side of the screen in Classic Mode
  *	@param array &$hiddenPermissions A list of permissions to be hidden in the event of features being disabled
- *	@param array &$relabelPermissions A list of permissions to be renamed depending on features being active
-*/
-function shd_admin_old_perms(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions, &$relabelPermissions)
+ */
+function shd_admin_old_perms(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions)
 {
 	global $settings;
 
@@ -210,4 +209,5 @@ function shd_admin_old_perms(&$permissionGroups, &$permissionList, &$leftPermiss
 
 	$hiddenPermissions = array_merge($hiddenPermissions, $perms_disable);
 }
+
 ?>

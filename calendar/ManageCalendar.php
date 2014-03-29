@@ -514,7 +514,7 @@ function mergeCalendarTopics(&$topics, &$id_topic, &$deleted_topics, &$target_bo
 	);
 }
 
-function calendarPermissions(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions, &$relabelPermissions)
+function calendarPermissions(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions)
 {
 	$leftPermissionGroups[] = 'calendar';
 
