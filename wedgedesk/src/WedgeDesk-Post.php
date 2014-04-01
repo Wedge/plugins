@@ -1356,7 +1356,7 @@ function shd_done_posting()
 		elseif (!empty($context['ticket_form']['msg']))
 		{
 			// IE prior to 9 has issues with the ; in the URL and preserving the # fragment, so we give it & instead.
-			if ($context['browser']['is_ie'])
+			if (we::is('ie[-8]'))
 				redirectexit('action=helpdesk&sa=ticket&ticket=' . $context['ticket_id'] . '.msg' . $context['ticket_form']['msg'] . '#msg' . $context['ticket_form']['msg'], true);
 			else
 				redirectexit('action=helpdesk;sa=ticket;ticket=' . $context['ticket_id'] . '.msg' . $context['ticket_form']['msg'] . '#msg' . $context['ticket_form']['msg'], false);
