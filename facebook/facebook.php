@@ -47,7 +47,7 @@ class Facebook extends BaseFacebook
 
 	/**
 	 * Provides the implementations of the inherited abstract
-	 * methods.  The implementation uses PHP sessions to maintain
+	 * methods. The implementation uses PHP sessions to maintain
 	 * a store for authorization codes, user ids, CSRF states, and
 	 * access tokens.
 	 */

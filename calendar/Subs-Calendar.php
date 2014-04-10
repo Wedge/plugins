@@ -323,13 +323,13 @@ function canLinkEvent()
 	// If you can't post, you can't link.
 	isAllowedTo('calendar_post');
 
-	// No board?  No topic?!?
+	// No board? No topic?!?
 	if (empty($board))
 		fatal_lang_error('missing_board_id', false);
 	if (empty($topic))
 		fatal_lang_error('missing_topic_id', false);
 
-	// Administrator, Moderator, or owner.  Period.
+	// Administrator, Moderator, or owner. Period.
 	if (!allowedTo('admin_forum') && !allowedTo('moderate_board'))
 	{
 		// Not admin or a moderator of this board. You better be the owner - or else.
@@ -768,7 +768,7 @@ function validateEventPost()
 
 	if (!isset($_POST['deleteevent']))
 	{
-		// No month?  No year?
+		// No month? No year?
 		if (!isset($_POST['month']))
 			fatal_lang_error('event_month_missing', false);
 		if (!isset($_POST['year']))

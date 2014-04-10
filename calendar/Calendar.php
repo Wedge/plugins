@@ -13,7 +13,7 @@
 if (!defined('WEDGE'))
 	die('Hacking attempt...');
 
-/*	This file has only one real task... showing the calendar.  Posting is done
+/*	This file has only one real task... showing the calendar. Posting is done
 	in Post.php - this just has the following functions:
 
 	void CalendarMain()

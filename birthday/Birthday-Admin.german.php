@@ -22,6 +22,6 @@ $txt['birthday_email'] = 'Geburtstagsnachricht die übermittelt werden soll';
 $txt['birthday_body'] = 'Email Nachricht';
 $txt['birthday_subject'] = 'Email Betreff';
 
-$helptxt['birthday_email'] = 'Wähle einen Index aus, den das Geburtstags-Plugin verwenden soll. Eine Vorschau wird im Betreff und im Nachrichtenfeld sichtbar..<br><strong>Beachte:</strong> Damit diese Funktion ausgeführt werden kann, muss die geplante Aufgabe für Geburtstage aktiviert sein.  Diese Aufgabe sollte eigentlich direkt nach der Installation aktiviert sein. Du kannst die Funktion gerne durch einen Klick auf die <a href="<URL>?action=admin;area=scheduledtasks" target="_blank" class="new_win">Geplanten Aufgaben</a> überprüfen.';
+$helptxt['birthday_email'] = 'Wähle einen Index aus, den das Geburtstags-Plugin verwenden soll. Eine Vorschau wird im Betreff und im Nachrichtenfeld sichtbar..<br><strong>Beachte:</strong> Damit diese Funktion ausgeführt werden kann, muss die geplante Aufgabe für Geburtstage aktiviert sein. Diese Aufgabe sollte eigentlich direkt nach der Installation aktiviert sein. Du kannst die Funktion gerne durch einen Klick auf die <a href="<URL>?action=admin;area=scheduledtasks" target="_blank" class="new_win">Geplanten Aufgaben</a> überprüfen.';
 
 ?>
