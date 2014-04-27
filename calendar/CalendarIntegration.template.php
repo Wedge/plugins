@@ -47,7 +47,7 @@ function template_info_center_calendar()
 	echo '
 		<section class="ic">
 			<we:title>
-				<a href="', SCRIPT, '?action=calendar"><img src="', ASSETS, '/icons/calendar.gif', '" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
+				<a href="', SCRIPT, '?action=calendar"><img src="', $context['plugins_url']['Wedge:Calendar'] . '/img/cal.gif" alt="', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '"></a>
 				', $context['calendar_only_today'] ? $txt['calendar_today'] : $txt['calendar_upcoming'], '
 			</we:title>
 			<p class="smalltext">';
