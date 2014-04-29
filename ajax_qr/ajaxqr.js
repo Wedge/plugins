@@ -1,7 +1,5 @@
 (function ($) {
 
-	var errors = false, msg = 0;
-
 	$('form#postmodify').submit(function() {
 		var $that = $(this);
 
@@ -28,7 +26,12 @@
 						// Load the reply we've just posted. Fool me once...
 						weUrl('topic=' + we_topic + '.new;ajaxqr'),
 
-						// This asks Wedge to ignore the Ajax status, and load the index template for page indexes.
+						/*
+							This asks Wedge to:
+							- ignore the Ajax status;
+							- load the index template for page indexes (ootherwise a fatal error would occur);
+							- hide all the template layers.
+						*/
 						{ infinite: true },
 
 						function (html)
@@ -36,7 +39,7 @@
 							// Hide the message first so that we can properly animate it.
 							var
 								$html = $(html),
-								$root = $html.find('.msg').hide().appendTo($new_page);
+								$root = $html.hide().appendTo($new_page);
 
 							// We're rebuilding scripts from the string response, and inserting them to force jQuery to execute them.
 							// Please note that jQuery doesn't need to be reloaded, and script.js causes issues, so we'll avoid it for now.
@@ -52,22 +55,27 @@
 								});
 							});
 
+							// We don't need to retrieve the page index because we aren't loading a new page.
+							$('#pinf').remove();
+
 							// Update the num_replies counter so if the user replies more than once without refreshing, we don't get an error.
 							document.forms.postmodify.elements['last'].value = $root.attr('id').slice(3);
 
-							// And empty the post reply box
+							// And empty the post reply box.
 							$('#message', $that).val('');
 
 							hide_ajax();
 							$root.fadeIn();
+
+							// Prepare the new post for follow_me and relative dates.
+							page_showing();
 						}
 					);
 				}
 			}
 		);
 
-		if (!errors)
-			return false;
+		return false;
 	});
 
 }) (jQuery);
