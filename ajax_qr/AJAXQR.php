@@ -1,5 +1,9 @@
 <?php
+
 namespace AJAXQR;
+
+if (!defined('WEDGE'))
+	die('Hacking attempt...');
 
 class Integration
 {
@@ -15,7 +19,7 @@ class Integration
 	{
 		global $context;
 
-		// If we are attempting to view a single post.. Lets make sure its safe to do so..
+		// I want that post right there, and nothing more.
 		if (isset($_REQUEST['ajaxqr']) && INFINITE)
 		{
 			$messages = array($context['topic_last_message']);
