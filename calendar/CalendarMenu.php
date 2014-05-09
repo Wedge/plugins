@@ -23,7 +23,7 @@ function calendarMenu(&$items)
 			'title' => $txt['calendar'],
 			'href' => SCRIPT . '?action=calendar',
 			'show' => $context['allow_calendar'],
-			'sub_items' => array(
+			'items' => array(
 				'view' => array(
 					'title' => $txt['calendar_menu'],
 					'href' => SCRIPT . '?action=calendar',
@@ -38,7 +38,8 @@ function calendarMenu(&$items)
 		),
 	);
 
-	$items = array_insert($items, 'media', $menu_item, false);
+	// An array_merge on $items['home']['items'] would be simpler, but I wanted to show off.
+	$items = array_insert($items, 'home items media', $menu_item, true);
 	add_css('#m_calendar { float: left; width: 16px; height: 16px; padding: 0; margin: 4px 4px 0 2px; background: url(' . $context['plugins_url']['Wedge:Calendar'] . '/img/calendar.gif) 0 2px no-repeat; }');
 }
 

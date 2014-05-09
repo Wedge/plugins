@@ -19,8 +19,8 @@ function LangCache_menu(&$items)
 {
 	global $context;
 
-	$items['admin']['sub_items'] = array_merge(
-		$items['admin']['sub_items'],
+	$items['admin']['items'] = array_merge(
+		$items['admin']['items'],
 		array(
 			'',
 			'langcache' => array(

@@ -1488,7 +1488,7 @@ function shd_main_menu(&$menu_buttons)
 					'href' => '<URL>?action=helpdesk;sa=main',
 					'show' => true,
 					'active_button' => false,
-					'sub_items' => array(
+					'items' => array(
 						'newticket' => array(
 							'title' => $txt['shd_new_ticket'],
 							'href' => '<URL>?action=helpdesk;sa=newticket',
@@ -1516,11 +1516,11 @@ function shd_main_menu(&$menu_buttons)
 				$helpdesk_menu['helpdesk']['notice'] = shd_get_active_tickets();
 
 			if ($helpdesk_admin)
-				$helpdesk_menu['helpdesk']['sub_items']['admin'] = array(
+				$helpdesk_menu['helpdesk']['items']['admin'] = array(
 					'title' => $txt['admin'],
 					'href' => '<URL>?action=admin;area=helpdesk_info',
 					'show' => WEDGE == 'SSI' ? false : empty($settings['shd_hidemenuitem']) && $helpdesk_admin,
-					'sub_items' => shd_main_menu_admin($helpdesk_admin),
+					'items' => shd_main_menu_admin($helpdesk_admin),
 				);
 
 			array_insert($menu_buttons, $pos, $helpdesk_menu, 'after');
@@ -1533,11 +1533,11 @@ function shd_main_menu(&$menu_buttons)
 			$menu_buttons['admin']['show'] = true;
 
 			// Add the new button
-			$menu_buttons['admin']['sub_items']['helpdesk_admin'] = array(
+			$menu_buttons['admin']['items']['helpdesk_admin'] = array(
 				'title' => $txt['shd_helpdesk'],
 				'href' => '<URL>?action=admin;area=helpdesk_info',
 				'show' => true,
-				'sub_items' => shd_main_menu_admin($helpdesk_admin),
+				'items' => shd_main_menu_admin($helpdesk_admin),
 			);
 		}
 
@@ -1546,13 +1546,13 @@ function shd_main_menu(&$menu_buttons)
 			// If we're in HD only mode, we definitely don't want the regular forum profile item.
 			if (!empty($settings['shd_helpdesk_only']))
 			{
-				$menu_buttons['profile']['sub_items']['profile']['show'] = false;
-				$menu_buttons['profile']['sub_items']['summary']['show'] = false;
+				$menu_buttons['profile']['items']['profile']['show'] = false;
+				$menu_buttons['profile']['items']['summary']['show'] = false;
 			}
 
 			// Add the helpdesk profile to the profile menu (either the original or our reconstituted one)
 			$menu_buttons['profile']['show'] = true;
-			$menu_buttons['profile']['sub_items']['hd_profile'] = array(
+			$menu_buttons['profile']['items']['hd_profile'] = array(
 				'title' => $txt['shd_helpdesk_profile'],
 				'href' => '<URL>?action=profile;area=helpdesk',
 				'show' => true,
@@ -1566,7 +1566,7 @@ function shd_main_menu(&$menu_buttons)
 				'title' => $txt['shd_helpdesk'],
 				'href' => '<URL>?action=helpdesk;sa=main',
 				'show' => $settings['helpdesk_active'],
-				'sub_items' => array(
+				'items' => array(
 					'newticket' => array(
 						'title' => $txt['shd_new_ticket'],
 						'href' => '<URL>?action=helpdesk;sa=newticket',
@@ -1593,17 +1593,17 @@ function shd_main_menu(&$menu_buttons)
 			if ($settings['helpdesk_active'] && WEDGE != 'SSI')
 				$menu_buttons['home']['notice'] = shd_get_active_tickets();
 			if ($helpdesk_admin)
-				$menu_buttons['home']['sub_items']['admin'] = array(
+				$menu_buttons['home']['items']['admin'] = array(
 					'title' => $txt['admin'],
 					'href' => '<URL>?action=admin;area=helpdesk_info',
 					'show' => WEDGE == 'SSI' ? false : empty($settings['shd_hidemenuitem']) && $helpdesk_admin,
-					'sub_items' => shd_main_menu_admin($helpdesk_admin),
+					'items' => shd_main_menu_admin($helpdesk_admin),
 				);
 
 			$item = false;
-			foreach ($menu_buttons['home']['sub_items'] as $key => $value)
+			foreach ($menu_buttons['home']['items'] as $key => $value)
 				if (empty($value['show']))
-					unset($menu_buttons['home']['sub_items'][$key]);
+					unset($menu_buttons['home']['items'][$key]);
 
 			unset($menu_buttons['helpdesk']);
 
