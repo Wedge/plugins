@@ -313,7 +313,7 @@ function CalendarPost()
 
 function iCalDownload()
 {
-	global $context, $settings;
+	global $settings;
 
 	// Goes without saying that this is required.
 	if (!isset($_REQUEST['eventid']))
