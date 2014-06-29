@@ -5,7 +5,9 @@ if (!defined('WEDGE'))
 
 function template_flitter_topic_before()
 {
-	add_css('#flitter, #flitter > div { display: inline-block; height: 33px; vertical-align: middle }');
+	add_css('
+#flitter { height: 30px; padding: 3px 0 0; text-align: right }
+#flitter > div { display: inline-block; vertical-align: middle !important; }');
 
 	echo '
 		<div id="flitter">';
@@ -21,7 +23,9 @@ function template_flitter_sidebar_before()
 {
 	global $txt;
 
-	add_css('#flitter, #flitter > div { display: inline-block; height: 33px; vertical-align: middle }');
+	add_css('
+#flitter { height: 30px; padding: 3px 0 0 }
+#flitter > div { display: inline-block; vertical-align: middle !important; }');
 
 	echo '
 	<section>
@@ -80,4 +84,3 @@ function template_flitter_google()
 		var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
 	})();');
 }
-?>

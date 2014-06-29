@@ -12,7 +12,7 @@ function flitter_admin()
 		'label' => 'Flitter',
 		'function' => 'ModifyFlitterSettings',
 		'icon' => 'mgallery.png',
-		'bigicon' => $context['plugins_url']['Arantor:Flitter'] . '/flitter.png',
+		'bigicon' => $context['plugins_url']['Wedge:Flitter'] . '/flitter.png',
 	);
 }
 
@@ -21,7 +21,7 @@ function ModifyFlitterSettings($return_config = false)
 	global $txt, $context, $settings;
 
 	loadSource('ManageServer');
-	loadPluginLanguage('Arantor:Flitter', 'Flitter-Admin');
+	loadPluginLanguage('Wedge:Flitter', 'Flitter-Admin');
 
 	if (empty($settings['allow_guestAccess']))
 		$config_vars = array(
@@ -62,5 +62,3 @@ function ModifyFlitterSettings($return_config = false)
 	wetem::load('show_settings');
 	prepareDBSettingContext($config_vars);
 }
-
-?>

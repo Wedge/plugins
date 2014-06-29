@@ -10,13 +10,16 @@ function flitter_main()
 	if (empty($settings['flitter_showfb']) && empty($settings['flitter_showtwitter']) && empty($settings['flitter_showgoogle']))
 		return;
 
-	loadPluginTemplate('Arantor:Flitter', 'Flitter-Main');
+	loadPluginTemplate('Wedge:Flitter', 'Flitter-Main');
 
 	$lang = isset(we::$user['language']) ? we::$user['language'] : $language;
 	switch ($lang)
 	{
 		case 'french':
-			$txt['flitter_share'] = 'Réseaux sociaux';
+			$txt['flitter_share'] = 'Partager';
+			break;
+		case 'german':
+			$txt['flitter_share'] = 'Share';
 			break;
 		case 'english':
 		default:
@@ -24,18 +27,18 @@ function flitter_main()
 			break;
 	}
 
-	$dest = 'flitter_sidebar';
 	if (!empty($settings['flitter_position']) && $settings['flitter_position'] == 'sidebar')
-		wetem::add('sidebar', array($dest => array()));
+	{
+		wetem::add('sidebar', array('flitter_sidebar' => array()));
+		foreach (array('fb', 'twitter', 'google') as $service)
+			if (!empty($settings['flitter_show' . $service]))
+				wetem::add('flitter_sidebar', 'flitter_' . $service);
+	}
 	else
 	{
-		$dest = 'flitter_topic';
-		wetem::after('title_upper', array($dest => array()));
+		wetem::add_hook('first_post_done', array('flitter_topic' => array()));
+		foreach (array('fb', 'twitter', 'google') as $service)
+			if (!empty($settings['flitter_show' . $service]))
+				wetem::$hooks->add('flitter_topic', 'flitter_' . $service);
 	}
-
-	foreach (array('fb', 'twitter', 'google') as $service)
-		if (!empty($settings['flitter_show' . $service]))
-			wetem::add($dest, 'flitter_' . $service);
 }
-
-?>
