@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
-<plugin id="Arantor:RecentItems">
+<plugin id="Wedge:RecentItems">
 	<name>Recent Items</name>
-	<author>Arantor</author>
+	<author>Wedge Team</author>
 	<description>Displays recent items (posts or topics) from your forum.</description>
 	<version>1.0</version>
 

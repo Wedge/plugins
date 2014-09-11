@@ -25,24 +25,15 @@ function recentitems_common()
 	if (isset($context['latest_posts']))
 		return;
 
-	loadPluginTemplate('Arantor:RecentItems', 'Recent');
-	loadPluginLanguage('Arantor:RecentItems', 'Recent-Main');
+	loadPluginTemplate('Wedge:RecentItems', 'Recent');
+	loadPluginLanguage('Wedge:RecentItems', 'Recent-Main');
 
 	if (empty($settings['recentitems_posttopic']) || ($settings['recentitems_posttopic'] != 'post' && $settings['recentitems_posttopic'] != 'topic'))
 		$settings['recentitems_posttopic'] = 'post';
 
-	$temp = cache_get_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5(we::$user['query_wanna_see_board'] . we::$user['language']), 90);
-	if ($temp !== null)
-	{
-		// Before we just throw it at the user, reformat the time. It will have been cached with whatever format the user had at the time.
-		$context['latest_posts'] = $temp;
-		foreach ($context['latest_posts'] as $k => $post)
-		{
-			$context['latest_posts'][$k]['time'] = timeformat($post['raw_timestamp']);
-			$context['latest_posts'][$k]['timestamp'] = forum_time(true, $post['raw_timestamp']);
-		}
+	$context['latest_posts'] = cache_get_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5(we::$user['query_wanna_see_board'] . we::$user['language']), 90);
+	if ($context['latest_posts'] !== null)
 		return;
-	}
 
 	// First, get the message ids.
 	$context['latest_posts'] = array();
@@ -131,9 +122,7 @@ function recentitems_common()
 				),
 				'subject' => $row['subject'],
 				'short_subject' => shorten_subject($row['subject'], 24),
-				'time' => timeformat($row['poster_time']),
-				'timestamp' => forum_time(true, $row['poster_time']),
-				'raw_timestamp' => $row['poster_time'],
+				'timestamp' => $row['poster_time'],
 				'href' => '<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'],
 				'link' => '<a href="<URL>?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>'
 			);
@@ -143,5 +132,3 @@ function recentitems_common()
 
 	cache_put_data('boards-latest_' . $settings['recentitems_posttopic'] . ':' . md5(we::$user['query_wanna_see_board'] . we::$user['language']), $context['latest_posts'], 90);
 }
-
-?>

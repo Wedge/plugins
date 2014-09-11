@@ -21,11 +21,9 @@ function template_recentitems_infocenter()
 	foreach ($context['latest_posts'] as $post)
 		echo '
 				<dt><strong>', $post['link'], '</strong> ', $txt['by'], ' ', $post['poster']['link'], ' (', $post['board']['link'], ')</dt>
-				<dd>', $post['time'], '</dd>';
+				<dd>', time_tag($post['timestamp']), '</dd>';
 
 	echo '
 			</dl>
 		</section>';
 }
-
-?>
