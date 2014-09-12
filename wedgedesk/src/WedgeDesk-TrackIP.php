@@ -144,7 +144,7 @@ function shd_list_get_ip_messages($start, $items_per_page, $sort, $where, $where
 			'id' => $row['id_msg'],
 			'subject' => $row['subject'],
 			'time' => timeformat($row['poster_time']),
-			'timestamp' => forum_time(true, $row['poster_time']),
+			'timestamp' => $row['poster_time'],
 			'additional' => $row['id_first_msg'] == $row['id_msg'] ? $txt['shd_is_ticket_opener'] : '',
 		);
 	wesql::free_result($query);

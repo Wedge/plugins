@@ -872,7 +872,7 @@ function shd_prepare_ticket_context()
 		'id' => $message['id_msg'],
 		'member' => &$memberContext[$message['id_member']],
 		'time' => on_timeformat($message['poster_time']),
-		'timestamp' => forum_time(true, $message['poster_time']),
+		'timestamp' => $message['poster_time'],
 		'body' => $message['body'],
 		'is_staff' => !empty($context['shd_is_staff'][$message['id_member']]),
 		'can_edit' => $message['message_status'] != MSG_STATUS_DELETED && !$context['ticket']['closed'] && !$context['ticket']['deleted'] && (shd_allowed_to('shd_edit_reply_any', $context['ticket']['dept']) || ($message['id_member'] == MID && shd_allowed_to('shd_edit_reply_own', $context['ticket']['dept']))),
@@ -897,7 +897,7 @@ function shd_prepare_ticket_context()
 	{
 		$output['modified'] = array(
 			'time' => timeformat($message['modified_time']),
-			'timestamp' => forum_time(true, $message['modified_time']),
+			'timestamp' => $message['modified_time'],
 			'id' => !empty($user_profile[$message['modified_member']]) ? $message['modified_member'] : 0,
 			'name' => !empty($user_profile[$message['modified_member']]) ? $user_profile[$message['modified_member']]['real_name'] : $message['modified_name'],
 		);

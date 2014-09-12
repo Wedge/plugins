@@ -193,7 +193,7 @@ function shd_dept_board($dept)
 		'last_post' => array(
 			'id' => 0,
 			'time' => $txt['not_applicable'],
-			'timestamp' => forum_time(true, 0),
+			'timestamp' => time(),
 			'subject' => '',
 			'member' => array(
 				'id' => 0,

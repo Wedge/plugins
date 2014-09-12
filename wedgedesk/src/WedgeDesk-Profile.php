@@ -514,7 +514,7 @@ function shd_profile_show_tickets($memID)
 			'subject' => $row['subject'],
 			'start' => 'msg' . $row['id_msg'],
 			'time' => timeformat($row['poster_time']),
-			'timestamp' => forum_time(true, $row['poster_time']),
+			'timestamp' => $row['poster_time'],
 			'msg' => $row['id_msg'],
 			'is_ticket' => empty($context['can_haz_replies']) ? true : ($row['id_msg'] == $row['id_first_msg']),
 		);
