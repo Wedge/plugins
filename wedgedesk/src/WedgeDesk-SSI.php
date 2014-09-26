@@ -136,9 +136,9 @@ function ssi_staffTicketsUrgency($urgency, $limit = 10, $output_method = 'echo')
  *	</li>
  *	<li>num_replies: Number of replies in the ticket</li>
  *	<li>start_time: Formatted string of time the ticket was opened</li>
- *	<li>start_timestamp: Raw timestamp (adjusted for timezones) of ticket being opened</li>
+ *	<li>start_timestamp: Raw server timestamp of ticket being opened</li>
  *	<li>last_time: Formatted string of time the ticket was last replied to</li>
- *	<li>last_timestamp: Raw timestamp (adjusted for timezones) of ticket's last reply</li>
+ *	<li>last_timestamp: Raw server timestamp of ticket's last reply</li>
  *	<li>private: Whether the ticket is private or not</li>
  *	<li>urgency_id: Number representing ticket urgency</li>
  *	<li>urgency_text: String representing ticket urgency</li>
@@ -199,9 +199,9 @@ function ssi_getSDTickets($query_where, $query_where_params = array(), $query_li
 				'link' => empty($row['assigned_name']) ? '<span class="error">' . $txt['shd_unassigned'] . '</span>' : shd_profile_link($row['assigned_name'], $row['assigned_id']),
 			),
 			'start_time' => timeformat($row['start_time']),
-			'start_timestamp' => forum_time(true, $row['start_time']),
+			'start_timestamp' => $row['start_time'],
 			'last_time' => timeformat($row['last_time']),
-			'last_timestamp' => forum_time(true, $row['last_time']),
+			'last_timestamp' => $row['last_time'],
 			'num_replies' => $row['num_replies'],
 			'private' => !empty($row['private']),
 			'urgency_id' => $row['urgency'],
