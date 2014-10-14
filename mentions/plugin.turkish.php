@@ -3,7 +3,7 @@
  * WeMentions' plugins language file
  *
  * @package Dragooon:WeMentions
- * @author Shitiz "Dragooon" Garg <Email mail@dragooon.net> <Url http://smf-media.com>
+ * @author Ramazan Subaşi "subram" <Email subasiramazan@gmail.com> <Url http://ramazansubasi.com>
  * @copyright 2013, Shitiz "Dragooon" Garg <mail@dragooon.net>
  * @license
  *      Licensed under "New BSD License (3-clause version)"
