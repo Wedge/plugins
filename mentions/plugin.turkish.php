@@ -14,7 +14,7 @@
 $txt['notifier_mentions_title'] = 'Uye Etiketleme';
 $txt['notifier_mentions_desc'] = 'Uyelerin diger uyeleri @<uye adı> seklinde etiketlemesine ve bildirimlere izin ver';
 $txt['notifier_mentions_subject'] = 'Bir yorumda senden bahsedildi!';
-$txt['notifier_mentions_html'] = '{MEMBER_LINK} Bu yorunmda etiketlendin "{OBJECT_LINK}".';
+$txt['notifier_mentions_html'] = '{MEMBER_LINK} Bu yorumda etiketlendin "{OBJECT_LINK}".';
 $txt['notifier_mentions_text'] = '{MEMBER_NAME} seni su yorumda etiketledi: "{OBJECT_NAME}". Yorumu buradan okuyabilirsin:
 
 {OBJECT_URL}';
