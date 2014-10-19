@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="CerealGuy:NoPrintForGuests">
+	<name>No Print For Guests</name>
+	<author>CerealGuy</author>
+	<description>Disable Print for Guests</description>
+	<version>1.0</version>
+	<hooks>
+		<function point="display_main" function="npfg_display_main" filename="$plugindir/NoPrintForGuests" />
+		<function point="load_theme" function="npfg_load_theme" filename="$plugindir/NoPrintForGuests" />
+	</hooks>
+
+</plugin>
