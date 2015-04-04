@@ -243,7 +243,7 @@ function Facebook_login_return()
 	$user = $facebook->getUser();
 
 	$me = $facebook->api('/me', 'GET', array(
-		'fields' => 'username,name,email,birthday'
+		'fields' => 'name,email,birthday'
 	));
 
 	if (empty($me) || empty($me['id']))
@@ -276,7 +276,7 @@ function Facebook_login_return()
 		$context['page_title'] = $txt['facebook_create_password'];
 		$context['facebook_info'] = $me;
 		$context['facebook_pic_url'] = Facebook::$DOMAIN_MAP['graph'] . '/' . $me['id'] . '/picture';
-		$context['facebook_requires_username'] = isReservedName($me['username']);
+		$context['facebook_requires_username'] = isReservedName($me['name']);
 		wetem::load('facebook_create_password');
 	}
 	// Otherwise straight away assign them their FB ID
@@ -349,7 +349,7 @@ function Facebook_register()
 		$context['page_title'] = $txt['facebook_create_password'];
 		$context['facebook_info'] = $_SESSION['facebook_info'];
 		$context['facebook_pic_url'] = Facebook::$DOMAIN_MAP['graph'] . '/' . $_SESSION['facebook_info']['id'] . '/picture';
-		$context['facebook_requires_username'] = isReservedName($_SESSION['facebook_info']['username']);
+		$context['facebook_requires_username'] = isReservedName($_SESSION['facebook_info']['name']);
 		wetem::load('facebook_create_password');
 	}
 	else

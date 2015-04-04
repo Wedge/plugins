@@ -69,7 +69,7 @@ function template_facebook_create_password()
 								</label>
 							</dt>
 							<dd>
-								<input type="text" id="username" name="username" value="', $context['facebook_requires_username'] ? '' : $context['facebook_info']['username'], '">
+								<input type="text" id="username" name="username" value="', $context['facebook_requires_username'] ? '' : $context['facebook_info']['name'], '">
 							</dd>
 							<dt>
 								<label for="passwd">
