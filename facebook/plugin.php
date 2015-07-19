@@ -27,7 +27,7 @@ function facebook_hook_load_theme()
 	loadPluginSource('Wedge:Facebook', array('facebook', 'Subs-Plugin'));
 	loadPluginTemplate('Wedge:Facebook', 'templates/plugin');
 	loadPluginLanguage('Wedge:Facebook', 'languages/plugin');
-	
+
 	if (!facebook_enabled())
 		return false;
 
@@ -68,14 +68,14 @@ function facebook_hook_create_post_after($msgOptions, $topicOptions, $posterOpti
 	// Not a new topic? Facebook not enabled? Forget about it
 	if (!facebook_enabled() || !$new_topic || empty($posterOptions['id']))
 		return true;
-	
+
 	// Get this member's information
 	list ($id_member, $id_facebook, $fields) = array_values(facebook_get_members($posterOptions['id']));
 
 	// Not allowed to post the topic?
 	if (empty($id_facebook) || !in_array('topictofeed', $fields))
 		return true;
-	
+
 	// Post the topic to facebook
 	$facebook = facebook_instance();
 	$facebook->api('/' . $id_facebook . '/feed', 'POST', array(
@@ -125,12 +125,12 @@ function facebook_hook_thought_add($privacy, $text, $id_parent, $id_master, $id_
 	// !! @todo: fix privacy setting (it's the old system.)
 	if ($id_parent != 0 || $id_master != 0 || $privacy != '-3')
 		return;
-	
+
 	// Get the member's info and make sure we should post this thought to his/her feed
 	list ($id_member, $id_facebook, $fields) = array_values(facebook_get_members(MID));
 	if (empty($id_facebook) || !in_array('thoughttofeed', $fields))
 		return;
-	
+
 	$text = html_entity_decode($text, ENT_QUOTES);
 
 	// Cache it to prevent facebook updating our own thought...
@@ -196,16 +196,16 @@ function Facebook()
 {
 	if (!facebook_enabled())
 		return false;
-	
+
 	$areas = array(
 		'login' => 'Facebook_login_redirect',
 		'login_return' => 'Facebook_login_return',
 		'register' => 'Facebook_register',
 	);
-	
+
 	if (isset($_REQUEST['area']) && isset($areas[$_REQUEST['area']]))
 		return $areas[$_REQUEST['area']]();
-	
+
 	redirectexit();
 }
 
@@ -233,10 +233,10 @@ function Facebook_login_redirect()
 function Facebook_login_return()
 {
 	global $context, $user_settings, $txt;
-	
+
 	if (!facebook_enabled())
 		fatal_lang_error('facebook_disabled');
-	
+
 	loadSource(array('Subs-Auth', 'Subs-Login', 'Subs-Members', 'Subs-Graphics'));
 
 	$facebook = facebook_instance();
@@ -271,7 +271,7 @@ function Facebook_login_return()
 	{
 		if (empty($me['email']))
 			fatal_lang_error('facebook_no_email');
-		
+
 		$_SESSION['facebook_info'] = $me;
 		$context['page_title'] = $txt['facebook_create_password'];
 		$context['facebook_info'] = $me;
@@ -303,13 +303,13 @@ function Facebook_register()
 
 	loadSource(array('Subs-Auth', 'Subs-Login', 'Subs-Members', 'Subs-Graphics'));
 	loadLanguage('Login');
-	
+
 	if (!facebook_enabled())
 		fatal_lang_error('facebook_disabled');
-	
+
 	if (empty($_SESSION['facebook_info']) || empty($_SESSION['facebook_info']['email']))
 		redirectexit();
-	
+
 	// Check to make sure this user doesn't already exist
 	$request = wesql::query('
 		SELECT id_member
@@ -322,7 +322,7 @@ function Facebook_register()
 	);
 	if (wesql::num_rows($request) > 0)
 		redirectexit('action=facebook;area=login');
-	
+
 	// We don't need to do much validating, we'll let registerMember handle those
 	$regOptions = array(
 		'password' => $_POST['passwd'],
