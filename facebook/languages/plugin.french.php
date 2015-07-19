@@ -27,3 +27,6 @@ $txt['facebook_sync_thoughttofeed_subtext'] = 'Quand vous postez une pensée ici
 $txt['facebook_sync_topictofeed'] = 'Republier mes sujets';
 $txt['facebook_sync_topictofeed_subtext'] = 'Quand vous postez un nouveau sujet ici, un lien vers celui-ci sera publié sur votre journal Facebook';
 $txt['facebook_user_already_exists'] = 'Désolé, ce compte Facebook est déjà lié à l\'utilisateur <a href="<URL>?action=profile;u=%1$d">%2$s</a>.';
+$txt['facebook_disabled'] = 'Cette fonctionnalité est actuellement désactivée.';
+$txt['facebook_no_email'] = 'Pas d\'adresse e-mail trouvée pour ce compte.';
+$txt['facebook_invalid_request'] = 'Requête invalide.';

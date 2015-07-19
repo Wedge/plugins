@@ -27,3 +27,6 @@ $txt['facebook_sync_thoughttofeed_subtext'] = 'When you post a new thought, a ne
 $txt['facebook_sync_topictofeed'] = 'Publish new topics';
 $txt['facebook_sync_topictofeed_subtext'] = 'When you post a new topic, a new link is published on your wall/timeline';
 $txt['facebook_user_already_exists'] = 'Sorry, this Facebook account is already linked to user <a href="<URL>?action=profile;u=%1$d">%2$s</a>.';
+$txt['facebook_disabled'] = 'This feature is currently disabled.';
+$txt['facebook_no_email'] = 'No e-mail address was found for this account.';
+$txt['facebook_invalid_request'] = 'Invalid request.';
